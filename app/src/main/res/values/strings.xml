@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">看医生</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="find_loc_failure">获取当前位置出错</string>
+</resources>
