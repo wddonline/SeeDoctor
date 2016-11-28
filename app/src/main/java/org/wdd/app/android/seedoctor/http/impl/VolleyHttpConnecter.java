@@ -41,8 +41,8 @@ public class VolleyHttpConnecter implements HttpConnecter {
     public VolleyHttpConnecter(Context context) {
         this.context = context;
         sessionList = Collections.synchronizedList(new ArrayList<HttpSession>());
-        int maxDiskCacheBytes = 1024 * 1024 * 100;
-        requestQueue = Volley.newRequestQueue(context, maxDiskCacheBytes);
+
+        requestQueue = VolleyTool.getInstance(context).getRequestQueue();
         requestQueue.start();
     }
 

@@ -22,6 +22,8 @@ public class LocationHelper {
         return INSTANCE;
     }
 
+    private final String SAVED = "saved";//是否保存过位置信息
+
     private final String LATITUDE = "Latitude";//获取纬度
     private final String LONGITUDE = "Longitude";//获取经度
     private final String ACCURACY = "Accuracy";//获取精度信息
@@ -38,111 +40,144 @@ public class LocationHelper {
 
     private Context context;
     private SharedPreferences preferences;
+    private Location location;
 
     private LocationHelper(Context context) {
         this.context = context;
         preferences = context.getSharedPreferences("location", Context.MODE_PRIVATE);
+        initLocation();
     }
 
-    public void setLatitude() {
+    public void initLocation() {
+        if (!preferences.contains(SAVED)) return;
+        location = new Location();
+        location.latitude = preferences.getFloat(LATITUDE, 0);
+        location.longitude = preferences.getFloat(LONGITUDE, 0);
+        location.accuracy = preferences.getFloat(ACCURACY, 0);
+        location.address = preferences.getString(ADDRESS, null);
+        location.country = preferences.getString(COUNTRY, null);
+        location.province = preferences.getString(PROVINCE, null);
+        location.city = preferences.getString(CITY, null);
+        location.district = preferences.getString(DISTRICT, null);
+        location.street = preferences.getString(STREET, null);
+        location.streetNum = preferences.getString(STREET_NUM, null);
+        location.cityCode = preferences.getString(CITY_CODE, null);
+        location.adCode = preferences.getString(AD_CODE, null);
+        location.aoiName = preferences.getString(AOI_NAME, null);
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void saveLocationData(Location location) {
+        this.location = location;
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(SAVED, true);
+        editor.putFloat(LATITUDE, location.latitude);
+        editor.putFloat(LONGITUDE, location.longitude);
+        editor.putFloat(ACCURACY, location.accuracy);
+        editor.putString(ADDRESS, location.address);
+        editor.putString(COUNTRY, location.country);
+        editor.putString(PROVINCE, location.province);
+        editor.putString(CITY, location.city);
+        editor.putString(DISTRICT, location.district);
+        editor.putString(STREET, location.street);
+        editor.putString(STREET_NUM, location.streetNum);
+        editor.putString(CITY_CODE, location.cityCode);
+        editor.putString(AD_CODE, location.adCode);
+        editor.putString(AOI_NAME, location.aoiName);
+        editor.commit();
     }
 
     public double getLatitude() {
-        return preferences.getFloat(LATITUDE, 0);
-    }
-
-    public void setLongitude() {
-        preferences.getFloat(LONGITUDE, 0);
+        return location.latitude;
     }
 
     public double getLongitude() {
-        return preferences.getFloat(LONGITUDE, 0);
-    }
-
-    public void setAccuracy() {
-        preferences.getFloat(ACCURACY, 0);
+        return location.longitude;
     }
 
     public double getAccuracy() {
-        return preferences.getFloat(ACCURACY, 0);
-    }
-
-    public void setAddress() {
+        return location.accuracy;
     }
 
     public String getAddress() {
-        return preferences.getString(ADDRESS, null);
-    }
-
-    public void setCountry() {
-        preferences.getString(COUNTRY, null);
+        return location.address;
     }
 
     public String getCountry() {
-        return preferences.getString(COUNTRY, null);
-    }
-
-    public void setProvince() {
-        preferences.getString(PROVINCE, null);
+        return location.country;
     }
 
     public String getProvince() {
-        return preferences.getString(PROVINCE, null);
-    }
-
-    public void setCity() {
-        preferences.getString(CITY, null);
+        return location.province;
     }
 
     public String getCity() {
-        return preferences.getString(CITY, null);
-    }
-
-    public void setDistrict() {
-        preferences.getString(DISTRICT, null);
+        return location.city;
     }
 
     public String getDistrict() {
-        return preferences.getString(DISTRICT, null);
-    }
-
-    public void setStreet() {
-        preferences.getString(STREET, null);
+        return location.district;
     }
 
     public String getStreet() {
-        return preferences.getString(STREET, null);
-    }
-
-    public void setStreet_num() {
-        preferences.getString(STREET_NUM, null);
+        return location.street;
     }
 
     public String getStreet_num() {
-        return preferences.getString(STREET_NUM, null);
-    }
-
-    public void setCity_code() {
-        preferences.getString(CITY_CODE, null);
+        return location.streetNum;
     }
 
     public String getCity_code() {
-        return preferences.getString(CITY_CODE, null);
-    }
-
-    public void setAd_code() {
-        preferences.getString(AD_CODE, null);
+        return location.cityCode;
     }
 
     public String getAd_code() {
-        return preferences.getString(AD_CODE, null);
-    }
-
-    public void setAoi_name() {
-        preferences.getString(AOI_NAME, null);
+        return location.adCode;
     }
 
     public String getAoi_name() {
-        return preferences.getString(AOI_NAME, null);
+        return location.aoiName;
+    }
+
+    public static class Location {
+
+        public float latitude;//纬度
+        public float longitude;//经度
+        public float accuracy;//精度信息
+        public String address;//地址
+        public String country;//国家信息
+        public String province;//省信息
+        public String city;//城市信息
+        public String district;//城区信息
+        public String street;//街道信息
+        public String streetNum;//街道门牌号信息
+        public String cityCode;//城市编码
+        public String adCode;//地区编码
+        public String aoiName;//定位点的AOI信息;
+
+        public Location() {
+        }
+
+        public Location(float latitude, float longitude, float accuracy, String address, String country,
+                        String province, String city, String district, String street, String streetNum,
+                        String cityCode, String adCode, String aoiName) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.accuracy = accuracy;
+            this.address = address;
+            this.country = country;
+            this.province = province;
+            this.city = city;
+            this.district = district;
+            this.street = street;
+            this.streetNum = streetNum;
+            this.cityCode = cityCode;
+            this.adCode = adCode;
+            this.aoiName = aoiName;
+        }
     }
 }

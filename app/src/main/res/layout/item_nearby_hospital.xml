@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <org.wdd.app.android.seedoctor.views.HttpImageView
+        android:id="@+id/item_nearby_hospital_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            android:id="@+id/item_nearby_hospital_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="苹果医院" />
+
+        <TextView
+            android:id="@+id/item_nearby_hospital_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="苹果医院苹果医苹果医院苹果医院苹果医院苹果医院苹果医院苹果医院苹果医院苹果医院院苹果医院苹果医院" />
+
+        <TextView
+            android:id="@+id/item_nearby_hospital_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="苹果医院苹果医院苹果医院苹果医院" />
+
+    </FrameLayout>
+
+</LinearLayout>

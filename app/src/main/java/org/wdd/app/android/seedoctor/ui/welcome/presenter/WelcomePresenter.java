@@ -1,10 +1,9 @@
 package org.wdd.app.android.seedoctor.ui.welcome.presenter;
 
-import android.content.Context;
-
 import com.amap.api.location.AMapLocation;
 
 import org.wdd.app.android.seedoctor.location.LocationFinder;
+import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.welcome.activity.WelcomeActivity;
 
@@ -15,16 +14,20 @@ import org.wdd.app.android.seedoctor.ui.welcome.activity.WelcomeActivity;
 public class WelcomePresenter implements BasePresenter, LocationFinder.LocationListener {
 
     private LocationFinder finder;
-    private WelcomeActivity activity;
+    private WelcomeActivity view;
 
-    public WelcomePresenter(WelcomeActivity activity) {
-        this.activity = activity;
-        finder = new LocationFinder(activity);
+    public WelcomePresenter(WelcomeActivity view) {
+        this.view = view;
+        finder = new LocationFinder(view);
         finder.setLocationListener(this);
     }
 
     public void findLocation() {
-        finder.start(true);
+        LocationHelper.Location location = LocationHelper.getInstance(view).getLocation();
+        if (location == null)
+            finder.start(true);
+        else
+            view.jumpToNextActivity(false);
     }
 
     public void destory() {
@@ -35,11 +38,11 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
 
     @Override
     public void onLocationGeted(AMapLocation location) {
-        activity.jumpToNextActivity();
+        view.jumpToNextActivity(true);
     }
 
     @Override
     public void onLocationError(String error) {
-        activity.jumpToNextActivity();
+        view.jumpToNextActivity(true);
     }
 }

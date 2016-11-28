@@ -18,11 +18,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        handler.postDelayed(this, 3000);
         initData();
     }
 
     private void initData() {
+        presenter = new WelcomePresenter(this);
         presenter.findLocation();
     }
 
@@ -45,7 +45,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
         presenter.destory();
     }
 
-    public void jumpToNextActivity() {
-        run();
+    public void jumpToNextActivity(boolean immediately) {
+        if (immediately) {
+            run();
+        } else {
+            handler.postDelayed(this, 3000);
+        }
     }
 }
