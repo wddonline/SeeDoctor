@@ -48,7 +48,7 @@
                 android:id="@+id/umeng_common_rich_notification_continue"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/umeng_common_gradient_orange"
+                android:background="@drawable/umeng_common_gradient_orange"
                 android:singleLine="true"
                 android:text="@string/umeng_common_action_pause"
                 android:textSize="12sp" />
@@ -59,7 +59,7 @@
                 android:layout_height="25dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:background="@mipmap/umeng_common_gradient_red"
+                android:background="@drawable/umeng_common_gradient_red"
                 android:singleLine="true"
                 android:text="@string/umeng_common_action_cancel"
                 android:textSize="12sp" />

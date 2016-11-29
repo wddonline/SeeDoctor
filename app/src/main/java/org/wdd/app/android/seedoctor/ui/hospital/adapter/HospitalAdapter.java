@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.hospital.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Context context;
     private List<Hospital> data;
+    private OnLoadMoreListener loadMoreListener;
     private LoadStatus status = LoadStatus.Normal;
 
     public HospitalAdapter(Context context, List<Hospital> data) {
@@ -76,7 +78,11 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             Hospital hospital = data.get(position);
             HospitalVH hospitalVH = (HospitalVH) holder;
-//            hospitalVH.imageView.setText(hospital.getName());
+            if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
+                hospitalVH.imageView.setImageUrl(hospital.getImgUrls()[0]);
+            } else {
+                hospitalVH.imageView.setImageResource(R.mipmap.ic_launcher);
+            }
             hospitalVH.nameView.setText(hospital.getName());
             hospitalVH.addressView.setText(hospital.getAddress());
             hospitalVH.distanceView.setText(getDistanceDesc(hospital.getDistance()));
@@ -103,6 +109,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return position == data.size() ? TYPE_MORE : TYPE_DATA;
     }
 
+    public void setOnLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
+    }
+
     public void setLoadStatus(LoadStatus status) {
         this.status = status;
         notifyItemChanged(data.size());
@@ -124,6 +134,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View v) {
                     status = LoadStatus.Loading;
                     notifyItemChanged(data.size());
+                    if (loadMoreListener != null) loadMoreListener.onLoadMore();
                 }
             });
         }
@@ -143,5 +154,11 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             addressView = (TextView) itemView.findViewById(R.id.item_nearby_hospital_address);
             distanceView = (TextView) itemView.findViewById(R.id.item_nearby_hospital_distance);
         }
+    }
+
+    public interface OnLoadMoreListener {
+
+        void onLoadMore();
+
     }
 }

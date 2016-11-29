@@ -21,7 +21,7 @@ import java.util.List;
  * Created by richard on 11/28/16.
  */
 
-public class HospitalDataGetter implements PoiSearch.OnPoiSearchListener {
+public class HospitalListDataGetter implements PoiSearch.OnPoiSearchListener {
 
     private final int PAGEZISE = 20;
     private final int RADIUS = 30000;
@@ -34,7 +34,7 @@ public class HospitalDataGetter implements PoiSearch.OnPoiSearchListener {
     private PoiSearch.Query query;
     private SearchCallback callback;
 
-    public HospitalDataGetter(Context context) {
+    public HospitalListDataGetter(Context context) {
         this.context = context;
         query = new PoiSearch.Query("医院", "", LocationHelper.getInstance(context).getCity_code());
         query.setPageSize(PAGEZISE);

@@ -4,24 +4,24 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
-import org.wdd.app.android.seedoctor.ui.hospital.presenter.HospitalPresenter;
+import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalListPresenter;
+import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HospitalFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class NearbyHospitalListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+        HospitalAdapter.OnLoadMoreListener{
 
-    private HospitalPresenter presenter;
+    private NearbyHospitalListPresenter presenter;
 
     private View rootView;
     private RecyclerView recyclerView;
@@ -33,32 +33,34 @@ public class HospitalFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new HospitalPresenter(this);
+        presenter = new NearbyHospitalListPresenter(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_hospital, container, false);
-        initViews();
-        presenter.searchNearbyHospital(false);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_nearby_hospital_list, container, false);
+            initViews();
+            presenter.searchNearbyHospital(false);
+        }
         return rootView;
     }
 
     private void initViews() {
-        initTitle();
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_hospital_recyclerview);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_nearby_hospital_list_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new LineDividerDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_hospital_refresh_layout);
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_nearby_hospital_list_refresh_layout);
         refreshLayout.setOnRefreshListener(this);
     }
 
-    private void initTitle() {
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.fragment_hospital_toolbar);
-        toolbar.setLogo(R.mipmap.ic_launcher);
-        toolbar.setTitle(R.string.app_name);
+    @Override
+    protected void lazyLoad() {
+
     }
 
     public void appendHospitalList(boolean isRefreshing, List<Hospital> data) {
@@ -66,6 +68,7 @@ public class HospitalFragment extends BaseFragment implements SwipeRefreshLayout
             hospitals = new ArrayList<>();
             hospitals.addAll(data);
             adapter = new HospitalAdapter(getContext(), hospitals);
+            adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
             return;
         }
@@ -93,5 +96,10 @@ public class HospitalFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onRefresh() {
         presenter.searchNearbyHospital(true);
+    }
+
+    @Override
+    public void onLoadMore() {
+        presenter.searchNearbyHospital(false);
     }
 }

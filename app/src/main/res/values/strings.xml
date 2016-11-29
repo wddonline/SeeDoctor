@@ -12,4 +12,7 @@
     <string name="loading_more_data">正在加载更多数据...</string>
     <string name="load_more_data">加载更多</string>
 
+    <!-- 附近医院列表 -->
+    <string name="list_mode">列表</string>
+    <string name="map_mode">地图</string>
 </resources>

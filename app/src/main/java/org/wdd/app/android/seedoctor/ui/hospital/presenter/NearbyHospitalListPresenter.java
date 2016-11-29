@@ -1,8 +1,8 @@
 package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalDataGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.fragment.HospitalFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
+import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalListFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 
 import java.util.List;
@@ -11,14 +11,14 @@ import java.util.List;
  * Created by richard on 11/28/16.
  */
 
-public class HospitalPresenter implements BasePresenter, HospitalDataGetter.SearchCallback {
+public class NearbyHospitalListPresenter implements BasePresenter, HospitalListDataGetter.SearchCallback {
 
-    private HospitalFragment view;
-    private HospitalDataGetter data;
+    private NearbyHospitalListFragment view;
+    private HospitalListDataGetter data;
 
-    public HospitalPresenter(HospitalFragment view) {
+    public NearbyHospitalListPresenter(NearbyHospitalListFragment view) {
         this.view = view;
-        data = new HospitalDataGetter(view.getContext());
+        data = new HospitalListDataGetter(view.getContext());
         data.setSearchCallback(this);
     }
 

@@ -19,6 +19,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.HttpUtils;
 import org.wdd.app.android.seedoctor.http.StatusCode;
+import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 
 import java.util.ArrayList;
@@ -69,7 +70,11 @@ public class VolleyHttpConnecter implements HttpConnecter {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError err) {
-                HttpError error = new HttpError(err.networkResponse.statusCode, err.getMessage());
+                HttpError error;
+                if (err.networkResponse == null)
+                    error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());
+                else
+                    error= new HttpError(err.networkResponse.statusCode, err.getMessage());
                 callback.onRequestFailure(error);
             }
         }) {

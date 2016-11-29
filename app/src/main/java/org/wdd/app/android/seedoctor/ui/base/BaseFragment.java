@@ -1,24 +1,23 @@
 package org.wdd.app.android.seedoctor.ui.base;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by richard on 11/28/16.
  */
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    private boolean inited = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) return;
+        if (inited) return;
+        inited = true;
+        lazyLoad();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+    protected abstract void lazyLoad();
 }
