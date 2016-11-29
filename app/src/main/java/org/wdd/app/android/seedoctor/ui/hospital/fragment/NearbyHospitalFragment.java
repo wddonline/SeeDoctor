@@ -3,9 +3,7 @@ package org.wdd.app.android.seedoctor.ui.hospital.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,19 +14,20 @@ import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.views.SDViewPager;
 import org.wdd.app.android.seedoctor.views.Toolbar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NearbyHospitalFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.OnPageChangeListener {
 
     private enum Mode {
         List, Map
     }
 
     private View rootView;
-    private ViewPager viewPager;
+    private SDViewPager viewPager;
     private Toolbar toolbar;
 
     private Mode mode = Mode.List;
@@ -45,7 +44,8 @@ public class NearbyHospitalFragment extends BaseFragment implements ViewPager.On
 
     private void initViews() {
         initTitle();
-        viewPager = (ViewPager) rootView.findViewById(R.id.fragment_nearby_hospital_viewpager);
+        viewPager = (SDViewPager) rootView.findViewById(R.id.fragment_nearby_hospital_viewpager);
+        viewPager.setScrollable(false);
         HospitalAdapter adapter = new HospitalAdapter();
         viewPager.setAdapter(adapter);
 
@@ -82,6 +82,16 @@ public class NearbyHospitalFragment extends BaseFragment implements ViewPager.On
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_nearby_hospital_list, menu);
+        switch (mode) {
+            case Map:
+                menu.findItem(R.id.menu_item_list).setVisible(true);
+                menu.findItem(R.id.menu_item_map).setVisible(false);
+                break;
+            case List:
+                menu.findItem(R.id.menu_item_list).setVisible(false);
+                menu.findItem(R.id.menu_item_map).setVisible(true);
+                break;
+        }
     }
 
     @Override

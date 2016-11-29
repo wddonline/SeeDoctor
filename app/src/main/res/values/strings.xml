@@ -6,7 +6,7 @@
     <string name="no_search_result">没有搜索到任何结果</string>
     <string name="search_data_error">搜索失败，错误码[%1$d]</string>
     <string name="distance_desc_m">%1$d米</string>
-    <string name="distance_desc_km">%1$f公里</string>
+    <string name="distance_desc_km">%1$s公里</string>
 
     <!-- 通用 -->
     <string name="loading_more_data">正在加载更多数据...</string>

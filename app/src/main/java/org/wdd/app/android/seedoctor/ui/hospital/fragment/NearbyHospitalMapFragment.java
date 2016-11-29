@@ -93,12 +93,12 @@ public class NearbyHospitalMapFragment extends BaseFragment implements AMap.OnCa
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        presenter.searchNearbyHospital();
+
     }
 
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
-
+        presenter.searchNearbyHospital();
     }
 
     @Override

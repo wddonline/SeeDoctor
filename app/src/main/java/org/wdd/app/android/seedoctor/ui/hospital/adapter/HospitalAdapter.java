@@ -81,7 +81,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
                 hospitalVH.imageView.setImageUrl(hospital.getImgUrls()[0]);
             } else {
-                hospitalVH.imageView.setImageResource(R.mipmap.ic_launcher);
+                hospitalVH.imageView.setImageUrl(null);
             }
             hospitalVH.nameView.setText(hospital.getName());
             hospitalVH.addressView.setText(hospital.getAddress());
@@ -91,9 +91,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private String getDistanceDesc(long distance) {
         if (distance > 1000) {
-            BigDecimal bd = new BigDecimal(distance / 1000f);
-            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-            return String.format(context.getString(R.string.distance_desc_km), bd.floatValue());
+            return String.format(context.getString(R.string.distance_desc_km), String.format("%.2f", distance / 1000f));
         } else {
             return String.format(context.getString(R.string.distance_desc_m), distance);
         }
