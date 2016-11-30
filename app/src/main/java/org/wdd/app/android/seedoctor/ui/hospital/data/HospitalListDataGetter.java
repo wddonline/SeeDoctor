@@ -76,6 +76,7 @@ public class HospitalListDataGetter implements PoiSearch.OnPoiSearchListener {
                             hospital.setPostcode(item.getPostcode());
                             hospital.setEmail(item.getEmail());
                             hospital.setDistance(item.getDistance());
+                            hospital.setTypeDes(item.getTypeDes());
                             List<Photo> photos = item.getPhotos();
                             if (photos != null && photos.size() > 0) {
                                 String[] imgUrls = new String[photos.size()];

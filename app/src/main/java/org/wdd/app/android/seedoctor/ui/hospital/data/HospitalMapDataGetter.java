@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.hospital.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -32,13 +33,14 @@ public class HospitalMapDataGetter implements PoiSearch.OnPoiSearchListener {
         this.context = context;
         query = new PoiSearch.Query("医院", "", LocationHelper.getInstance(context).getCity_code());
         query.setCityLimit(true);
+        query.setPageSize(Integer.MAX_VALUE);
 
         poiSearch = new PoiSearch(context, query);
         poiSearch.setOnPoiSearchListener(this);
     }
 
-    public void getNearbyHospitalList(List<LatLonPoint> points) {
-        poiSearch.setBound(new PoiSearch.SearchBound(points));
+    public void getNearbyHospitalList(LatLonPoint centerPoint, int radius) {
+        poiSearch.setBound(new PoiSearch.SearchBound(centerPoint, radius));
         poiSearch.searchPOIAsyn();
     }
 

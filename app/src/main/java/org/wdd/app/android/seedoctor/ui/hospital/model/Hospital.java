@@ -18,6 +18,7 @@ public class Hospital {
     private String email;//电子邮件
     private String[] imgUrls;
     private long distance;//距离当前位置的距离
+    private String typeDes;//类型描述
 
     public Hospital() {
     }
@@ -94,6 +95,14 @@ public class Hospital {
         this.distance = distance;
     }
 
+    public String getTypeDes() {
+        return typeDes;
+    }
+
+    public void setTypeDes(String typeDes) {
+        this.typeDes = typeDes;
+    }
+
     @Override
     public String toString() {
         return "Hospital{" +
@@ -106,6 +115,7 @@ public class Hospital {
                 ", email='" + email + '\'' +
                 ", imgUrls=" + Arrays.toString(imgUrls) +
                 ", distance=" + distance +
+                ", typeDes='" + typeDes + '\'' +
                 '}';
     }
 }
