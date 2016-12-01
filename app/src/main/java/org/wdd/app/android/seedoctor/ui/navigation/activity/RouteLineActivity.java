@@ -1,0 +1,244 @@
+package org.wdd.app.android.seedoctor.ui.navigation.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.overlay.DrivingRouteOverlay;
+import com.amap.api.maps.overlay.WalkRouteOverlay;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DrivePath;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.WalkPath;
+import com.amap.api.services.route.WalkRouteResult;
+
+import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.preference.LocationHelper;
+import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
+import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.ui.navigation.adapter.BusLineAdapter;
+import org.wdd.app.android.seedoctor.ui.navigation.presenter.RouteLinePresenter;
+import org.wdd.app.android.seedoctor.utils.AMapUtil;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
+import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
+
+/**
+ * Created by richard on 11/30/16.
+ */
+
+public class RouteLineActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+
+    public static void show(Context context, double latitude, double longitude) {
+        Intent intent = new Intent(context, RouteLineActivity.class);
+        intent.putExtra("lat", latitude);
+        intent.putExtra("lon", longitude);
+        context.startActivity(intent);
+    }
+
+    private Toolbar toolbar;
+    private MapView mapView;
+    private RadioGroup radioGroup;
+    private RecyclerView recyclerView;
+    private View bottomLayout;
+    private TextView timeDistanceView;
+    private TextView taxtView;
+
+    private AMap aMap;
+    private RouteLinePresenter presenter;
+
+    private double lat;
+    private double lon;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_route_line);
+        initData();
+        initViews(savedInstanceState);
+    }
+
+    private void initData() {
+        lat = getIntent().getDoubleExtra("lat", 0);
+        lon = getIntent().getDoubleExtra("lon", 0);
+        presenter = new RouteLinePresenter(this, new LatLng(lat, lon));
+    }
+
+    private void initViews(Bundle savedInstanceState) {
+        initTitle();
+
+        mapView = (MapView) findViewById(R.id.activity_route_line_mapview);
+        radioGroup = (RadioGroup) findViewById(R.id.activity_route_line_traffic);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_route_line_recyclerview);
+        bottomLayout = findViewById(R.id.activity_route_line_bottom_layout);
+        timeDistanceView = (TextView) findViewById(R.id.activity_route_line_time_distance);
+        taxtView = (TextView) findViewById(R.id.activity_route_line_time_tax_cost);
+
+        aMap = mapView.getMap();
+        mapView.onCreate(savedInstanceState);
+        radioGroup.setOnCheckedChangeListener(this);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recyclerView.setHasFixedSize(true);
+        LineDividerDecoration decoration = new LineDividerDecoration(this, LinearLayoutManager.VERTICAL);
+        decoration.setLeftOffset(DensityUtils.dip2px(this, 16));
+        recyclerView.addItemDecoration(decoration);
+
+        radioGroup.check(R.id.activity_root_line_drive);
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                new LatLng(lat, lon),//新的中心点坐标
+                15, //新的缩放级别
+                0, //俯仰角0°~45°（垂直与地图时为0）
+                0  ////偏航角 0~360° (正北方为0)
+        ));
+        mapView.getMap().animateCamera(cameraUpdate);
+    }
+
+    private void initTitle() {
+        toolbar = (Toolbar) findViewById(R.id.activity_route_line_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                LocationHelper locationHelper = LocationHelper.getInstance(getBaseContext());
+                switch (radioGroup.getCheckedRadioButtonId()) {
+                    case R.id.activity_root_line_drive:
+                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_DRIVE, locationHelper.getLatitude(),
+                                locationHelper.getLongitude(), lat, lon);
+                        break;
+                    case R.id.activity_root_line_walk:
+                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_WALK, locationHelper.getLatitude(),
+                                locationHelper.getLongitude(), lat, lon);
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_route_line, menu);
+        return true;
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.activity_root_line_bus:
+                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(false);
+                presenter.searchBusRouteLineData();
+                break;
+            case R.id.activity_root_line_drive:
+                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(true);
+                presenter.searchDriveRouteLineData();
+                break;
+            case R.id.activity_root_line_walk:
+                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(true);
+                presenter.searchWalkRouteLineData();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    public void showBusRouteOnMap(BusRouteResult result) {
+        recyclerView.setVisibility(View.VISIBLE);
+        mapView.setVisibility(View.GONE);
+        bottomLayout.setVisibility(View.GONE);
+        BusLineAdapter adapter = new BusLineAdapter(this, result.getPaths());
+        adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void showDriveRouteOnMap(DriveRouteResult result) {
+        recyclerView.setVisibility(View.GONE);
+        mapView.setVisibility(View.VISIBLE);
+        aMap.clear();
+        bottomLayout.setVisibility(View.VISIBLE);
+        DrivePath drivePath = result.getPaths().get(0);
+        DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                this, aMap, drivePath,
+                result.getStartPos(),
+                result.getTargetPos(), null);
+        drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+        drivingRouteOverlay.removeFromMap();
+        drivingRouteOverlay.addToMap();
+        drivingRouteOverlay.zoomToSpan();
+
+        int dis = (int) drivePath.getDistance();
+        int dur = (int) drivePath.getDuration();
+        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+        timeDistanceView.setText(des);
+        taxtView.setVisibility(View.VISIBLE);
+        int taxiCost = (int) result.getTaxiCost();
+        taxtView.setText("打车约"+taxiCost+"元");
+    }
+
+    public void showWalkRouteOnMap(WalkRouteResult result) {
+        recyclerView.setVisibility(View.GONE);
+        mapView.setVisibility(View.VISIBLE);
+        aMap.clear();
+        bottomLayout.setVisibility(View.VISIBLE);
+        final WalkPath walkPath = result.getPaths().get(0);
+        WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
+                this, aMap, walkPath,
+                result.getStartPos(),
+                result.getTargetPos());
+        walkRouteOverlay.removeFromMap();
+        walkRouteOverlay.addToMap();
+        walkRouteOverlay.zoomToSpan();
+
+        int dis = (int) walkPath.getDistance();
+        int dur = (int) walkPath.getDuration();
+        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+        timeDistanceView.setText(des);
+        taxtView.setVisibility(View.GONE);
+    }
+
+    public void onRouteDetailClicked(View v) {
+
+    }
+}

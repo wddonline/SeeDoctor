@@ -38,7 +38,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalMapPresenter;
-import org.wdd.app.android.seedoctor.ui.navigation.RouteLineActivity;
+import org.wdd.app.android.seedoctor.ui.navigation.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 import java.util.ArrayList;

@@ -17,4 +17,10 @@
     <string name="map_mode">地图</string>
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>
+
+    <!-- 路线查询 -->
+    <string name="no_routline_data">没有查询到合适的路线</string>
+    <string name="detail">详情</string>
+    <string name="navigation">导航</string>
+
 </resources>

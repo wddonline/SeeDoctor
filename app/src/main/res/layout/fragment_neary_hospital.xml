@@ -5,11 +5,11 @@
     android:orientation="vertical"
     tools:context="org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment">
 
-    <org.wdd.app.android.seedoctor.views.Toolbar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/fragment_nearby_hospital_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"/>
+        android:background="@drawable/title_background"/>
 
     <org.wdd.app.android.seedoctor.views.SDViewPager
         android:id="@+id/fragment_nearby_hospital_viewpager"
