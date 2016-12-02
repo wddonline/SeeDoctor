@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.navigation.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +26,12 @@ import com.autonavi.tbt.TrafficFacilityInfo;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationActivity extends BaseActivity implements AMapNaviListener {
+public class NavigationActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
 
     public static final int NAVI_WALK = 0;
     public static final int NAVI_DRIVE = 1;
@@ -41,11 +43,11 @@ public class NavigationActivity extends BaseActivity implements AMapNaviListener
         intent.putExtra("start_lon", startLon);
         intent.putExtra("end_lat", endLat);
         intent.putExtra("end_lon", endLon);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
     private AMapNaviView naviView;
-
     private AMapNavi aMapNavi;
 
     private int naviType;
@@ -68,6 +70,7 @@ public class NavigationActivity extends BaseActivity implements AMapNaviListener
 
     private void initView() {
         naviView = (AMapNaviView) findViewById(R.id.activity_navigation_naviview);
+        naviView.setAMapNaviViewListener(this);
 
         aMapNavi = AMapNavi.getInstance(getApplicationContext());
         aMapNavi.addAMapNaviListener(this);
@@ -95,7 +98,7 @@ public class NavigationActivity extends BaseActivity implements AMapNaviListener
 
     @Override
     public void onInitNaviFailure() {
-
+        AppToaster.show("init navi Failed");
     }
 
     @Override
@@ -272,6 +275,51 @@ public class NavigationActivity extends BaseActivity implements AMapNaviListener
 
     @Override
     public void updateAimlessModeCongestionInfo(AimLessModeCongestionInfo aimLessModeCongestionInfo) {
+
+    }
+
+    @Override
+    public void onNaviSetting() {
+
+    }
+
+    @Override
+    public void onNaviCancel() {
+
+    }
+
+    @Override
+    public boolean onNaviBackClick() {
+        return false;
+    }
+
+    @Override
+    public void onNaviMapMode(int i) {
+
+    }
+
+    @Override
+    public void onNaviTurnClick() {
+
+    }
+
+    @Override
+    public void onNextRoadClick() {
+
+    }
+
+    @Override
+    public void onScanViewButtonClick() {
+
+    }
+
+    @Override
+    public void onLockMap(boolean b) {
+
+    }
+
+    @Override
+    public void onNaviViewLoaded() {
 
     }
 }

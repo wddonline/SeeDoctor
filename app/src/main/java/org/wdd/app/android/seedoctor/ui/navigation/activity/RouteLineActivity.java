@@ -89,15 +89,12 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
 
         aMap = mapView.getMap();
         mapView.onCreate(savedInstanceState);
-        radioGroup.setOnCheckedChangeListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         recyclerView.setHasFixedSize(true);
         LineDividerDecoration decoration = new LineDividerDecoration(this, LinearLayoutManager.VERTICAL);
         decoration.setLeftOffset(DensityUtils.dip2px(this, 16));
         recyclerView.addItemDecoration(decoration);
-
-        radioGroup.check(R.id.activity_root_line_drive);
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(
                 new LatLng(lat, lon),//新的中心点坐标
@@ -143,6 +140,8 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_route_line, menu);
+        radioGroup.setOnCheckedChangeListener(this);
+        radioGroup.check(R.id.activity_root_line_drive);
         return true;
     }
 
@@ -150,15 +149,15 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.activity_root_line_bus:
-                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(false);
+                toolbar.getMenu().getItem(0).setVisible(false);
                 presenter.searchBusRouteLineData();
                 break;
             case R.id.activity_root_line_drive:
-                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(true);
+                toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchDriveRouteLineData();
                 break;
             case R.id.activity_root_line_walk:
-                if(toolbar.getMenu().getItem(0) != null) toolbar.getMenu().getItem(0).setVisible(true);
+                toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchWalkRouteLineData();
                 break;
             default:
