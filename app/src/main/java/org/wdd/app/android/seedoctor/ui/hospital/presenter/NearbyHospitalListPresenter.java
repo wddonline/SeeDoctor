@@ -4,6 +4,7 @@ import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalListFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
+import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.List;
 
@@ -22,17 +23,32 @@ public class NearbyHospitalListPresenter implements BasePresenter, HospitalListD
         data.setSearchCallback(this);
     }
 
-    public void searchNearbyHospital(boolean isRefshing) {
-        data.getNearbyHospitalList(isRefshing);
+    public void searchNearbyHospital() {
+        data.getNearbyHospitalList();
+    }
+
+    public void reloadNearbyHospital() {
+        data.reloadNearbyHospitalList();
     }
 
     @Override
-    public void onSearchOk(boolean isRefreshing, List<Hospital> data) {
-        view.appendHospitalList(isRefreshing, data);
+    public void onSearchOk(List<Hospital> data) {
+        view.appendHospitalList(data);
     }
 
     @Override
-    public void onSearchFailure(boolean isRefreshing) {
-        view.handleSearchErrorViews(isRefreshing);
+    public void onSearchFailure() {
+        view.handleSearchDataErrorViews(LoadView.LoadStatus.Request_Failure);
     }
+
+    @Override
+    public void onSearchNoData() {
+        view.handleSearchDataErrorViews(LoadView.LoadStatus.No_Data);
+    }
+
+    @Override
+    public void onNetworkError() {
+        view.handleSearchDataErrorViews(LoadView.LoadStatus.Network_Error);
+    }
+
 }

@@ -11,6 +11,12 @@
     <!-- 通用 -->
     <string name="loading_more_data">正在加载更多数据...</string>
     <string name="load_more_data">加载更多</string>
+    <string name="error_no_connection">网络已断开，请确认是否联网，然后点击重试</string>
+    <string name="error_no_data">没有获取的数据，点击重试</string>
+    <string name="error_request_failure">获取数据失败，点击重试</string>
+    <string name="loading">正在加载数据...</string>
+    <string name="no_address">位置未知</string>
+    <string name="error_request">获取数据失败</string>
 
     <!-- 附近医院 -->
     <string name="list_mode">列表</string>
@@ -22,5 +28,6 @@
     <string name="no_routline_data">没有查询到合适的路线</string>
     <string name="detail">详情</string>
     <string name="navigation">导航</string>
+
 
 </resources>
