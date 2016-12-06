@@ -1,20 +1,16 @@
-package org.wdd.app.android.seedoctor.ui.navigation.adapter;
+package org.wdd.app.android.seedoctor.ui.routeline.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.amap.api.services.route.BusPath;
-import com.daimajia.swipe.SwipeLayout;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
-import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
-import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
 import java.util.List;
@@ -38,7 +34,7 @@ public class BusLineAdapter extends AbstractCommonAdapter<BusPath> {
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, BusPath item) {
+    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, BusPath item, int position) {
         BusLineViewHolder busLineViewHolder = (BusLineViewHolder) holder;
         busLineViewHolder.nameView .setText(AMapUtil.getBusPathTitle(item));
         busLineViewHolder.descView.setText(AMapUtil.getBusPathDes(item));

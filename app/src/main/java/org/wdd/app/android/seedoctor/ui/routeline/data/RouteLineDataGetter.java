@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.navigation.data;
+package org.wdd.app.android.seedoctor.ui.routeline.data;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.navigation.activity;
+package org.wdd.app.android.seedoctor.ui.routeline.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +30,9 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.navigation.adapter.BusLineAdapter;
-import org.wdd.app.android.seedoctor.ui.navigation.presenter.RouteLinePresenter;
+import org.wdd.app.android.seedoctor.ui.navigation.activity.NavigationActivity;
+import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusLineAdapter;
+import org.wdd.app.android.seedoctor.ui.routeline.presenter.RouteLinePresenter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
@@ -56,6 +57,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     private View bottomLayout;
     private TextView timeDistanceView;
     private TextView taxtView;
+    private View bottomBar;
 
     private AMap aMap;
     private RouteLinePresenter presenter;
@@ -86,6 +88,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         bottomLayout = findViewById(R.id.activity_route_line_bottom_layout);
         timeDistanceView = (TextView) findViewById(R.id.activity_route_line_time_distance);
         taxtView = (TextView) findViewById(R.id.activity_route_line_time_tax_cost);
+        bottomBar = findViewById(R.id.activity_route_line_bottom_layout);
 
         aMap = mapView.getMap();
         mapView.onCreate(savedInstanceState);
@@ -192,12 +195,12 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         recyclerView.setAdapter(adapter);
     }
 
-    public void showDriveRouteOnMap(DriveRouteResult result) {
+    public void showDriveRouteOnMap(final DriveRouteResult result) {
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         aMap.clear();
         bottomLayout.setVisibility(View.VISIBLE);
-        DrivePath drivePath = result.getPaths().get(0);
+        final DrivePath drivePath = result.getPaths().get(0);
         DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                 this, aMap, drivePath,
                 result.getStartPos(),
@@ -214,6 +217,13 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         taxtView.setVisibility(View.VISIBLE);
         int taxiCost = (int) result.getTaxiCost();
         taxtView.setText("打车约"+taxiCost+"元");
+
+        bottomBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DriveRouteDetailActivity.show(RouteLineActivity.this, drivePath, result);
+            }
+        });
     }
 
     public void showWalkRouteOnMap(WalkRouteResult result) {
@@ -235,9 +245,6 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
         timeDistanceView.setText(des);
         taxtView.setVisibility(View.GONE);
-    }
-
-    public void onRouteDetailClicked(View v) {
 
     }
 }

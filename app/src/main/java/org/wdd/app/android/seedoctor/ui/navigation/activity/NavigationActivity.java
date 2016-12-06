@@ -1,11 +1,15 @@
 package org.wdd.app.android.seedoctor.ui.navigation.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviView;
@@ -26,17 +30,19 @@ import com.autonavi.tbt.TrafficFacilityInfo;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.ui.navigation.utils.TTSController;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
+public class NavigationActivity extends BaseActivity implements AMapNaviListener, AMapNaviViewListener {
 
     public static final int NAVI_WALK = 0;
     public static final int NAVI_DRIVE = 1;
 
-    public static void show(Context context, int naviType, double startLat, double startLon, double endLat, double endLon) {
+    public static void show(Context context, int naviType, double startLat, double startLon,
+                            double endLat, double endLon) {
         Intent intent = new Intent(context, NavigationActivity.class);
         intent.putExtra("navi_type", naviType);
         intent.putExtra("start_lat", startLat);
@@ -47,8 +53,9 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
         context.startActivity(intent);
     }
 
-    private AMapNaviView naviView;
+    private AMapNaviView aMapNaviView;
     private AMapNavi aMapNavi;
+    protected TTSController ttsManager;
 
     private int naviType;
     private NaviLatLng from;
@@ -59,46 +66,71 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         initData();
-        initView();
+        initView(savedInstanceState);
     }
 
     private void initData() {
         naviType = getIntent().getIntExtra("navi_type", NAVI_DRIVE);
         from = new NaviLatLng(getIntent().getDoubleExtra("start_lat", 0d), getIntent().getDoubleExtra("start_lon", 0d));
         to = new NaviLatLng(getIntent().getDoubleExtra("end_lat", 0d), getIntent().getDoubleExtra("end_lon", 0d));
+
+        ttsManager = TTSController.getInstance(getApplicationContext());
+        ttsManager.init();
     }
 
-    private void initView() {
-        naviView = (AMapNaviView) findViewById(R.id.activity_navigation_naviview);
-        naviView.setAMapNaviViewListener(this);
+    private void initView(Bundle savedInstanceState) {
+        aMapNaviView = (AMapNaviView) findViewById(R.id.activity_navigation_naviview);
+        aMapNaviView.onCreate(savedInstanceState);
+        aMapNaviView.setAMapNaviViewListener(this);
 
         aMapNavi = AMapNavi.getInstance(getApplicationContext());
         aMapNavi.addAMapNaviListener(this);
+        aMapNavi.addAMapNaviListener(ttsManager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        naviView.onResume();
+        aMapNaviView.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        naviView.onPause();
+        aMapNaviView.onPause();
+        ttsManager.stopSpeaking();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        naviView.onDestroy();
+        aMapNaviView.onDestroy();
         aMapNavi.stopNavi();
         aMapNavi.destroy();
+        ttsManager.destroy();
+    }
+
+    public void showExitNavDailg() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.tip);
+        builder.setMessage(R.string.exit_nav_msg);
+        builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.create().show();
     }
 
     @Override
     public void onInitNaviFailure() {
-        AppToaster.show("init navi Failed");
+        AppToaster.show(R.string.nav_init_error);
     }
 
     @Override
@@ -131,7 +163,7 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
                 List<NaviLatLng> fromList = new ArrayList<>();
                 fromList.add(from);
                 List<NaviLatLng> endList = new ArrayList<>();
-                fromList.add(to);
+                endList.add(to);
                 aMapNavi.calculateDriveRoute(fromList, endList, null, strategy);
                 break;
             case NAVI_WALK:
@@ -185,12 +217,13 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
 
     @Override
     public void onCalculateRouteSuccess() {
-        aMapNavi.startNavi(NaviType.GPS);
+        aMapNavi.startNavi(NaviType.EMULATOR);
     }
 
     @Override
     public void onCalculateRouteFailure(int i) {
-
+        String error = getString(R.string.caculate_route_line_error);
+        AppToaster.show(String.format(error, i));
     }
 
     @Override
@@ -284,13 +317,18 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
     }
 
     @Override
-    public void onNaviCancel() {
+    public void onBackPressed() {
+        showExitNavDailg();
+    }
 
+    @Override
+    public void onNaviCancel() {
     }
 
     @Override
     public boolean onNaviBackClick() {
-        return false;
+        showExitNavDailg();
+        return true;
     }
 
     @Override

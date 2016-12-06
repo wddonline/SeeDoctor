@@ -16,7 +16,7 @@ import com.daimajia.swipe.SwipeLayout;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
-import org.wdd.app.android.seedoctor.ui.navigation.activity.RouteLineActivity;
+import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.views.HttpImageView;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital hospital) {
+    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital hospital, int position) {
         HospitalVH hospitalVH = (HospitalVH) holder;
         if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
             hospitalVH.imageView.setImageUrl(hospital.getImgUrls()[0]);
