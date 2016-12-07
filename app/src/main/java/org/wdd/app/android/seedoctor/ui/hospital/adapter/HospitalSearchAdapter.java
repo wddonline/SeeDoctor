@@ -10,14 +10,13 @@ import android.widget.TextView;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
-import org.wdd.app.android.seedoctor.ui.navigation.activity.RouteLineActivity;
+import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 
 import java.util.List;
 
 /**
  * Created by richard on 12/5/16.
  */
-
 public class HospitalSearchAdapter extends AbstractCommonAdapter<Hospital> {
 
     public HospitalSearchAdapter(Context context, List<Hospital> data) {
@@ -32,7 +31,7 @@ public class HospitalSearchAdapter extends AbstractCommonAdapter<Hospital> {
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital item) {
+    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital item, int position) {
         HospitalViewHolder viewHolder = (HospitalViewHolder) holder;
         viewHolder.titleView.setText(item.getName());
         viewHolder.titleView.setOnClickListener(new View.OnClickListener() {

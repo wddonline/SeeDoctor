@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_route_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.wdd.app.android.seedoctor.ui.routeline.activity.DriveRouteDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_drive_route_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/title_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drive_route_detail"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"
+            android:layout_gravity="top|center_horizontal"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/bg_bottom_bar"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/activity_drive_route_detail_time_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="12dp"
+            android:maxLines="1"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/activity_drive_route_detail_tax_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstline"
+            android:layout_marginLeft="12dp"
+            android:gravity="right"
+            android:maxLines="1"
+            android:textColor="#999999"
+            android:textSize="13sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e0e0e0" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_drive_route_detail_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

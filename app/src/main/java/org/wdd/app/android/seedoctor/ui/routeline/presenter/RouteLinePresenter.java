@@ -1,14 +1,13 @@
-package org.wdd.app.android.seedoctor.ui.navigation.presenter;
+package org.wdd.app.android.seedoctor.ui.routeline.presenter;
 
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DriveRouteResult;
-import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.WalkRouteResult;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.navigation.activity.RouteLineActivity;
-import org.wdd.app.android.seedoctor.ui.navigation.data.RouteLineDataGetter;
+import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
+import org.wdd.app.android.seedoctor.ui.routeline.data.RouteLineDataGetter;
 
 /**
  * Created by richard on 12/1/16.

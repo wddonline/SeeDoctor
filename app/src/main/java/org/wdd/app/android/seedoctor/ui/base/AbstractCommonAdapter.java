@@ -25,7 +25,7 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
     }
 
     protected Context context;
-    private List<T> data;
+    protected List<T> data;
     private AbstractCommonAdapter.OnLoadMoreListener loadMoreListener;
     private AbstractCommonAdapter.LoadStatus status = AbstractCommonAdapter.LoadStatus.Normal;
 
@@ -70,7 +70,7 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
             }
         } else {
             T item = data.get(position);
-            onBindDataViewHolder(holder, item);
+            onBindDataViewHolder(holder, item, position);
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
         notifyItemChanged(data.size());
     }
 
-    protected abstract void onBindDataViewHolder(RecyclerView.ViewHolder holder, T item);
+    protected abstract void onBindDataViewHolder(RecyclerView.ViewHolder holder, T item, int position);
 
     protected abstract RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType);
 

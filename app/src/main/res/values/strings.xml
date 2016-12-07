@@ -9,6 +9,8 @@
     <string name="distance_desc_km">%1$s公里</string>
 
     <!-- 通用 -->
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
     <string name="loading_more_data">正在加载更多数据...</string>
     <string name="load_more_data">加载更多</string>
     <string name="error_no_connection">网络已断开，请确认是否联网，然后点击重试</string>
@@ -28,6 +30,14 @@
     <string name="no_routline_data">没有查询到合适的路线</string>
     <string name="detail">详情</string>
     <string name="navigation">导航</string>
+    <string name="drive_route_detail">驾车路线详情</string>
+    <string name="tax_cost">打车约%1$d元</string>
 
+    <!-- 导航 -->
+    <string name="tip">提示</string>
+    <string name="exit_nav_msg">确定退出导航？</string>
+    <string name="nav_init_error">导航初始化失败</string>
+    <string name="caculate_route_line_error">计算路线失败，错误码[%1$d]</string>
+    <string name="tts_init_error">语音初始化失败</string>
 
 </resources>
