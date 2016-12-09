@@ -226,7 +226,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         });
     }
 
-    public void showWalkRouteOnMap(WalkRouteResult result) {
+    public void showWalkRouteOnMap(final WalkRouteResult result) {
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         aMap.clear();
@@ -245,6 +245,11 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
         timeDistanceView.setText(des);
         taxtView.setVisibility(View.GONE);
-
+        bottomBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WalkRouteDetailActivity.show(RouteLineActivity.this, walkPath, result);
+            }
+        });
     }
 }

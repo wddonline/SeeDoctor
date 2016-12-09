@@ -2,13 +2,10 @@ package org.wdd.app.android.seedoctor.ui.navigation.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
@@ -36,7 +33,7 @@ import org.wdd.app.android.seedoctor.utils.AppToaster;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationActivity extends BaseActivity implements AMapNaviListener, AMapNaviViewListener {
+public class NavigationActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
 
     public static final int NAVI_WALK = 0;
     public static final int NAVI_DRIVE = 1;

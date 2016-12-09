@@ -14,7 +14,6 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ public class DriveRouteAdapter extends AbstractCommonAdapter<DriveStep> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_drive_route, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_route_line, parent, false);
         DriveRouteViewHolder viewHolder = new DriveRouteViewHolder(view);
         return viewHolder;
     }
@@ -69,11 +68,11 @@ public class DriveRouteAdapter extends AbstractCommonAdapter<DriveStep> {
 
         public DriveRouteViewHolder(View itemView) {
             super(itemView);
-            driveDirIcon = (ImageView) itemView.findViewById(R.id.item_drive_route_drive_dir);
-            driveLineName = (TextView) itemView.findViewById(R.id.item_drive_route_bus_line_name);
-            driveDirUp = (ImageView) itemView.findViewById(R.id.item_drive_route_bus_dir_up);
-            driveDirDown = (ImageView) itemView.findViewById(R.id.item_drive_route_bus_dir_down);
-            splitLine = (ImageView) itemView.findViewById(R.id.item_drive_route_bus_seg_split_line);
+            driveDirIcon = (ImageView) itemView.findViewById(R.id.item_route_line_dir);
+            driveLineName = (TextView) itemView.findViewById(R.id.item_route_line_bus_line_name);
+            driveDirUp = (ImageView) itemView.findViewById(R.id.item_route_line_dir_up);
+            driveDirDown = (ImageView) itemView.findViewById(R.id.item_route_line_dir_down);
+            splitLine = (ImageView) itemView.findViewById(R.id.item_route_line_seg_split_line);
         }
     }
 }

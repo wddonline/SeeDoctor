@@ -34,7 +34,7 @@
         <activity android:name=".ui.routeline.activity.RouteLineActivity">
         </activity>
 
-        <activity android:name=".ui.routeline.activity.WalkRouteActivity">
+        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity">
         </activity>
 
         <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity">
