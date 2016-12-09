@@ -78,7 +78,7 @@ public class WalkRouteDetailActivity extends BaseActivity {
 
         String dur = AMapUtil.getFriendlyTime((int) walkPath.getDuration());
         String dis = AMapUtil.getFriendlyLength((int) walkPath.getDistance());
-        TextView timeDistanceView = (TextView) findViewById(R.id.activity_drive_route_detail_time_distance);
+        TextView timeDistanceView = (TextView) findViewById(R.id.activity_walk_route_detail_time_distance);
         timeDistanceView.setText(dur + "(" + dis + ")");
 
         List<WalkStep> data = walkPath.getSteps();
