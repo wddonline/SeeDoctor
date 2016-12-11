@@ -67,8 +67,4 @@ public class SchemeBusStep extends BusStep {
 	public void setTaxi(boolean istaxi) {
 		this.istaxi = istaxi;
 	}
-	
-	
-	
-
 }
