@@ -14,6 +14,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.activity.HospitalSearchActivity;
 import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;

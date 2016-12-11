@@ -19,9 +19,9 @@ import java.util.List;
  * Created by richard on 12/9/16.
  */
 
-public class WalkRouteAdapter extends AbstractCommonAdapter<WalkStep> {
+public class WalkRouteDetailAdapter extends AbstractCommonAdapter<WalkStep> {
 
-    public WalkRouteAdapter(Context context, List<WalkStep> data) {
+    public WalkRouteDetailAdapter(Context context, List<WalkStep> data) {
         super(context, data);
     }
 

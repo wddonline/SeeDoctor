@@ -1,6 +1,7 @@
-package org.wdd.app.android.seedoctor.ui.hospital.fragment;
+package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
+import org.wdd.app.android.seedoctor.ui.hospital.activity.HospitalSearchActivity;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalSearchGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LoadView;

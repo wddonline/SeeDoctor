@@ -19,7 +19,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ui.welcome.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,34 +26,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.main.activity.MainActivity"></activity>
+        <activity android:name=".ui.routeline.activity.RouteLineActivity"></activity>
+        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity"></activity>
+        <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity"></activity>
+        <activity android:name=".ui.navigation.activity.NavigationActivity"></activity>
+        <activity android:name=".ui.hospital.activity.HospitalSearchActivity"></activity>
+        <activity android:name=".ui.routeline.activity.BusRouteDetailActivity"></activity>
 
-        <activity android:name=".ui.main.activity.MainActivity">
-        </activity>
-
-        <activity android:name=".ui.routeline.activity.RouteLineActivity">
-        </activity>
-
-        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity">
-        </activity>
-
-        <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity">
-        </activity>
-
-        <activity android:name=".ui.navigation.activity.NavigationActivity">
-        </activity>
-
-        <service android:name="com.amap.api.location.APSService">
-        </service>
-
+        <service android:name="com.amap.api.location.APSService"></service>
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService">
-        </service>
+            android:process=":DownloadingService"></service>
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
         <meta-data
             android:name="UMENG_APPKEY"

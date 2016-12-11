@@ -16,7 +16,7 @@ import com.amap.api.services.route.DriveStep;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.routeline.adapter.DriveRouteAdapter;
+import org.wdd.app.android.seedoctor.ui.routeline.adapter.DriveRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
 import java.util.List;
@@ -85,7 +85,7 @@ public class DriveRouteDetailActivity extends BaseActivity {
         List<DriveStep> data = drivePath.getSteps();
         data.add(0, new DriveStep());
         data.add(data.size(), new DriveStep());
-        DriveRouteAdapter adapter = new DriveRouteAdapter(this, data);
+        DriveRouteDetailAdapter adapter = new DriveRouteDetailAdapter(this, data);
         recyclerView.setAdapter(adapter);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }

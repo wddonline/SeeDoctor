@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.hospital.fragment;
+package org.wdd.app.android.seedoctor.ui.hospital.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalSearchAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalSearchGetter;
+import org.wdd.app.android.seedoctor.ui.hospital.presenter.HospitalSearchPresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;

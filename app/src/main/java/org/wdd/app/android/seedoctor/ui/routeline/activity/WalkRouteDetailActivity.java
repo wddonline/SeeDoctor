@@ -16,7 +16,7 @@ import com.amap.api.services.route.WalkStep;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.routeline.adapter.WalkRouteAdapter;
+import org.wdd.app.android.seedoctor.ui.routeline.adapter.WalkRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
 import java.util.List;
@@ -84,7 +84,7 @@ public class WalkRouteDetailActivity extends BaseActivity {
         List<WalkStep> data = walkPath.getSteps();
         data.add(0, new WalkStep());
         data.add(data.size(), new WalkStep());
-        WalkRouteAdapter adapter = new WalkRouteAdapter(this, data);
+        WalkRouteDetailAdapter adapter = new WalkRouteDetailAdapter(this, data);
         recyclerView.setAdapter(adapter);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }

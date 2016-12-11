@@ -20,9 +20,9 @@ import java.util.List;
  * Created by wangdd on 16-12-3.
  */
 
-public class DriveRouteAdapter extends AbstractCommonAdapter<DriveStep> {
+public class DriveRouteDetailAdapter extends AbstractCommonAdapter<DriveStep> {
 
-    public DriveRouteAdapter(Context context, List<DriveStep> steps) {
+    public DriveRouteDetailAdapter(Context context, List<DriveStep> steps) {
         super(context, steps);
     }
 

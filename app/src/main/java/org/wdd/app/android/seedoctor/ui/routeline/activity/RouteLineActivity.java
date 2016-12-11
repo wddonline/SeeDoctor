@@ -18,8 +18,10 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.overlay.BusRouteOverlay;
 import com.amap.api.maps.overlay.DrivingRouteOverlay;
 import com.amap.api.maps.overlay.WalkRouteOverlay;
+import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
@@ -31,7 +33,7 @@ import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.navigation.activity.NavigationActivity;
-import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusLineAdapter;
+import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusRouteLineAdapter;
 import org.wdd.app.android.seedoctor.ui.routeline.presenter.RouteLinePresenter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
@@ -41,16 +43,24 @@ import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
  * Created by richard on 11/30/16.
  */
 
-public class RouteLineActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class RouteLineActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener,
+        BusRouteLineAdapter.OnItemClickedListener {
 
     public static void show(Context context, double latitude, double longitude) {
         Intent intent = new Intent(context, RouteLineActivity.class);
         intent.putExtra("lat", latitude);
         intent.putExtra("lon", longitude);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
+    private enum Status {
+        NORMAL,
+        BUS_MODE
+    }
+
     private Toolbar toolbar;
+    private TextView titleView;
     private MapView mapView;
     private RadioGroup radioGroup;
     private RecyclerView recyclerView;
@@ -61,6 +71,10 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
 
     private AMap aMap;
     private RouteLinePresenter presenter;
+    private Status status = Status.NORMAL;
+    private BusPath selectedBusPath;
+    private BusRouteResult busRouteResult;
+    private BusRouteOverlay busRouteOverlay;
 
     private double lat;
     private double lon;
@@ -93,7 +107,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         aMap = mapView.getMap();
         mapView.onCreate(savedInstanceState);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         LineDividerDecoration decoration = new LineDividerDecoration(this, LinearLayoutManager.VERTICAL);
         decoration.setLeftOffset(DensityUtils.dip2px(this, 16));
@@ -116,7 +130,15 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                switch (status) {
+                    case NORMAL:
+                        finish();
+                        break;
+                    default:
+                        status = Status.NORMAL;
+                        setStatusViews();
+                        break;
+                }
             }
         });
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -138,6 +160,30 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 return true;
             }
         });
+        titleView = (TextView) findViewById(R.id.activity_route_line_title);
+    }
+
+    private void setStatusViews() {
+        switch (status) {
+            case NORMAL:
+                mapView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                radioGroup.setVisibility(View.VISIBLE);
+                titleView.setVisibility(View.GONE);
+                bottomBar.setVisibility(View.GONE);
+                break;
+            case BUS_MODE:
+                mapView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                radioGroup.setVisibility(View.GONE);
+                titleView.setVisibility(View.VISIBLE);
+                if (selectedBusPath == null) return;
+                titleView.setText(AMapUtil.getBusPathTitle(selectedBusPath));
+                bottomBar.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -169,6 +215,19 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     @Override
+    public void onBackPressed() {
+        switch (status) {
+            case NORMAL:
+                super.onBackPressed();
+                break;
+            default:
+                status = Status.NORMAL;
+                setStatusViews();
+                break;
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mapView.onResume();
@@ -187,12 +246,14 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     public void showBusRouteOnMap(BusRouteResult result) {
+        busRouteResult = result;
         recyclerView.setVisibility(View.VISIBLE);
         mapView.setVisibility(View.GONE);
         bottomLayout.setVisibility(View.GONE);
-        BusLineAdapter adapter = new BusLineAdapter(this, result.getPaths());
+        BusRouteLineAdapter adapter = new BusRouteLineAdapter(this, result.getPaths());
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickedListener(this);
     }
 
     public void showDriveRouteOnMap(final DriveRouteResult result) {
@@ -212,11 +273,11 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
 
         int dis = (int) drivePath.getDistance();
         int dur = (int) drivePath.getDuration();
-        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
         timeDistanceView.setText(des);
         taxtView.setVisibility(View.VISIBLE);
         int taxiCost = (int) result.getTaxiCost();
-        taxtView.setText("打车约"+taxiCost+"元");
+        taxtView.setText(String.format(getString(R.string.tax_cost), taxiCost));
 
         bottomBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +303,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
 
         int dis = (int) walkPath.getDistance();
         int dur = (int) walkPath.getDuration();
-        String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
         timeDistanceView.setText(des);
         taxtView.setVisibility(View.GONE);
         bottomBar.setOnClickListener(new View.OnClickListener() {
@@ -252,4 +313,33 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
             }
         });
     }
+
+    @Override
+    public void onItemClicked(int position, BusPath path) {
+        status = Status.BUS_MODE;
+        selectedBusPath = path;
+        setStatusViews();
+        if (busRouteResult == null) return;
+        if (busRouteOverlay != null) busRouteOverlay.removeFromMap();
+        busRouteOverlay = new BusRouteOverlay(this, mapView.getMap(), path, busRouteResult.getStartPos(),
+                busRouteResult.getTargetPos());
+        busRouteOverlay.addToMap();
+        busRouteOverlay.zoomToSpan();
+
+        int dis = (int) path.getDistance();
+        int dur = (int) path.getDuration();
+        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
+        timeDistanceView.setText(des);
+        taxtView.setVisibility(View.VISIBLE);
+        int taxiCost = (int) busRouteResult.getTaxiCost();
+        taxtView.setText(String.format(getString(R.string.tax_cost), taxiCost));
+        bottomBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BusRouteDetailActivity.show(RouteLineActivity.this, selectedBusPath, busRouteResult);
+            }
+        });
+    }
+
 }
+
