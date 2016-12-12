@@ -9,7 +9,17 @@
         android:id="@+id/fragment_nearby_hospital_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/title_background"/>
+        android:background="@drawable/title_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"
+            android:text="@string/nearby_hospital"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <org.wdd.app.android.seedoctor.views.SDViewPager
         android:id="@+id/fragment_nearby_hospital_viewpager"

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.activity.HospitalSearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
 /**
@@ -55,9 +56,15 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     private void initTitle() {
         setHasOptionsMenu(true);
         toolbar = (Toolbar) rootView.findViewById(R.id.fragment_nearby_hospital_toolbar);
-        toolbar.setLogo(R.mipmap.ic_launcher);
-        toolbar.setTitle(R.string.app_name);
+        toolbar.setNavigationIcon(R.mipmap.img_search);
+        toolbar.setTitle("");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HospitalSearchActivity.show(getContext());
+            }
+        });
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

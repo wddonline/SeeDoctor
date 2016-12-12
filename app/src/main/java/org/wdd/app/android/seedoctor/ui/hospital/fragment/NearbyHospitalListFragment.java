@@ -73,12 +73,6 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
 
         String address = LocationHelper.getInstance(getContext()).getAddress();
         locationView.setText(TextUtils.isEmpty(address) ? getString(R.string.no_address) : address);
-        rootView.findViewById(R.id.fragment_nearby_hospital_list_search).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HospitalSearchActivity.show(getContext());
-            }
-        });
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
