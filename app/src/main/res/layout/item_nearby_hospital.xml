@@ -2,8 +2,7 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_nearby_hospital_swipe"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/item_nearby_hospital_drawer"
@@ -24,7 +23,9 @@
         android:id="@+id/item_nearby_hospital_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/common_list_item_bg"
+        android:clickable="true">
 
         <FrameLayout
             android:layout_width="wrap_content"

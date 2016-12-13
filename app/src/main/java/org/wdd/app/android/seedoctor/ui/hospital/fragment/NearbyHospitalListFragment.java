@@ -32,7 +32,6 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
     private NearbyHospitalListPresenter presenter;
 
     private View rootView;
-    private TextView locationView;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
@@ -60,7 +59,6 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
     }
 
     private void initViews() {
-        locationView = (TextView) rootView.findViewById(R.id.fragment_nearby_hospital_list_position);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_nearby_hospital_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
@@ -71,8 +69,6 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
 
         loadView = (LoadView) rootView.findViewById(R.id.fragment_nearby_hospital_list_load);
 
-        String address = LocationHelper.getInstance(getContext()).getAddress();
-        locationView.setText(TextUtils.isEmpty(address) ? getString(R.string.no_address) : address);
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {

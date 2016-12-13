@@ -5,29 +5,6 @@
     android:orientation="vertical"
     tools:context="org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalListFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_my_location"/>
-        <TextView
-            android:id="@+id/fragment_nearby_hospital_list_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:textSize="@dimen/textSizeItemContent"/>
-
-    </LinearLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/fragment_nearby_hospital_list_refresh_layout"
         android:layout_width="match_parent"

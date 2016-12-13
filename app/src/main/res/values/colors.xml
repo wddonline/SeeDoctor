@@ -11,4 +11,7 @@
     <color name="colorItemExtra">#999999</color>
     
     <color name="colorToolbarTitle">#2b2b2b</color>
+
+    <color name="colorItemRipple">#e2e2e2</color>
+    <color name="colorItem">#f0f0f0</color>
 </resources>

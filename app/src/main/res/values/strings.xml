@@ -14,7 +14,6 @@
     <string name="error_no_data">没有获取的数据，点击重试</string>
     <string name="error_request_failure">获取数据失败，点击重试</string>
     <string name="loading">正在加载数据...</string>
-    <string name="no_address">位置未知</string>
     <string name="error_request">获取数据失败</string>
 
     <!-- 定位 -->

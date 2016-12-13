@@ -14,5 +14,6 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:textColor="@color/colorItemTitle"
         android:textSize="@dimen/textSizeItemTitle"
+        android:background="@drawable/common_list_item_bg"
         android:clickable="true" />
 </LinearLayout>
