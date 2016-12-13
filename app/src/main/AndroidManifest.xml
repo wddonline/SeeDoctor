@@ -31,7 +31,7 @@
         <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity"></activity>
         <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity"></activity>
         <activity android:name=".ui.navigation.activity.NavigationActivity"></activity>
-        <activity android:name=".ui.hospital.activity.HospitalSearchActivity"></activity>
+        <activity android:name=".ui.search.activity.SearchActivity"></activity>
         <activity android:name=".ui.routeline.activity.BusRouteDetailActivity"></activity>
 
         <service android:name="com.amap.api.location.APSService"></service>

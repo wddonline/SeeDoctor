@@ -1,18 +1,15 @@
-package org.wdd.app.android.seedoctor.ui.hospital.data;
+package org.wdd.app.android.seedoctor.ui.search.data;
 
 import android.content.Context;
 
-import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.Photo;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 
-import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
-import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.LogUtils;
 import org.wdd.app.android.seedoctor.utils.NetworkUtils;
 
@@ -20,51 +17,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by richard on 11/28/16.
+ * Created by richard on 12/5/16.
  */
 
-public class HospitalListDataGetter implements PoiSearch.OnPoiSearchListener {
+public class SearchGetter implements PoiSearch.OnPoiSearchListener {
 
-    private final String tag = "DrugstoreListDataGetter";
-    public static final int PAGEZISE = 20;
+    private final String tag = "DrugstoreSearchGetter";
+    public static final int PAGEZISE = 50;
     private int pageNum = 0;
-    private final int RADIUS = 30000;
 
     private Context context;
     private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private SearchCallback callback;
 
-    public HospitalListDataGetter(Context context) {
+    public SearchGetter(Context context, SearchCallback callback) {
         this.context = context;
-        query = new PoiSearch.Query("医院", "", LocationHelper.getInstance(context).getCity_code());
+        this.callback = callback;
+    }
+
+    public void getHospitalByName(String name, boolean append) {
+        if (!NetworkUtils.isNetworkEnabled(context)) {
+            if (callback != null) callback.onNetworkError();
+            return;
+        }
+        if (!append) {
+            pageNum = 0;
+        }
+        query = new PoiSearch.Query(name, "医疗保健服务", LocationHelper.getInstance(context).getCity_code());
         query.setPageSize(PAGEZISE);
+        query.setPageNum(pageNum);
+        pageNum++;
 
         poiSearch = new PoiSearch(context, query);
-        LocationHelper.Location location = LocationHelper.getInstance(context).getLocation();
-        poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(location.latitude, location.longitude), RADIUS));
         poiSearch.setOnPoiSearchListener(this);
-    }
-
-    public void getNearbyHospitalList() {
-        if (!NetworkUtils.isNetworkEnabled(context)) {
-            if (callback != null) callback.onNetworkError();
-            return;
-        }
-        query.setPageNum(pageNum);
         poiSearch.searchPOIAsyn();
-        pageNum++;
-    }
-
-    public void reloadNearbyHospitalList() {
-        if (!NetworkUtils.isNetworkEnabled(context)) {
-            if (callback != null) callback.onNetworkError();
-            return;
-        }
-        pageNum = 0;
-        query.setPageNum(pageNum);
-        poiSearch.searchPOIAsyn();
-        pageNum++;
     }
 
     @Override
@@ -122,10 +109,6 @@ public class HospitalListDataGetter implements PoiSearch.OnPoiSearchListener {
     @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
-    }
-
-    public void setSearchCallback(SearchCallback callback) {
-        this.callback = callback;
     }
 
     public interface SearchCallback {

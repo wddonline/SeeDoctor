@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.hospital.activity;
+package org.wdd.app.android.seedoctor.ui.search.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalSearchAdapter;
-import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalSearchGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.presenter.HospitalSearchPresenter;
+import org.wdd.app.android.seedoctor.ui.search.data.SearchGetter;
+import org.wdd.app.android.seedoctor.ui.search.presenter.SearchPresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
@@ -27,10 +27,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HospitalSearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
+public class SearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
 
     public static void show(Context context) {
-        Intent intent = new Intent(context, HospitalSearchActivity.class);
+        Intent intent = new Intent(context, SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
@@ -38,7 +38,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
     private RecyclerView recyclerView;
     private EditText inputView;
 
-    private HospitalSearchPresenter presenter;
+    private SearchPresenter presenter;
     private HospitalSearchAdapter adapter;
     private List<Hospital> hospitals;
 
@@ -47,17 +47,17 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hospital_search);
+        setContentView(R.layout.activity_search);
         initData();
         initViews();
     }
 
     private void initData() {
-        presenter = new HospitalSearchPresenter(this);
+        presenter = new SearchPresenter(this);
     }
 
     private void initViews() {
-        inputView = (EditText) findViewById(R.id.activity_hospital_search_input);
+        inputView = (EditText) findViewById(R.id.activity_search_input);
         inputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -83,7 +83,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.activity_hospital_search_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_search_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
@@ -97,7 +97,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
             adapter = new HospitalSearchAdapter(getBaseContext(), hospitals);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
-            if (data.size() < HospitalSearchGetter.PAGEZISE) {
+            if (data.size() < SearchGetter.PAGEZISE) {
                 adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
             }
         }
@@ -108,7 +108,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
             hospitals.addAll(data);
         }
         adapter.notifyDataSetChanged();
-        if (data.size() < HospitalSearchGetter.PAGEZISE) {
+        if (data.size() < SearchGetter.PAGEZISE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         } else {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);

@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.hospital.fragment;
+package org.wdd.app.android.seedoctor.ui.drugstore.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.drugstore.adapter.DrugstoreAdapter;
+import org.wdd.app.android.seedoctor.ui.drugstore.model.Drugstore;
+import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstoreListPresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
-import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalListPresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
@@ -22,53 +23,53 @@ import org.wdd.app.android.seedoctor.views.LoadView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NearbyHospitalListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
-        HospitalAdapter.OnLoadMoreListener{
+public class NearbyDrugstoreListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
+        DrugstoreAdapter.OnLoadMoreListener{
 
-    private NearbyHospitalListPresenter presenter;
+    private NearbyDrugstoreListPresenter presenter;
 
     private View rootView;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
 
-    private List<Hospital> hospitals;
-    private HospitalAdapter adapter;
+    private List<Drugstore> drugstores;
+    private DrugstoreAdapter adapter;
 
     private boolean isRefreshing = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new NearbyHospitalListPresenter(this);
+        presenter = new NearbyDrugstoreListPresenter(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_nearby_hospital_list, container, false);
+            rootView = inflater.inflate(R.layout.fragment_nearby_drugstore_list, container, false);
             initViews();
-            presenter.searchNearbyHospital();
+            presenter.searchNearbyDrugstores();
         }
         return rootView;
     }
 
     private void initViews() {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_nearby_hospital_list_recyclerview);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_nearby_drugstore_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new LineDividerDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_nearby_hospital_list_refresh_layout);
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_nearby_drugstore_list_refresh_layout);
         refreshLayout.setOnRefreshListener(this);
 
-        loadView = (LoadView) rootView.findViewById(R.id.fragment_nearby_hospital_list_load);
+        loadView = (LoadView) rootView.findViewById(R.id.fragment_nearby_drugstore_list_load);
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.searchNearbyHospital();
+                presenter.searchNearbyDrugstores();
             }
         });
     }
@@ -78,11 +79,11 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
 
     }
 
-    public void appendHospitalList(List<Hospital> data) {
+    public void appendHospitalList(List<Drugstore> data) {
         if (adapter == null) {
-            hospitals = new ArrayList<>();
-            hospitals.addAll(data);
-            adapter = new HospitalAdapter(getContext(), hospitals);
+            drugstores = new ArrayList<>();
+            drugstores.addAll(data);
+            adapter = new DrugstoreAdapter(getContext(), drugstores);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
             loadView.setStatus(LoadView.LoadStatus.Normal);
@@ -94,12 +95,12 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
             return;
         }
         if (isRefreshing) {
-            hospitals.clear();
+            drugstores.clear();
             refreshLayout.setRefreshing(false);
         } else {
             adapter.setLoadStatus(HospitalAdapter.LoadStatus.Normal);
         }
-        hospitals.addAll(data);
+        drugstores.addAll(data);
         adapter.notifyDataSetChanged();
         if (data.size() < HospitalListDataGetter.PAGEZISE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
@@ -138,6 +139,6 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
     @Override
     public void onLoadMore() {
         isRefreshing = false;
-        presenter.searchNearbyHospital();
+        presenter.searchNearbyDrugstores();
     }
 }

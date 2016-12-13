@@ -1,8 +1,8 @@
-package org.wdd.app.android.seedoctor.ui.hospital.presenter;
+package org.wdd.app.android.seedoctor.ui.search.presenter;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.hospital.activity.HospitalSearchActivity;
-import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalSearchGetter;
+import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
+import org.wdd.app.android.seedoctor.ui.search.data.SearchGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -12,14 +12,14 @@ import java.util.List;
  * Created by richard on 12/5/16.
  */
 
-public class HospitalSearchPresenter implements BasePresenter, HospitalSearchGetter.SearchCallback {
+public class SearchPresenter implements BasePresenter, SearchGetter.SearchCallback {
 
-    private HospitalSearchActivity view;
-    private HospitalSearchGetter getter;
+    private SearchActivity view;
+    private SearchGetter getter;
 
-    public HospitalSearchPresenter(HospitalSearchActivity view) {
+    public SearchPresenter(SearchActivity view) {
         this.view = view;
-        getter = new HospitalSearchGetter(view, this);
+        getter = new SearchGetter(view, this);
     }
 
     public void searchHospitalByName(String name, boolean append) {

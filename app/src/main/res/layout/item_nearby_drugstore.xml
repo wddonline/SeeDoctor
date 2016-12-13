@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_nearby_drugstore_swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/item_nearby_drugstore_drawer"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:clickable="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/item_nearby_drugstore_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/call_phone_enable"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_nearby_drugstore_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/common_list_item_bg"
+        android:clickable="true">
+
+        <org.wdd.app.android.seedoctor.views.HttpImageView
+            android:id="@+id/item_nearby_drugstore_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:id="@+id/item_nearby_drugstore_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorItemTitle"
+                android:textSize="@dimen/textSizeItemTitle" />
+
+            <TextView
+                android:id="@+id/item_nearby_drugstore_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/colorItemContent"
+                android:textSize="@dimen/textSizeItemContent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:src="@mipmap/blue_bubble" />
+
+                <TextView
+                    android:id="@+id/item_nearby_drugstore_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemExtra"
+                    android:textSize="@dimen/textSizeItemExtra" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</com.daimajia.swipe.SwipeLayout>

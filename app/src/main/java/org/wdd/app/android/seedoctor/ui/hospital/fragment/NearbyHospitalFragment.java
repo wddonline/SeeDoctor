@@ -12,10 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
-import org.wdd.app.android.seedoctor.ui.hospital.activity.HospitalSearchActivity;
+import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
 /**
@@ -37,8 +38,12 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_neary_hospital, container, false);
+            rootView = inflater.inflate(R.layout.fragment_neary_hospital, null);
             initViews();
+        }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
         }
         return rootView;
     }
@@ -62,7 +67,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HospitalSearchActivity.show(getContext());
+                SearchActivity.show(getContext());
             }
         });
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
@@ -88,7 +93,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_nearby_hospital_list, menu);
+        inflater.inflate(R.menu.menu_nearby_list, menu);
         switch (mode) {
             case Map:
                 menu.findItem(R.id.menu_item_list).setVisible(true);
