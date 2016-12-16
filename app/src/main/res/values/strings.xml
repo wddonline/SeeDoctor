@@ -6,14 +6,15 @@
     <string name="me">我</string>
 
     <!-- 通用 -->
+    <string name="locating">获取您当前的位置</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-    <string name="loading_more_data">正在加载更多数据...</string>
+    <string name="loading_more_data">加载更多数据...</string>
     <string name="load_more_data">加载更多</string>
     <string name="error_no_connection">网络已断开，请确认是否联网，然后点击重试</string>
     <string name="error_no_data">没有获取的数据，点击重试</string>
     <string name="error_request_failure">获取数据失败，点击重试</string>
-    <string name="loading">正在加载数据...</string>
+    <string name="loading">加载数据...</string>
     <string name="error_request">获取数据失败</string>
 
     <!-- 定位 -->
@@ -26,6 +27,7 @@
     <!-- 附近医院 -->
     <string name="nearby_hospital">附近医院</string>
     <string name="list_mode">列表</string>
+    <string name="get_location">定位</string>
     <string name="map_mode">地图</string>
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>

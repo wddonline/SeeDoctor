@@ -23,11 +23,7 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     }
 
     public void findLocation() {
-        LocationHelper.Location location = LocationHelper.getInstance(view).getLocation();
-        if (location == null)
-            finder.start(true);
-        else
-            view.jumpToNextActivity(false);
+        finder.start(true);
     }
 
     public void destory() {

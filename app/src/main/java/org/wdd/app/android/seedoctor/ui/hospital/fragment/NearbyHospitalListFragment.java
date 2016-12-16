@@ -140,4 +140,9 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
         isRefreshing = false;
         presenter.searchNearbyHospital();
     }
+
+    public void resetHospitalData() {
+        refreshLayout.setRefreshing(true);
+        onRefresh();
+    }
 }

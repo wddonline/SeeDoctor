@@ -3,15 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_item_get_location"
+        android:title="@string/get_location"
+        app:showAsAction="always"
+        android:icon="@mipmap/img_location"/>
+    <item
+        android:id="@+id/menu_item_map"
         android:title="@string/map_mode"
         app:showAsAction="always"
-        android:icon="@mipmap/img_list"
-        android:id="@+id/menu_item_map"/>
+        android:icon="@mipmap/img_list" />
     <item
+        android:id="@+id/menu_item_list"
         android:title="@string/list_mode"
         app:showAsAction="always"
         android:icon="@mipmap/img_map"
-        android:id="@+id/menu_item_list"
         android:visible="true"/>
 
 </menu>

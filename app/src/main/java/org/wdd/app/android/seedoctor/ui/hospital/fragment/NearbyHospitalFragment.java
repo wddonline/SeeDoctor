@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.hospital.fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,10 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
@@ -31,13 +32,17 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     private View rootView;
     private SDViewPager viewPager;
     private Toolbar toolbar;
+    private NearbyHospitalListFragment listFragment = new NearbyHospitalListFragment();
+    private NearbyHospitalMapFragment mapFragment = new NearbyHospitalMapFragment();
 
     private Mode mode = Mode.List;
+    private NearbyHospitalPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
+            presenter = new NearbyHospitalPresenter(this);
             rootView = inflater.inflate(R.layout.fragment_neary_hospital, null);
             initViews();
         }
@@ -80,6 +85,10 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
                     case R.id.menu_item_list:
                         viewPager.setCurrentItem(0);
                         break;
+                    case R.id.menu_item_get_location:
+                        presenter.getCurrentLocation();
+                        showLoadingDialog();
+                        break;
                 }
                 return true;
             }
@@ -106,6 +115,20 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
         }
     }
 
+    public void reloadHospitalData() {
+        hideLoadingDialog();
+        if(viewPager.getCurrentItem() == 0) {
+            listFragment.resetHospitalData();
+        } else {
+            mapFragment.resetHospitalData();
+        }
+    }
+
+    public void getCurrentLocationFailure(String error) {
+        hideLoadingDialog();
+        showMessageDialog(error);
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -116,13 +139,13 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
         switch (position) {
             case 0:
                 mode = Mode.List;
-                toolbar.getMenu().getItem(0).setVisible(true);
-                toolbar.getMenu().getItem(1).setVisible(false);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(true);
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(false);
                 break;
             case 1:
                 mode = Mode.Map;
-                toolbar.getMenu().getItem(0).setVisible(false);
-                toolbar.getMenu().getItem(1).setVisible(true);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(false);
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(true);
                 break;
         }
 
@@ -144,10 +167,10 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = new NearbyHospitalListFragment();
+                    fragment = listFragment;
                     break;
                 case 1:
-                    fragment = new NearbyHospitalMapFragment();
+                    fragment = mapFragment;
                     break;
             }
             return fragment;

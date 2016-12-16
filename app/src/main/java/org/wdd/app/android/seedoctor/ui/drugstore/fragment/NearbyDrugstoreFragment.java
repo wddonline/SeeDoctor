@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstorePresenter;
+import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
@@ -30,13 +32,17 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     private View rootView;
     private SDViewPager viewPager;
     private Toolbar toolbar;
+    private NearbyDrugstoreListFragment listFragment = new NearbyDrugstoreListFragment();
+    private NearbyDrugstoreMapFragment mapFragment = new NearbyDrugstoreMapFragment();
 
     private NearbyDrugstoreFragment.Mode mode = NearbyDrugstoreFragment.Mode.List;
+    private NearbyDrugstorePresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
+            presenter = new NearbyDrugstorePresenter(this);
             rootView = inflater.inflate(R.layout.fragment_nearby_drugstore, null);
             initViews();
         }
@@ -78,6 +84,10 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
                         break;
                     case R.id.menu_item_list:
                         viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.menu_item_get_location:
+                        presenter.getCurrentLocation();
+                        showLoadingDialog();
                         break;
                 }
                 return true;
@@ -132,6 +142,20 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
 
     }
 
+    public void reloadHospitalData() {
+        hideLoadingDialog();
+        if(viewPager.getCurrentItem() == 0) {
+            listFragment.resetHospitalData();
+        } else {
+            mapFragment.resetHospitalData();
+        }
+    }
+
+    public void getCurrentLocationFailure(String error) {
+        hideLoadingDialog();
+        showMessageDialog(error);
+    }
+
     private class DrugstoreAdapter extends FragmentPagerAdapter {
 
         public DrugstoreAdapter() {
@@ -143,10 +167,10 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = new NearbyDrugstoreListFragment();
+                    fragment = listFragment;
                     break;
                 case 1:
-                    fragment = new NearbyDrugstoreMapFragment();
+                    fragment = mapFragment;
                     break;
             }
             return fragment;

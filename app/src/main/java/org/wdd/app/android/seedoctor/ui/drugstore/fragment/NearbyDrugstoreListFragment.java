@@ -141,4 +141,9 @@ public class NearbyDrugstoreListFragment extends BaseFragment implements SwipeRe
         isRefreshing = false;
         presenter.searchNearbyDrugstores();
     }
+
+    public void resetHospitalData() {
+        refreshLayout.setRefreshing(true);
+        onRefresh();
+    }
 }

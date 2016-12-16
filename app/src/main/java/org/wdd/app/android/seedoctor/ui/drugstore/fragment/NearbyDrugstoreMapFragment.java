@@ -278,4 +278,8 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     public View getInfoContents(Marker marker) {
         return null;
     }
+
+    public void resetHospitalData() {
+        lazyLoad();
+    }
 }
