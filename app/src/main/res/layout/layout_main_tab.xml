@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:paddingTop="6dp"
-    android:paddingBottom="3dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="2.5dp">
 
     <ImageView
         android:id="@+id/layout_main_tab_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/icon_hospital" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hospital"
         android:textColor="@color/tab_text_color"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:includeFontPadding="true"/>
 
 </LinearLayout>

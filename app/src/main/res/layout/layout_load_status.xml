@@ -12,16 +12,16 @@
         android:layout_gravity="center">
 
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
             style="?indeterminateProgressStyle"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading"
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/textSizeItemTitle"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/textSizeItemContent"
             android:textColor="#c0c0c0"
             android:gravity="center"/>
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:textSize="@dimen/textSizeItemTitle"
+            android:textSize="@dimen/textSizeItemContent"
             android:textColor="#c0c0c0"
             android:gravity="center"
             android:text="@string/error_no_connection"/>

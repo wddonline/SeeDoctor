@@ -36,6 +36,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        presenter.exitApp();
         handler.removeCallbacks(this);
     }
 

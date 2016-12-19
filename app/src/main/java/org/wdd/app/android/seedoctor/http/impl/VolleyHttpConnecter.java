@@ -3,14 +3,16 @@ package org.wdd.app.android.seedoctor.http.impl;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpConnecter;
@@ -61,11 +63,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
         StringRequest request = new StringRequest(method, requestEntry.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String txt) {
-                Object data = JSON.parseObject(txt, clazz);
-                HttpResponseEntry responseEntry = new HttpResponseEntry();
-                responseEntry.setStatusCode(StatusCode.HTTP_OK);
-                responseEntry.setData(data);
-                callback.onRequestOk(responseEntry);
+                handleResponse(txt, clazz, callback);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -94,6 +92,36 @@ public class VolleyHttpConnecter implements HttpConnecter {
         HttpSession session = new VolleyHttpSession(request, requestEntry);
         sessionList.add(session);
         return session;
+    }
+
+    private void handleResponse(String txt, Class clazz, HttpConnectCallback callback) {
+        JSONObject json = JSONObject.parseObject(txt);
+        int status = json.getInteger("status");
+
+        if (status == 1) {//请求成功
+
+            Object segment = json.get("data");
+            Object data = null;
+            if (segment instanceof JSONArray) {//是json数组
+                JSONArray array = (JSONArray) segment;
+                List<Object> list = new ArrayList<>();
+                for (int i = 0; i < array.size(); i++) {
+                    list.add(JSONObject.parseObject(array.getString(i), clazz));
+                }
+                data = list;
+            } else {//是json对象
+                data = JSON.parseObject(txt, clazz);
+            }
+
+            HttpResponseEntry responseEntry = new HttpResponseEntry();
+            responseEntry.setStatusCode(StatusCode.HTTP_OK);
+            responseEntry.setData(data);
+            callback.onRequestOk(responseEntry);
+
+        } else {//请求失败
+            HttpError error = new HttpError(ErrorCode.SERVER_ERROR, "");
+            callback.onRequestFailure(error);
+        }
     }
 
     private String generateGetUrl(String url, Map<String, String> params) {

@@ -16,29 +16,40 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     private LocationFinder finder;
     private WelcomeActivity view;
 
+    private long startTime;
+
     public WelcomePresenter(WelcomeActivity view) {
         this.view = view;
-        finder = new LocationFinder(view);
-        finder.setLocationListener(this);
+        finder = LocationFinder.getInstance(view.getBaseContext());
+        finder.addLocationListener(this);
     }
 
     public void findLocation() {
-        finder.start(true);
+        startTime = System.currentTimeMillis();
+        finder.start();
     }
 
     public void destory() {
-        if (finder.isLocating()) {
-            finder.stop();
-        }
+        finder.removeLocationListener(this);
     }
 
     @Override
     public void onLocationGeted(AMapLocation location) {
-        view.jumpToNextActivity(true);
+        finder.removeLocationListener(this);
+        long endTime = System.currentTimeMillis();
+        boolean immediately = true;
+        if (endTime - startTime < 3000) {
+            immediately = false;
+        }
+        view.jumpToNextActivity(immediately);
     }
 
     @Override
     public void onLocationError(String error) {
         view.jumpToNextActivity(true);
+    }
+
+    public void exitApp() {
+        finder.stop();
     }
 }

@@ -26,22 +26,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.activity.MainActivity"></activity>
-        <activity android:name=".ui.routeline.activity.RouteLineActivity"></activity>
-        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity"></activity>
-        <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity"></activity>
-        <activity android:name=".ui.navigation.activity.NavigationActivity"></activity>
-        <activity android:name=".ui.search.activity.SearchActivity"></activity>
-        <activity android:name=".ui.routeline.activity.BusRouteDetailActivity"></activity>
+        <activity android:name=".ui.main.activity.MainActivity" />
+        <activity android:name=".ui.routeline.activity.RouteLineActivity" />
+        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity" />
+        <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity" />
+        <activity android:name=".ui.navigation.activity.NavigationActivity" />
+        <activity android:name=".ui.search.activity.SearchActivity" />
+        <activity android:name=".ui.routeline.activity.BusRouteDetailActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDiseaseActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DiseaseDetailActivity"/>
 
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService"></service>
+            android:process=":DownloadingService" />
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -52,6 +54,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f3efbad56fbc2f520121f28d33dc09c5" />
+
 
     </application>
 

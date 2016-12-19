@@ -20,15 +20,17 @@ public class NearbyDrugstorePresenter implements BasePresenter, LocationFinder.L
 
     public NearbyDrugstorePresenter(NearbyDrugstoreFragment view) {
         this.view = view;
-        getter = new DrugstoreGetter(view.getContext(), this);
+        getter = new DrugstoreGetter(view.getContext());
     }
 
     public void getCurrentLocation() {
+        getter.setLocationListener(this);
         getter.getCurrentLocation();
     }
 
     @Override
     public void onLocationGeted(AMapLocation location) {
+        getter.removeLocationListener(this);
         view.reloadHospitalData();
     }
 

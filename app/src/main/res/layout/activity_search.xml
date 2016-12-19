@@ -7,28 +7,27 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/actionBarSize"
         android:background="#dedede">
 
         <EditText
             android:id="@+id/activity_search_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:maxLines="1"
             android:paddingLeft="28dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:hint="@string/search_hint"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/textSizeItemTitle"
+            android:hint="@string/search_hint"
             android:background="@drawable/shape_white_input_bg"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_search"
+            android:src="@mipmap/icon_gray_search"
             android:layout_marginLeft="25dp"
             android:layout_gravity="center_vertical"/>
 

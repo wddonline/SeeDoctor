@@ -10,4 +10,5 @@ public class ErrorCode {
 
     public static int CONNECT_ERROR = -2;//请求失败
 
+    public static int SERVER_ERROR = -4;//服务器内部错误
 }

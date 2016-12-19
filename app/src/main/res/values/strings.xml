@@ -37,6 +37,7 @@
 
     <!-- 搜索 -->
     <string name="search_hint">输入医院或者药店的名称</string>
+    <string name="disease_search_hint">输入疾病的名称</string>
 
     <!-- 路线查询 -->
     <string name="no_routline_data">没有查询到合适的路线</string>
@@ -59,5 +60,11 @@
     <string name="caculate_route_line_error">计算路线失败，错误码[%1$d]</string>
     <string name="tts_init_error">语音初始化失败</string>
 
+    <!-- 百科 -->
+    <string name="wiki_title">医药百科</string>
+    <string name="wiki_disease">疾病</string>
+    <string name="wiki_drugs">药品</string>
+    <string name="emergency_treatment">急诊</string>
+    <string name="department">科室</string>
 
 </resources>

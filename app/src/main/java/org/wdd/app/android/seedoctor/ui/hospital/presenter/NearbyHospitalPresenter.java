@@ -24,20 +24,26 @@ public class NearbyHospitalPresenter implements BasePresenter, LocationFinder.Lo
 
     public NearbyHospitalPresenter(NearbyHospitalFragment view) {
         this.view = view;
-        getter = new HospitalGetter(view.getContext(), this);
+        getter = new HospitalGetter(view.getContext());
     }
 
     public void getCurrentLocation() {
+        getter.setLocationListener(this);
         getter.getCurrentLocation();
     }
 
     @Override
     public void onLocationGeted(AMapLocation location) {
+        getter.removeLocationListener(this);
         view.reloadHospitalData();
     }
 
     @Override
     public void onLocationError(String error) {
         view.getCurrentLocationFailure(error);
+    }
+
+    public void destory() {
+        getter.onDestory();
     }
 }

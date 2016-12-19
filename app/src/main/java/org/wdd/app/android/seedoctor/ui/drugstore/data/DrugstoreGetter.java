@@ -11,16 +11,22 @@ import org.wdd.app.android.seedoctor.location.LocationFinder;
 public class DrugstoreGetter {
 
     private Context context;
-    private LocationFinder.LocationListener listener;
+    private LocationFinder finder;
 
-    public DrugstoreGetter(Context context, LocationFinder.LocationListener listener) {
+    public DrugstoreGetter(Context context) {
         this.context = context;
-        this.listener = listener;
+        finder = LocationFinder.getInstance(context);
+    }
+
+    public void setLocationListener(LocationFinder.LocationListener listener) {
+        finder.addLocationListener(listener);
+    }
+
+    public void removeLocationListener(LocationFinder.LocationListener listener) {
+        finder.removeLocationListener(listener);
     }
 
     public void getCurrentLocation() {
-        LocationFinder finder = new LocationFinder(context);
-        finder.setLocationListener(listener);
-        finder.start(true);
+        finder.start();
     }
 }

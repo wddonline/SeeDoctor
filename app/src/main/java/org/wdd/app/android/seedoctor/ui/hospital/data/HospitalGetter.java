@@ -11,16 +11,27 @@ import org.wdd.app.android.seedoctor.location.LocationFinder;
 public class HospitalGetter {
 
     private Context context;
-    private LocationFinder.LocationListener listener;
+    private LocationFinder finder;
 
-    public HospitalGetter(Context context, LocationFinder.LocationListener listener) {
+    public HospitalGetter(Context context) {
         this.context = context;
-        this.listener = listener;
+        finder = LocationFinder.getInstance(context);
     }
 
     public void getCurrentLocation() {
-        LocationFinder finder = new LocationFinder(context);
-        finder.setLocationListener(listener);
-        finder.start(true);
+        finder.start();
+    }
+
+    public void setLocationListener(LocationFinder.LocationListener listener) {
+        finder.addLocationListener(listener);
+    }
+
+    public void removeLocationListener(LocationFinder.LocationListener listener) {
+        finder.removeLocationListener(listener);
+    }
+
+    public void onDestory() {
+        if (finder == null) return;
+        finder.stop();
     }
 }

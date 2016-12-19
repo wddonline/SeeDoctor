@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/fragment_nearby_hospital_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="@dimen/actionBarSize"
         android:background="@drawable/title_background">
 
         <TextView

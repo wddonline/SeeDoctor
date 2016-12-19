@@ -87,7 +87,6 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
                         break;
                     case R.id.menu_item_get_location:
                         presenter.getCurrentLocation();
-                        showLoadingDialog();
                         break;
                 }
                 return true;
@@ -98,6 +97,12 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     @Override
     protected void lazyLoad() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destory();
     }
 
     @Override
@@ -116,7 +121,6 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     }
 
     public void reloadHospitalData() {
-        hideLoadingDialog();
         if(viewPager.getCurrentItem() == 0) {
             listFragment.resetHospitalData();
         } else {
@@ -125,7 +129,6 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     }
 
     public void getCurrentLocationFailure(String error) {
-        hideLoadingDialog();
         showMessageDialog(error);
     }
 
@@ -139,13 +142,13 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
         switch (position) {
             case 0:
                 mode = Mode.List;
-                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(true);
-                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(false);
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(true);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(false);
                 break;
             case 1:
                 mode = Mode.Map;
-                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(false);
-                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(true);
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(false);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(true);
                 break;
         }
 

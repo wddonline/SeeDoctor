@@ -87,7 +87,6 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
                         break;
                     case R.id.menu_item_get_location:
                         presenter.getCurrentLocation();
-                        showLoadingDialog();
                         break;
                 }
                 return true;
@@ -124,14 +123,14 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     public void onPageSelected(int position) {
         switch (position) {
             case 0:
-                mode = NearbyDrugstoreFragment.Mode.List;
-                toolbar.getMenu().getItem(0).setVisible(true);
-                toolbar.getMenu().getItem(1).setVisible(false);
+                mode = Mode.List;
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(true);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(false);
                 break;
             case 1:
-                mode = NearbyDrugstoreFragment.Mode.Map;
-                toolbar.getMenu().getItem(0).setVisible(false);
-                toolbar.getMenu().getItem(1).setVisible(true);
+                mode = Mode.Map;
+                toolbar.getMenu().findItem(R.id.menu_item_map).setVisible(false);
+                toolbar.getMenu().findItem(R.id.menu_item_list).setVisible(true);
                 break;
         }
 
@@ -143,7 +142,6 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     }
 
     public void reloadHospitalData() {
-        hideLoadingDialog();
         if(viewPager.getCurrentItem() == 0) {
             listFragment.resetHospitalData();
         } else {
@@ -152,7 +150,6 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     }
 
     public void getCurrentLocationFailure(String error) {
-        hideLoadingDialog();
         showMessageDialog(error);
     }
 
