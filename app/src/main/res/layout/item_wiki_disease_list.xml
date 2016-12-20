@@ -4,45 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
     android:background="@drawable/common_list_item_bg"
     android:clickable="true">
 
     <org.wdd.app.android.seedoctor.views.HttpImageView
         android:id="@+id/item_wiki_disease_list_img"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginLeft="6dp">
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp">
 
         <TextView
             android:id="@+id/item_wiki_disease_list_name"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:textColor="@color/colorItemTitle"
             android:textSize="@dimen/textSizeItemTitle"
-            android:text="ddd"/>
+            android:text="ddd"
+            android:layout_marginTop="9dp"/>
 
         <TextView
             android:id="@+id/item_wiki_disease_list_desc"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
+            android:text="11111111111111111111111111111111111111111111"
             android:textColor="@color/colorItemContent"
             android:textSize="@dimen/textSizeItemContent"
-            android:text="111111111111111111111111fffffffffff111111111111111"/>
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="9dp"/>
+    </RelativeLayout>
 </LinearLayout>

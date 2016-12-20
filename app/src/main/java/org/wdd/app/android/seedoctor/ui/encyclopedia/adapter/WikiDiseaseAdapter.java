@@ -40,7 +40,7 @@ public class WikiDiseaseAdapter extends AbstractCommonAdapter<Disease> {
         viewHolder.clickView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiseaseDetailActivity.show(context, item);
+                DiseaseDetailActivity.show(context, item.diseaseid, item.diseasename);
             }
         });
     }

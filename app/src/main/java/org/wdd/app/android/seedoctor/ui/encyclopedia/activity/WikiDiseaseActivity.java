@@ -16,7 +16,9 @@ import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDiseaseAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDiseasePresenter;
+import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -72,7 +74,8 @@ public class WikiDiseaseActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.activity_wiki_disease_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
+        LineDividerDecoration decoration = new LineDividerDecoration(this, LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(decoration);
         loadView = (LoadView) findViewById(R.id.activity_wiki_disease_loadview);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -93,7 +96,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     }
 
     public void onDiseaseSearchClicked(View v) {
-
+        DiseaseSearchActivity.show(this, findViewById(R.id.activity_wiki_disease_search_layout));
     }
 
     @Override
@@ -134,7 +137,7 @@ public class WikiDiseaseActivity extends BaseActivity {
 
     public void showRequetErrorView(String errorMsg, boolean refresh) {
         if (adapter == null) {
-            loadView.setStatus(LoadView.LoadStatus.Request_Failure);
+            loadView.setStatus(LoadView.LoadStatus.Request_Failure, errorMsg);
         } else {
             AppToaster.show(errorMsg);
             if (refresh) {
@@ -150,6 +153,19 @@ public class WikiDiseaseActivity extends BaseActivity {
             loadView.setStatus(LoadView.LoadStatus.Network_Error);
         } else {
             AppToaster.show(R.string.error_no_connection);
+            if (refresh) {
+                refreshLayout.setRefreshing(false);
+            } else {
+                adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);
+            }
+        }
+    }
+
+    public void showNoDiseaseListResult(boolean refresh) {
+        if (adapter == null) {
+            loadView.setStatus(LoadView.LoadStatus.No_Data);
+        } else {
+            AppToaster.show(R.string.error_no_data);
             if (refresh) {
                 refreshLayout.setRefreshing(false);
             } else {

@@ -13,37 +13,48 @@
         android:layout_height="@dimen/actionBarSize"
         android:background="@drawable/title_background">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/activity_wiki_disease_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:paddingLeft="28dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:textSize="@dimen/textSizeItemTitle"
-                android:gravity="center_vertical"
-                android:textColorHint="#a1a1a1"
-                android:hint="@string/disease_search_hint"
-                android:background="@drawable/shape_gary_input_bg"
-                android:onClick="onDiseaseSearchClicked"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_gray_search"
-                android:layout_marginLeft="25dp"
-                android:layout_gravity="center_vertical"/>
-
-        </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wiki_disease"
+            android:layout_gravity="center"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"/>
 
     </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/activity_wiki_disease_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/activity_wiki_disease_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:paddingLeft="28dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="@dimen/textSizeItemTitle"
+            android:gravity="center_vertical"
+            android:textColorHint="#a1a1a1"
+            android:hint="@string/disease_search_hint"
+            android:background="@drawable/shape_gary_input_bg"
+            android:onClick="onDiseaseSearchClicked"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_gray_search"
+            android:layout_marginLeft="18dp"
+            android:layout_gravity="center_vertical"/>
+
+    </FrameLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/activity_wiki_disease_refresh_layout"

@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -61,7 +62,7 @@ public class LoadView extends FrameLayout {
         return status;
     }
 
-    public void setStatus(LoadStatus status) {
+    public void setStatus(LoadStatus status, String... msg) {
         this.status = status;
         switch (status) {
             case Loading:
@@ -90,7 +91,15 @@ public class LoadView extends FrameLayout {
                 loadView.setVisibility(GONE);
                 clickView.setVisibility(VISIBLE);
                 hintImageView.setImageResource(R.mipmap.error_request_failure);
-                hintTextView.setText(R.string.error_request_failure);
+                if (msg.length > 0) {
+                    if (TextUtils.isEmpty(msg[0])) {
+                        hintTextView.setText(R.string.error_request_failure);
+                    } else {
+                        hintTextView.setText(msg[0]);
+                    }
+                } else {
+                    hintTextView.setText(R.string.error_request_failure);
+                }
                 break;
             default:
                 break;

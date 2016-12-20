@@ -16,8 +16,7 @@ import android.view.ViewGroup;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstorePresenter;
-import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalPresenter;
-import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
+import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
 /**
@@ -72,7 +71,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchActivity.show(getContext());
+                NearbySearchActivity.show(getContext());
             }
         });
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {

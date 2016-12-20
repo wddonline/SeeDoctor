@@ -20,7 +20,7 @@ import java.util.List;
  * Created by richard on 12/5/16.
  */
 
-public class SearchGetter implements PoiSearch.OnPoiSearchListener {
+public class NearbySearchGetter implements PoiSearch.OnPoiSearchListener {
 
     private final String tag = "DrugstoreSearchGetter";
     public static final int PAGEZISE = 50;
@@ -31,7 +31,7 @@ public class SearchGetter implements PoiSearch.OnPoiSearchListener {
     private PoiSearch.Query query;
     private SearchCallback callback;
 
-    public SearchGetter(Context context, SearchCallback callback) {
+    public NearbySearchGetter(Context context, SearchCallback callback) {
         this.context = context;
         this.callback = callback;
     }
@@ -44,6 +44,7 @@ public class SearchGetter implements PoiSearch.OnPoiSearchListener {
         if (!append) {
             pageNum = 0;
         }
+
         query = new PoiSearch.Query(name, "医疗保健服务", LocationHelper.getInstance(context).getCity_code());
         query.setPageSize(PAGEZISE);
         query.setPageNum(pageNum);

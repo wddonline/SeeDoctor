@@ -4,9 +4,12 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +32,9 @@ public class WikiFragment extends Fragment {
         Disease,
         Drugs,
         EmergencyTreatment,
-        Department
+        Department,
+        Doctor,
+        Hospital
     }
 
     private View rootView;
@@ -50,6 +55,7 @@ public class WikiFragment extends Fragment {
 
     private void initTitle() {
 
+
     }
 
     private void initView() {
@@ -61,8 +67,10 @@ public class WikiFragment extends Fragment {
         List<WikiItem> data = new ArrayList<>();
         data.add(new WikiItem(WikiType.Disease, R.mipmap.ic_launcher, R.string.wiki_disease));
         data.add(new WikiItem(WikiType.Drugs, R.mipmap.ic_launcher, R.string.wiki_drugs));
-        data.add(new WikiItem(WikiType.EmergencyTreatment, R.mipmap.ic_launcher, R.string.emergency_treatment));
-        data.add(new WikiItem(WikiType.Department, R.mipmap.ic_launcher, R.string.department));
+        data.add(new WikiItem(WikiType.EmergencyTreatment, R.mipmap.ic_launcher, R.string.wiki_emergency_treatment));
+        data.add(new WikiItem(WikiType.Department, R.mipmap.ic_launcher, R.string.wiki_department));
+        data.add(new WikiItem(WikiType.Doctor, R.mipmap.ic_launcher, R.string.wiki_doctor));
+        data.add(new WikiItem(WikiType.Hospital, R.mipmap.ic_launcher, R.string.hospital));
         WikiAdapter adapter = new WikiAdapter(getContext(), data);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         recyclerView.setAdapter(adapter);

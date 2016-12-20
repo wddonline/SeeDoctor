@@ -1,63 +1,67 @@
 package org.wdd.app.android.seedoctor.ui.search.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalSearchAdapter;
-import org.wdd.app.android.seedoctor.ui.search.data.SearchGetter;
-import org.wdd.app.android.seedoctor.ui.search.presenter.SearchPresenter;
-import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDiseaseAdapter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.ui.search.data.DiseaseSearchGetter;
+import org.wdd.app.android.seedoctor.ui.search.data.NearbySearchGetter;
+import org.wdd.app.android.seedoctor.ui.search.presenter.DiseaseSearchPresenter;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class SearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
+public class DiseaseSearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, SearchActivity.class);
+    private static final String SHARED_NAME = "search_view";
+
+    public static void show(Activity activity, View sharedView) {
+        Intent intent = new Intent(activity, DiseaseSearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        ViewCompat.setTransitionName(sharedView, SHARED_NAME);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, SHARED_NAME).toBundle();
+        ActivityCompat.startActivity(activity, intent, options);
     }
 
     private RecyclerView recyclerView;
     private EditText inputView;
 
-    private SearchPresenter presenter;
-    private HospitalSearchAdapter adapter;
-    private List<Hospital> hospitals;
-
-    private boolean isAppend = false;
+    private DiseaseSearchPresenter presenter;
+    private WikiDiseaseAdapter adapter;
+    private List<Disease> diseases;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_disease_search);
         initData();
         initViews();
     }
 
     private void initData() {
-        presenter = new SearchPresenter(this);
+        presenter = new DiseaseSearchPresenter(this);
     }
 
     private void initViews() {
-        inputView = (EditText) findViewById(R.id.activity_search_input);
+        ViewCompat.setTransitionName(findViewById(R.id.activity_disease_search_input_layout), SHARED_NAME);
+        inputView = (EditText) findViewById(R.id.activity_disease_search_input);
         inputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,12 +73,11 @@ public class SearchActivity extends BaseActivity implements AbstractCommonAdapte
                 String name = s.toString();
                 if (TextUtils.isEmpty(name)) {
                     if (adapter == null) return;
-                    hospitals.clear();
+                    diseases.clear();
                     adapter.notifyDataSetChanged();
                     return;
                 }
-                isAppend = false;
-                presenter.searchHospitalByName(name, isAppend);
+                presenter.searchDiseaseByName(name, true);
             }
 
             @Override
@@ -83,39 +86,39 @@ public class SearchActivity extends BaseActivity implements AbstractCommonAdapte
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.activity_search_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_disease_search_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setHasFixedSize(true);
     }
 
-    public void showHospitalDataView(List<Hospital> data) {
+    public void showDiseaseDataView(List<Disease> data, boolean refresh) {
         if (adapter == null) {
-            hospitals = new ArrayList<>();
-            hospitals.addAll(data);
-            adapter = new HospitalSearchAdapter(getBaseContext(), hospitals);
+            diseases = new ArrayList<>();
+            diseases.addAll(data);
+            adapter = new WikiDiseaseAdapter(getBaseContext(), diseases);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
-            if (data.size() < SearchGetter.PAGEZISE) {
+            if (data.size() < NearbySearchGetter.PAGEZISE) {
                 adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
             }
         }
-        if (isAppend) {
-            hospitals.addAll(data);
+        if (refresh) {
+            diseases.clear();
+            diseases.addAll(data);
         } else {
-            hospitals.clear();
-            hospitals.addAll(data);
+            diseases.addAll(data);
         }
         adapter.notifyDataSetChanged();
-        if (data.size() < SearchGetter.PAGEZISE) {
+        if (data.size() < DiseaseSearchGetter.PAGEZISE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         } else {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);
         }
     }
 
-    public void handleRequestErrorViews(LoadView.LoadStatus status) {
+    public void handleRequestErrorViews(LoadView.LoadStatus status, boolean refresh) {
         switch (status) {
             case Network_Error:
                 break;
@@ -128,8 +131,7 @@ public class SearchActivity extends BaseActivity implements AbstractCommonAdapte
 
     @Override
     public void onLoadMore() {
-        isAppend = true;
         String name = inputView.getText().toString();
-        presenter.searchHospitalByName(name, isAppend);
+        presenter.searchDiseaseByName(name, false);
     }
 }

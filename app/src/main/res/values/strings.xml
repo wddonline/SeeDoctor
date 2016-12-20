@@ -36,7 +36,7 @@
     <string name="nearby_drugstore">附近药店</string>
 
     <!-- 搜索 -->
-    <string name="search_hint">输入医院或者药店的名称</string>
+    <string name="nearby_search_hint">输入医院或者药店的名称</string>
     <string name="disease_search_hint">输入疾病的名称</string>
 
     <!-- 路线查询 -->
@@ -64,7 +64,17 @@
     <string name="wiki_title">医药百科</string>
     <string name="wiki_disease">疾病</string>
     <string name="wiki_drugs">药品</string>
-    <string name="emergency_treatment">急诊</string>
-    <string name="department">科室</string>
+    <string name="wiki_emergency_treatment">急诊</string>
+    <string name="wiki_department">科室</string>
+    <string name="wiki_doctor">医生</string>
 
+    <!-- 疾病详情 -->
+    <string name="disease_brief_introduction">简介</string>
+    <string name="disease_pathogeny">发病原因</string>
+    <string name="disease_symptom">伴随症状</string>
+    <string name="disease_check_method">检查方法</string>
+    <string name="disease_distinguish_method">鉴别方法</string>
+    <string name="disease_complication">并发症</string>
+    <string name="disease_prevention">如何预防？</string>
+    <string name="disease_treatment_method">治疗方法</string>
 </resources>

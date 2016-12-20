@@ -110,7 +110,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
                 }
                 data = list;
             } else {//是json对象
-                data = JSON.parseObject(txt, clazz);
+                data = JSON.parseObject(segment.toString(), clazz);
             }
 
             HttpResponseEntry responseEntry = new HttpResponseEntry();
@@ -119,7 +119,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
             callback.onRequestOk(responseEntry);
 
         } else {//请求失败
-            HttpError error = new HttpError(ErrorCode.SERVER_ERROR, "");
+            HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("msg"));
             callback.onRequestFailure(error);
         }
     }

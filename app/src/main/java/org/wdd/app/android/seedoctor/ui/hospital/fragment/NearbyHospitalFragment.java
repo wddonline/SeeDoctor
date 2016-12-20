@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.hospital.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,7 +16,7 @@ import android.view.ViewGroup;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalPresenter;
-import org.wdd.app.android.seedoctor.ui.search.activity.SearchActivity;
+import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
 /**
@@ -72,7 +71,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchActivity.show(getContext());
+                NearbySearchActivity.show(getContext());
             }
         });
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {

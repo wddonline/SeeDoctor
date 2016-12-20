@@ -18,7 +18,7 @@ public class HttpRequestEntry {
 
     private Map<String, String> headers;
     private Map<String, String> params;
-    private Method method = Method.GET;
+    private Method method = Method.POST;
     private String url;
     private String tag;
 
@@ -28,7 +28,7 @@ public class HttpRequestEntry {
         headers = new HashMap<>();
         params = new HashMap<>();
 
-        headers.put("Content-Type", "application/json;charset=utf-8");
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
     }
 
     public void addRequestHeader(String headerKey, String headerVal) {

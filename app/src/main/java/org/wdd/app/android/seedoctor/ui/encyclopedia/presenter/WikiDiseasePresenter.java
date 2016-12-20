@@ -32,6 +32,10 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
     @Override
     public void onRequestOk(List<Disease> data, boolean refresh) {
         session = null;
+        if (data.size() == 0) {
+            view.showNoDiseaseListResult(refresh);
+            return;
+        }
         view.showDiseaseListData(data, refresh);
     }
 
