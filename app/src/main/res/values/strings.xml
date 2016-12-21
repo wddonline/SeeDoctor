@@ -38,6 +38,7 @@
     <!-- 搜索 -->
     <string name="nearby_search_hint">输入医院或者药店的名称</string>
     <string name="disease_search_hint">输入疾病的名称</string>
+    <string name="drug_search_hint">输入药品的名称</string>
 
     <!-- 路线查询 -->
     <string name="no_routline_data">没有查询到合适的路线</string>
@@ -77,4 +78,9 @@
     <string name="disease_complication">并发症</string>
     <string name="disease_prevention">如何预防？</string>
     <string name="disease_treatment_method">治疗方法</string>
+
+    <!-- 药品列表 -->
+    <string name="chinese_medicine">中药</string>
+    <string name="western_medicine">西药</string>
+    <string name="health_products">保健品</string>
 </resources>

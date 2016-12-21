@@ -9,4 +9,5 @@
     <dimen name="textSizeItemExtra">12sp</dimen>
 
     <dimen name="textSizeToolbarTitle">18sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

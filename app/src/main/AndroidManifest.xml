@@ -55,7 +55,10 @@
             android:name="com.amap.api.v2.apikey"
             android:value="f3efbad56fbc2f520121f28d33dc09c5" />
 
-        <activity android:name=".ui.search.activity.DiseaseSearchActivity"></activity>
+        <activity android:name=".ui.search.activity.DiseaseSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity" />
+        <activity android:name=".ui.search.activity.DrugSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DrugDetailActivity"></activity>
     </application>
 
 </manifest>

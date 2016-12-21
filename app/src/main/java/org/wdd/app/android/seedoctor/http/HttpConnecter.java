@@ -8,6 +8,8 @@ public interface HttpConnecter {
 
     HttpSession sendHttpRequest(HttpRequestEntry entry, Class clazz, HttpConnectCallback callback);
 
+    HttpSession sendHttpRequest(HttpRequestEntry entry, HttpConnectCallback callback);
+
     void stopAllSession();
 
     void stopSessionByTag(String tag);

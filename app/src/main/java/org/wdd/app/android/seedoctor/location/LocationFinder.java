@@ -39,6 +39,7 @@ public class LocationFinder {
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
+    private LocationHelper locationHelper;
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
     private List<LocationListener> locationListeners;
@@ -52,7 +53,33 @@ public class LocationFinder {
         public void onLocationChanged(AMapLocation amapLocation) {
             if (amapLocation != null) {
                 if (amapLocation.getErrorCode() == 0) {
-                    handleLocationData(amapLocation);
+                    if (amapLocation == null) return;
+                    LocationHelper.Location location = new LocationHelper.Location();
+//                  amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                    location.latitude = (float) amapLocation.getLatitude();//获取纬度
+                    location.longitude = (float) amapLocation.getLongitude();//获取经度
+                    location.accuracy = amapLocation.getAccuracy();//获取精度信息
+                    location.address = amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                    location.country = amapLocation.getCountry();//国家信息
+                    location.province = amapLocation.getProvince();//省信息
+                    location.city = amapLocation.getCity();//城市信息
+                    location.district = amapLocation.getDistrict();//城区信息
+                    location.street = amapLocation.getStreet();//街道信息
+                    location.streetNum = amapLocation.getStreetNum();//街道门牌号信息
+                    location.cityCode = amapLocation.getCityCode();//城市编码
+                    location.adCode = amapLocation.getAdCode();//地区编码
+                    location.aoiName = amapLocation.getAoiName();//获取当前定位点的AOI信息
+                    locationHelper.saveLocationData(location);
+
+//                  mLocationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
+//                  mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
+
+                    if (locationListeners.size() > 0) {
+                        LatLong latLong = new LatLong(location.latitude, location.longitude);
+                        for (LocationListener l : locationListeners) {
+                            l.onLocationGeted(latLong);
+                        }
+                    }
                 }else {
                     if (count > MAX_TRY_NUM) {
                         mLocationClient.stopLocation();
@@ -76,6 +103,7 @@ public class LocationFinder {
 
     private LocationFinder(Context context) {
         this.context = context;
+        locationHelper = LocationHelper.getInstance(context);
         locationListeners = Collections.synchronizedList(new ArrayList<LocationListener>());
         //初始化定位
         mLocationClient = new AMapLocationClient(context);
@@ -102,38 +130,14 @@ public class LocationFinder {
         mLocationClient.setLocationOption(mLocationOption);
     }
 
-    private void handleLocationData(AMapLocation amapLocation) {
-        if (amapLocation == null) return;
-        LocationHelper.Location location = new LocationHelper.Location();
-//                    amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-        location.latitude = (float) amapLocation.getLatitude();//获取纬度
-        location.longitude = (float) amapLocation.getLongitude();//获取经度
-        location.accuracy = amapLocation.getAccuracy();//获取精度信息
-        location.address = amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-        location.country = amapLocation.getCountry();//国家信息
-        location.province = amapLocation.getProvince();//省信息
-        location.city = amapLocation.getCity();//城市信息
-        location.district = amapLocation.getDistrict();//城区信息
-        location.street = amapLocation.getStreet();//街道信息
-        location.streetNum = amapLocation.getStreetNum();//街道门牌号信息
-        location.cityCode = amapLocation.getCityCode();//城市编码
-        location.adCode = amapLocation.getAdCode();//地区编码
-        location.aoiName = amapLocation.getAoiName();//获取当前定位点的AOI信息
-        LocationHelper.getInstance(context).saveLocationData(location);
-
-//                    mLocationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
-//                    mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
-
-        if (locationListeners.size() > 0) {
-            for (LocationListener l : locationListeners) {
-                l.onLocationGeted(amapLocation);
-            }
-        }
-    }
-
     public void start() {
         if (locating) {
-            handleLocationData(mLocationClient.getLastKnownLocation());
+            if (locationListeners.size() > 0) {
+                LatLong latLong = new LatLong((float)locationHelper.getLatitude(), (float)locationHelper.getLongitude());
+                for (LocationListener l : locationListeners) {
+                    l.onLocationGeted(latLong);
+                }
+            }
             return;
         }
         locating = true;
@@ -166,7 +170,7 @@ public class LocationFinder {
 
     public interface LocationListener {
 
-        void onLocationGeted(AMapLocation location);
+        void onLocationGeted(LatLong latLong);
         void onLocationError(String error);
 
     }

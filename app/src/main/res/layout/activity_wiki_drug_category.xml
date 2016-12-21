@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_wiki_drug_category_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/wiki_drugs"
+            android:textColor="@color/colorToolbarTitle"
+            android:textSize="@dimen/textSizeToolbarTitle"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/activity_wiki_drug_category_loadview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/activity_wiki_drug_category_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_wiki_drug_category_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+</LinearLayout>

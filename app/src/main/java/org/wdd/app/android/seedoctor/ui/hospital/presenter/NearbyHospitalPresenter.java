@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 
 import com.amap.api.location.AMapLocation;
 
+import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.location.LocationFinder;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalGetter;
@@ -33,7 +34,7 @@ public class NearbyHospitalPresenter implements BasePresenter, LocationFinder.Lo
     }
 
     @Override
-    public void onLocationGeted(AMapLocation location) {
+    public void onLocationGeted(LatLong latLong) {
         getter.removeLocationListener(this);
         view.reloadHospitalData();
     }

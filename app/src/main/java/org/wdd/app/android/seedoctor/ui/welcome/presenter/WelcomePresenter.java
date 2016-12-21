@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.welcome.presenter;
 
 import com.amap.api.location.AMapLocation;
 
+import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.location.LocationFinder;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
@@ -34,7 +35,7 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     }
 
     @Override
-    public void onLocationGeted(AMapLocation location) {
+    public void onLocationGeted(LatLong location) {
         finder.removeLocationListener(this);
         long endTime = System.currentTimeMillis();
         boolean immediately = true;

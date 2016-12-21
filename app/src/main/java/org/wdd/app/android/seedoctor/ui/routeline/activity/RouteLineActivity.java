@@ -319,6 +319,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         status = Status.BUS_MODE;
         selectedBusPath = path;
         setStatusViews();
+        aMap.clear();
         if (busRouteResult == null) return;
         if (busRouteOverlay != null) busRouteOverlay.removeFromMap();
         busRouteOverlay = new BusRouteOverlay(this, mapView.getMap(), path, busRouteResult.getStartPos(),

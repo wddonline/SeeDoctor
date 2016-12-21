@@ -43,6 +43,14 @@ public class HttpManager {
         return connecter.sendHttpRequest(entry, clazz, callback);
     }
 
+    public HttpSession sendHttpRequest(HttpRequestEntry entry, HttpConnectCallback callback) {
+        if (connecter == null) {
+            Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
+            return null;
+        }
+        return connecter.sendHttpRequest(entry, callback);
+    }
+
     public void stopAllSession() {
         if (connecter == null) {
             Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");

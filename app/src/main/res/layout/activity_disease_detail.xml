@@ -31,8 +31,10 @@
         android:visibility="gone"/>
 
     <ScrollView
+        android:id="@+id/activity_disease_detail_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,6 +42,7 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_brief_intro_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -48,6 +51,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_brief_intro_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -57,27 +61,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_brief_introduction"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_brief_intro_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_brief_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_pathogeny_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -86,6 +94,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_pathogeny_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -95,27 +104,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_pathogeny"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_pathogeny_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_pathogeny"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_symptom_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -124,6 +137,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_symptom_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -133,27 +147,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_symptom"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_symptom_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_symptom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_check_method_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -162,6 +180,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_check_method_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -171,27 +190,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_check_method"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_check_method_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_check_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_distinguish_method_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -200,6 +223,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_distinguish_method_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -209,27 +233,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_distinguish_method"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_distinguish_method_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_distinguish_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_complication_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -238,6 +266,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_complication_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -247,27 +276,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_complication"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_complication_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_complication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_prevention_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -276,6 +309,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_prevention_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -285,27 +319,31 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_prevention"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_prevention_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_prevention"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
             <FrameLayout
+                android:id="@+id/activity_disease_detail_treatment_method_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_list_item_bg"
@@ -314,6 +352,7 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    android:id="@+id/activity_disease_detail_treatment_method_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -323,25 +362,28 @@
                     android:textColor="@color/disease_detail_text_color"
                     android:text="@string/disease_treatment_method"/>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/activity_disease_detail_treatment_method_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_right"
+                    android:src="@mipmap/arrow_right"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_gravity="right|center_vertical"/>
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/activity_disease_detail_treatment_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textSizeItemContent"
+                android:textSize="15sp"
                 android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="ddddddddddddddd"/>
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -11,7 +11,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
@@ -94,6 +93,52 @@ public class VolleyHttpConnecter implements HttpConnecter {
         return session;
     }
 
+    @Override
+    public HttpSession sendHttpRequest(final HttpRequestEntry requestEntry, final HttpConnectCallback callback) {
+        if (!HttpUtils.isNetworkEnabled(context)) {
+            callback.onNetworkError();
+            return null;
+        }
+        int method = Request.Method.POST;
+        if (requestEntry.getMethod() == HttpRequestEntry.Method.GET) {
+            method = Request.Method.GET;
+            requestEntry.setUrl(generateGetUrl(requestEntry.getUrl(), requestEntry.getRequestParams()));
+        }
+        StringRequest request = new StringRequest(method, requestEntry.getUrl(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String txt) {
+                handleResponse(txt, callback);
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError err) {
+                HttpError error;
+                if (err.networkResponse == null)
+                    error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());
+                else
+                    error= new HttpError(err.networkResponse.statusCode, err.getMessage());
+                callback.onRequestFailure(error);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return requestEntry.getRequestParams();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return requestEntry.getRequestHeaders();
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(requestEntry.getTimeOut(),
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(request);
+        HttpSession session = new VolleyHttpSession(request, requestEntry);
+        sessionList.add(session);
+        return session;
+    }
+
     private void handleResponse(String txt, Class clazz, HttpConnectCallback callback) {
         JSONObject json = JSONObject.parseObject(txt);
         int status = json.getInteger("status");
@@ -101,7 +146,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
         if (status == 1) {//请求成功
 
             Object segment = json.get("data");
-            Object data = null;
+            Object data;
             if (segment instanceof JSONArray) {//是json数组
                 JSONArray array = (JSONArray) segment;
                 List<Object> list = new ArrayList<>();
@@ -113,6 +158,23 @@ public class VolleyHttpConnecter implements HttpConnecter {
                 data = JSON.parseObject(segment.toString(), clazz);
             }
 
+            HttpResponseEntry responseEntry = new HttpResponseEntry();
+            responseEntry.setStatusCode(StatusCode.HTTP_OK);
+            responseEntry.setData(data);
+            callback.onRequestOk(responseEntry);
+
+        } else {//请求失败
+            HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("msg"));
+            callback.onRequestFailure(error);
+        }
+    }
+
+    private void handleResponse(String txt, HttpConnectCallback callback) {
+        JSONObject json = JSONObject.parseObject(txt);
+        int status = json.getInteger("status");
+
+        if (status == 1) {//请求成功
+            String data = json.getString("data");
             HttpResponseEntry responseEntry = new HttpResponseEntry();
             responseEntry.setStatusCode(StatusCode.HTTP_OK);
             responseEntry.setData(data);

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,7 @@ public class WikiFragment extends Fragment {
                             WikiDiseaseActivity.show(getContext());
                             break;
                         case Drugs:
+                            WikiDrugCategoryActivity.show(getContext());
                             break;
                         case EmergencyTreatment:
                             break;
