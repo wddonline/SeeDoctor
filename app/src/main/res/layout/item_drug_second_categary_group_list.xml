@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_drug_second_categary_group_list_click"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_list_item_bg"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/item_drug_second_categary_group_list_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/group_arrow_right"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/item_drug_second_categary_group_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorItemTitle"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="25dp"
+        android:textSize="@dimen/textSizeItemTitle"/>
+
+    <TextView
+        android:id="@+id/item_drug_second_categary_group_list_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorItemExtra"
+        android:textSize="@dimen/textSizeItemExtra"/>
+
+</RelativeLayout>

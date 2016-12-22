@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_drug_second_categary_list_click"
+    android:id="@+id/item_drug_second_categary_child_list_click"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/common_list_item_bg"
@@ -11,18 +11,10 @@
     android:clickable="true">
 
     <TextView
-        android:id="@+id/item_drug_second_categary_list_name"
+        android:id="@+id/item_drug_second_categary_child_list_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
         android:textColor="@color/colorItemTitle"
         android:textSize="@dimen/textSizeItemTitle"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/arrow_right"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
 
 </RelativeLayout>

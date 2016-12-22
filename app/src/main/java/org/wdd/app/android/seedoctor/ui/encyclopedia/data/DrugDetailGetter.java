@@ -9,34 +9,34 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 /**
  * Created by richard on 12/20/16.
  */
 
-public class DiseaseDetailGetter {
+public class DrugDetailGetter {
 
     private Context context;
-    private DiseaseDetailCallback callback;
+    private DrugDetailCallback callback;
     private HttpManager manager;
 
-    public DiseaseDetailGetter(Context context, DiseaseDetailCallback callback) {
+    public DrugDetailGetter(Context context, DrugDetailCallback callback) {
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDiseaseDetailData(int diseaseId) {
+    public HttpSession requestDrugDetailData(int drugId) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
-        requestEntry.setUrl(ServiceApi.WIKI_DISEASE_DETAIL);
-        requestEntry.addRequestParam("diseaseid", diseaseId + "");
-        HttpSession session = manager.sendHttpRequest(requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
+        requestEntry.setUrl(ServiceApi.WIKI_DRUG_DETAIL);
+        requestEntry.addRequestParam("drugid", drugId + "");
+        HttpSession session = manager.sendHttpRequest(requestEntry, DrugDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {
-                    DiseaseDetail diseaseDetail = (DiseaseDetail) res.getData();
+                    DrugDetail diseaseDetail = (DrugDetail) res.getData();
                     callback.onRequestOk(diseaseDetail);
                 } else {
                     HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
@@ -57,9 +57,9 @@ public class DiseaseDetailGetter {
         return session;
     }
 
-    public interface DiseaseDetailCallback {
+    public interface DrugDetailCallback {
 
-        void onRequestOk(DiseaseDetail data);
+        void onRequestOk(DrugDetail data);
         void onRequestFailure(HttpError error);
         void onNetworkError();
 

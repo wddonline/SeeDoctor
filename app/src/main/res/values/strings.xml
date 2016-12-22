@@ -83,4 +83,17 @@
     <string name="chinese_medicine">中药</string>
     <string name="western_medicine">西药</string>
     <string name="health_products">保健品</string>
+
+    <!-- 药品详情 -->
+    <string name="drug_basic_info">基本信息</string>
+    <string name="drug_usage">用法用量</string>
+    <string name="drug_adr">不良反应</string>
+    <string name="drug_contraindication">禁忌</string>
+    <string name="drug_note">注意事项</string>
+    <string name="drug_pregnantwomentaboo">孕妇及哺乳期妇女用药</string>
+    <string name="drug_childrentaboo">儿童用药</string>
+    <string name="drug_elderlytaboo">老人用药</string>
+    <string name="drug_interaction">药物相互作用</string>
+    <string name="drug_drugen">其他信息</string>
+    <string name="drug_detail_basic_info_value">【药品通用名称】%1$s\n【主要成分】%2$s\n【形状及剂型】%3$s\n【适应症】%4$s\n【规格】%5$s\n【生厂商】%6$s\n【存放】%7$s\n【保质期】%8$s\n【国药准字】%9$s</string>
 </resources>

@@ -1,13 +1,478 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_drug_detail"
+    android:id="@+id/activity_disease_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity">
 
-</RelativeLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_drug_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@drawable/title_background">
+
+        <TextView
+            android:id="@+id/activity_drug_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wiki_disease"
+            android:layout_gravity="center"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/activity_drug_detail_loadview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
+
+    <ScrollView
+        android:id="@+id/activity_drug_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_basic_info_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_basic_info_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_basic_info"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_basic_info_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_basic_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_usage_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_usage_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_usage"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_usage_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_usage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_adr_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_adr_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_adr"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_adr_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_adr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_contraindication_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_contraindication_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_contraindication"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_contraindication_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_contraindication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_note_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_note_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_note"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_note_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_pregnantwomentaboo_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_pregnantwomentaboo_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_pregnantwomentaboo"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_pregnantwomentaboo_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_pregnantwomentaboo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_childrentaboo_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_childrentaboo_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_childrentaboo"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_childrentaboo_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_childrentaboo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_elderlytaboo_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_elderlytaboo_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_elderlytaboo"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_elderlytaboo_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_elderlytaboo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_interaction_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_interaction_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_interaction"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_interaction_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_interaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_detail_drugen_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_list_item_bg"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/activity_drug_detail_drugen_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:gravity="left|center_vertical"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:textColor="@color/disease_detail_text_color"
+                    android:text="@string/drug_drugen"/>
+
+                <ImageView
+                    android:id="@+id/activity_drug_detail_drugen_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="right|center_vertical"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/activity_drug_detail_drugen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#979797"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

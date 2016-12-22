@@ -1,10 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.model;
 
+import java.io.Serializable;
+
 /**
  * Created by richard on 12/21/16.
  */
 
-public class DrugCategory {
+public class DrugCategory implements Serializable {
 
     public int catid;
     public String catname;

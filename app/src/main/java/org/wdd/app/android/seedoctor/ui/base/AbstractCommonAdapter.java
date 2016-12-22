@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
 
@@ -102,13 +103,13 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
     private class MoreDataVH extends RecyclerView.ViewHolder {
 
         private View outerView;
-        Button loadBtn;
+        TextView loadBtn;
         View loadingLayout;
 
         public MoreDataVH(View itemView) {
             super(itemView);
             outerView = itemView.findViewById(R.id.item_common_load_more_data_outer);
-            loadBtn = (Button) itemView.findViewById(R.id.item_common_load_more_data_btn);
+            loadBtn = (TextView) itemView.findViewById(R.id.item_common_load_more_data_btn);
             loadingLayout = itemView.findViewById(R.id.item_common_load_more_data_loading);
             loadBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

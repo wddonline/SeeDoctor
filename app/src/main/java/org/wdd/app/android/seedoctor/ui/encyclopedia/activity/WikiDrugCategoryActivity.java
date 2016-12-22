@@ -13,13 +13,19 @@ import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.DrugSecondCategaryFragment;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.DrugThirdCategoryFragment;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugCategory;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDrugCategoryPresenter;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WikiDrugCategoryActivity extends BaseActivity {
 
@@ -48,14 +54,15 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_drug_category_title);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
     }
 
     private void intData() {
@@ -93,7 +100,11 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     }
 
     public void showDiseaseListData(Map<String, Map<String, List<DrugCategory>>> data) {
-        DrugCategoryAdapter adapter = new DrugCategoryAdapter(getSupportFragmentManager());
+        loadView.setStatus(LoadView.LoadStatus.Normal);
+        tabLayout.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.VISIBLE);
+
+        DrugCategoryAdapter adapter = new DrugCategoryAdapter(getSupportFragmentManager(), data);
         viewPager.setAdapter(adapter);
     }
 
@@ -111,18 +122,49 @@ public class WikiDrugCategoryActivity extends BaseActivity {
 
     private class DrugCategoryAdapter extends FragmentPagerAdapter {
 
-        public DrugCategoryAdapter(FragmentManager fm) {
+        private List<String> names;
+        private Map<String, Map<String, List<DrugCategory>>> data;
+
+        public DrugCategoryAdapter(FragmentManager fm, Map<String, Map<String, List<DrugCategory>>> data) {
             super(fm);
+            names = new ArrayList<>();
+            Set<String> set = data.keySet();
+            Iterator<String> iterator = set.iterator();
+            while (iterator.hasNext()) {
+                names.add(iterator.next());
+            }
+            this.data = data;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return null;
+            Fragment fragment;
+            String firstCategory = names.get(position);
+            Map<String, List<DrugCategory>> secondCategories = data.get(firstCategory);
+            if (secondCategories.size() == 1 && secondCategories.keySet().iterator().next().equals(firstCategory)) {
+                DrugThirdCategoryFragment thirdCategoryFragment = new DrugThirdCategoryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("categories", (ArrayList)secondCategories.get(secondCategories.keySet().iterator().next()));
+                thirdCategoryFragment.setArguments(bundle);
+                fragment = thirdCategoryFragment;
+            } else {
+                DrugSecondCategaryFragment secondCategaryFragment = new DrugSecondCategaryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("categories", (LinkedHashMap)data.get(firstCategory));
+                secondCategaryFragment.setArguments(bundle);
+                fragment = secondCategaryFragment;
+            }
+            return fragment;
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return data.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return names.get(position);
         }
     }
 }

@@ -26,7 +26,7 @@ public class WikiDrugAdapter extends AbstractCommonAdapter<Drug> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.item_wiki_drug_list, null);
+        View view = View.inflate(context, R.layout.item_drug_second_categary_child_list, null);
         DrugViewHolder viewHolder = new DrugViewHolder(view);
         return viewHolder;
     }
@@ -34,25 +34,11 @@ public class WikiDrugAdapter extends AbstractCommonAdapter<Drug> {
     @Override
     protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Drug item, int position) {
         DrugViewHolder viewHolder = (DrugViewHolder) holder;
-        viewHolder.imageView.setImageUrl(item.picurl);
         viewHolder.nameView.setText(item.drugname);
-        switch (item.catgory) {
-            case 1:
-                viewHolder.typeView.setText(R.string.chinese_medicine);
-                break;
-            case 2:
-                viewHolder.typeView.setText(R.string.western_medicine);
-                break;
-            case 3:
-                viewHolder.typeView.setText(R.string.health_products);
-                break;
-        }
-        viewHolder.druggistView.setText(item.companyname);
-        viewHolder.descView.setText(item.indication);
         viewHolder.clickView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrugDetailActivity.show(context, item.drugid);
+                DrugDetailActivity.show(context, item.drugid, item.drugname);
             }
         });
     }
@@ -60,20 +46,12 @@ public class WikiDrugAdapter extends AbstractCommonAdapter<Drug> {
     private class DrugViewHolder extends RecyclerView.ViewHolder {
 
         View clickView;
-        HttpImageView imageView;
         TextView nameView;
-        TextView typeView;
-        TextView druggistView;
-        TextView descView;
 
         public DrugViewHolder(View itemView) {
             super(itemView);
-            clickView = itemView.findViewById(R.id.item_wiki_drug_list_click);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_wiki_drug_list_img);
-            nameView = (TextView) itemView.findViewById(R.id.item_wiki_drug_list_name);
-            typeView = (TextView) itemView.findViewById(R.id.item_wiki_drug_list_type);
-            druggistView = (TextView) itemView.findViewById(R.id.item_wiki_druge_list_druggist);
-            descView = (TextView) itemView.findViewById(R.id.item_wiki_druge_list_desc);
+            clickView = itemView.findViewById(R.id.item_drug_second_categary_child_list_click);
+            nameView = (TextView) itemView.findViewById(R.id.item_drug_second_categary_child_list_name);
         }
     }
 }

@@ -17,6 +17,7 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,14 +45,14 @@ public class WikiDrugCategoryGetter {
                 if (res.getData() != null) {
                     String jsonStr = (String) res.getData();
                     try {
-                        Map<String, Map<String, List<DrugCategory>>> data = new HashMap<>();
+                        Map<String, Map<String, List<DrugCategory>>> data = new LinkedHashMap<>();
 
                         JSONObject firstJson = new JSONObject(jsonStr);
                         JSONArray firstNames = firstJson.names();
                         for (int i = 0; i < firstNames.length(); i++) {
                             String firstName = firstNames.getString(i);
                             Object piece = firstJson.get(firstName);
-                            Map<String, List<DrugCategory>> secondCategories = new HashMap<>();
+                            Map<String, List<DrugCategory>> secondCategories = new LinkedHashMap<>();
                             if (piece instanceof JSONObject) {
 
                                 JSONObject secondJson = (JSONObject) piece;

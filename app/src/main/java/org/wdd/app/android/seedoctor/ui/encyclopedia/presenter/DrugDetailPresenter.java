@@ -3,27 +3,29 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DiseaseDetailActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DiseaseDetailGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DrugDetailGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 
 /**
  * Created by richard on 12/20/16.
  */
 
-public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGetter.DiseaseDetailCallback {
+public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.DrugDetailCallback {
 
-    private DiseaseDetailActivity view;
-    private DiseaseDetailGetter getter;
+    private DrugDetailActivity view;
+    private DrugDetailGetter getter;
     private HttpSession session;
 
-    public DiseaseDetailPresenter(DiseaseDetailActivity view) {
+    public DrugDetailPresenter(DrugDetailActivity view) {
         this.view = view;
-        getter = new DiseaseDetailGetter(view.getBaseContext(), this);
+        getter = new DrugDetailGetter(view.getBaseContext(), this);
     }
 
-    public void getDiseaseDetailData(int diseaseId) {
-        session = getter.requestDiseaseDetailData(diseaseId);
+    public void getDrugDetailData(int drugId) {
+        session = getter.requestDrugDetailData(drugId);
     }
 
     public void destory() {
@@ -32,9 +34,9 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     }
 
     @Override
-    public void onRequestOk(DiseaseDetail data) {
+    public void onRequestOk(DrugDetail data) {
         session = null;
-        view.showDiseaseDetalViews(data);
+        view.showDrugDetalViews(data);
     }
 
     @Override

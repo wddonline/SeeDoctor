@@ -67,6 +67,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_disease_detail_toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +75,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
             }
         });
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
