@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.main.activity;
 
-import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +14,11 @@ import org.wdd.app.android.seedoctor.ui.drugstore.fragment.NearbyDrugstoreFragme
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment;
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
+import org.wdd.app.android.seedoctor.views.SDFragmentTabHost;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentTabHost tabHost;
+    private SDFragmentTabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        tabHost = (SDFragmentTabHost) findViewById(android.R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.getTabWidget().setDividerDrawable(null);
 

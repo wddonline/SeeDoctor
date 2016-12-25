@@ -47,6 +47,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.alibaba:fastjson:1.2.21'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:25.1.0'
 }

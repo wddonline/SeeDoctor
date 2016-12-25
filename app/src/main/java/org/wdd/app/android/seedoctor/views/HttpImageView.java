@@ -29,8 +29,8 @@ public class HttpImageView extends NetworkImageView {
     public HttpImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         imageLoader = new ImageLoader(VolleyTool.getInstance(context).getRequestQueue(), ImageCache.instance(context));
-        setDefaultImageResId(R.mipmap.default_img);
-        setErrorImageResId(R.mipmap.default_img);
+        setDefaultImageResId(R.drawable.default_img);
+        setErrorImageResId(R.drawable.default_img);
     }
 
     public void setImageUrl(String url) {

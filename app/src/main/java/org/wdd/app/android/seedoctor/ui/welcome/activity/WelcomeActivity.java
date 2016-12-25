@@ -50,7 +50,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
         if (immediately) {
             run();
         } else {
-            handler.postDelayed(this, 3000);
+            handler.postDelayed(this, 1000);
         }
     }
 }

@@ -131,9 +131,9 @@ public class WikiDrugListActivity extends BaseActivity {
             }
             drugs.addAll(data);
             adapter.notifyDataSetChanged();
-            if (data.size() < PAGE_SISE) {
-                adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
-            }
+        }
+        if (data.size() < PAGE_SISE) {
+            adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }
 

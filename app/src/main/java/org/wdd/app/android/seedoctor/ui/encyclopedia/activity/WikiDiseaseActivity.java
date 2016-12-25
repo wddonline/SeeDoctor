@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDiseasePresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -28,7 +26,12 @@ import java.util.List;
 public class WikiDiseaseActivity extends BaseActivity {
 
     public static void show(Context context) {
+        show(context, null);
+    }
+
+    public static void show(Context context, String drugid) {
         Intent intent = new Intent(context, WikiDiseaseActivity.class);
+        intent.putExtra("drugid", drugid);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
@@ -42,6 +45,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     private WikiDiseasePresenter presenter;
     private WikiDiseaseAdapter adapter;
     private List<Disease> diseases;
+    private String drugid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     }
 
     private void initData() {
+        drugid = getIntent().getStringExtra("drugid");
         presenter = new WikiDiseasePresenter(this);
     }
 
@@ -81,18 +86,18 @@ public class WikiDiseaseActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getDiseaseListData(true);
+                presenter.getDiseaseListData(drugid, true);
             }
         });
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.getDiseaseListData(true);
+                presenter.getDiseaseListData(drugid, true);
             }
         });
 
-        presenter.getDiseaseListData(false);
+        presenter.getDiseaseListData(drugid, false);
     }
 
     public void onDiseaseSearchClicked(View v) {
@@ -113,7 +118,7 @@ public class WikiDiseaseActivity extends BaseActivity {
             adapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    presenter.getDiseaseListData(false);
+                    presenter.getDiseaseListData(drugid, false);
                 }
             });
             recyclerView.setAdapter(adapter);
@@ -129,9 +134,9 @@ public class WikiDiseaseActivity extends BaseActivity {
             }
             diseases.addAll(data);
             adapter.notifyDataSetChanged();
-            if (data.size() < PAGE_SISE) {
-                adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
-            }
+        }
+        if (data.size() < PAGE_SISE) {
+            adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }
 

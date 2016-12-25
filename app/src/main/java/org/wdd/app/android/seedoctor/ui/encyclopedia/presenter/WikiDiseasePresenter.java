@@ -25,8 +25,8 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
         getter.setCallback(this);
     }
 
-    public void getDiseaseListData(boolean refresh) {
-        session = getter.requestDiseaseList(refresh);
+    public void getDiseaseListData(String drugid, boolean refresh) {
+        session = getter.requestDiseaseList(drugid, refresh);
     }
 
     @Override
