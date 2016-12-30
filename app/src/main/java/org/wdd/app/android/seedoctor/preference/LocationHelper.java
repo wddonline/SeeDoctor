@@ -49,8 +49,8 @@ public class LocationHelper {
     }
 
     public void initLocation() {
-        if (!preferences.contains(SAVED)) return;
         location = new Location();
+        if (!preferences.contains(SAVED)) return;
         location.latitude = Double.parseDouble(preferences.getString(LATITUDE, "0"));
         location.longitude = Double.parseDouble(preferences.getString(LONGITUDE, "0"));
         location.accuracy = preferences.getFloat(ACCURACY, 0);
