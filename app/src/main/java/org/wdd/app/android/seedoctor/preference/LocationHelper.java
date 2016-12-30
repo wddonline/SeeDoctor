@@ -51,8 +51,8 @@ public class LocationHelper {
     public void initLocation() {
         if (!preferences.contains(SAVED)) return;
         location = new Location();
-        location.latitude = preferences.getFloat(LATITUDE, 0);
-        location.longitude = preferences.getFloat(LONGITUDE, 0);
+        location.latitude = Double.parseDouble(preferences.getString(LATITUDE, "0"));
+        location.longitude = Double.parseDouble(preferences.getString(LONGITUDE, "0"));
         location.accuracy = preferences.getFloat(ACCURACY, 0);
         location.address = preferences.getString(ADDRESS, null);
         location.country = preferences.getString(COUNTRY, null);
@@ -75,8 +75,8 @@ public class LocationHelper {
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(SAVED, true);
-        editor.putFloat(LATITUDE, location.latitude);
-        editor.putFloat(LONGITUDE, location.longitude);
+        editor.putString(LATITUDE, location.latitude + "");
+        editor.putString(LONGITUDE, location.longitude + "");
         editor.putFloat(ACCURACY, location.accuracy);
         editor.putString(ADDRESS, location.address);
         editor.putString(COUNTRY, location.country);
@@ -145,8 +145,8 @@ public class LocationHelper {
 
     public static class Location {
 
-        public float latitude;//纬度
-        public float longitude;//经度
+        public double latitude;//纬度
+        public double longitude;//经度
         public float accuracy;//精度信息
         public String address;//地址
         public String country;//国家信息

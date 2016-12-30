@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 
+import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalListFragment;

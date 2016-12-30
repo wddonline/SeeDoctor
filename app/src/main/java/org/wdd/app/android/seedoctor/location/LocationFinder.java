@@ -53,7 +53,13 @@ public class LocationFinder {
         public void onLocationChanged(AMapLocation amapLocation) {
             if (amapLocation != null) {
                 if (amapLocation.getErrorCode() == 0) {
-                    if (amapLocation == null) return;
+                    if (amapLocation == null) {
+                        return;
+                    }
+                    if (amapLocation.getLatitude() == locationHelper.getLatitude() &&
+                            amapLocation.getLongitude() == locationHelper.getLongitude()) {
+                        return;
+                    }
                     LocationHelper.Location location = new LocationHelper.Location();
 //                  amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                     location.latitude = (float) amapLocation.getLatitude();//获取纬度

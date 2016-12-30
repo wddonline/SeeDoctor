@@ -61,6 +61,8 @@ public class DrugstoreListDataGetter implements PoiSearch.OnPoiSearchListener {
         }
         pageNum = 0;
         query.setPageNum(pageNum);
+        LocationHelper locationHelper = LocationHelper.getInstance(context);
+        poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(locationHelper.getLatitude(), locationHelper.getLongitude()), RADIUS));
         poiSearch.searchPOIAsyn();
         pageNum++;
     }

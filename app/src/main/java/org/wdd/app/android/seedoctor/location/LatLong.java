@@ -6,13 +6,13 @@ package org.wdd.app.android.seedoctor.location;
 
 public class LatLong {
 
-    public float latitude;//纬度
-    public float longitude;//经度
+    public double latitude;//纬度
+    public double longitude;//经度
 
     public LatLong() {
     }
 
-    public LatLong(float latitude, float longitude) {
+    public LatLong(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
