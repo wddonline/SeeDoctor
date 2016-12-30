@@ -8,14 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDrugAdapter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.RelativeDrugAdapter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.RelativeDiseaseListGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.RelativeDieaseListPresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDrugListPresenter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.RelativeDrugListPresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
@@ -23,38 +24,44 @@ import org.wdd.app.android.seedoctor.views.LoadView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RelativeDieaseListActivity extends BaseActivity {
+public class RelativeDrugListActivity extends BaseActivity {
 
-    public static void show(Context context, int id) {
-        Intent intent = new Intent(context, WikiDrugListActivity.class);
-        intent.putExtra("id", id);
+    public static void show(Context context, String diseaseid, String diseasename) {
+        Intent intent = new Intent(context, RelativeDrugListActivity.class);
+        intent.putExtra("diseaseid", diseaseid);
+        intent.putExtra("diseasename", diseasename);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
-    private final int PAGE_SISE = 20;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
 
-    private RelativeDieaseListPresenter presenter;
-    private WikiDrugAdapter adapter;
+    private RelativeDrugListPresenter presenter;
+    private RelativeDrugAdapter adapter;
     private List<Drug> drugs;
 
-    private int catid;
+    private String diseaseid;
+    private String diseasename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_relative_diease_list);
+        setContentView(R.layout.activity_relative_drug_list);
         initData();
         initTitle();
         initView();
     }
 
+    private void initData() {
+        diseaseid = getIntent().getStringExtra("diseaseid");
+        diseasename = getIntent().getStringExtra("diseasename");
+        presenter = new RelativeDrugListPresenter(this);
+    }
+
     private void initTitle() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_relative_diease_list_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_relative_drug_list_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -64,37 +71,34 @@ public class RelativeDieaseListActivity extends BaseActivity {
                 finish();
             }
         });
-    }
 
-    private void initData() {
-        catid = getIntent().getIntExtra("catid", -1);
-        presenter = new RelativeDieaseListPresenter(this);
+        ((TextView)findViewById(R.id.activity_relative_drug_list_titile)).setText(diseasename);
     }
 
     private void initView() {
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_relative_diease_list_refresh_layout);
-        recyclerView = (RecyclerView) findViewById(R.id.activity_relative_diease_list_recyclerview);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_relative_drug_list_refresh_layout);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_relative_drug_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         LineDividerDecoration decoration = new LineDividerDecoration(this, LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(decoration);
-        loadView = (LoadView) findViewById(R.id.activity_relative_diease_list_loadview);
+        loadView = (LoadView) findViewById(R.id.activity_relative_drug_list_loadview);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getDrugListData(catid, true);
+                presenter.getDrugListData(diseaseid, true);
             }
         });
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.getDrugListData(catid, true);
+                presenter.getDrugListData(diseaseid, true);
             }
         });
 
-        presenter.getDrugListData(catid, false);
+        presenter.getDrugListData(diseaseid, false);
     }
 
     @Override
@@ -103,15 +107,15 @@ public class RelativeDieaseListActivity extends BaseActivity {
         presenter.destory();
     }
 
-    public void showDrugListData(List<Drug> data, boolean refresh) {
+    public void showDiseaseListData(List<Drug> data, boolean refresh) {
         if (adapter == null) {
             drugs = new ArrayList<>();
             drugs.addAll(data);
-            adapter = new WikiDrugAdapter(getBaseContext(), drugs);
+            adapter = new RelativeDrugAdapter(getBaseContext(), drugs);
             adapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    presenter.getDrugListData(catid, false);
+                    presenter.getDrugListData(diseaseid, false);
                 }
             });
             recyclerView.setAdapter(adapter);
@@ -128,7 +132,7 @@ public class RelativeDieaseListActivity extends BaseActivity {
             drugs.addAll(data);
             adapter.notifyDataSetChanged();
         }
-        if (data.size() < PAGE_SISE) {
+        if (data.size() < RelativeDiseaseListGetter.PAGE_SIZE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }
@@ -172,4 +176,3 @@ public class RelativeDieaseListActivity extends BaseActivity {
         }
     }
 }
-

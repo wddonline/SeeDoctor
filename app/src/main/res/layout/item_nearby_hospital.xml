@@ -35,8 +35,7 @@
                 android:id="@+id/item_nearby_hospital_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/item_nearby_hospital_level"

@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ui.search.data;
+package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
 
@@ -15,31 +15,31 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 import java.util.List;
 
 /**
- * Created by richard on 12/5/16.
+ * Created by richard on 12/19/16.
  */
 
-public class DiseaseSearchGetter {
+public class RelativeDiseaseListGetter {
 
-    public static final int PAGE_SISE = 20;
-    private int page = 1;
+    public static final int PAGE_SIZE = 20;
 
     private Context context;
     private HttpManager manager;
-    private SearchCallback callback;
+    private RelativeDiseaseDataCallback callback;
 
-    public DiseaseSearchGetter(Context context, SearchCallback callback) {
+    private int page = 1;
+
+    public RelativeDiseaseListGetter(Context context) {
         this.context = context;
-        this.callback = callback;
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession getDiseaseListByName(String keyword, final boolean refresh) {
+    public HttpSession requestDiseaseList(String drugid, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
+        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         requestEntry.addRequestParam("page", page + "");
-        requestEntry.addRequestParam("keyword", keyword);
-        requestEntry.addRequestParam("pagesize", PAGE_SISE + "");
-        requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
+        requestEntry.addRequestParam("drugid", drugid + "");
+        requestEntry.setUrl(ServiceApi.NEW_WIKI_DISEASE_LIST);
         HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
@@ -69,11 +69,14 @@ public class DiseaseSearchGetter {
         return request;
     }
 
-    public interface SearchCallback {
+    public void setCallback(RelativeDiseaseDataCallback callback) {
+        this.callback = callback;
+    }
+
+    public interface RelativeDiseaseDataCallback {
 
         void onRequestOk(List<Disease> data, boolean refresh);
         void onRequestFailure(HttpError error, boolean refresh);
         void onNetworkError(boolean refresh);
-
     }
 }

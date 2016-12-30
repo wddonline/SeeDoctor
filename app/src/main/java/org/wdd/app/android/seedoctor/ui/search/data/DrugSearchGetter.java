@@ -9,7 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by richard on 12/5/16.
  */
 
-public class DiseaseSearchGetter {
+public class DrugSearchGetter {
 
     public static final int PAGE_SISE = 20;
     private int page = 1;
@@ -27,24 +27,24 @@ public class DiseaseSearchGetter {
     private HttpManager manager;
     private SearchCallback callback;
 
-    public DiseaseSearchGetter(Context context, SearchCallback callback) {
+    public DrugSearchGetter(Context context, SearchCallback callback) {
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession getDiseaseListByName(String keyword, final boolean refresh) {
+    public HttpSession getDrugListByName(String keyword, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("keyword", keyword);
         requestEntry.addRequestParam("pagesize", PAGE_SISE + "");
-        requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
+        requestEntry.setUrl(ServiceApi.WIKI_DRUG_LIST);
+        HttpSession request = manager.sendHttpRequest(requestEntry, Drug.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {
-                    List<Disease> data = (List<Disease>) res.getData();
+                    List<Drug> data = (List<Drug>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
@@ -71,7 +71,7 @@ public class DiseaseSearchGetter {
 
     public interface SearchCallback {
 
-        void onRequestOk(List<Disease> data, boolean refresh);
+        void onRequestOk(List<Drug> data, boolean refresh);
         void onRequestFailure(HttpError error, boolean refresh);
         void onNetworkError(boolean refresh);
 

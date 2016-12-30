@@ -75,6 +75,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
                     if (adapter == null) return;
                     diseases.clear();
                     adapter.notifyDataSetChanged();
+                    adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
                     return;
                 }
                 presenter.searchDiseaseByName(name, true);
@@ -111,7 +112,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
             diseases.addAll(data);
         }
         adapter.notifyDataSetChanged();
-        if (data.size() < DiseaseSearchGetter.PAGEZISE) {
+        if (data.size() < DiseaseSearchGetter.PAGE_SISE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         } else {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);

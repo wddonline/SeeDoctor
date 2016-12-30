@@ -79,7 +79,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                WikiDiseaseActivity.show(getBaseContext(), drugid + "");
+                RelativeDiseaseListActivity.show(getBaseContext(), drugid + "", drugname);
                 return true;
             }
         });
@@ -149,7 +149,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_disease_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_drug_detail, menu);
         return true;
     }
 

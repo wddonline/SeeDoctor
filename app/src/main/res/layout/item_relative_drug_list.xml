@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_wiki_disease_list_click"
+    android:id="@+id/item_relative_drug_list_click"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -10,10 +10,10 @@
     android:clickable="true">
 
     <org.wdd.app.android.seedoctor.views.HttpImageView
-        android:id="@+id/item_wiki_disease_list_img"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:scaleType="centerCrop" />
+        android:id="@+id/item_relative_drug_list_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:layout_marginRight="6dp">
 
         <TextView
-            android:id="@+id/item_wiki_disease_list_name"
+            android:id="@+id/item_relative_drug_list_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -31,20 +31,30 @@
             android:gravity="center_vertical"
             android:textColor="@color/colorItemTitle"
             android:textSize="@dimen/textSizeItemTitle"
-            android:text="ddd"
-            android:layout_marginTop="9dp"/>
+            android:layout_marginTop="6dp"/>
 
         <TextView
-            android:id="@+id/item_wiki_disease_list_desc"
+            android:id="@+id/item_relative_drug_list_seller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:text="11111111111111111111111111111111111111111111"
+            android:textColor="@color/colorItemContent"
+            android:textSize="@dimen/textSizeItemContent"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/item_relative_drug_list_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:textColor="@color/colorItemContent"
             android:textSize="@dimen/textSizeItemContent"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="9dp"/>
+            android:layout_marginBottom="6dp"/>
+
     </RelativeLayout>
 </LinearLayout>

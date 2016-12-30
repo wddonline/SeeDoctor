@@ -3,9 +3,8 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.RelativeDieaseListActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugListActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDrugListGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.RelativeDrugListActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.RelativeDrugListGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 
 import java.util.List;
@@ -14,20 +13,20 @@ import java.util.List;
  * Created by richard on 12/19/16.
  */
 
-public class RelativeDieaseListPresenter implements BasePresenter, WikiDrugListGetter.WikiDrugDataCallback {
+public class RelativeDrugListPresenter implements BasePresenter, RelativeDrugListGetter.RelativeDrugDataCallback {
 
-    private RelativeDieaseListActivity view;
-    private WikiDrugListGetter getter;
+    private RelativeDrugListActivity view;
+    private RelativeDrugListGetter getter;
     private HttpSession session;
 
-    public RelativeDieaseListPresenter(RelativeDieaseListActivity view) {
+    public RelativeDrugListPresenter(RelativeDrugListActivity view) {
         this.view = view;
-        getter = new WikiDrugListGetter(view.getBaseContext());
+        getter = new RelativeDrugListGetter(view.getBaseContext());
         getter.setCallback(this);
     }
 
-    public void getDrugListData(int catid, boolean refresh) {
-        session = getter.requestDrugList(catid, refresh);
+    public void getDrugListData(String diseaseid, boolean refresh) {
+        session = getter.requestDrugList(diseaseid, refresh);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class RelativeDieaseListPresenter implements BasePresenter, WikiDrugListG
             view.showNoDrugListResult(refresh);
             return;
         }
-        view.showDrugListData(data, refresh);
+        view.showDiseaseListData(data, refresh);
     }
 
     @Override

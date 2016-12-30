@@ -60,7 +60,8 @@
         <activity android:name=".ui.search.activity.DrugSearchActivity" />
         <activity android:name=".ui.encyclopedia.activity.DrugDetailActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDrugListActivity" />
-        <activity android:name=".ui.encyclopedia.activity.RelativeDieaseListActivity"></activity>
+        <activity android:name=".ui.encyclopedia.activity.RelativeDiseaseListActivity" />
+        <activity android:name=".ui.encyclopedia.activity.RelativeDrugListActivity"></activity>
     </application>
 
 </manifest>

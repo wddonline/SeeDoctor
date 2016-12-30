@@ -31,8 +31,7 @@
             android:id="@+id/item_nearby_drugstore_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <FrameLayout
             android:layout_width="0dp"
