@@ -2,10 +2,11 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.EmergencyDetailActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.EmergencyDetailGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiEmergencyGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 
 import java.util.List;
@@ -14,20 +15,20 @@ import java.util.List;
  * Created by richard on 1/3/17.
  */
 
-public class EmergencyDetailPresenter implements EmergencyDetailGetter.EmergencyCallback {
+public class WikiDepartmentPresenter implements WikiDepartmentGetter.DepartmentCallback {
 
-    private EmergencyDetailActivity view;
-    private EmergencyDetailGetter getter;
+    private WikiDepartmentActivity view;
+    private WikiDepartmentGetter getter;
     private HttpSession session;
 
-    public EmergencyDetailPresenter(EmergencyDetailActivity view) {
+    public WikiDepartmentPresenter(WikiDepartmentActivity view) {
         this.view = view;
-        getter = new EmergencyDetailGetter(view.getBaseContext());
-        getter.setEmergencyCallback(this);
+        getter = new WikiDepartmentGetter(view.getBaseContext());
+        getter.setDepartmentCallback(this);
     }
 
-    public void getEmergencyDetailDataData(String emeid) {
-        session = getter.requestEmergencyData(emeid);
+    public void getDepartmentListData() {
+        session = getter.requestDepartmentData();
     }
 
     public void destory() {
@@ -37,9 +38,13 @@ public class EmergencyDetailPresenter implements EmergencyDetailGetter.Emergency
     }
 
     @Override
-    public void onDataGetted(Emergency data) {
+    public void onDataGetted(List<Department> data) {
         session = null;
-        view.showEmergencyDetailViews(data);
+        if (data.size() == 0) {
+            view.showNoDataViews();
+            return;
+        }
+        view.showEmergencyListViews(data);
     }
 
     @Override

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_department_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DepartmentDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_department_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@drawable/title_background">
+
+        <TextView
+            android:id="@+id/activity_department_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/activity_department_detail_loadview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ScrollView
+        android:id="@+id/activity_department_detail_dataview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activity_department_detail_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorItemTitle"
+                android:textSize="@dimen/textSizeItemTitle"
+                android:text="@string/summary"/>
+
+            <TextView
+                android:id="@+id/activity_department_detail_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorItemContent"
+                android:textSize="@dimen/textSizeItemContent"/>
+
+            <LinearLayout
+                android:id="@+id/activity_department_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/more"
+                android:textColor="@color/colorItemContent"
+                android:textSize="@dimen/textSizeItemContent"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

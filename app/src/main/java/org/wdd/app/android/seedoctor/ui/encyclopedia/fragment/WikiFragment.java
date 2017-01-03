@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
@@ -70,6 +71,7 @@ public class WikiFragment extends Fragment implements View.OnClickListener {
                 WikiEmergencyActivity.show(getContext());
                 break;
             case R.id.fragment_wiki_department_clickable:
+                WikiDepartmentActivity.show(getContext());
                 break;
             case R.id.fragment_wiki_doctor_clickable:
                 break;

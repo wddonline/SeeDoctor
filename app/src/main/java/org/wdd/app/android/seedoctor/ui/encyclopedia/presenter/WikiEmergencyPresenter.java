@@ -36,6 +36,7 @@ public class WikiEmergencyPresenter implements WikiEmergencyGetter.EmergencyCall
 
     @Override
     public void onDataGetted(List<Emergency> data) {
+        session = null;
         if (data.size() == 0) {
             view.showNoDataViews();
             return;
@@ -45,11 +46,13 @@ public class WikiEmergencyPresenter implements WikiEmergencyGetter.EmergencyCall
 
     @Override
     public void onFailure(HttpError error) {
+        session = null;
         view.showDataGettedFailureViews(error.getErrorMsg());
     }
 
     @Override
     public void onNetworkError() {
+        session = null;
         view.showNetworkErrorViews();
     }
 }
