@@ -16,4 +16,5 @@
     <color name="colorItem">#f0f0f0</color>
 
     <color name="wiki_divider_color">#d8d8d8</color>
+    <color name="partTranslucent">#39000000</color>
 </resources>

@@ -16,4 +16,6 @@ public class ServiceApi {
     public final static String WIKI_DRUG_DETAIL = BASE_URL_V4 + "drug/detail/";//药品详情
     public final static String NEW_WIKI_DISEASE_LIST = BASE_URL_V4 + "disease";
     public final static String NEW_WIKI_DRUG_LIST = BASE_URL_V4 + "drug/";//药品列表
+    public final static String WIKI_EMERGENCY_LIST = BASE_URL_V4 + "symptom/eme/";//急诊列表
+    public final static String EMERGENCY_DETAIL = BASE_URL_V4 + "symptom/emedetail/";//急诊详情
 }

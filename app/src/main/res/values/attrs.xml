@@ -52,4 +52,9 @@
         <attr name="defaultImage" format="integer|reference"/>
     </declare-styleable>
 
+    <declare-styleable name="IndexBar">
+        <attr name="indexBarTextSize" format="dimension" />
+        <attr name="indexBarPressBackground" format="color" />
+    </declare-styleable>
+
 </resources>
