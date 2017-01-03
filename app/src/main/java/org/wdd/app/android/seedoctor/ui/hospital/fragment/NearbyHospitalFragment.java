@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
-import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
@@ -35,13 +34,11 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     private NearbyHospitalMapFragment mapFragment = new NearbyHospitalMapFragment();
 
     private Mode mode = Mode.List;
-    private NearbyHospitalPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            presenter = new NearbyHospitalPresenter(this);
             rootView = inflater.inflate(R.layout.fragment_neary_hospital, null);
             initViews();
         }
@@ -84,9 +81,6 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
                     case R.id.menu_item_list:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.menu_item_get_location:
-                        presenter.getCurrentLocation();
-                        break;
                 }
                 return true;
             }
@@ -101,7 +95,6 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.destory();
     }
 
     @Override

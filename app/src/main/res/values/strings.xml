@@ -27,7 +27,6 @@
     <!-- 附近医院 -->
     <string name="nearby_hospital">附近医院</string>
     <string name="list_mode">列表</string>
-    <string name="get_location">定位</string>
     <string name="map_mode">地图</string>
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>

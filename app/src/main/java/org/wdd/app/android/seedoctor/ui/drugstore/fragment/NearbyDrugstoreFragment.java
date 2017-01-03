@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
-import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstorePresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.views.SDViewPager;
 
@@ -35,13 +34,11 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     private NearbyDrugstoreMapFragment mapFragment = new NearbyDrugstoreMapFragment();
 
     private NearbyDrugstoreFragment.Mode mode = NearbyDrugstoreFragment.Mode.List;
-    private NearbyDrugstorePresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            presenter = new NearbyDrugstorePresenter(this);
             rootView = inflater.inflate(R.layout.fragment_nearby_drugstore, null);
             initViews();
         }
@@ -83,9 +80,6 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
                         break;
                     case R.id.menu_item_list:
                         viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.menu_item_get_location:
-                        presenter.getCurrentLocation();
                         break;
                 }
                 return true;
