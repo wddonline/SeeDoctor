@@ -23,6 +23,8 @@ import java.util.List;
 
 public class WikiDiseaseGetter {
 
+    public static final int PAGE_SIZE = 20;
+
     private Context context;
     private HttpManager manager;
     private WikiDiseaseDataCallback callback;
@@ -38,6 +40,7 @@ public class WikiDiseaseGetter {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
+        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         if (!TextUtils.isEmpty(drugid)) {
             requestEntry.addRequestParam("drugid", drugid);
         }

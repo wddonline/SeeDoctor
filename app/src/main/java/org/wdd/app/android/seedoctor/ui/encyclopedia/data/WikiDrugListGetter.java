@@ -21,6 +21,8 @@ import java.util.List;
 
 public class WikiDrugListGetter {
 
+    public static final int PAGE_SISE = 20;
+
     private Context context;
     private HttpManager manager;
     private WikiDrugDataCallback callback;
@@ -37,6 +39,7 @@ public class WikiDrugListGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("catid", catid + "");
+        requestEntry.addRequestParam("pagesize", PAGE_SISE + "");
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_LIST);
         HttpSession request = manager.sendHttpRequest(requestEntry, Drug.class, new HttpConnectCallback() {
             @Override

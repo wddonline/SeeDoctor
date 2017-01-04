@@ -38,6 +38,7 @@
     <string name="nearby_search_hint">输入医院或者药店的名称</string>
     <string name="disease_search_hint">输入疾病的名称</string>
     <string name="drug_search_hint">输入药品的名称</string>
+    <string name="doctor_search_hint">输入医生姓名</string>
 
     <!-- 路线查询 -->
     <string name="no_routline_data">没有查询到合适的路线</string>
@@ -99,5 +100,6 @@
     <!-- 科室 -->
     <string name="summary">概述</string>
     <string name="more">更多</string>
+    <string name="usual_disease_in_department">科室常见疾病</string>
 
 </resources>

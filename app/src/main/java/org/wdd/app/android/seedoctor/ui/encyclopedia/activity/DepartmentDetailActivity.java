@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -101,8 +102,14 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     public void showDiseaseListViews(List<Disease> data) {
         LinearLayout container = (LinearLayout) findViewById(R.id.activity_department_detail_list);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        for (final Disease disease : data) {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        lp1.leftMargin = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+
+        int count = data.size() > 10 ? 10 : data.size();
+        for (int i = 0; i < count; i++) {
+            final Disease disease = data.get(i);
             View view = View.inflate(this, R.layout.item_common_arror_right, null);
             TextView labelView = (TextView) view.findViewById(R.id.item_common_arrow_right_label);
             labelView.setText(disease.diseasename);
@@ -113,6 +120,24 @@ public class DepartmentDetailActivity extends BaseActivity {
                 }
             });
             container.addView(view, lp);
+
+            ImageView divider = new ImageView(getBaseContext());
+            divider.setBackgroundColor(getResources().getColor(R.color.wiki_divider_color));
+            container.addView(divider, lp1);
+        }
+        if (data.size() > 10) {
+            View view = View.inflate(this, R.layout.item_common_arror_right, null);
+            TextView labelView = (TextView) view.findViewById(R.id.item_common_arrow_right_label);
+            labelView.setText(R.string.more);
+            view.findViewById(R.id.item_common_arror_right_click).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RelativeDiseaseListActivity.showFromDepartment(getBaseContext(), departmentid, departmentname);
+                }
+            });
+            container.addView(view, lp);
+        } else {
+            container.removeViewAt(container.getChildCount() - 1);
         }
     }
 }

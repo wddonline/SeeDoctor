@@ -20,4 +20,6 @@ public class ServiceApi {
     public final static String EMERGENCY_DETAIL = BASE_URL_V4 + "symptom/emedetail/";//急诊详情
     public final static String WIKI_DEPARTMENT_LIST = BASE_URL_V4 + "department/";//科室列表
     public final static String DEPARTMENT_DETAIL = BASE_URL_V4 + "department/detail/";//科室列表
+    public final static String DOCTOR_LIST = BASE_URL + "doctor/";//科室列表
+
 }

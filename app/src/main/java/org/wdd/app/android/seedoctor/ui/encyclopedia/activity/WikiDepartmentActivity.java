@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDepartmentAdapter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiEmergencyAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDepartmentPresenter;
 import org.wdd.app.android.seedoctor.views.LoadView;

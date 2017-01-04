@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,10 +27,18 @@ import java.util.List;
 
 public class RelativeDiseaseListActivity extends BaseActivity {
 
-    public static void show(Context context, String drugid, String drugname) {
+    public static void showFromDrug(Context context, String drugid, String drugname) {
         Intent intent = new Intent(context, RelativeDiseaseListActivity.class);
         intent.putExtra("drugid", drugid);
         intent.putExtra("drugname", drugname);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void showFromDepartment(Context context, String departmentid, String departmentname) {
+        Intent intent = new Intent(context, RelativeDiseaseListActivity.class);
+        intent.putExtra("departmentid", departmentid);
+        intent.putExtra("departmentname", departmentname);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
@@ -44,6 +53,8 @@ public class RelativeDiseaseListActivity extends BaseActivity {
 
     private String drugid;
     private String drugname;
+    private String departmentid;
+    private String departmentname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,14 @@ public class RelativeDiseaseListActivity extends BaseActivity {
         initData();
         initTitle();
         initView();
+    }
+
+    private void initData() {
+        drugid = getIntent().getStringExtra("drugid");
+        drugname = getIntent().getStringExtra("drugname");
+        departmentid = getIntent().getStringExtra("departmentid");
+        departmentname = getIntent().getStringExtra("departmentname");
+        presenter = new RelativeDiseaseListPresenter(this);
     }
 
     private void initTitle() {
@@ -66,13 +85,7 @@ public class RelativeDiseaseListActivity extends BaseActivity {
             }
         });
 
-        ((TextView)findViewById(R.id.activity_relative_disease_list_titile)).setText(drugname);
-    }
-
-    private void initData() {
-        drugid = getIntent().getStringExtra("drugid");
-        drugname = getIntent().getStringExtra("drugname");
-        presenter = new RelativeDiseaseListPresenter(this);
+        ((TextView)findViewById(R.id.activity_relative_disease_list_titile)).setText(TextUtils.isEmpty(drugname) ? departmentname : drugname);
     }
 
     private void initView() {
@@ -87,18 +100,18 @@ public class RelativeDiseaseListActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getDiseaseListData(drugid, true);
+                presenter.getDiseaseListData(drugid, departmentid, true);
             }
         });
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.getDiseaseListData(drugid, true);
+                presenter.getDiseaseListData(drugid, departmentid, true);
             }
         });
 
-        presenter.getDiseaseListData(drugid, false);
+        presenter.getDiseaseListData(drugid, departmentid, false);
     }
 
     @Override
@@ -115,7 +128,7 @@ public class RelativeDiseaseListActivity extends BaseActivity {
             adapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    presenter.getDiseaseListData(drugid, false);
+                    presenter.getDiseaseListData(drugid, departmentid, false);
                 }
             });
             recyclerView.setAdapter(adapter);

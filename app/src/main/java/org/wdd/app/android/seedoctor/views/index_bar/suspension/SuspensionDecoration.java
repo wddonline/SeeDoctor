@@ -186,7 +186,7 @@ public class SuspensionDecoration extends RecyclerView.ItemDecoration {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "啊哈", Toast.LENGTH_SHORT).show();//即使给View设置了点击事件，也是无效的，它仅仅draw了
+                Toast.makeText(parent.getContext(), "啊哈", Toast.LENGTH_SHORT).showFromDrug();//即使给View设置了点击事件，也是无效的，它仅仅draw了
             }
         });
         ViewGroup.LayoutParams params = button.getLayoutParams();

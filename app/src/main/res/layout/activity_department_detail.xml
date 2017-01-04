@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DepartmentDetailActivity">
 
     <android.support.v7.widget.Toolbar
@@ -44,7 +45,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemTitle"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:textSize="17sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/summary"/>
 
             <TextView
@@ -52,20 +57,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorItemContent"
+                android:lineSpacingMultiplier="1.1"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textSize="@dimen/textSizeItemContent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorItemTitle"
+                android:textSize="17sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="@string/usual_disease_in_department"/>
 
             <LinearLayout
                 android:id="@+id/activity_department_detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/more"
-                android:textColor="@color/colorItemContent"
-                android:textSize="@dimen/textSizeItemContent"/>
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDrugAdapter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDrugListGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDrugListPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
@@ -32,8 +33,6 @@ public class WikiDrugListActivity extends BaseActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
-    private final int PAGE_SISE = 20;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -133,7 +132,7 @@ public class WikiDrugListActivity extends BaseActivity {
             drugs.addAll(data);
             adapter.notifyDataSetChanged();
         }
-        if (data.size() < PAGE_SISE) {
+        if (data.size() < WikiDrugListGetter.PAGE_SISE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }

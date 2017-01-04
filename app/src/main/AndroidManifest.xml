@@ -65,7 +65,10 @@
         <activity android:name=".ui.encyclopedia.activity.WikiEmergencyActivity" />
         <activity android:name=".ui.encyclopedia.activity.EmergencyDetailActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDepartmentActivity" />
-        <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity"></activity>
+        <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDoctorActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DoctorDetailActivity" />
+        <activity android:name=".ui.search.activity.DoctorSearchActivity"></activity>
     </application>
 
 </manifest>

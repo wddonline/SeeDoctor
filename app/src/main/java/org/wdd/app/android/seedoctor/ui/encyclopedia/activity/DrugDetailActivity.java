@@ -79,7 +79,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                RelativeDiseaseListActivity.show(getBaseContext(), drugid + "", drugname);
+                RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
                 return true;
             }
         });

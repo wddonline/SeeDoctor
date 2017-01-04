@@ -34,7 +34,6 @@ public class DrugSearchActivity extends BaseActivity implements AbstractCommonAd
 
     public static void show(Activity activity, View sharedView) {
         Intent intent = new Intent(activity, DrugSearchActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ViewCompat.setTransitionName(sharedView, SHARED_NAME);
         Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, SHARED_NAME).toBundle();
         ActivityCompat.startActivity(activity, intent, options);

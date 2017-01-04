@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
@@ -10,7 +9,8 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -19,38 +19,34 @@ import java.util.List;
  * Created by richard on 12/19/16.
  */
 
-public class RelativeDiseaseListGetter {
+public class WikiDoctorGetter {
 
     public static final int PAGE_SIZE = 20;
 
     private Context context;
     private HttpManager manager;
-    private RelativeDiseaseDataCallback callback;
+    private WikiDoctorDataCallback callback;
 
     private int page = 1;
 
-    public RelativeDiseaseListGetter(Context context) {
+    public WikiDoctorGetter(Context context) {
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDiseaseList(String drugid, String departmentid, final boolean refresh) {
+    public HttpSession requestDoctorList(String provinceid, String hospitallevel, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
-        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         requestEntry.addRequestParam("page", page + "");
-        if (!TextUtils.isEmpty(drugid)) {
-            requestEntry.addRequestParam("drugid", drugid + "");
-        }
-        if (!TextUtils.isEmpty(departmentid)) {
-            requestEntry.addRequestParam("departmentid", departmentid + "");
-        }
-        requestEntry.setUrl(ServiceApi.NEW_WIKI_DISEASE_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
+        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
+        requestEntry.addRequestParam("provinceid", provinceid);
+        requestEntry.addRequestParam("provinceid", hospitallevel);
+        requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
+        HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {
-                    List<Disease> data = (List<Disease>) res.getData();
+                    List<Doctor> data = (List<Doctor>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
@@ -75,13 +71,13 @@ public class RelativeDiseaseListGetter {
         return request;
     }
 
-    public void setCallback(RelativeDiseaseDataCallback callback) {
+    public void setCallback(WikiDoctorDataCallback callback) {
         this.callback = callback;
     }
 
-    public interface RelativeDiseaseDataCallback {
+    public interface WikiDoctorDataCallback {
 
-        void onRequestOk(List<Disease> data, boolean refresh);
+        void onRequestOk(List<Doctor> data, boolean refresh);
         void onRequestFailure(HttpError error, boolean refresh);
         void onNetworkError(boolean refresh);
     }

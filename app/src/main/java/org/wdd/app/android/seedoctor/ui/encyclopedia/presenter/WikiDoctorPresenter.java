@@ -3,9 +3,9 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.RelativeDiseaseListActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.RelativeDiseaseListGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDoctorGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 
 import java.util.List;
 
@@ -13,30 +13,30 @@ import java.util.List;
  * Created by richard on 12/19/16.
  */
 
-public class RelativeDiseaseListPresenter implements BasePresenter, RelativeDiseaseListGetter.RelativeDiseaseDataCallback {
+public class WikiDoctorPresenter implements BasePresenter, WikiDoctorGetter.WikiDoctorDataCallback {
 
-    private RelativeDiseaseListActivity view;
-    private RelativeDiseaseListGetter getter;
+    private WikiDoctorActivity view;
+    private WikiDoctorGetter getter;
     private HttpSession session;
 
-    public RelativeDiseaseListPresenter(RelativeDiseaseListActivity view) {
+    public WikiDoctorPresenter(WikiDoctorActivity view) {
         this.view = view;
-        getter = new RelativeDiseaseListGetter(view.getBaseContext());
+        getter = new WikiDoctorGetter(view.getBaseContext());
         getter.setCallback(this);
     }
 
-    public void getDiseaseListData(String drugid, String departmentid, boolean refresh) {
-        session = getter.requestDiseaseList(drugid, departmentid, refresh);
+    public void getDoctorListData(String provinceid, String hospitallevel, boolean refresh) {
+        session = getter.requestDoctorList(provinceid, hospitallevel, refresh);
     }
 
     @Override
-    public void onRequestOk(List<Disease> data, boolean refresh) {
+    public void onRequestOk(List<Doctor> data, boolean refresh) {
         session = null;
         if (data.size() == 0) {
             view.showNoDrugListResult(refresh);
             return;
         }
-        view.showDiseaseListData(data, refresh);
+        view.showDrugListData(data, refresh);
     }
 
     @Override
