@@ -36,15 +36,11 @@ public class WikiDiseaseGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDiseaseList(String drugid, final boolean refresh) {
+    public HttpSession requestDiseaseList(final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
-        if (!TextUtils.isEmpty(drugid)) {
-            requestEntry.addRequestParam("drugid", drugid);
-        }
-        requestEntry.setMethod(HttpRequestEntry.Method.GET);
         requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
         HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
             @Override

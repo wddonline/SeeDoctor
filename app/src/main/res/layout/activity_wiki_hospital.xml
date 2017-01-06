@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity">
+    tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiHospitalActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_wiki_doctor_toolbar"
+            android:id="@+id/activity_wiki_hospital_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionBarSize"
             android:background="@drawable/title_background"
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wiki_doctor"
+                android:text="@string/hospital"
                 android:layout_gravity="center"
                 android:textSize="@dimen/textSizeToolbarTitle"
                 android:textColor="@color/colorToolbarTitle"/>
@@ -30,12 +30,12 @@
         </android.support.v7.widget.Toolbar>
 
         <FrameLayout
-            android:id="@+id/activity_wiki_doctor_search_layout"
+            android:id="@+id/activity_wiki_hospital_search_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/activity_wiki_doctor_search"
+                android:id="@+id/activity_wiki_hospital_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
@@ -49,9 +49,9 @@
                 android:textSize="@dimen/textSizeItemTitle"
                 android:gravity="center_vertical"
                 android:textColorHint="#a1a1a1"
-                android:hint="@string/doctor_search_hint"
+                android:hint="@string/hospital_search_hint"
                 android:background="@drawable/shape_gary_input_bg"
-                android:onClick="onDoctorSearchClicked"/>
+                android:onClick="onHospitalSearchClicked"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -70,20 +70,20 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/activity_wiki_doctor_refresh_layout"
+            android:id="@+id/activity_wiki_hospital_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_wiki_doctor_recyclerview"
+                android:id="@+id/activity_wiki_hospital_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <org.wdd.app.android.seedoctor.views.LoadView
-            android:id="@+id/activity_wiki_doctor_loadview"
+            android:id="@+id/activity_wiki_hospital_loadview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

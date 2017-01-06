@@ -13,6 +13,7 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivit
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiHospitalActivity;
 import org.wdd.app.android.seedoctor.views.BannerLayout;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class WikiFragment extends Fragment implements View.OnClickListener {
                 WikiDoctorActivity.show(getContext());
                 break;
             case R.id.fragment_wiki_hospital_clickable:
-
+                WikiHospitalActivity.show(getContext());
         }
     }
 

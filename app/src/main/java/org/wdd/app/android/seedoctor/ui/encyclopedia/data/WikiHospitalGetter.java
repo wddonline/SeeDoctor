@@ -11,7 +11,7 @@ import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -20,22 +20,22 @@ import java.util.List;
  * Created by richard on 12/19/16.
  */
 
-public class WikiDoctorGetter {
+public class WikiHospitalGetter {
 
     public static final int PAGE_SIZE = 20;
 
     private Context context;
     private HttpManager manager;
-    private WikiDoctorDataCallback callback;
+    private WikiHospitalDataCallback callback;
 
     private int page = 1;
 
-    public WikiDoctorGetter(Context context) {
+    public WikiHospitalGetter(Context context) {
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDoctorList(String provinceid, String hospitallevel, final boolean refresh) {
+    public HttpSession requestHospitalList(String provinceid, String hospitallevel, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
@@ -44,14 +44,14 @@ public class WikiDoctorGetter {
             requestEntry.addRequestParam("provinceid", provinceid);
         }
         if (!TextUtils.isEmpty(hospitallevel)) {
-            requestEntry.addRequestParam("hospitallevel", hospitallevel);
+            requestEntry.addRequestParam("level", hospitallevel);
         }
-        requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {
+        requestEntry.setUrl(ServiceApi.HOSPITAL_LIST);
+        HttpSession request = manager.sendHttpRequest(requestEntry, Hospital.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {
-                    List<Doctor> data = (List<Doctor>) res.getData();
+                    List<Hospital> data = (List<Hospital>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
@@ -76,13 +76,13 @@ public class WikiDoctorGetter {
         return request;
     }
 
-    public void setCallback(WikiDoctorDataCallback callback) {
+    public void setCallback(WikiHospitalDataCallback callback) {
         this.callback = callback;
     }
 
-    public interface WikiDoctorDataCallback {
+    public interface WikiHospitalDataCallback {
 
-        void onRequestOk(List<Doctor> data, boolean refresh);
+        void onRequestOk(List<Hospital> data, boolean refresh);
         void onRequestFailure(HttpError error, boolean refresh);
         void onNetworkError(boolean refresh);
     }

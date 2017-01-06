@@ -103,7 +103,7 @@ public class WikiDoctorActivity extends BaseActivity {
         DoctorSearchActivity.show(this, findViewById(R.id.activity_wiki_doctor_search_layout));
     }
 
-    public void showNoDrugListResult(boolean refresh) {
+    public void showNoDoctorListResult(boolean refresh) {
         if (adapter == null) {
             loadView.setStatus(LoadView.LoadStatus.No_Data);
         } else {
@@ -111,12 +111,12 @@ public class WikiDoctorActivity extends BaseActivity {
             if (refresh) {
                 refreshLayout.setRefreshing(false);
             } else {
-                adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);
+                adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
             }
         }
     }
 
-    public void showDrugListData(List<Doctor> data, boolean refresh) {
+    public void showDoctorListData(List<Doctor> data, boolean refresh) {
         if (adapter == null) {
             doctors = new ArrayList<>();
             doctors.addAll(data);

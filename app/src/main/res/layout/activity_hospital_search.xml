@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.wdd.app.android.seedoctor.ui.search.activity.DoctorSearchActivity">
+    tools:context="org.wdd.app.android.seedoctor.ui.search.activity.HospitalSearchActivity">
 
     <FrameLayout
-        android:id="@+id/activity_doctor_search_input_layout"
+        android:id="@+id/activity_hospital_search_input_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
         android:background="#dedede">
 
         <EditText
-            android:id="@+id/activity_doctor_search_input"
+            android:id="@+id/activity_hospital_search_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:maxLines="1"
@@ -22,7 +22,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:textSize="@dimen/textSizeItemTitle"
-            android:hint="@string/doctor_search_hint"
+            android:hint="@string/hospital_search_hint"
             android:background="@drawable/shape_white_input_bg"/>
 
         <ImageView
@@ -35,7 +35,7 @@
     </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_doctor_search_recyclerview"
+        android:id="@+id/activity_hospital_search_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -250,6 +250,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         recyclerView.setVisibility(View.VISIBLE);
         mapView.setVisibility(View.GONE);
         bottomLayout.setVisibility(View.GONE);
+        aMap.clear();
         BusRouteLineAdapter adapter = new BusRouteLineAdapter(this, result.getPaths());
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         recyclerView.setAdapter(adapter);
@@ -259,8 +260,8 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     public void showDriveRouteOnMap(final DriveRouteResult result) {
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
-        aMap.clear();
         bottomLayout.setVisibility(View.VISIBLE);
+        aMap.clear();
         final DrivePath drivePath = result.getPaths().get(0);
         DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                 this, aMap, drivePath,
@@ -290,8 +291,8 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     public void showWalkRouteOnMap(final WalkRouteResult result) {
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
-        aMap.clear();
         bottomLayout.setVisibility(View.VISIBLE);
+        aMap.clear();
         final WalkPath walkPath = result.getPaths().get(0);
         WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
                 this, aMap, walkPath,

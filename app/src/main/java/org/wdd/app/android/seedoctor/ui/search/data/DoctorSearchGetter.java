@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.search.data;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
@@ -37,11 +38,15 @@ public class DoctorSearchGetter {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
-        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         requestEntry.addRequestParam("keyword", keyword);
-        requestEntry.addRequestParam("provinceid", provinceid);
-        requestEntry.addRequestParam("provinceid", hospitallevel);
-        requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
+        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
+        if (!TextUtils.isEmpty(provinceid)) {
+            requestEntry.addRequestParam("provinceid", provinceid);
+        }
+        if (!TextUtils.isEmpty(hospitallevel)) {
+            requestEntry.addRequestParam("hospitallevel", hospitallevel);
+        }
+        requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
         HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {

@@ -214,7 +214,7 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
 
     @Override
     public void onCalculateRouteSuccess() {
-        aMapNavi.startNavi(NaviType.EMULATOR);
+        aMapNavi.startNavi(NaviType.GPS);
     }
 
     @Override

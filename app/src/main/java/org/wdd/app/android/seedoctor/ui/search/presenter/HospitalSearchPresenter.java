@@ -3,9 +3,9 @@ package org.wdd.app.android.seedoctor.ui.search.presenter;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
-import org.wdd.app.android.seedoctor.ui.search.activity.DoctorSearchActivity;
-import org.wdd.app.android.seedoctor.ui.search.data.DoctorSearchGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.search.activity.HospitalSearchActivity;
+import org.wdd.app.android.seedoctor.ui.search.data.HospitalSearchGetter;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.List;
@@ -14,27 +14,27 @@ import java.util.List;
  * Created by richard on 12/5/16.
  */
 
-public class DoctorSearchPresenter implements BasePresenter, DoctorSearchGetter.SearchCallback {
+public class HospitalSearchPresenter implements BasePresenter, HospitalSearchGetter.SearchCallback {
 
-    private DoctorSearchActivity view;
-    private DoctorSearchGetter getter;
+    private HospitalSearchActivity view;
+    private HospitalSearchGetter getter;
 
     private HttpSession session = null;
 
-    public DoctorSearchPresenter(DoctorSearchActivity view) {
+    public HospitalSearchPresenter(HospitalSearchActivity view) {
         this.view = view;
-        getter = new DoctorSearchGetter(view, this);
+        getter = new HospitalSearchGetter(view, this);
     }
 
-    public void searchDoctorByName(String provinceid, String hospitallevel, String keyword, boolean refresh) {
+    public void searchHospitalByName(String provinceid, String hospitallevel, String keyword, boolean refresh) {
         if (session != null) session.cancelRequest();
-        session = getter.getDoctorList(provinceid, hospitallevel, keyword, refresh);
+        session = getter.getHospitalList(provinceid, hospitallevel, keyword, refresh);
     }
 
     @Override
-    public void onRequestOk(List<Doctor> data, boolean refresh) {
+    public void onRequestOk(List<Hospital> data, boolean refresh) {
         session = null;
-        view.showDoctorDataView(data, refresh);
+        view.showHospitalDataView(data, refresh);
     }
 
     @Override

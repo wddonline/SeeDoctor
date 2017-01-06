@@ -68,7 +68,10 @@
         <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDoctorActivity" />
         <activity android:name=".ui.encyclopedia.activity.DoctorDetailActivity" />
-        <activity android:name=".ui.search.activity.DoctorSearchActivity"></activity>
+        <activity android:name=".ui.search.activity.DoctorSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiHospitalActivity" />
+        <activity android:name=".ui.encyclopedia.activity.HospitalDetailActivity" />
+        <activity android:name=".ui.search.activity.HospitalSearchActivity"></activity>
     </application>
 
 </manifest>

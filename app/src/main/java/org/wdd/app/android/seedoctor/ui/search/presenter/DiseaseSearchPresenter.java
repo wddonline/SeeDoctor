@@ -48,4 +48,8 @@ public class DiseaseSearchPresenter implements BasePresenter, DiseaseSearchGette
         session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Network_Error, refresh);
     }
+
+    public void destory() {
+        if (session != null) session.cancelRequest();
+    }
 }

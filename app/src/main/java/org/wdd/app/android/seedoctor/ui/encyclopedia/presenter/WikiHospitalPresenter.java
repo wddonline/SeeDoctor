@@ -3,9 +3,9 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDoctorGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiHospitalActivity;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiHospitalGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
 
 import java.util.List;
 
@@ -13,30 +13,30 @@ import java.util.List;
  * Created by richard on 12/19/16.
  */
 
-public class WikiDoctorPresenter implements BasePresenter, WikiDoctorGetter.WikiDoctorDataCallback {
+public class WikiHospitalPresenter implements BasePresenter, WikiHospitalGetter.WikiHospitalDataCallback {
 
-    private WikiDoctorActivity view;
-    private WikiDoctorGetter getter;
+    private WikiHospitalActivity view;
+    private WikiHospitalGetter getter;
     private HttpSession session;
 
-    public WikiDoctorPresenter(WikiDoctorActivity view) {
+    public WikiHospitalPresenter(WikiHospitalActivity view) {
         this.view = view;
-        getter = new WikiDoctorGetter(view.getBaseContext());
+        getter = new WikiHospitalGetter(view.getBaseContext());
         getter.setCallback(this);
     }
 
-    public void getDoctorListData(String provinceid, String hospitallevel, boolean refresh) {
-        session = getter.requestDoctorList(provinceid, hospitallevel, refresh);
+    public void getHospitalListData(String provinceid, String hospitallevel, boolean refresh) {
+        session = getter.requestHospitalList(provinceid, hospitallevel, refresh);
     }
 
     @Override
-    public void onRequestOk(List<Doctor> data, boolean refresh) {
+    public void onRequestOk(List<Hospital> data, boolean refresh) {
         session = null;
         if (data.size() == 0) {
-            view.showNoDoctorListResult(refresh);
+            view.showNoHospitalListResult(refresh);
             return;
         }
-        view.showDoctorListData(data, refresh);
+        view.showHospitalListData(data, refresh);
     }
 
     @Override

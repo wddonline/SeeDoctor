@@ -71,6 +71,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = s.toString();
                 if (TextUtils.isEmpty(name)) {
+                    presenter.destory();
                     if (adapter == null) return;
                     diseases.clear();
                     adapter.notifyDataSetChanged();
@@ -91,6 +92,12 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destory();
     }
 
     public void showDiseaseDataView(List<Disease> data, boolean refresh) {

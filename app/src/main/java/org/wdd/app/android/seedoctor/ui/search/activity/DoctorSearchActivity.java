@@ -57,8 +57,8 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
     }
 
     private void initViews() {
-        ViewCompat.setTransitionName(findViewById(R.id.activity_disease_search_input_layout), SHARED_NAME);
-        inputView = (EditText) findViewById(R.id.activity_disease_search_input);
+        ViewCompat.setTransitionName(findViewById(R.id.activity_doctor_search_input_layout), SHARED_NAME);
+        inputView = (EditText) findViewById(R.id.activity_doctor_search_input);
         inputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,13 +69,14 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = s.toString();
                 if (TextUtils.isEmpty(name)) {
+                    presenter.destory();
                     if (adapter == null) return;
                     doctors.clear();
                     adapter.notifyDataSetChanged();
                     adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
                     return;
                 }
-                presenter.searchDiseaseByName(name, true);
+                presenter.searchDoctorByName("", "", name, true);
             }
 
             @Override
@@ -84,14 +85,20 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.activity_disease_search_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_doctor_search_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setHasFixedSize(true);
     }
 
-    public void showDiseaseDataView(List<Doctor> data, boolean refresh) {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destory();
+    }
+
+    public void showDoctorDataView(List<Doctor> data, boolean refresh) {
         if (adapter == null) {
             doctors = new ArrayList<>();
             doctors.addAll(data);
@@ -130,6 +137,6 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
     @Override
     public void onLoadMore() {
         String name = inputView.getText().toString();
-        presenter.searchDiseaseByName(name, false);
+        presenter.searchDoctorByName("", "", name, false);
     }
 }

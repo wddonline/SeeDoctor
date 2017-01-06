@@ -48,4 +48,8 @@ public class DrugSearchPresenter implements BasePresenter, DrugSearchGetter.Sear
         session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Network_Error, refresh);
     }
+
+    public void destory() {
+        if (session != null) session.cancelRequest();
+    }
 }
