@@ -11,7 +11,6 @@ import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -33,6 +32,43 @@ public class WikiDoctorGetter {
     public WikiDoctorGetter(Context context) {
         this.context = context;
         manager = HttpManager.getInstance(context);
+    }
+
+    public HttpSession requestDoctorList(String hospitalid) {
+        HttpRequestEntry requestEntry = new HttpRequestEntry();
+        requestEntry.addRequestParam("page", page + "");
+        requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
+        if (!TextUtils.isEmpty(hospitalid)) {
+            requestEntry.addRequestParam("hospitalid", hospitalid);
+        }
+        requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
+        HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {
+            @Override
+            public void onRequestOk(HttpResponseEntry res) {
+                if (res.getData() != null) {
+                    List<Doctor> data = (List<Doctor>) res.getData();
+                    if (callback != null) callback.onRequestOk(data, false);
+                } else {
+                    page--;
+                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
+                    if (callback != null) callback.onRequestFailure(error, false);
+                }
+            }
+
+            @Override
+            public void onRequestFailure(HttpError error) {
+                page--;
+                if (callback != null) callback.onRequestFailure(error, false);
+            }
+
+            @Override
+            public void onNetworkError() {
+                page--;
+                if (callback != null) callback.onNetworkError(false);
+            }
+        });
+        page++;
+        return request;
     }
 
     public HttpSession requestDoctorList(String provinceid, String hospitallevel, final boolean refresh) {

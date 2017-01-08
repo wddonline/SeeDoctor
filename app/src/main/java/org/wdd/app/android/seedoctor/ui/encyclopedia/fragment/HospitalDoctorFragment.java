@@ -11,7 +11,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDoctorAdapter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.HospitalDoctorGetter;
+import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDoctorGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.HospitalDoctorPresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
@@ -46,9 +46,10 @@ public class HospitalDoctorFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = View.inflate(getContext(), R.layout.fragment_hospital_doctor, null);
+            initData();
             initView();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -111,12 +112,13 @@ public class HospitalDoctorFragment extends BaseFragment {
             });
             recyclerView.setAdapter(adapter);
             loadView.setStatus(LoadView.LoadStatus.Normal);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);
             doctors.addAll(data);
             adapter.notifyDataSetChanged();
         }
-        if (data.size() < HospitalDoctorGetter.PAGE_SIZE) {
+        if (data.size() < WikiDoctorGetter.PAGE_SIZE) {
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }

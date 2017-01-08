@@ -36,7 +36,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SDViewPager.
     private Mode mode = Mode.List;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_neary_hospital, null);

@@ -44,12 +44,11 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_nearby_hospital_list, container, false);
             initViews();
-            presenter.searchNearbyHospital();
         }
         return rootView;
     }
@@ -75,7 +74,7 @@ public class NearbyHospitalListFragment extends BaseFragment implements SwipeRef
 
     @Override
     protected void lazyLoad() {
-
+        presenter.searchNearbyHospital();
     }
 
     public void appendHospitalList(List<Hospital> data) {

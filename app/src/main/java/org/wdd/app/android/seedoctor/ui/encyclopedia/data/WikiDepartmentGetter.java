@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
@@ -27,8 +28,11 @@ public class WikiDepartmentGetter {
         this.context = context;
     }
 
-    public HttpSession requestDepartmentData() {
+    public HttpSession requestDepartmentData(String hospitalid) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
+        if (!TextUtils.isEmpty(hospitalid)) {
+            requestEntry.addRequestParam("hospitalid", hospitalid);
+        }
         requestEntry.setUrl(ServiceApi.WIKI_DEPARTMENT_LIST);
         HttpSession session = HttpManager.getInstance(context).sendHttpRequest(requestEntry, Department.class, new HttpConnectCallback() {
             @Override
@@ -56,6 +60,9 @@ public class WikiDepartmentGetter {
         return session;
     }
 
+    public HttpSession requestDepartmentData() {
+        return requestDepartmentData(null);
+    }
 
     public void setDepartmentCallback(DepartmentCallback callback) {
         this.callback = callback;

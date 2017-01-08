@@ -36,7 +36,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SDViewPager
     private NearbyDrugstoreFragment.Mode mode = NearbyDrugstoreFragment.Mode.List;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_nearby_drugstore, null);

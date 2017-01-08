@@ -31,7 +31,7 @@ public class DrugSecondCategaryFragment extends BaseFragment implements DrugSeco
     private Map<String, List<DrugCategory>> categoriesMap;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_drug_second_categary, container, false);
         initData();

@@ -4,13 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
-import com.amap.api.services.core.PoiItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
-
-import java.util.List;
 
 /**
  * Created by richard on 11/28/16.
@@ -20,15 +20,28 @@ public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-    private boolean inited = false;
+    private boolean dataLoaded = false;
+    private boolean viewIninted = false;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = createView(inflater, container, savedInstanceState);
+        viewIninted = true;
+        if (dataLoaded) return view;
+        if (!getUserVisibleHint()) return view;
+        lazyLoad();
+        dataLoaded = true;
+        return view;
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (!isVisibleToUser) return;
-        if (inited) return;
-        inited = true;
+        if (!viewIninted) return;
+        if (dataLoaded) return;
         lazyLoad();
+        dataLoaded = true;
     }
 
     public void showLoadingDialog() {
@@ -61,8 +74,8 @@ public abstract class BaseFragment extends Fragment {
         dialog.show();
     }
 
+    protected abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+
     protected abstract void lazyLoad();
-
-
 
 }

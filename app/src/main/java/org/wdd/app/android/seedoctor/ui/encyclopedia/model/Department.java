@@ -8,9 +8,27 @@ import org.wdd.app.android.seedoctor.views.index_bar.bean.BaseIndexPinyinBean;
 
 public class Department  extends BaseIndexPinyinBean {
 
+    public String hospitalid;
+    public String hospitalname;
     public String departmentid;
     public String departmentname;
     public String introduction;
+
+    public String getHospitalid() {
+        return hospitalid;
+    }
+
+    public void setHospitalid(String hospitalid) {
+        this.hospitalid = hospitalid;
+    }
+
+    public String getHospitalname() {
+        return hospitalname;
+    }
+
+    public void setHospitalname(String hospitalname) {
+        this.hospitalname = hospitalname;
+    }
 
     public String getDepartmentid() {
         return departmentid;

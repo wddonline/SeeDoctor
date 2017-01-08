@@ -29,9 +29,11 @@
         </android.support.v7.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/activity_hospital_detail_brief"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="80dp"
@@ -71,19 +73,22 @@
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
+            android:id="@+id/activity_hospital_detail_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/activity_hospital_detail_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <!--<org.wdd.app.android.seedoctor.views.LoadView-->
-        <!--android:id="@+id/activity_hospital_detail_loadview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="visible"/>-->
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/activity_hospital_detail_loadview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
 </android.support.design.widget.CoordinatorLayout>

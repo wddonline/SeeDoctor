@@ -45,12 +45,11 @@ public class NearbyDrugstoreListFragment extends BaseFragment implements SwipeRe
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_nearby_drugstore_list, container, false);
             initViews();
-            presenter.searchNearbyDrugstores();
         }
         return rootView;
     }
@@ -76,7 +75,7 @@ public class NearbyDrugstoreListFragment extends BaseFragment implements SwipeRe
 
     @Override
     protected void lazyLoad() {
-
+        presenter.searchNearbyDrugstores();
     }
 
     public void appendHospitalList(List<Drugstore> data) {

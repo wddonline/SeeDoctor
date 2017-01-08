@@ -28,7 +28,7 @@ public class DrugThirdCategoryFragment extends BaseFragment implements DrugThird
     private List<DrugCategory> categories;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View createView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_drug_third_category, container, false);
         initData();
