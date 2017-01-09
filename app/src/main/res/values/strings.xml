@@ -103,4 +103,12 @@
     <string name="more">更多</string>
     <string name="usual_disease_in_department">科室常见疾病</string>
 
+    <!-- 医院\医生详情 -->
+    <string name="phone">电话</string>
+    <string name="address">地址</string>
+    <string name="work_hospital">就职医院</string>
+    <string name="major">擅长</string>
+    <string name="short_brief">简历</string>
+    <string name="hospital_phone_cliped">医院电话信息已经复制到剪切板</string>
+
 </resources>

@@ -48,7 +48,8 @@ public class HospitalDepartmentAdapter extends AbstractCommonAdapter<Department>
             public void onClick(View v) {
                 switch (category) {
                     case FIRST:
-                        HospitalSecondDepartmentAdtivity.show(context, item.hospitalid, item.hospitalname, item.departmentid, item.departmentname);
+                        HospitalSecondDepartmentAdtivity.show(context, item.hospitalid, item.hospitalname,
+                                item.hospdeptid, item.departmentname);
                         break;
                     case SECOND:
                         DepartmentDetailActivity.show(context, item.departmentid, item.departmentname);

@@ -13,6 +13,7 @@ public class Department  extends BaseIndexPinyinBean {
     public String departmentid;
     public String departmentname;
     public String introduction;
+    public String hospdeptid;
 
     public String getHospitalid() {
         return hospitalid;
@@ -52,6 +53,14 @@ public class Department  extends BaseIndexPinyinBean {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getHospdeptid() {
+        return hospdeptid;
+    }
+
+    public void setHospdeptid(String hospdeptid) {
+        this.hospdeptid = hospdeptid;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class WikiDoctorAdapter extends AbstractCommonAdapter<Doctor> {
         viewHolder.clickView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DoctorDetailActivity.show(context, item.doctorid);
+                DoctorDetailActivity.show(context, item.doctorid, item.doctorname);
             }
         });
     }

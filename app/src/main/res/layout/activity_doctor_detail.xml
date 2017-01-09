@@ -18,94 +18,192 @@
             android:id="@+id/activity_doctor_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wiki_disease"
             android:layout_gravity="center"
             android:textSize="@dimen/textSizeToolbarTitle"
             android:textColor="@color/colorToolbarTitle"/>
 
     </android.support.v7.widget.Toolbar>
-    
-    <LinearLayout
+
+    <ScrollView
+        android:id="@+id/activity_doctor_detail_hospital_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <org.wdd.app.android.seedoctor.views.HttpImageView
+                    android:id="@+id/activity_doctor_detail_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:id="@+id/activity_doctor_detail_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorItemTitle"
+                        android:textSize="@dimen/textSizeItemTitle"/>
+
+                    <TextView
+                        android:id="@+id/activity_doctor_detail_dept"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/colorItemContent"
+                        android:textSize="@dimen/textSizeItemContent"/>
+
+                    <TextView
+                        android:id="@+id/activity_doctor_detail_level"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/colorItemContent"
+                        android:textSize="@dimen/textSizeItemContent"/>
+
+                </RelativeLayout>
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="centerCrop"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc"/>
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:onClick="onHospitalClicked"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:background="@drawable/common_list_item_bg"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorItemTitle"
+                        android:textSize="@dimen/textSizeItemTitle"
+                        android:text="@string/work_hospital"
+                        android:background="@color/white"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/activity_doctor_detail_hospital_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/textSizeItemContent"
+                        android:textColor="@color/colorItemContent"
+                        android:layout_centerVertical="true"
+                        android:text="11111111111"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorItemTitle"
                     android:textSize="@dimen/textSizeItemTitle"
-                    android:text="11111111111"/>
+                    android:text="@string/major"/>
 
                 <TextView
+                    android:id="@+id/activity_doctor_detail_major"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.1"
                     android:textColor="@color/colorItemContent"
-                    android:textSize="@dimen/textSizeItemContent"
-                    android:text="11111111111"/>
+                    android:textSize="@dimen/textSizeItemContent">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:textColor="@color/colorItemContent"
-                    android:textSize="@dimen/textSizeItemContent"
-                    android:text="11111111111"/>
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="就职医院"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/common_list_item_bg">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1111111111111111111"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1111111111111"/>
+                </TextView>
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:text="@string/short_brief"/>
 
-    </LinearLayout>
-    <!--<org.wdd.app.android.seedoctor.views.LoadView-->
-        <!--android:id="@+id/activity_doctor_detail_loadview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="visible"/>-->
+                <TextView
+                    android:id="@+id/activity_doctor_detail_short_brief"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.1"
+                    android:textColor="@color/colorItemContent"
+                    android:textSize="@dimen/textSizeItemContent">
+
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/activity_doctor_detail_loadview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
 </LinearLayout>

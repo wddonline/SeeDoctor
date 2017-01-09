@@ -10,72 +10,220 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_hospital_detail_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/actionBarSize"
-            android:background="@drawable/title_background"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <TextView
-                android:id="@+id/activity_hospital_detail_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wiki_disease"
-                android:layout_gravity="center"
-                android:textSize="@dimen/textSizeToolbarTitle"
-                android:textColor="@color/colorToolbarTitle"/>
-
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-            android:id="@+id/activity_hospital_detail_brief"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/activity_hospital_detail_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="centerCrop"/>
+            <LinearLayout
+                android:id="@+id/activity_hospital_detail_brief"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/actionBarSize"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_collapseMode="none">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <org.wdd.app.android.seedoctor.views.HttpImageView
+                        android:id="@+id/activity_hospital_detail_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp">
+
+                        <TextView
+                            android:id="@+id/activity_hospital_detail_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorItemTitle"
+                            android:textSize="@dimen/textSizeItemTitle"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="6dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_hospital_detail_level"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorItemContent"
+                            android:textSize="@dimen/textSizeItemContent"/>
+
+                        <LinearLayout
+                            android:id="@+id/activity_hospital_detail_star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="6dp"
+                            android:layout_alignParentBottom="true">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_star"
+                                android:layout_marginRight="8dp"
+                                android:visibility="gone"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_star"
+                                android:layout_marginRight="8dp"
+                                android:visibility="gone"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_star"
+                                android:layout_marginRight="8dp"
+                                android:visibility="gone"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_star"
+                                android:layout_marginRight="8dp"
+                                android:visibility="gone"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_star"
+                                android:visibility="gone"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorItemTitle"
                     android:textSize="@dimen/textSizeItemTitle"
-                    android:text="11111111111"/>
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/colorItemTitle"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/phone"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_hospital_detail_phone_click"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/common_list_item_bg"
+                    android:onClick="onPhoneClicked">
+
+                    <TextView
+                        android:id="@+id/activity_hospital_detail_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorItemContent"
+                        android:textSize="@dimen/textSizeItemContent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/arrow_right"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorItemContent"
-                    android:textSize="@dimen/textSizeItemContent"
-                    android:text="11111111111"/>
+                    android:textSize="@dimen/textSizeItemTitle"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/colorItemTitle"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/address"/>
 
-                <RatingBar
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:numStars="5"
-                    android:rating="3"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/common_list_item_bg"
+                    android:onClick="onAddressClicked">
 
-            </RelativeLayout>
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/activity_hospital_detail_addr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorItemContent"
+                        android:textSize="@dimen/textSizeItemContent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/arrow_right"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/activity_hospital_detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/actionBarSize"
+                android:background="@drawable/title_background"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/activity_hospital_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wiki_disease"
+                    android:gravity="center"
+                    android:textSize="@dimen/textSizeToolbarTitle"
+                    android:textColor="@color/colorToolbarTitle"/>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/activity_hospital_detail_tablayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:visibility="gone"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -91,4 +239,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"/>
+
 </android.support.design.widget.CoordinatorLayout>

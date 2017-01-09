@@ -16,8 +16,8 @@ public class HospitalDetail {
     public String picurl;
     public String isbad;
     public String badurl;
-    public String lat;
-    public String lng;
+    public double lat;
+    public double lng;
     public String introduction;
 
     public String getHospitalid() {
@@ -100,19 +100,19 @@ public class HospitalDetail {
         this.badurl = badurl;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
