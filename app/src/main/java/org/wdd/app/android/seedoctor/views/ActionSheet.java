@@ -32,7 +32,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,7 +43,9 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import org.wdd.app.android.seedoctor.R;
 
@@ -190,17 +191,17 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
     }
 
     private View createView() {
-        FrameLayout parent = new FrameLayout(getActivity());
+        FrameLayout parent = new FrameLayout(getContext());
         parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
-        mBg = new View(getActivity());
+        mBg = new View(getContext());
         mBg.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
-        mBg.setBackgroundColor(Color.argb(136, 0, 0, 0));
+        mBg.setBackgroundColor(Color.parseColor("#4e000000"));
         mBg.setId(ActionSheet.BG_VIEW_ID);
         mBg.setOnClickListener(this);
 
-        mPanel = new LinearLayout(getActivity());
+        mPanel = new LinearLayout(getContext());
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.BOTTOM;
@@ -252,46 +253,40 @@ public class ActionSheet extends Fragment implements View.OnClickListener {
         String[] titles = getOtherButtonTitles();
         if (titles != null) {
             for (int i = 0; i < titles.length; i++) {
-                Button bt = new Button(getActivity());
+                Button bt = new Button(getContext());
+                bt.setClickable(true);
                 bt.setId(CANCEL_BUTTON_ID + i + 1);
-                ViewCompat.setElevation(bt, 0);
-                ViewCompat.setTranslationZ(bt, 0);
                 bt.setOnClickListener(this);
                 bt.setBackgroundResource(R.drawable.common_list_item_bg);
                 bt.setText(titles[i]);
                 bt.setTextColor(Color.parseColor("#1E82FF"));
                 bt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                if (i > 0) {
-                    LinearLayout.LayoutParams params = createButtonLayoutParams();
-                    params.topMargin = 0;
-                    mPanel.addView(bt, params);
-                } else {
-                    mPanel.addView(bt);
+                bt.setGravity(Gravity.CENTER);
+                mPanel.addView(bt, new LayoutParams(LayoutParams.MATCH_PARENT, dp2px(getContext(), 45)));
+
+                if (i < titles.length - 1) {
+                    ImageView line = new ImageView(getContext());
+                    line.setBackgroundColor(Color.parseColor("#cccccc"));
+                    mPanel.addView(line, new LayoutParams(LayoutParams.MATCH_PARENT, 1));
                 }
             }
         }
-        Button bt = new Button(getActivity());
-        ViewCompat.setElevation(bt, 0);
-//        bt.getPaint().setFakeBoldText(true);
+        Button bt = new Button(getContext());
+        bt.setClickable(true);
         bt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         bt.setId(ActionSheet.CANCEL_BUTTON_ID);
         bt.setBackgroundResource(R.drawable.common_list_item_bg);
         bt.setText(getCancelButtonTitle());
         bt.setTextColor(Color.parseColor("#1E82FF"));
         bt.setOnClickListener(this);
-        LinearLayout.LayoutParams params = createButtonLayoutParams();
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, dp2px(getContext(), 45));
+        bt.setGravity(Gravity.CENTER);
         params.topMargin = dp2px(getContext(), 10);
         mPanel.addView(bt, params);
 
         mPanel.setBackgroundColor(Color.TRANSPARENT);
         int padding = dp2px(getContext(), 10);
         mPanel.setPadding(padding, padding, padding, padding);
-    }
-
-    public LinearLayout.LayoutParams createButtonLayoutParams() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        return params;
     }
 
     private String getCancelButtonTitle() {

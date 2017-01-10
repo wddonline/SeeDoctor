@@ -34,7 +34,9 @@ public class HospitalSearchAdapter extends AbstractCommonAdapter<Hospital> {
     protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital item, int position) {
         HospitalViewHolder viewHolder = (HospitalViewHolder) holder;
         viewHolder.titleView.setText(item.getName());
-        viewHolder.titleView.setOnClickListener(new View.OnClickListener() {
+        String[] types = item.getTypeDes().split(";");
+        viewHolder.levelView.setText(types[types.length - 1]);
+        viewHolder.clickView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RouteLineActivity.show(context, item.getLatLong().latitude, item.getLatLong().longitude);
@@ -44,11 +46,15 @@ public class HospitalSearchAdapter extends AbstractCommonAdapter<Hospital> {
 
     private class HospitalViewHolder extends RecyclerView.ViewHolder {
 
+        View clickView;
         TextView titleView;
+        TextView levelView;
 
         public HospitalViewHolder(View itemView) {
             super(itemView);
+            clickView = itemView.findViewById(R.id.item_hospital_search_click);
             titleView = (TextView) itemView.findViewById(R.id.item_hospital_search_title);
+            levelView = (TextView) itemView.findViewById(R.id.item_hospital_search_level);
         }
     }
 }
