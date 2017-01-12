@@ -10,6 +10,15 @@ import android.text.TextUtils;
 
 public class AppConfManager {
 
+    private static AppConfManager INSTANCE;
+
+    public static AppConfManager getInstance(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = new AppConfManager(context);
+        }
+        return INSTANCE;
+    }
+
     private final String CONF_NAME = "app_conf";
 
     private final String WIKI_HOSPITAL_PROVINCE_ID = "wiki_hospital_province_id";
@@ -17,7 +26,7 @@ public class AppConfManager {
 
     private Context context;
 
-    public AppConfManager(Context context) {
+    private AppConfManager(Context context) {
         this.context = context;
     }
 
@@ -34,7 +43,7 @@ public class AppConfManager {
 
     public String getWikiHospitalProvinceId() {
         SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(WIKI_HOSPITAL_PROVINCE_ID, null);
+        return preferences.getString(WIKI_HOSPITAL_PROVINCE_ID, "");
     }
 
     public void saveWikiHospitalLevelId(String levelId) {
@@ -51,6 +60,6 @@ public class AppConfManager {
 
     public String getWikiHospitalLevelId() {
         SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(WIKI_HOSPITAL_LEVEL_ID, null);
+        return preferences.getString(WIKI_HOSPITAL_LEVEL_ID, "");
     }
 }

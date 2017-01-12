@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiHospitalAdapter;
@@ -43,6 +44,7 @@ public class WikiHospitalActivity extends BaseActivity {
     private WikiHospitalAdapter adapter;
     private WikiHospitalPresenter presenter;
     private List<Hospital> hospitals;
+    private AppConfManager confManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class WikiHospitalActivity extends BaseActivity {
     }
 
     private void initData() {
+        confManager = AppConfManager.getInstance(this);
         presenter = new WikiHospitalPresenter(this);
     }
 
@@ -79,6 +82,7 @@ public class WikiHospitalActivity extends BaseActivity {
                 return true;
             }
         });
+
     }
 
     private void initViews() {

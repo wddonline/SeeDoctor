@@ -36,6 +36,9 @@ public class HospitalFilterActivity extends BaseActivity {
     private HospitalFilterPresenter presenter;
     private AppConfManager confManager;
 
+    private String initProvinceid;
+    private String initLevelid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,9 @@ public class HospitalFilterActivity extends BaseActivity {
     }
 
     private void initData() {
-        confManager = new AppConfManager(this);
+        confManager = AppConfManager.getInstance(this);
+        initProvinceid = confManager.getWikiHospitalProvinceId();
+        initLevelid = confManager.getWikiHospitalLevelId();
         presenter = new HospitalFilterPresenter(this);
     }
 
@@ -58,6 +63,7 @@ public class HospitalFilterActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                beforeFinish();
                 finish();
             }
         });
@@ -77,6 +83,20 @@ public class HospitalFilterActivity extends BaseActivity {
         });
 
         presenter.getProvinceData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        beforeFinish();
+        super.onBackPressed();
+    }
+
+    private void beforeFinish() {
+        String currentProvinceid = (String) provinceView.getTag();
+        String currentLevelid = (String) levelView.getTag();
+        if (!initProvinceid.equals(currentProvinceid) || !initLevelid.equals(currentLevelid)) {
+            setResult(RESULT_OK);
+        }
     }
 
     public void onProvinceClicked(View v) {
