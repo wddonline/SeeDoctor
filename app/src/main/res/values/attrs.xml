@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="PagerSlidingTabStrip">
-        <attr name="textEmphasized" format="boolean"/>
+        <attr name="textEmphasized" format="boolean" />
         <attr name="tabTextColor" format="color" />
         <attr name="tabUnselectedTextColor" format="color" />
         <attr name="indicatorColor" format="color" />
@@ -48,13 +48,49 @@
         <attr name="indicatorMarginBottom" format="dimension|reference" />
         <attr name="autoPlayDuration" format="integer|reference" />
         <attr name="scrollDuration" format="integer|reference" />
-        <attr name="isAutoPlay" format="boolean|reference"/>
-        <attr name="defaultImage" format="integer|reference"/>
+        <attr name="isAutoPlay" format="boolean|reference" />
+        <attr name="defaultImage" format="integer|reference" />
     </declare-styleable>
 
     <declare-styleable name="IndexBar">
         <attr name="indexBarTextSize" format="dimension" />
         <attr name="indexBarPressBackground" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="WheelPicker">
+        <attr name="wheel_data" format="reference" />
+        <attr name="wheel_selected_item_position" format="integer" />
+        <attr name="wheel_item_text_size" format="dimension" />
+        <attr name="wheel_item_text_color" format="color" />
+        <attr name="wheel_selected_item_text_color" format="color" />
+        <attr name="wheel_same_width" format="boolean" />
+        <attr name="wheel_maximum_width_text" format="string" />
+        <attr name="wheel_maximum_width_text_position" format="integer" />
+        <attr name="wheel_visible_item_count" format="integer" />
+        <attr name="wheel_item_space" format="dimension" />
+        <attr name="wheel_cyclic" format="boolean" />
+        <attr name="wheel_indicator" format="boolean" />
+        <attr name="wheel_indicator_color" format="color" />
+        <attr name="wheel_indicator_size" format="dimension" />
+        <attr name="wheel_curtain" format="boolean" />
+        <attr name="wheel_curtain_color" format="color" />
+        <attr name="wheel_atmospheric" format="boolean" />
+        <attr name="wheel_curved" format="boolean" />
+        <attr name="wheel_item_align" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <style name="appDialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="bottomDialogStyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/slide_bottom_enter</item>
+        <item name="@android:windowExitAnimation">@anim/slide_bottom_exit</item>
+    </style>
 
 </resources>

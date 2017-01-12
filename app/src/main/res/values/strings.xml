@@ -69,6 +69,7 @@
     <string name="wiki_emergency_treatment">急诊</string>
     <string name="wiki_department">科室</string>
     <string name="wiki_doctor">医生</string>
+    <string name="filter">筛选</string>
 
     <!-- 疾病详情 -->
     <string name="disease_brief_introduction">简介</string>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_hospital_province_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@string/cancel"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:clickable="true"
+            android:textSize="@dimen/textSizeItemTitle"
+            android:background="@drawable/common_list_item_bg"/>
+
+        <TextView
+            android:id="@+id/dialog_hospital_province_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/confirm"
+            android:gravity="center"
+            android:clickable="true"
+            android:textColor="@color/tab_text_color"
+            android:textSize="@dimen/textSizeItemTitle"
+            android:background="@drawable/common_list_item_bg"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/wiki_divider_color"/>
+
+    <org.wdd.app.android.seedoctor.views.wheel_picker.WheelPicker
+        android:id="@+id/dialog_hospital_province_picker"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:wheel_atmospheric="true"
+        app:wheel_curved="true"
+        app:wheel_cyclic="true"
+        app:wheel_item_align="center"
+        app:wheel_item_text_color="#A7A7DB"
+        app:wheel_item_text_size="24sp"
+        app:wheel_selected_item_text_color="#536D8A" />
+</LinearLayout>

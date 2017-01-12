@@ -72,7 +72,8 @@
         <activity android:name=".ui.encyclopedia.activity.WikiHospitalActivity" />
         <activity android:name=".ui.encyclopedia.activity.HospitalDetailActivity" />
         <activity android:name=".ui.search.activity.HospitalSearchActivity" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity"></activity>
+        <activity android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity" />
+        <activity android:name=".ui.encyclopedia.activity.HospitalFilterActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_hospital_level">
+        <item>不限</item>
+        <item>三级甲等</item>
+        <item>三级乙等</item>
+        <item>三级丙等</item>
+        <item>二级甲等</item>
+        <item>二级乙等</item>
+        <item>二级丙等</item>
+        <item>一级甲等</item>
+        <item>一级乙等</item>
+        <item>一级丙等</item>
+    </string-array>
+
+</resources>

@@ -10,4 +10,9 @@
 
     <dimen name="textSizeToolbarTitle">18sp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="WheelItemTextSize">24sp</dimen>
+    <dimen name="WheelItemSpace">12dp</dimen>
+    <dimen name="WheelIndicatorSize">2dp</dimen>
+    <dimen name="WheelMargins">8dp</dimen>
 </resources>

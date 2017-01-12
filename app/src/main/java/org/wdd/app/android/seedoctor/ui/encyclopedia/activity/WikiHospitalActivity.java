@@ -7,6 +7,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
@@ -31,6 +33,8 @@ public class WikiHospitalActivity extends BaseActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    private final int REQUEST_HOSPITAL_FILTER = 1;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -64,6 +68,17 @@ public class WikiHospitalActivity extends BaseActivity {
                 finish();
             }
         });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_filter:
+                        HospitalFilterActivity.show(WikiHospitalActivity.this, REQUEST_HOSPITAL_FILTER);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void initViews() {
@@ -90,6 +105,23 @@ public class WikiHospitalActivity extends BaseActivity {
         });
 
         presenter.getHospitalListData("", "", false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_HOSPITAL_FILTER:
+
+                break;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        return true;
     }
 
     @Override
