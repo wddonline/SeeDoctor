@@ -14,4 +14,13 @@
         <item>一级丙等</item>
     </string-array>
 
+    <string-array name="filter_doctor_level">
+        <item>不限</item>
+        <item>主任医师</item>
+        <item>副主任医师</item>
+        <item>主治医师</item>
+        <item>医师</item>
+        <item>其他</item>
+    </string-array>
+
 </resources>

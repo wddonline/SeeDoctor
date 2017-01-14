@@ -7,9 +7,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
@@ -40,11 +42,14 @@ public class WikiHospitalActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
+    private TextView filterView;
 
     private WikiHospitalAdapter adapter;
     private WikiHospitalPresenter presenter;
     private List<Hospital> hospitals;
     private AppConfManager confManager;
+    private String provinceid;
+    private String levelid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +87,29 @@ public class WikiHospitalActivity extends BaseActivity {
                 return true;
             }
         });
+        filterView = (TextView) findViewById(R.id.activity_wiki_hospital_filter);
+        setHospitalFilter();
+    }
 
+    private void setHospitalFilter() {
+        provinceid = confManager.getWikiHospitalProvinceId();
+        levelid = confManager.getWikiHospitalLevelId();
+        String provinceName = confManager.getWikiHospitalProvinceName();
+        String levelName = confManager.getWikiHospitalLevelName();
+        if (TextUtils.isEmpty(provinceName) && TextUtils.isEmpty(levelName)) {
+            filterView.setVisibility(View.GONE);
+        } else {
+            filterView.setVisibility(View.VISIBLE);
+            StringBuffer filter = new StringBuffer();
+            if (!TextUtils.isEmpty(provinceName) && TextUtils.isEmpty(levelName)) {
+                filter.append(provinceName);
+            } else if(TextUtils.isEmpty(provinceName) && !TextUtils.isEmpty(levelName)) {
+                filter.append(levelName);
+            } else if(!TextUtils.isEmpty(provinceName) && !TextUtils.isEmpty(levelName)) {
+                filter.append(provinceName + " + " + levelName);
+            }
+            filterView.setText(filter.toString());
+        }
     }
 
     private void initViews() {
@@ -97,18 +124,18 @@ public class WikiHospitalActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getHospitalListData("", "", true);
+                presenter.getHospitalListData(provinceid, levelid, true);
             }
         });
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.getHospitalListData("", "", true);
+                presenter.getHospitalListData(provinceid, levelid, true);
             }
         });
 
-        presenter.getHospitalListData("", "", false);
+        presenter.getHospitalListData(provinceid, levelid, false);
     }
 
     @Override
@@ -117,7 +144,13 @@ public class WikiHospitalActivity extends BaseActivity {
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_HOSPITAL_FILTER:
-
+                setHospitalFilter();
+                if (adapter != null) {
+                    hospitals.clear();
+                    adapter.notifyDataSetChanged();
+                    adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
+                }
+                presenter.getHospitalListData(provinceid, levelid, true);
                 break;
         }
     }
@@ -159,7 +192,7 @@ public class WikiHospitalActivity extends BaseActivity {
             adapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    presenter.getHospitalListData("", "", false);
+                    presenter.getHospitalListData(provinceid, levelid, false);
                 }
             });
             recyclerView.setAdapter(adapter);

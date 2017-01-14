@@ -134,11 +134,13 @@ public class HospitalFilterActivity extends BaseActivity {
                     provinceView.setText("不限");
                     provinceView.setTag(null);
                     confManager.saveWikiHospitalProvinceId(null);
+                    confManager.saveWikiHospitalProvinceName(null);
                 } else {
                     Province province = data.get(position - 1);
                     provinceView.setText(province.name);
                     provinceView.setTag(province.provinceid);
                     confManager.saveWikiHospitalProvinceId(province.provinceid);
+                    confManager.saveWikiHospitalProvinceName(province.name);
                 }
 
             }
@@ -153,7 +155,7 @@ public class HospitalFilterActivity extends BaseActivity {
         initPosition = 0;
         String levelid = confManager.getWikiHospitalLevelId();
         if (!TextUtils.isEmpty(levelid)) {
-            initPosition = Integer.parseInt(levelid);
+            initPosition = Integer.parseInt(levelid) - 1;
         }
         levelMenu.setData(levels);
         levelMenu.setInitPosition(initPosition);
@@ -166,10 +168,12 @@ public class HospitalFilterActivity extends BaseActivity {
                     levelView.setText("不限");
                     levelView.setTag(null);
                     confManager.saveWikiHospitalLevelId(null);
+                    confManager.saveWikiHospitalLevelName(null);
                 } else {
                     levelView.setText(arr[position]);
                     levelView.setTag(position + "");
-                    confManager.saveWikiHospitalLevelId(position + "");
+                    confManager.saveWikiHospitalLevelId((position + 1) + "");
+                    confManager.saveWikiHospitalLevelName(position == 0 ? null : arr[position]);
                 }
 
             }

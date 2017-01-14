@@ -7,6 +7,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
@@ -32,6 +34,8 @@ public class WikiDoctorActivity extends BaseActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    private final int REQUEST_DOCTOR_FILTER = 1;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
@@ -65,6 +69,17 @@ public class WikiDoctorActivity extends BaseActivity {
                 finish();
             }
         });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_filter:
+                        DoctorFilterActivity.show(WikiDoctorActivity.this, REQUEST_DOCTOR_FILTER);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void initViews() {
@@ -91,6 +106,32 @@ public class WikiDoctorActivity extends BaseActivity {
         });
 
         presenter.getDoctorListData("", "", false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUEST_DOCTOR_FILTER:
+                if (adapter != null) {
+                    doctors.clear();
+                    adapter.notifyDataSetChanged();
+                    adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
+                }
+                presenter.getDoctorListData(true);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

@@ -70,6 +70,9 @@
     <string name="wiki_department">科室</string>
     <string name="wiki_doctor">医生</string>
     <string name="filter">筛选</string>
+    <string name="in_area">所在地区</string>
+    <string name="hospital_level">所在地区</string>
+    <string name="doctor_level">医生等级</string>
 
     <!-- 疾病详情 -->
     <string name="disease_brief_introduction">简介</string>
