@@ -5,7 +5,7 @@ import com.amap.api.services.core.PoiItem;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalMapDataGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalMapFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.activity.NearbyHospitalMapActivity;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
 
 public class NearbyHospitalMapPresenter implements BasePresenter, HospitalMapDataGetter.SearchCallback {
 
-    private NearbyHospitalMapFragment view;
+    private NearbyHospitalMapActivity view;
     private HospitalMapDataGetter data;
 
-    public NearbyHospitalMapPresenter(NearbyHospitalMapFragment view) {
+    public NearbyHospitalMapPresenter(NearbyHospitalMapActivity view) {
         this.view = view;
-        data = new HospitalMapDataGetter(view.getContext());
+        data = new HospitalMapDataGetter(view);
         data.setSearchCallback(this);
     }
 

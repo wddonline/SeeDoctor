@@ -43,7 +43,7 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     private List<Drug> drugs;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wiki_drug_category);
         intData();

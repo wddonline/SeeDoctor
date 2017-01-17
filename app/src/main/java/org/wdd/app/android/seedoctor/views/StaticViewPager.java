@@ -9,15 +9,15 @@ import android.view.MotionEvent;
  * Created by wangdd on 16-11-29.
  */
 
-public class SDViewPager extends ViewPager {
+public class StaticViewPager extends ViewPager {
 
     private boolean scrollable = true;
 
-    public SDViewPager(Context context) {
+    public StaticViewPager(Context context) {
         this(context, null);
     }
 
-    public SDViewPager(Context context, AttributeSet attrs) {
+    public StaticViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

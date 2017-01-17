@@ -1,9 +1,8 @@
 package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 
-import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalListFragment;
+import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -15,10 +14,10 @@ import java.util.List;
 
 public class NearbyHospitalListPresenter implements BasePresenter, HospitalListDataGetter.SearchCallback {
 
-    private NearbyHospitalListFragment view;
+    private NearbyHospitalFragment view;
     private HospitalListDataGetter data;
 
-    public NearbyHospitalListPresenter(NearbyHospitalListFragment view) {
+    public NearbyHospitalListPresenter(NearbyHospitalFragment view) {
         this.view = view;
         data = new HospitalListDataGetter(view.getContext());
         data.setSearchCallback(this);

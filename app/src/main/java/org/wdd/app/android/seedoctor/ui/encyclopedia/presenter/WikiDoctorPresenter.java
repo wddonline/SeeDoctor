@@ -25,8 +25,8 @@ public class WikiDoctorPresenter implements BasePresenter, WikiDoctorGetter.Wiki
         getter.setCallback(this);
     }
 
-    public void getDoctorListData(String provinceid, String hospitallevel, boolean refresh) {
-        session = getter.requestDoctorList(provinceid, hospitallevel, refresh);
+    public void getDoctorListData(String provinceid, String hospitallevel, String doclevelid, boolean refresh) {
+        session = getter.requestDoctorList(provinceid, hospitallevel, doclevelid, refresh);
     }
 
     @Override

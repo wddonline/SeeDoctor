@@ -39,7 +39,7 @@ public class WikiDepartmentActivity extends BaseActivity {
     private WikiDepartmentPresenter presenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wiki_department);
         initData();

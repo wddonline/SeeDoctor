@@ -7,14 +7,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDiseaseAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDoctorAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDiseaseGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
@@ -40,13 +42,18 @@ public class WikiDoctorActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
+    private TextView filterView;
 
     private WikiDoctorAdapter adapter;
     private WikiDoctorPresenter presenter;
     private List<Doctor> doctors;
+    private AppConfManager confManager;
+    private String provinceid;
+    private String hospitallevel;
+    private String doclevelid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wiki_doctor);
         initData();
@@ -55,6 +62,7 @@ public class WikiDoctorActivity extends BaseActivity {
     }
 
     private void initData() {
+        confManager = AppConfManager.getInstance(this);
         presenter = new WikiDoctorPresenter(this);
     }
 
@@ -80,6 +88,32 @@ public class WikiDoctorActivity extends BaseActivity {
                 return true;
             }
         });
+        filterView = (TextView) findViewById(R.id.activity_wiki_doctor_filter);
+        setDoctorFilter();
+    }
+
+    private void setDoctorFilter() {
+        provinceid = confManager.getWikiDoctorProvinceId();
+        hospitallevel = confManager.getWikiDoctorLevelId();
+        doclevelid = confManager.getWikiDoctorJobLevelId();
+        String provinceName = confManager.getWikiDoctorProvinceName();
+        String levelName = confManager.getWikiDoctorLevelName();
+        String doctorLevel = confManager.getWikiDoctorJobLevelName();
+        if (TextUtils.isEmpty(provinceName) && TextUtils.isEmpty(levelName) && TextUtils.isEmpty(doctorLevel)) {
+            filterView.setVisibility(View.GONE);
+        } else {
+            filterView.setVisibility(View.VISIBLE);
+            List<String> list = new ArrayList<>();
+            if (!TextUtils.isEmpty(provinceName)) list.add(provinceName);
+            if (!TextUtils.isEmpty(levelName)) list.add(levelName);
+            if (!TextUtils.isEmpty(doctorLevel)) list.add(doctorLevel);
+            StringBuffer filter = new StringBuffer();
+            for (String str : list) {
+                filter.append(str + "+");
+            }
+            CharSequence filterStr = filter.subSequence(0, filter.length() - 1);
+            filterView.setText(filterStr);
+        }
     }
 
     private void initViews() {
@@ -94,18 +128,18 @@ public class WikiDoctorActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getDoctorListData("", "", true);
+                presenter.getDoctorListData(provinceid, hospitallevel, doclevelid, true);
             }
         });
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                presenter.getDoctorListData("", "", true);
+                presenter.getDoctorListData(provinceid, hospitallevel, doclevelid, true);
             }
         });
 
-        presenter.getDoctorListData("", "", false);
+        presenter.getDoctorListData(provinceid, hospitallevel, doclevelid, false);
     }
 
     @Override
@@ -127,7 +161,8 @@ public class WikiDoctorActivity extends BaseActivity {
                     adapter.notifyDataSetChanged();
                     adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
                 }
-                presenter.getDoctorListData(true);
+                setDoctorFilter();
+                presenter.getDoctorListData(provinceid, hospitallevel, doclevelid, true);
                 break;
             default:
                 break;
@@ -165,7 +200,7 @@ public class WikiDoctorActivity extends BaseActivity {
             adapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    presenter.getDoctorListData("", "", false);
+                    presenter.getDoctorListData(provinceid, hospitallevel, doclevelid, false);
                 }
             });
             recyclerView.setAdapter(adapter);

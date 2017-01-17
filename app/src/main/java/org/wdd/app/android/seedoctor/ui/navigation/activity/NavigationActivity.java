@@ -59,7 +59,7 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
     private NaviLatLng to;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         initData();

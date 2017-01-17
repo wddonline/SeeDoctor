@@ -21,8 +21,23 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <org.wdd.app.android.seedoctor.views.SDViewPager
-        android:id="@+id/fragment_nearby_drugstore_viewpager"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_nearby_drugstore_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_nearby_drugstore_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <org.wdd.app.android.seedoctor.views.LoadView
+        android:id="@+id/fragment_nearby_drugstore_load"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

@@ -2,7 +2,7 @@ package org.wdd.app.android.seedoctor.ui.drugstore.presenter;
 
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.drugstore.data.DrugstoreListDataGetter;
-import org.wdd.app.android.seedoctor.ui.drugstore.fragment.NearbyDrugstoreListFragment;
+import org.wdd.app.android.seedoctor.ui.drugstore.fragment.NearbyDrugstoreFragment;
 import org.wdd.app.android.seedoctor.ui.drugstore.model.Drugstore;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class NearbyDrugstoreListPresenter implements BasePresenter, DrugstoreListDataGetter.SearchCallback {
 
-    private NearbyDrugstoreListFragment view;
+    private NearbyDrugstoreFragment view;
     private DrugstoreListDataGetter data;
 
-    public NearbyDrugstoreListPresenter(NearbyDrugstoreListFragment view) {
+    public NearbyDrugstoreListPresenter(NearbyDrugstoreFragment view) {
         this.view = view;
         data = new DrugstoreListDataGetter(view.getContext());
         data.setSearchCallback(this);

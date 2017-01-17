@@ -43,7 +43,7 @@ public class DoctorFilterActivity extends BaseActivity {
     private String initDoctorLevelid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_filter);
         initData();
@@ -78,6 +78,10 @@ public class DoctorFilterActivity extends BaseActivity {
         provinceView = (TextView) findViewById(R.id.activity_doctor_filter_area);
         hospitalLevelView = (TextView) findViewById(R.id.activity_doctor_filter_hospital_level);
         doctorLevelView = (TextView) findViewById(R.id.activity_doctor_filter_doctor_level);
+
+        provinceView.setTag(confManager.getWikiDoctorProvinceId());
+        hospitalLevelView.setTag(confManager.getWikiDoctorLevelId());
+        doctorLevelView.setTag(confManager.getWikiDoctorJobLevelId());
 
         loadView = (LoadView) findViewById(R.id.activity_doctor_filter_loadview);
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
@@ -201,23 +205,23 @@ public class DoctorFilterActivity extends BaseActivity {
         if (!TextUtils.isEmpty(doctorLevelid)) {
             initPosition = Integer.parseInt(doctorLevelid);
         }
-        hospitalLevelMenu.setData(doctorLevels);
-        hospitalLevelMenu.setInitPosition(initPosition);
-        hospitalLevelView.setText(doctorArr[initPosition]);
-        hospitalLevelMenu.setProvinceSelectedListener(new WheelPickerMenu.ProvinceSelectedListener() {
+        doctorLevelMenu.setData(doctorLevels);
+        doctorLevelMenu.setInitPosition(initPosition);
+        doctorLevelView.setText(doctorArr[initPosition]);
+        doctorLevelMenu.setProvinceSelectedListener(new WheelPickerMenu.ProvinceSelectedListener() {
 
             @Override
             public void onProvinceSelected(int position) {
                 if (position == 0) {
-                    hospitalLevelView.setText("不限");
-                    hospitalLevelView.setTag(null);
+                    doctorLevelView.setText("不限");
+                    doctorLevelView.setTag(null);
                     confManager.saveWikiDoctorJobLevelId(null);
                     confManager.saveWikiDoctorJobLevelName(null);
                 } else {
-                    hospitalLevelView.setText(doctorArr[position]);
-                    hospitalLevelView.setTag(position + "");
+                    doctorLevelView.setText(doctorArr[position]);
+                    doctorLevelView.setTag(position + "");
                     confManager.saveWikiDoctorJobLevelId(position + "");
-                    confManager.saveWikiDoctorJobLevelName(position == 0 ? null : doctorArr[position]);
+                    confManager.saveWikiDoctorJobLevelName(doctorArr[position]);
                 }
 
             }

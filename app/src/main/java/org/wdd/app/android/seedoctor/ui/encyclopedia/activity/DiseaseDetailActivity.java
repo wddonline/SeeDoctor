@@ -41,7 +41,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     private boolean[] openStatus;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disease_detail);
         initData();

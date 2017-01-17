@@ -52,7 +52,7 @@ public class WikiHospitalActivity extends BaseActivity {
     private String levelid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wiki_hospital);
         initData();
@@ -106,7 +106,7 @@ public class WikiHospitalActivity extends BaseActivity {
             } else if(TextUtils.isEmpty(provinceName) && !TextUtils.isEmpty(levelName)) {
                 filter.append(levelName);
             } else if(!TextUtils.isEmpty(provinceName) && !TextUtils.isEmpty(levelName)) {
-                filter.append(provinceName + " + " + levelName);
+                filter.append(provinceName + "+" + levelName);
             }
             filterView.setText(filter.toString());
         }

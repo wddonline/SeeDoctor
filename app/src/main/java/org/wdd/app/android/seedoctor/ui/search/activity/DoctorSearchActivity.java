@@ -45,7 +45,7 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
     private List<Doctor> doctors;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_search);
         initData();

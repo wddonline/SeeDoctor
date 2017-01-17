@@ -38,7 +38,7 @@ public class DriveRouteDetailActivity extends BaseActivity {
     private DriveRouteResult driveRouteResult;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive_route_detail);
         initData();

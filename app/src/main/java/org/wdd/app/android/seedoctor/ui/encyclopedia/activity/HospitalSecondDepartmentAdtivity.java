@@ -46,7 +46,7 @@ public class HospitalSecondDepartmentAdtivity extends BaseActivity {
     private String parenthosdepid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_second_department);
         initData();

@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.wdd.app.android.seedoctor.ui.hospital.activity.NearbyHospitalMapActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_nearby_hospital_map_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@drawable/title_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nearby_hospital"
+            android:textSize="@dimen/textSizeToolbarTitle"
+            android:textColor="@color/colorToolbarTitle"
+            android:layout_gravity="top|center_horizontal"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.amap.api.maps.TextureMapView
+        android:id="@+id/activity_nearby_hospital_map_mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

@@ -4,6 +4,7 @@
     <string name="drug_store">药店</string>
     <string name="wiki">百科</string>
     <string name="me">我</string>
+    <string name="back_to_exit">再按一次返回键退出看医生</string>
 
     <!-- 通用 -->
     <string name="locating">获取您当前的位置</string>
@@ -26,8 +27,6 @@
 
     <!-- 附近医院 -->
     <string name="nearby_hospital">附近医院</string>
-    <string name="list_mode">列表</string>
-    <string name="map_mode">地图</string>
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>
 
@@ -35,6 +34,7 @@
     <string name="nearby_drugstore">附近药店</string>
 
     <!-- 搜索 -->
+    <string name="search">搜索</string>
     <string name="nearby_search_hint">输入医院或者药店的名称</string>
     <string name="disease_search_hint">输入疾病的名称</string>
     <string name="drug_search_hint">输入药品的名称</string>
@@ -71,7 +71,7 @@
     <string name="wiki_doctor">医生</string>
     <string name="filter">筛选</string>
     <string name="in_area">所在地区</string>
-    <string name="hospital_level">所在地区</string>
+    <string name="hospital_level">医院等级</string>
     <string name="doctor_level">医生等级</string>
 
     <!-- 疾病详情 -->

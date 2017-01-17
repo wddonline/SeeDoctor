@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.main.activity;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,18 +11,26 @@ import android.widget.TextView;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
+import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.drugstore.fragment.NearbyDrugstoreFragment;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment;
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
+import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.views.SDFragmentTabHost;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements Runnable {
+
+    private final long TIME_LIMIT = 3000;
 
     private SDFragmentTabHost tabHost;
+    private Handler handler = new Handler();
+
+    private int backPressedCount = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
@@ -60,6 +69,23 @@ public class MainActivity extends AppCompatActivity {
         tabWidget.setBackgroundResource(R.drawable.navigation_background);
         for (int i = 0; i < tabCount; i++) {
             tabWidget.getChildTabViewAt(i).getLayoutParams().width = tabWidth;
+        }
+    }
+
+    @Override
+    public void run() {
+        backPressedCount = 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedCount < 1) {
+            handler.postDelayed(this, TIME_LIMIT);
+            AppToaster.show(R.string.back_to_exit);
+            backPressedCount++;
+        } else {
+            handler.removeCallbacks(this);
+            SDApplication.getInstance().exitApp();
         }
     }
 }

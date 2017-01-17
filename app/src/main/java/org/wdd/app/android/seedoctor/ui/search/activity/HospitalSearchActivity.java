@@ -50,7 +50,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
     private List<Hospital> doctors;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_search);
         initData();

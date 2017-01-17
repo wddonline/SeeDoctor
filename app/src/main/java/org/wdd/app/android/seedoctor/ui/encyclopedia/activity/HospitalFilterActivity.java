@@ -40,7 +40,7 @@ public class HospitalFilterActivity extends BaseActivity {
     private String initLevelid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_filter);
         initData();
@@ -73,6 +73,9 @@ public class HospitalFilterActivity extends BaseActivity {
         dataView = findViewById(R.id.activity_hospital_filter_dataview);
         provinceView = (TextView) findViewById(R.id.activity_hospital_filter_area);
         levelView = (TextView) findViewById(R.id.activity_hospital_filter_level);
+
+        provinceView.setTag(confManager.getWikiHospitalProvinceId());
+        levelView.setTag(confManager.getWikiHospitalLevelId());
 
         loadView = (LoadView) findViewById(R.id.activity_hospital_filter_loadview);
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
@@ -173,7 +176,7 @@ public class HospitalFilterActivity extends BaseActivity {
                     levelView.setText(arr[position]);
                     levelView.setTag(position + "");
                     confManager.saveWikiHospitalLevelId((position + 1) + "");
-                    confManager.saveWikiHospitalLevelName(position == 0 ? null : arr[position]);
+                    confManager.saveWikiHospitalLevelName(arr[position]);
                 }
 
             }

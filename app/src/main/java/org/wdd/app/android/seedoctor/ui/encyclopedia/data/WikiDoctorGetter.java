@@ -71,7 +71,7 @@ public class WikiDoctorGetter {
         return request;
     }
 
-    public HttpSession requestDoctorList(String provinceid, String hospitallevel, final boolean refresh) {
+    public HttpSession requestDoctorList(String provinceid, String hospitallevel, String doclevelid, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
@@ -81,6 +81,9 @@ public class WikiDoctorGetter {
         }
         if (!TextUtils.isEmpty(hospitallevel)) {
             requestEntry.addRequestParam("hospitallevel", hospitallevel);
+        }
+        if (!TextUtils.isEmpty(doclevelid)) {
+            requestEntry.addRequestParam("doclevelid", doclevelid);
         }
         requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
         HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {

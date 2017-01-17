@@ -1,16 +1,16 @@
-package org.wdd.app.android.seedoctor.ui.drugstore.fragment;
+package org.wdd.app.android.seedoctor.ui.hospital.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,8 +23,8 @@ import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.Projection;
+import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
@@ -36,8 +36,8 @@ import com.amap.api.services.core.PoiItem;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
-import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
-import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstoreMapPresenter;
+import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalMapPresenter;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
@@ -47,14 +47,19 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnCameraChangeListener,
+public class NearbyHospitalMapActivity extends BaseActivity implements AMap.OnCameraChangeListener,
         AMap.OnMarkerClickListener, AMap.OnMapClickListener, LocationSource, AMapLocationListener,
         AMap.InfoWindowAdapter {
 
-    private View rootView;
-    private MapView mapView;
+    public static void show(Context context) {
+        Intent intent = new Intent(context, NearbyHospitalMapActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
-    private NearbyDrugstoreMapPresenter presenter;
+    private TextureMapView mapView;
+
+    private NearbyHospitalMapPresenter presenter;
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
@@ -65,26 +70,32 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new NearbyDrugstoreMapPresenter(this);
-    }
-
-    @Override
-    public View createView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_nearby_drugstore_map, container, false);
-            initData();
-            initViews(savedInstanceState);
-        }
-        return rootView;
+        setContentView(R.layout.activity_nearby_hospital_map);
+        initData();
+        initTitle();
+        initViews(savedInstanceState);
     }
 
     private void initData() {
         markers = new ArrayList<>();
+        presenter = new NearbyHospitalMapPresenter(this);
+    }
+
+    private void initTitle() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_nearby_hospital_map_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initViews(Bundle savedInstanceState) {
-        mapView = (MapView) rootView.findViewById(R.id.fragment_nearby_drugstore_map_mapview);
+        mapView = (TextureMapView) findViewById(R.id.activity_nearby_hospital_map_mapview);
         mapView.onCreate(savedInstanceState);
 
         AMap aMap = mapView.getMap();
@@ -101,12 +112,13 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
         aMap.setOnMarkerClickListener(this);
         aMap.setInfoWindowAdapter(this);
         aMap.setOnMapClickListener(this);
+
+        loadHospitalData();
     }
 
-    @Override
-    protected void lazyLoad() {
+    private void loadHospitalData() {
         mapView.setVisibility(View.VISIBLE);
-        LocationHelper.Location location = LocationHelper.getInstance(getContext()).getLocation();
+        LocationHelper.Location location = LocationHelper.getInstance(this).getLocation();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(
                 new LatLng(location.latitude, location.longitude),//新的中心点坐标
                 15, //新的缩放级别
@@ -144,12 +156,14 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        mapView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        mapView.setVisibility(View.GONE);
     }
 
     @Override
@@ -181,7 +195,7 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
             Marker marker = mapView.getMap().addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(item.getTitle())
-                    .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.bubble_drugstore)))
+                    .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.bubble_hospital)))
                     .draggable(true));
             marker.setObject(item);
 
@@ -200,7 +214,7 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     public void activate(OnLocationChangedListener listener) {
         mListener = listener;
         if (mlocationClient == null) {
-            mlocationClient = new AMapLocationClient(getContext());
+            mlocationClient = new AMapLocationClient(this);
             mLocationOption = new AMapLocationClientOption();
             //设置定位监听
             mlocationClient.setLocationListener(this);
@@ -243,9 +257,9 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     @Override
     public View getInfoWindow(Marker marker) {
         final PoiItem poiItem = (PoiItem) marker.getObject();
-        View view = View.inflate(getContext(), R.layout.layout_hospital_info_window, null);
+        View view = View.inflate(this, R.layout.layout_hospital_info_window, null);
         TextView nameView = (TextView) view.findViewById(R.id.layout_hospital_window_name);
-        nameView.setMaxWidth(DensityUtils.dip2px(getContext(), mapView.getWidth() * 0.7f));
+        nameView.setMaxWidth(DensityUtils.dip2px(this, mapView.getWidth() * 0.7f));
         nameView.setText(poiItem.getTitle());
         TextView levelView = (TextView) view.findViewById(R.id.layout_hospital_window_level);
         if (!TextUtils.isEmpty(poiItem.getTypeDes())) {
@@ -257,7 +271,7 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteLineActivity.show(getContext(), poiItem.getLatLonPoint().getLatitude(),
+                RouteLineActivity.show(getBaseContext(), poiItem.getLatLonPoint().getLatitude(),
                         poiItem.getLatLonPoint().getLongitude());
             }
         });
@@ -268,7 +282,7 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel://" + poiItem.getTel()));
-                getContext().startActivity(intent);
+                startActivity(intent);
             }
         });
         return view;
@@ -280,6 +294,6 @@ public class NearbyDrugstoreMapFragment extends BaseFragment implements AMap.OnC
     }
 
     public void resetHospitalData() {
-        lazyLoad();
+        loadHospitalData();
     }
 }
