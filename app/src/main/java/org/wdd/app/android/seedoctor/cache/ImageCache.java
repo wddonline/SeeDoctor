@@ -89,4 +89,8 @@ public class ImageCache implements com.android.volley.toolbox.ImageLoader.ImageC
 	public void removeBitmap(String key) {
 		memCache.removeBitmap(key);
 	}
+
+	public long getDiskCacheSize() {
+		return diskCache.getDiskCacheSize();
+	}
 }

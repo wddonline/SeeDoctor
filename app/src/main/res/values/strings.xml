@@ -115,4 +115,21 @@
     <string name="short_brief">简历</string>
     <string name="hospital_phone_cliped">医院电话信息已经复制到剪切板</string>
 
+    <!-- 个人中心 -->
+    <string name="collection">收藏</string>
+    <string name="footprint">足迹</string>
+    <string name="nav_setting">导航设置</string>
+    <string name="version_check">版本检测</string>
+    <string name="cache_clean">缓存清理</string>
+    <string name="about">关于</string>
+    <string name="contact_us">联系我们</string>
+    <string name="disclaimer">免责声明</string>
+    <string name="bit_cat_owner">比特猫(BitCat)工作室</string>
+    <string name="mail_client_choose">请选择邮件类应用</string>
+    <string name="lastest_version_already">您现在使用的客户端已经是最新版本</string>
+    <string name="wifi_update_only">没有wifi连接， 只在wifi下更新</string>
+    <string name="query_version_timeout">检查版本超时</string>
+    <string name="checking_version">正在获取最新版本数据...</string>
+    <string name="deleting_cache">正在清理缓存文件...</string>
+
 </resources>

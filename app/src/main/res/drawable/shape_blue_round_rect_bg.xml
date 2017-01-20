@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:state_enabled="true" android:drawable="@drawable/shape_blue_round_rect_pressed_bg" android:state_pressed="true"/>
+    <item android:state_enabled="true" android:drawable="@drawable/shape_blue_round_rect_unpressed_bg" android:state_pressed="false"/>
+    <item android:state_enabled="false" android:drawable="@drawable/shape_blue_round_rect_disable_bg" />
+    <item android:drawable="@drawable/shape_blue_round_rect_unpressed_bg" />
+
+</selector>

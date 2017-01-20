@@ -9,6 +9,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 import java.util.List;
@@ -20,11 +21,13 @@ import java.util.List;
 public class DrugstoreMapDataGetter implements PoiSearch.OnPoiSearchListener {
 
     private Context context;
+    private ActivityFragmentAvaliable holder;
     private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private SearchCallback callback;
 
-    public DrugstoreMapDataGetter(Context context) {
+    public DrugstoreMapDataGetter(ActivityFragmentAvaliable holder, Context context) {
+        this.holder = holder;
         this.context = context;
         query = new PoiSearch.Query("药店", "", LocationHelper.getInstance(context).getCity_code());
         query.setCityLimit(true);
@@ -41,6 +44,7 @@ public class DrugstoreMapDataGetter implements PoiSearch.OnPoiSearchListener {
 
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
+        if (!holder.isAvaliable()) return;
         if (rCode == 1000) {
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条

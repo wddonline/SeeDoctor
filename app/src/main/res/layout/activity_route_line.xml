@@ -4,51 +4,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/activity_route_line_toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
-        android:background="@drawable/title_background">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/activity_route_line_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorToolbarTitle"
-            android:textSize="@dimen/textSizeItemTitle"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_route_line_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarSize"
+            android:background="@color/colorPrimary">
 
-        <RadioGroup
-            android:id="@+id/activity_route_line_traffic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
-
-            <RadioButton
-                android:id="@+id/activity_root_line_bus"
+            <TextView
+                android:id="@+id/activity_route_line_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:button="@drawable/selector_traffic_bus"/>
+                android:textColor="@color/colorToolbarTitle"
+                android:textSize="@dimen/textSizeItemTitle"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
 
-            <RadioButton
-                android:id="@+id/activity_root_line_drive"
+            <RadioGroup
+                android:id="@+id/activity_route_line_traffic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:button="@drawable/selector_traffic_drive"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
 
-            <RadioButton
-                android:id="@+id/activity_root_line_walk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/selector_traffic_walk"/>
+                <RadioButton
+                    android:id="@+id/activity_root_line_bus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_traffic_bus"/>
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/activity_root_line_drive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_traffic_drive"/>
 
-    </android.support.v7.widget.Toolbar>
+                <RadioButton
+                    android:id="@+id/activity_root_line_walk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_traffic_walk"/>
+
+            </RadioGroup>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <com.amap.api.maps.MapView
         android:id="@+id/activity_route_line_mapview"

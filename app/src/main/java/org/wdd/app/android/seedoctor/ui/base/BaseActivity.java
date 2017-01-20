@@ -11,8 +11,10 @@ import org.wdd.app.android.seedoctor.app.ActivityTaskStack;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public ActivityFragmentAvaliable holder = new ActivityFragmentAvaliable(this);
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityTaskStack.getInstance().addActivity(this);
     }

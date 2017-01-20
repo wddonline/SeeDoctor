@@ -8,7 +8,9 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@android:color/transparent">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/activity_hospital_detail_toolbar_layout"
@@ -214,7 +216,7 @@
                 android:id="@+id/activity_hospital_detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/actionBarSize"
-                android:background="@drawable/title_background"
+                android:background="@color/colorPrimary"
                 app:layout_collapseMode="pin">
 
                 <TextView

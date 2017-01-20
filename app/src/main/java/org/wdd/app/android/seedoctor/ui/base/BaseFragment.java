@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.wdd.app.android.seedoctor.R;
 public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog progressDialog;
+    public ActivityFragmentAvaliable holder = new ActivityFragmentAvaliable(this);
 
     private boolean dataLoaded = false;
     private boolean viewIninted = false;
@@ -44,15 +46,19 @@ public abstract class BaseFragment extends Fragment {
         dataLoaded = true;
     }
 
-    public void showLoadingDialog() {
-        showLoadingDialog(null);
+    public void showLoadingDialog(String msg) {
+        showLoadingDialog(msg, null);
     }
 
-    protected void showLoadingDialog(DialogInterface.OnCancelListener listener) {
+    public void showLoadingDialog(int msg) {
+        showLoadingDialog(getString(msg), null);
+    }
+
+    protected void showLoadingDialog(String msg, DialogInterface.OnCancelListener listener) {
         if (getActivity() == null) return;
         if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage(getString(R.string.locating));
+        progressDialog.setMessage(msg);
         if (listener != null) progressDialog.setOnCancelListener(listener);
         progressDialog.show();
     }

@@ -27,4 +27,5 @@ public class ServiceApi {
     public final static String DOCTOR_DETAIL = BASE_URL + "doctor/detailInfo";//医生详情
     public final static String PROVINCE_LIST = BASE_URL + "wiki/area";//医院地区列表
 
+
 }

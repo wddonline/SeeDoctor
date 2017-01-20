@@ -6,21 +6,27 @@
     android:orientation="vertical"
     tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/fragment_wiki_toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
-        android:background="@drawable/title_background">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:text="@string/wiki_title"
-            android:textColor="@color/colorToolbarTitle"
-            android:textSize="@dimen/textSizeToolbarTitle" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_wiki_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarSize"
+            android:background="@color/colorPrimary">
 
-    </android.support.v7.widget.Toolbar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:text="@string/wiki_title"
+                android:textColor="@color/colorToolbarTitle"
+                android:textSize="@dimen/textSizeToolbarTitle" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <org.wdd.app.android.seedoctor.views.BannerLayout
         android:id="@+id/fragment_wiki_banner"
@@ -67,14 +73,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_diease" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,14 +103,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_drug" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -127,14 +133,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_emergency_treatment" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,14 +167,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_section" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -191,14 +197,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_doctor" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -221,14 +227,14 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="30dp">
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="6dp"
+                        android:src="@mipmap/ic_hospital" />
 
                     <TextView
                         android:layout_width="wrap_content"

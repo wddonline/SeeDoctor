@@ -17,7 +17,7 @@
             android:id="@+id/activity_wiki_disease_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionBarSize"
-            android:background="@drawable/title_background"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 
+import org.wdd.app.android.seedoctor.utils.FileUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
@@ -143,5 +145,9 @@ class DiskCache {
 			totalSize += file.length();
 		}
 		return totalSize;
+	}
+
+	public long getDiskCacheSize() {
+		return FileUtils.getFolderSize(imageCacheDir) + FileUtils.getFolderSize(context.getCacheDir());
 	}
 }

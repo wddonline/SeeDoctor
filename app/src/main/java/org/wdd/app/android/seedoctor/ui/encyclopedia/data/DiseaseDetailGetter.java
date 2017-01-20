@@ -9,6 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -19,10 +20,12 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 public class DiseaseDetailGetter {
 
     private Context context;
+    private ActivityFragmentAvaliable holder;
     private DiseaseDetailCallback callback;
     private HttpManager manager;
 
-    public DiseaseDetailGetter(Context context, DiseaseDetailCallback callback) {
+    public DiseaseDetailGetter(ActivityFragmentAvaliable holder, Context context, DiseaseDetailCallback callback) {
+        this.holder = holder;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -35,6 +38,7 @@ public class DiseaseDetailGetter {
         HttpSession session = manager.sendHttpRequest(requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                if (!holder.isAvaliable()) return;
                 if (res.getData() != null) {
                     DiseaseDetail diseaseDetail = (DiseaseDetail) res.getData();
                     callback.onRequestOk(diseaseDetail);
@@ -46,11 +50,13 @@ public class DiseaseDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                if (!holder.isAvaliable()) return;
                 callback.onRequestFailure(error);
             }
 
             @Override
             public void onNetworkError() {
+                if (!holder.isAvaliable()) return;
                 callback.onNetworkError();
             }
         });

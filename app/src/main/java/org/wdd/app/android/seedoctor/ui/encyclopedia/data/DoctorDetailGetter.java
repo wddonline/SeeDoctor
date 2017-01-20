@@ -9,6 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.HospitalDetail;
@@ -21,10 +22,12 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 public class DoctorDetailGetter {
 
     private Context context;
+    private ActivityFragmentAvaliable holder;
     private DoctorDetailCallback callback;
     private HttpManager manager;
 
-    public DoctorDetailGetter(Context context, DoctorDetailCallback callback) {
+    public DoctorDetailGetter(ActivityFragmentAvaliable holder, Context context, DoctorDetailCallback callback) {
+        this.holder = holder;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -37,6 +40,7 @@ public class DoctorDetailGetter {
         HttpSession session = manager.sendHttpRequest(requestEntry, DoctorDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                if (!holder.isAvaliable()) return;
                 if (res.getData() != null) {
                     DoctorDetail detail = (DoctorDetail) res.getData();
                     callback.onRequestOk(detail);
@@ -48,11 +52,13 @@ public class DoctorDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                if (!holder.isAvaliable()) return;
                 callback.onRequestFailure(error);
             }
 
             @Override
             public void onNetworkError() {
+                if (!holder.isAvaliable()) return;
                 callback.onNetworkError();
             }
         });

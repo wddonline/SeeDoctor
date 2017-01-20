@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DiseaseDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DiseaseDetailGetter;
@@ -17,9 +18,9 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     private DiseaseDetailGetter getter;
     private HttpSession session;
 
-    public DiseaseDetailPresenter(DiseaseDetailActivity view) {
+    public DiseaseDetailPresenter(ActivityFragmentAvaliable holder, DiseaseDetailActivity view) {
         this.view = view;
-        getter = new DiseaseDetailGetter(view.getBaseContext(), this);
+        getter = new DiseaseDetailGetter(holder, view.getBaseContext(), this);
     }
 
     public void getDiseaseDetailData(int diseaseId) {

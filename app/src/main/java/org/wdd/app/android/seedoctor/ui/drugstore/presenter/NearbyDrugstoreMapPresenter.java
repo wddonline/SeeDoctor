@@ -3,6 +3,7 @@ package org.wdd.app.android.seedoctor.ui.drugstore.presenter;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.drugstore.data.DrugstoreMapDataGetter;
 import org.wdd.app.android.seedoctor.ui.drugstore.activity.NearbyDrugstoreMapActivity;
@@ -18,9 +19,9 @@ public class NearbyDrugstoreMapPresenter implements BasePresenter, DrugstoreMapD
     private NearbyDrugstoreMapActivity view;
     private DrugstoreMapDataGetter data;
 
-    public NearbyDrugstoreMapPresenter(NearbyDrugstoreMapActivity view) {
+    public NearbyDrugstoreMapPresenter(ActivityFragmentAvaliable holder, NearbyDrugstoreMapActivity view) {
         this.view = view;
-        data = new DrugstoreMapDataGetter(view);
+        data = new DrugstoreMapDataGetter(holder, view);
         data.setSearchCallback(this);
     }
 

@@ -3,21 +3,23 @@ package org.wdd.app.android.seedoctor.ui.drugstore.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.ui.drugstore.activity.NearbyDrugstoreMapActivity;
 import org.wdd.app.android.seedoctor.ui.drugstore.adapter.DrugstoreAdapter;
 import org.wdd.app.android.seedoctor.ui.drugstore.model.Drugstore;
 import org.wdd.app.android.seedoctor.ui.drugstore.presenter.NearbyDrugstoreListPresenter;
@@ -25,6 +27,7 @@ import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.SimpleAnimationListener;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -39,6 +42,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
 
     private View rootView;
     private RecyclerView recyclerView;
+    private ImageButton mapButton;
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
     private Toolbar toolbar;
@@ -46,6 +50,8 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
     private NearbyDrugstoreListPresenter presenter;
     private List<Drugstore> drugstores;
     private DrugstoreAdapter adapter;
+    private TranslateAnimation hideAnim;
+    private TranslateAnimation openAnim;
 
     private boolean isRefreshing = false;
 
@@ -72,17 +78,16 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
     private void initTitle() {
         setHasOptionsMenu(true);
         toolbar = (Toolbar) rootView.findViewById(R.id.fragment_nearby_drugstore_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
+        MenuItem menuItem = toolbar.getMenu().add(0, 0, 0, getString(R.string.search));
+        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menuItem.setIcon(R.mipmap.img_search);
         toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_item_search:
-                        NearbySearchActivity.show(getContext());
-                        return true;
-                }
-                return false;
+                NearbySearchActivity.show(getContext());
+                return true;
             }
         });
     }
@@ -92,10 +97,22 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new LineDividerDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {//向下滑动
+                    showMapHideAnim();
+                } else if (dy < 0){//向上滑动
+                    showMapOpenAnim();
+                }
+            }
+        });
 
         refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.fragment_nearby_drugstore_refresh_layout);
         refreshLayout.setOnRefreshListener(this);
-
+        mapButton = (ImageButton) rootView.findViewById(R.id.fragment_nearby_drugstore_map);
         loadView = (LoadView) rootView.findViewById(R.id.fragment_nearby_drugstore_load);
 
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
@@ -104,16 +121,64 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
                 presenter.searchNearbyDrugstores();
             }
         });
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NearbyDrugstoreMapActivity.show(getContext());
+            }
+        });
+    }
+
+    private void showMapHideAnim() {
+        if (mapButton.getVisibility() == View.GONE) return;
+        if (hideAnim != null) return;
+        Animation anim = mapButton.getAnimation();
+        if (anim != null) {
+            mapButton.clearAnimation();
+        }
+        hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
+                Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1.5f);
+        hideAnim.setAnimationListener(new SimpleAnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mapButton.setVisibility(View.GONE);
+                hideAnim = null;
+            }
+
+        });
+        hideAnim.setFillAfter(true);
+        hideAnim.setDuration(300);
+        mapButton.startAnimation(hideAnim);
+    }
+
+    private void showMapOpenAnim() {
+        if (mapButton.getVisibility() == View.VISIBLE) return;
+        if (openAnim != null) return;
+        Animation anim = mapButton.getAnimation();
+        if (anim != null) {
+            mapButton.clearAnimation();
+        }
+        mapButton.setVisibility(View.VISIBLE);
+        openAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
+                Animation.RELATIVE_TO_SELF, 1.5f, Animation.RELATIVE_TO_SELF, 0);
+        openAnim.setAnimationListener(new SimpleAnimationListener() {
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                super.onAnimationEnd(animation);
+                openAnim = null;
+            }
+
+        });
+        openAnim.setFillAfter(true);
+        openAnim.setDuration(300);
+        mapButton.startAnimation(openAnim);
     }
 
     @Override
     protected void lazyLoad() {
         presenter.searchNearbyDrugstores();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_nearby_list, menu);
     }
 
     public void appendHospitalList(List<Drugstore> data) {
@@ -129,6 +194,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
             }
             refreshLayout.setVisibility(View.VISIBLE);
             loadView.setStatus(LoadView.LoadStatus.Normal);
+            mapButton.setVisibility(View.VISIBLE);
             return;
         }
         if (isRefreshing) {

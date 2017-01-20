@@ -3,6 +3,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDoctorPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.DoctorSearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -71,6 +73,7 @@ public class WikiDoctorActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

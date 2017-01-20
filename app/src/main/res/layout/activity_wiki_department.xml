@@ -7,21 +7,27 @@
     android:orientation="vertical"
     tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/activity_wiki_department_toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
-        android:background="@drawable/title_background">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wiki_department"
-            android:layout_gravity="center"
-            android:textSize="@dimen/textSizeToolbarTitle"
-            android:textColor="@color/colorToolbarTitle"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_wiki_department_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarSize"
+            android:background="@color/colorPrimary">
 
-    </android.support.v7.widget.Toolbar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wiki_department"
+                android:layout_gravity="center"
+                android:textSize="@dimen/textSizeToolbarTitle"
+                android:textColor="@color/colorToolbarTitle"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <org.wdd.app.android.seedoctor.views.LoadView
         android:id="@+id/activity_wiki_department_loadview"

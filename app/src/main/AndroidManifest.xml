@@ -35,6 +35,28 @@
         <activity android:name=".ui.routeline.activity.BusRouteDetailActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDiseaseActivity" />
         <activity android:name=".ui.encyclopedia.activity.DiseaseDetailActivity" />
+        <activity android:name=".ui.hospital.activity.NearbyHospitalMapActivity" />
+        <activity android:name=".ui.drugstore.activity.NearbyDrugstoreMapActivity" />
+        <activity android:name=".ui.search.activity.DiseaseSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity" />
+        <activity android:name=".ui.search.activity.DrugSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DrugDetailActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDrugListActivity" />
+        <activity android:name=".ui.encyclopedia.activity.RelativeDiseaseListActivity" />
+        <activity android:name=".ui.encyclopedia.activity.RelativeDrugListActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiEmergencyActivity" />
+        <activity android:name=".ui.encyclopedia.activity.EmergencyDetailActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDepartmentActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiDoctorActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DoctorDetailActivity" />
+        <activity android:name=".ui.search.activity.DoctorSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.WikiHospitalActivity" />
+        <activity android:name=".ui.encyclopedia.activity.HospitalDetailActivity" />
+        <activity android:name=".ui.search.activity.HospitalSearchActivity" />
+        <activity android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity" />
+        <activity android:name=".ui.encyclopedia.activity.HospitalFilterActivity" />
+        <activity android:name=".ui.encyclopedia.activity.DoctorFilterActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
         <service
@@ -55,26 +77,8 @@
             android:name="com.amap.api.v2.apikey"
             android:value="f3efbad56fbc2f520121f28d33dc09c5" />
 
-        <activity android:name=".ui.search.activity.DiseaseSearchActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity" />
-        <activity android:name=".ui.search.activity.DrugSearchActivity" />
-        <activity android:name=".ui.encyclopedia.activity.DrugDetailActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDrugListActivity" />
-        <activity android:name=".ui.encyclopedia.activity.RelativeDiseaseListActivity" />
-        <activity android:name=".ui.encyclopedia.activity.RelativeDrugListActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiEmergencyActivity" />
-        <activity android:name=".ui.encyclopedia.activity.EmergencyDetailActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDepartmentActivity" />
-        <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDoctorActivity" />
-        <activity android:name=".ui.encyclopedia.activity.DoctorDetailActivity" />
-        <activity android:name=".ui.search.activity.DoctorSearchActivity" />
-        <activity android:name=".ui.encyclopedia.activity.WikiHospitalActivity" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalDetailActivity" />
-        <activity android:name=".ui.search.activity.HospitalSearchActivity" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalFilterActivity" />
-        <activity android:name=".ui.encyclopedia.activity.DoctorFilterActivity"></activity>
+        <activity android:name=".ui.me.activity.AboutActivity" />
+        <activity android:name=".ui.web.activity.WebActivity"></activity>
     </application>
 
 </manifest>
