@@ -48,7 +48,7 @@ public class WikiEmergencyActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new WikiEmergencyPresenter(this);
+        presenter = new WikiEmergencyPresenter(host, this);
     }
 
     private void initTitles() {

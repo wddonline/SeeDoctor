@@ -10,9 +10,7 @@ import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.HospitalDetail;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 /**
@@ -22,12 +20,12 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 public class DoctorDetailGetter {
 
     private Context context;
-    private ActivityFragmentAvaliable holder;
+    private ActivityFragmentAvaliable host;
     private DoctorDetailCallback callback;
     private HttpManager manager;
 
-    public DoctorDetailGetter(ActivityFragmentAvaliable holder, Context context, DoctorDetailCallback callback) {
-        this.holder = holder;
+    public DoctorDetailGetter(ActivityFragmentAvaliable host, Context context, DoctorDetailCallback callback) {
+        this.host = host;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -37,10 +35,9 @@ public class DoctorDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.DOCTOR_DETAIL);
         requestEntry.addRequestParam("doctorid", doctorid);
-        HttpSession session = manager.sendHttpRequest(requestEntry, DoctorDetail.class, new HttpConnectCallback() {
+        HttpSession session = manager.sendHttpRequest(host, requestEntry, DoctorDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
-                if (!holder.isAvaliable()) return;
                 if (res.getData() != null) {
                     DoctorDetail detail = (DoctorDetail) res.getData();
                     callback.onRequestOk(detail);
@@ -52,13 +49,11 @@ public class DoctorDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (!holder.isAvaliable()) return;
                 callback.onRequestFailure(error);
             }
 
             @Override
             public void onNetworkError() {
-                if (!holder.isAvaliable()) return;
                 callback.onNetworkError();
             }
         });

@@ -9,6 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -20,9 +21,11 @@ public class DrugDetailGetter {
 
     private Context context;
     private DrugDetailCallback callback;
+    private ActivityFragmentAvaliable host;
     private HttpManager manager;
 
-    public DrugDetailGetter(Context context, DrugDetailCallback callback) {
+    public DrugDetailGetter(ActivityFragmentAvaliable host, Context context, DrugDetailCallback callback) {
+        this.host = host;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -32,7 +35,7 @@ public class DrugDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_DETAIL);
         requestEntry.addRequestParam("drugid", drugId + "");
-        HttpSession session = manager.sendHttpRequest(requestEntry, DrugDetail.class, new HttpConnectCallback() {
+        HttpSession session = manager.sendHttpRequest(host, requestEntry, DrugDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

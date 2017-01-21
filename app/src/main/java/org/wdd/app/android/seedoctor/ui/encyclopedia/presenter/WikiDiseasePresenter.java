@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDiseaseGetter;
@@ -19,9 +20,9 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
     private WikiDiseaseGetter getter;
     private HttpSession session;
 
-    public WikiDiseasePresenter(WikiDiseaseActivity view) {
+    public WikiDiseasePresenter(ActivityFragmentAvaliable host, WikiDiseaseActivity view) {
         this.view = view;
-        getter = new WikiDiseaseGetter(view.getBaseContext());
+        getter = new WikiDiseaseGetter(host, view.getBaseContext());
         getter.setCallback(this);
     }
 

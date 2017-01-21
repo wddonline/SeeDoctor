@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
@@ -21,9 +22,9 @@ public class WikiDepartmentPresenter implements WikiDepartmentGetter.DepartmentC
     private WikiDepartmentGetter getter;
     private HttpSession session;
 
-    public WikiDepartmentPresenter(WikiDepartmentActivity view) {
+    public WikiDepartmentPresenter(ActivityFragmentAvaliable host, WikiDepartmentActivity view) {
         this.view = view;
-        getter = new WikiDepartmentGetter(view.getBaseContext());
+        getter = new WikiDepartmentGetter(host, view.getBaseContext());
         getter.setDepartmentCallback(this);
     }
 

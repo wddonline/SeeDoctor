@@ -66,7 +66,7 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     }
 
     private void intData() {
-        presenter = new WikiDrugCategoryPresenter(this);
+        presenter = new WikiDrugCategoryPresenter(host, this);
     }
 
     private void initView() {

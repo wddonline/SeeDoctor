@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DoctorFilterActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.HospitalFilterGetter;
@@ -19,9 +20,9 @@ public class DoctorFilterPresenter implements BasePresenter, HospitalFilterGette
     private HospitalFilterGetter getter;
     private HttpSession session;
 
-    public DoctorFilterPresenter(DoctorFilterActivity view) {
+    public DoctorFilterPresenter(ActivityFragmentAvaliable host, DoctorFilterActivity view) {
         this.view = view;
-        getter = new HospitalFilterGetter(view.getBaseContext(), this);
+        getter = new HospitalFilterGetter(host, view.getBaseContext(), this);
     }
 
     public void getProvinceData() {

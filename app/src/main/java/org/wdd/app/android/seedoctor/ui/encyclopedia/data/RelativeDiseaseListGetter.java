@@ -10,6 +10,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -25,11 +26,13 @@ public class RelativeDiseaseListGetter {
 
     private Context context;
     private HttpManager manager;
+    private ActivityFragmentAvaliable host;
     private RelativeDiseaseDataCallback callback;
 
     private int page = 1;
 
-    public RelativeDiseaseListGetter(Context context) {
+    public RelativeDiseaseListGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
@@ -46,7 +49,7 @@ public class RelativeDiseaseListGetter {
             requestEntry.addRequestParam("departmentid", departmentid + "");
         }
         requestEntry.setUrl(ServiceApi.NEW_WIKI_DISEASE_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
+        HttpSession request = manager.sendHttpRequest(host, requestEntry, Disease.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

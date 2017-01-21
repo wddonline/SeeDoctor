@@ -3,6 +3,7 @@ package org.wdd.app.android.seedoctor.ui.hospital.presenter;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalMapDataGetter;
 import org.wdd.app.android.seedoctor.ui.hospital.activity.NearbyHospitalMapActivity;
@@ -18,9 +19,9 @@ public class NearbyHospitalMapPresenter implements BasePresenter, HospitalMapDat
     private NearbyHospitalMapActivity view;
     private HospitalMapDataGetter data;
 
-    public NearbyHospitalMapPresenter(NearbyHospitalMapActivity view) {
+    public NearbyHospitalMapPresenter(ActivityFragmentAvaliable host, NearbyHospitalMapActivity view) {
         this.view = view;
-        data = new HospitalMapDataGetter(view);
+        data = new HospitalMapDataGetter(host, view);
         data.setSearchCallback(this);
     }
 

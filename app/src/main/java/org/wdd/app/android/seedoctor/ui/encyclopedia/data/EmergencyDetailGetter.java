@@ -9,6 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -20,8 +21,10 @@ public class EmergencyDetailGetter {
 
     private Context context;
     private EmergencyCallback callback;
+    private ActivityFragmentAvaliable host;
 
-    public EmergencyDetailGetter(Context context) {
+    public EmergencyDetailGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
     }
 
@@ -29,7 +32,7 @@ public class EmergencyDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.EMERGENCY_DETAIL);
         requestEntry.addRequestParam("emeid", emeid);
-        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(requestEntry, Emergency.class, new HttpConnectCallback() {
+        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(host, requestEntry, Emergency.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (callback == null) return;

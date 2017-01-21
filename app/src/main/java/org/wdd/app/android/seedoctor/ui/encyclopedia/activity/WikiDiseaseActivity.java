@@ -66,7 +66,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new WikiDiseasePresenter(this);
+        presenter = new WikiDiseasePresenter(host, this);
     }
 
     private void initView() {

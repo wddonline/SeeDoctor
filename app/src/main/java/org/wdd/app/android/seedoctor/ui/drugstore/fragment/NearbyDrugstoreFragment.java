@@ -72,7 +72,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
     }
 
     private void initData() {
-        presenter = new NearbyDrugstoreListPresenter(this);
+        presenter = new NearbyDrugstoreListPresenter(host, this);
     }
 
     private void initTitle() {

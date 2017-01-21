@@ -58,7 +58,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
     }
 
     private void initData() {
-        presenter = new HospitalSearchPresenter(this);
+        presenter = new HospitalSearchPresenter(host, this);
     }
 
     private void initViews() {

@@ -57,7 +57,7 @@ public class RelativeDrugListActivity extends BaseActivity {
     private void initData() {
         diseaseid = getIntent().getStringExtra("diseaseid");
         diseasename = getIntent().getStringExtra("diseasename");
-        presenter = new RelativeDrugListPresenter(this);
+        presenter = new RelativeDrugListPresenter(host, this);
     }
 
     private void initTitle() {

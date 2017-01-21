@@ -54,7 +54,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         drugname = getIntent().getStringExtra("drugname");
 
         openStatus = new boolean[]{false, false, false, false, false, false, false, false, false, false};
-        presenter = new DrugDetailPresenter(this);
+        presenter = new DrugDetailPresenter(host, this);
 
         openAnim = new RotateAnimation(0, 90, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         openAnim.setDuration(400);

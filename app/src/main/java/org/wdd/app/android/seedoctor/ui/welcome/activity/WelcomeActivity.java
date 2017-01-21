@@ -22,7 +22,7 @@ public class WelcomeActivity extends BaseActivity implements Runnable {
     }
 
     private void initData() {
-        presenter = new WelcomePresenter(this);
+        presenter = new WelcomePresenter(host, this);
         presenter.findLocation();
     }
 

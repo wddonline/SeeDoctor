@@ -66,7 +66,7 @@ public class HospitalDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new HospitalDetailPresenter(this);
+        presenter = new HospitalDetailPresenter(host, this);
         hospitalid = getIntent().getStringExtra("hospitalid");
         hospitalname = getIntent().getStringExtra("hospitalname");
     }

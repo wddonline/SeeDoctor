@@ -9,6 +9,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Province;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -22,9 +23,11 @@ public class HospitalFilterGetter {
 
     private Context context;
     private DataCallback callback;
+    private ActivityFragmentAvaliable host;
     private HttpManager manager;
 
-    public HospitalFilterGetter(Context context, DataCallback callback) {
+    public HospitalFilterGetter(ActivityFragmentAvaliable host, Context context, DataCallback callback) {
+        this.host = host;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -33,7 +36,7 @@ public class HospitalFilterGetter {
     public HttpSession requestHospitalDetailData() {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.PROVINCE_LIST);
-        HttpSession session = manager.sendHttpRequest(requestEntry, Province.class, new HttpConnectCallback() {
+        HttpSession session = manager.sendHttpRequest(host, requestEntry, Province.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

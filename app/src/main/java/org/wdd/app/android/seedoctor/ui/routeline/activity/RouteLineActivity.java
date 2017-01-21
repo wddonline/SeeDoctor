@@ -90,7 +90,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     private void initData() {
         lat = getIntent().getDoubleExtra("lat", 0);
         lon = getIntent().getDoubleExtra("lon", 0);
-        presenter = new RouteLinePresenter(this, new LatLng(lat, lon));
+        presenter = new RouteLinePresenter(host, this, new LatLng(lat, lon));
     }
 
     private void initViews(Bundle savedInstanceState) {

@@ -5,6 +5,8 @@ import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.me.data.AppDiskCacheManeger;
 import org.wdd.app.android.seedoctor.ui.me.data.MeDataGetter;
@@ -15,16 +17,16 @@ import org.wdd.app.android.seedoctor.utils.AppToaster;
  * Created by richard on 1/20/17.
  */
 
-public class MePresenter implements BasePresenter, MeDataGetter.DataCallbck {
+public class MePresenter implements BasePresenter, MeDataGetter.DataCallbck, AppDiskCacheManeger.AppDiskCacheCallback {
 
     private MeFragment view;
     private MeDataGetter getter;
     private AppDiskCacheManeger cacheManeger;
 
-    public MePresenter(MeFragment view) {
+    public MePresenter(ActivityFragmentAvaliable host, MeFragment view) {
         this.view = view;
-        getter = new MeDataGetter(view.getContext(), this);
-        cacheManeger = new AppDiskCacheManeger(view.getContext());
+        getter = new MeDataGetter(host, view.getContext(), this);
+        cacheManeger = new AppDiskCacheManeger(host, view.getContext(), this);
     }
 
     public void checkLastestVersion() {
@@ -51,11 +53,11 @@ public class MePresenter implements BasePresenter, MeDataGetter.DataCallbck {
     }
 
     public void cleanDiskCache() {
-
+        cacheManeger.cleanDiskCache();
     }
 
-
-    public void getDiskCacheAsync() {
-        cacheManeger.getDiskCache();
+    @Override
+    public void onDiskCacheCleaned(String result) {
+        view.showDiskCleanResult(result);
     }
 }

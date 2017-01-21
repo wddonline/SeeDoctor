@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
+import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.adapter.WikiDoctorAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.search.data.DoctorSearchGetter;
@@ -26,7 +27,7 @@ import org.wdd.app.android.seedoctor.views.LoadView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorSearchActivity extends Activity implements AbstractCommonAdapter.OnLoadMoreListener {
+public class DoctorSearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
 
     private static final String SHARED_NAME = "search_view";
 
@@ -53,7 +54,7 @@ public class DoctorSearchActivity extends Activity implements AbstractCommonAdap
     }
 
     private void initData() {
-        presenter = new DoctorSearchPresenter(this);
+        presenter = new DoctorSearchPresenter(host, this);
     }
 
     private void initViews() {

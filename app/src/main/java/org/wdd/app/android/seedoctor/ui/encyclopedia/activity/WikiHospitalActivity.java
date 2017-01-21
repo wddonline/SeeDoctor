@@ -64,7 +64,7 @@ public class WikiHospitalActivity extends BaseActivity {
 
     private void initData() {
         confManager = AppConfManager.getInstance(this);
-        presenter = new WikiHospitalPresenter(this);
+        presenter = new WikiHospitalPresenter(host, this);
     }
 
     private void initTitles() {

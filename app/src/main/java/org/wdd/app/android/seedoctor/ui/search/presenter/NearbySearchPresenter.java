@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.search.presenter;
 
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.ui.search.data.NearbySearchGetter;
@@ -17,9 +18,9 @@ public class NearbySearchPresenter implements BasePresenter, NearbySearchGetter.
     private NearbySearchActivity view;
     private NearbySearchGetter getter;
 
-    public NearbySearchPresenter(NearbySearchActivity view) {
+    public NearbySearchPresenter(ActivityFragmentAvaliable host, NearbySearchActivity view) {
         this.view = view;
-        getter = new NearbySearchGetter(view, this);
+        getter = new NearbySearchGetter(host, view, this);
     }
 
     public void searchHospitalByName(String name, boolean append) {

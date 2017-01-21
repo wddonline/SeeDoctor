@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.search.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
 import org.wdd.app.android.seedoctor.ui.search.activity.HospitalSearchActivity;
@@ -21,9 +22,9 @@ public class HospitalSearchPresenter implements BasePresenter, HospitalSearchGet
 
     private HttpSession session = null;
 
-    public HospitalSearchPresenter(HospitalSearchActivity view) {
+    public HospitalSearchPresenter(ActivityFragmentAvaliable host, HospitalSearchActivity view) {
         this.view = view;
-        getter = new HospitalSearchGetter(view, this);
+        getter = new HospitalSearchGetter(host, view, this);
     }
 
     public void searchHospitalByName(String provinceid, String hospitallevel, String keyword, boolean refresh) {

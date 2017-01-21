@@ -78,7 +78,7 @@ public class NearbyHospitalMapActivity extends BaseActivity implements AMap.OnCa
 
     private void initData() {
         markers = new ArrayList<>();
-        presenter = new NearbyHospitalMapPresenter(this);
+        presenter = new NearbyHospitalMapPresenter(host, this);
     }
 
     private void initTitle() {

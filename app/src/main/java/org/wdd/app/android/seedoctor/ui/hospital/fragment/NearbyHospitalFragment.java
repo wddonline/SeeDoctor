@@ -72,7 +72,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
     }
 
     private void initData() {
-        presenter = new NearbyHospitalListPresenter(this);
+        presenter = new NearbyHospitalListPresenter(host, this);
     }
 
     private void initTitle() {

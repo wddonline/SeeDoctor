@@ -21,9 +21,9 @@ public class DepartmentDetailPresenter implements DepartmentDetailGetter.Departm
     private HttpSession departmentSession;
     private HttpSession diseaseSession;
 
-    public DepartmentDetailPresenter(ActivityFragmentAvaliable holder, DepartmentDetailActivity view) {
+    public DepartmentDetailPresenter(ActivityFragmentAvaliable host, DepartmentDetailActivity view) {
         this.view = view;
-        getter = new DepartmentDetailGetter(holder, view.getBaseContext());
+        getter = new DepartmentDetailGetter(host, view.getBaseContext());
         getter.setDepartmentDetailCallback(this);
     }
 

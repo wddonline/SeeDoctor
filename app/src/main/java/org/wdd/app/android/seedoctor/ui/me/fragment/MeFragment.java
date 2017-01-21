@@ -3,12 +3,9 @@ package org.wdd.app.android.seedoctor.ui.me.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +15,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.me.activity.AboutActivity;
 import org.wdd.app.android.seedoctor.ui.me.presenter.MePresenter;
+import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +23,6 @@ import org.wdd.app.android.seedoctor.ui.me.presenter.MePresenter;
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private View rootView;
-    private TextView cacheDataView;
 
     private MePresenter presenter;
 
@@ -52,11 +49,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
-        presenter.getDiskCacheAsync();
     }
 
     private void initData() {
-        presenter = new MePresenter(this);
+        presenter = new MePresenter(host, this);
     }
 
     private void initTitle() {
@@ -85,7 +81,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initViews() {
-        cacheDataView = (TextView) rootView.findViewById(R.id.fragment_me_clear_cache_data);
         rootView.findViewById(R.id.fragment_me_version_check_click).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_me_clear_cache_click).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_me_about_click).setOnClickListener(this);
@@ -110,5 +105,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     public void finishVersionCheck() {
         hideLoadingDialog();
+    }
+
+    public void showDiskCleanResult(String result) {
+        hideLoadingDialog();
+        String hint = getString(R.string.disk_cache_clean_result);
+        hint = String.format(hint, result);
+        AppToaster.show(hint);
     }
 }

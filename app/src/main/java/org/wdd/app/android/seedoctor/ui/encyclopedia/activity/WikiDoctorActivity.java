@@ -65,7 +65,7 @@ public class WikiDoctorActivity extends BaseActivity {
 
     private void initData() {
         confManager = AppConfManager.getInstance(this);
-        presenter = new WikiDoctorPresenter(this);
+        presenter = new WikiDoctorPresenter(host, this);
     }
 
     private void initTitles() {

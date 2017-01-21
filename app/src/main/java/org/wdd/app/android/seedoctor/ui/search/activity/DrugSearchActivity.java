@@ -55,7 +55,7 @@ public class DrugSearchActivity extends BaseActivity implements AbstractCommonAd
     }
 
     private void initData() {
-        presenter = new DrugSearchPresenter(this);
+        presenter = new DrugSearchPresenter(host, this);
     }
 
     private void initViews() {

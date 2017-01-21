@@ -54,7 +54,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         diseaseName = getIntent().getStringExtra("diseasename");
 
         openStatus = new boolean[]{false, false, false, false, false, false, false, false};
-        presenter = new DiseaseDetailPresenter(this);
+        presenter = new DiseaseDetailPresenter(host, this);
 
         openAnim = new RotateAnimation(0, 90, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         openAnim.setDuration(400);

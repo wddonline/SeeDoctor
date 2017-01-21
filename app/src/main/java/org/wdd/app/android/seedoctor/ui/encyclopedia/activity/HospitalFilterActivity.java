@@ -52,7 +52,7 @@ public class HospitalFilterActivity extends BaseActivity {
         confManager = AppConfManager.getInstance(this);
         initProvinceid = confManager.getWikiHospitalProvinceId();
         initLevelid = confManager.getWikiHospitalLevelId();
-        presenter = new HospitalFilterPresenter(this);
+        presenter = new HospitalFilterPresenter(host, this);
     }
 
     private void initTitles() {

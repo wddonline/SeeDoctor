@@ -5,6 +5,7 @@ import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.WalkRouteResult;
 
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.data.RouteLineDataGetter;
@@ -18,9 +19,9 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
     private RouteLineActivity view;
     private RouteLineDataGetter dataGetter;
 
-    public RouteLinePresenter(RouteLineActivity view, LatLng dst) {
+    public RouteLinePresenter(ActivityFragmentAvaliable host, RouteLineActivity view, LatLng dst) {
         this.view = view;
-        dataGetter = new RouteLineDataGetter(view, dst);
+        dataGetter = new RouteLineDataGetter(host, view, dst);
         dataGetter.addCallback(this);
     }
 

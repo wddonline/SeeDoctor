@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import org.wdd.app.android.seedoctor.http.impl.VolleyHttpConnecter;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 
 /**
  * Created by wangdd on 16-11-26.
@@ -35,20 +36,20 @@ public class HttpManager {
         this.connecter = connecter;
     }
 
-    public HttpSession sendHttpRequest(HttpRequestEntry entry, Class clazz, HttpConnectCallback callback) {
+    public HttpSession sendHttpRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, Class clazz, HttpConnectCallback callback) {
         if (connecter == null) {
             Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
             return null;
         }
-        return connecter.sendHttpRequest(entry, clazz, callback);
+        return connecter.sendHttpRequest(host, entry, clazz, callback);
     }
 
-    public HttpSession sendHttpRequest(HttpRequestEntry entry, HttpConnectCallback callback) {
+    public HttpSession sendHttpRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback) {
         if (connecter == null) {
             Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
             return null;
         }
-        return connecter.sendHttpRequest(entry, callback);
+        return connecter.sendHttpRequest(host, entry, callback);
     }
 
     public void stopAllSession() {

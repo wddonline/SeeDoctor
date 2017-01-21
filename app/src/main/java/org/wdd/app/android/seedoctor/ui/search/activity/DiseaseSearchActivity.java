@@ -55,7 +55,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
     }
 
     private void initData() {
-        presenter = new DiseaseSearchPresenter(this);
+        presenter = new DiseaseSearchPresenter(host, this);
     }
 
     private void initViews() {

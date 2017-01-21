@@ -12,6 +12,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugCategory;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -29,9 +30,11 @@ public class WikiDrugCategoryGetter {
 
     private Context context;
     private HttpManager manager;
+    private ActivityFragmentAvaliable host;
     private WikiDrugCategoryDataCallback callback;
 
-    public WikiDrugCategoryGetter(Context context) {
+    public WikiDrugCategoryGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
@@ -39,7 +42,7 @@ public class WikiDrugCategoryGetter {
     public HttpSession requestDrugCategoryList() {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_CATEGORY_LIST);
-        final HttpSession request = manager.sendHttpRequest(requestEntry, new HttpConnectCallback() {
+        final HttpSession request = manager.sendHttpRequest(host, requestEntry, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

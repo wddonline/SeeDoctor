@@ -68,7 +68,7 @@ public class WikiDrugListActivity extends BaseActivity {
 
     private void initData() {
         catid = getIntent().getIntExtra("catid", -1);
-        presenter = new WikiDrugListPresenter(this);
+        presenter = new WikiDrugListPresenter(host, this);
     }
 
     private void initView() {

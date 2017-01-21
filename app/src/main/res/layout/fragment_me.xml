@@ -270,15 +270,6 @@
                     android:layout_marginLeft="6dp"
                     android:layout_toRightOf="@id/fragment_me_clear_cache_icon"/>
 
-                <TextView
-                    android:id="@+id/fragment_me_clear_cache_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizeItemExtra"
-                    android:textColor="@color/colorItemExtra"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-
             </RelativeLayout>
 
             <ImageView

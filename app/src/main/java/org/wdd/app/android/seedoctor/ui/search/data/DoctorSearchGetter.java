@@ -10,6 +10,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -26,9 +27,11 @@ public class DoctorSearchGetter {
 
     private Context context;
     private HttpManager manager;
+    private ActivityFragmentAvaliable host;
     private SearchCallback callback;
 
-    public DoctorSearchGetter(Context context, SearchCallback callback) {
+    public DoctorSearchGetter(ActivityFragmentAvaliable host, Context context, SearchCallback callback) {
+        this.host = host;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -47,7 +50,7 @@ public class DoctorSearchGetter {
             requestEntry.addRequestParam("hospitallevel", hospitallevel);
         }
         requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Doctor.class, new HttpConnectCallback() {
+        HttpSession request = manager.sendHttpRequest(host, requestEntry, Doctor.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

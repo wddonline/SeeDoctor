@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.RelativeDiseaseListActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.RelativeDiseaseListGetter;
@@ -19,9 +20,9 @@ public class RelativeDiseaseListPresenter implements BasePresenter, RelativeDise
     private RelativeDiseaseListGetter getter;
     private HttpSession session;
 
-    public RelativeDiseaseListPresenter(RelativeDiseaseListActivity view) {
+    public RelativeDiseaseListPresenter(ActivityFragmentAvaliable host, RelativeDiseaseListActivity view) {
         this.view = view;
-        getter = new RelativeDiseaseListGetter(view.getBaseContext());
+        getter = new RelativeDiseaseListGetter(host, view.getBaseContext());
         getter.setCallback(this);
     }
 

@@ -13,6 +13,7 @@ public class FileUtils {
         if (folder.isFile()) return folder.length();
         int size = 0;
         File[] childFiles = folder.listFiles();
+        if (childFiles == null) return 0;
         for (File file : childFiles) {
             if (file.isFile()) {
                 size += file.length();
@@ -21,5 +22,22 @@ public class FileUtils {
             }
         }
         return size;
+    }
+
+    public static void deleteFolder(File folder) {
+        if (!folder.exists()) return;
+        File[] childFiles = folder.listFiles();
+        if (childFiles == null) {
+            folder.delete();
+            return;
+        }
+        for (File childFile : childFiles) {
+            if (childFile.isFile()) {
+                childFile.delete();
+            } else {
+                deleteFolder(childFile);
+            }
+        }
+        folder.delete();
     }
 }

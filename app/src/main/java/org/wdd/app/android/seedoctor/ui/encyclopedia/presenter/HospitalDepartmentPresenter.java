@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.HospitalDepartmentGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
@@ -20,9 +21,9 @@ public class HospitalDepartmentPresenter implements BasePresenter, HospitalDepar
     private HospitalDepartmentGetter getter;
     private HttpSession session;
 
-    public HospitalDepartmentPresenter(HospitalDepartmentFragment view) {
+    public HospitalDepartmentPresenter(ActivityFragmentAvaliable host, HospitalDepartmentFragment view) {
         this.view = view;
-        getter = new HospitalDepartmentGetter(view.getContext());
+        getter = new HospitalDepartmentGetter(host, view.getContext());
         getter.setCallback(this);
     }
 

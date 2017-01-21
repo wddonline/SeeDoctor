@@ -78,7 +78,7 @@ public class NearbyDrugstoreMapActivity extends BaseActivity implements AMap.OnC
 
     private void initData() {
         markers = new ArrayList<>();
-        presenter = new NearbyDrugstoreMapPresenter(this);
+        presenter = new NearbyDrugstoreMapPresenter(host, this);
     }
 
     private void initTitle() {

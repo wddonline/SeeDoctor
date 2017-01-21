@@ -18,9 +18,9 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     private DiseaseDetailGetter getter;
     private HttpSession session;
 
-    public DiseaseDetailPresenter(ActivityFragmentAvaliable holder, DiseaseDetailActivity view) {
+    public DiseaseDetailPresenter(ActivityFragmentAvaliable host, DiseaseDetailActivity view) {
         this.view = view;
-        getter = new DiseaseDetailGetter(holder, view.getBaseContext(), this);
+        getter = new DiseaseDetailGetter(host, view.getBaseContext(), this);
     }
 
     public void getDiseaseDetailData(int diseaseId) {

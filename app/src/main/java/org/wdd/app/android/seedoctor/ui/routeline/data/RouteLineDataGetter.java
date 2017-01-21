@@ -12,6 +12,7 @@ import com.amap.api.services.route.WalkRouteResult;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 /**
@@ -24,10 +25,12 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
     private RouteSearch routeSearch;
     private LocationHelper locationHelper;
     private SearchCallback callback;
+    private ActivityFragmentAvaliable host;
     private LatLng start;
     private LatLng dst;
 
-    public RouteLineDataGetter(Context context, LatLng dst) {
+    public RouteLineDataGetter(ActivityFragmentAvaliable host, Context context, LatLng dst) {
+        this.host = host;
         this.context = context;
         this.dst = dst;
         locationHelper = LocationHelper.getInstance(context);
@@ -60,6 +63,7 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
 
     @Override
     public void onBusRouteSearched(BusRouteResult busRouteResult, int rCode) {
+        if (!host.isAvaliable()) return;
         if (rCode == 1000) {
             if (busRouteResult == null || busRouteResult.getPaths() == null || busRouteResult.getPaths().size() == 0) {
                 AppToaster.show(R.string.no_routline_data);
@@ -73,6 +77,7 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
 
     @Override
     public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int rCode) {
+        if (!host.isAvaliable()) return;
         if (rCode == 1000) {
             if (driveRouteResult == null || driveRouteResult.getPaths() == null || driveRouteResult.getPaths().size() == 0) {
                 AppToaster.show(R.string.no_routline_data);
@@ -86,6 +91,7 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
 
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int rCode) {
+        if (!host.isAvaliable()) return;
         if (rCode == 1000) {
             if (walkRouteResult == null || walkRouteResult.getPaths() == null || walkRouteResult.getPaths().size() == 0) {
                 AppToaster.show(R.string.no_routline_data);

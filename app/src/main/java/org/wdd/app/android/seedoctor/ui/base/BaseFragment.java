@@ -20,7 +20,7 @@ import org.wdd.app.android.seedoctor.R;
 public abstract class BaseFragment extends Fragment {
 
     private ProgressDialog progressDialog;
-    public ActivityFragmentAvaliable holder = new ActivityFragmentAvaliable(this);
+    public ActivityFragmentAvaliable host = new ActivityFragmentAvaliable(this);
 
     private boolean dataLoaded = false;
     private boolean viewIninted = false;

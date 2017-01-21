@@ -45,7 +45,7 @@ public class DepartmentDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new DepartmentDetailPresenter(this);
+        presenter = new DepartmentDetailPresenter(host, this);
 
         departmentid = getIntent().getStringExtra("departmentid");
         departmentname = getIntent().getStringExtra("departmentname");

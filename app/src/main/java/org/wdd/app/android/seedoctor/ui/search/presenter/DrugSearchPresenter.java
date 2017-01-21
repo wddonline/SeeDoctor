@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.search.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
 import org.wdd.app.android.seedoctor.ui.search.activity.DrugSearchActivity;
@@ -21,9 +22,9 @@ public class DrugSearchPresenter implements BasePresenter, DrugSearchGetter.Sear
 
     private HttpSession session = null;
 
-    public DrugSearchPresenter(DrugSearchActivity view) {
+    public DrugSearchPresenter(ActivityFragmentAvaliable host, DrugSearchActivity view) {
         this.view = view;
-        getter = new DrugSearchGetter(view, this);
+        getter = new DrugSearchGetter(host, view, this);
     }
 
     public void searchDrugByName(String keyword, boolean refresh) {

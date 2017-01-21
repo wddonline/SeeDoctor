@@ -22,6 +22,7 @@ import org.wdd.app.android.seedoctor.http.HttpUtils;
 import org.wdd.app.android.seedoctor.http.StatusCode;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
     }
 
     @Override
-    public HttpSession sendHttpRequest(final HttpRequestEntry requestEntry, final Class clazz, final HttpConnectCallback callback) {
+    public HttpSession sendHttpRequest(final ActivityFragmentAvaliable host, final HttpRequestEntry requestEntry, final Class clazz, final HttpConnectCallback callback) {
         if (!HttpUtils.isNetworkEnabled(context)) {
             callback.onNetworkError();
             return null;
@@ -62,11 +63,13 @@ public class VolleyHttpConnecter implements HttpConnecter {
         StringRequest request = new StringRequest(method, requestEntry.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String txt) {
+                if (!host.isAvaliable()) return;
                 handleResponse(txt, clazz, callback);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError err) {
+                if (!host.isAvaliable()) return;
                 HttpError error;
                 if (err.networkResponse == null)
                     error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());
@@ -94,7 +97,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
     }
 
     @Override
-    public HttpSession sendHttpRequest(final HttpRequestEntry requestEntry, final HttpConnectCallback callback) {
+    public HttpSession sendHttpRequest(final ActivityFragmentAvaliable host, final HttpRequestEntry requestEntry, final HttpConnectCallback callback) {
         if (!HttpUtils.isNetworkEnabled(context)) {
             callback.onNetworkError();
             return null;
@@ -107,12 +110,14 @@ public class VolleyHttpConnecter implements HttpConnecter {
         StringRequest request = new StringRequest(method, requestEntry.getUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String txt) {
+                if (!host.isAvaliable()) return;
                 handleResponse(txt, callback);
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError err) {
+                if (!host.isAvaliable()) return;
                 HttpError error;
                 if (err.networkResponse == null)
                     error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());

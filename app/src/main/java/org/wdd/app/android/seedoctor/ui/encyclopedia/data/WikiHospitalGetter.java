@@ -10,6 +10,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
@@ -26,11 +27,13 @@ public class WikiHospitalGetter {
 
     private Context context;
     private HttpManager manager;
+    private ActivityFragmentAvaliable host;
     private WikiHospitalDataCallback callback;
 
     private int page = 1;
 
-    public WikiHospitalGetter(Context context) {
+    public WikiHospitalGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
@@ -47,7 +50,7 @@ public class WikiHospitalGetter {
             requestEntry.addRequestParam("level", hospitallevel);
         }
         requestEntry.setUrl(ServiceApi.HOSPITAL_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Hospital.class, new HttpConnectCallback() {
+        HttpSession request = manager.sendHttpRequest(host, requestEntry, Hospital.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

@@ -58,7 +58,7 @@ public class HospitalDepartmentFragment extends BaseFragment {
     }
 
     private void initData() {
-        presenter = new HospitalDepartmentPresenter(this);
+        presenter = new HospitalDepartmentPresenter(host, this);
     }
 
     private void initView() {

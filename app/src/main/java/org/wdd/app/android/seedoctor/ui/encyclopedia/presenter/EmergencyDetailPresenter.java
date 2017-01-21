@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.EmergencyDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.EmergencyDetailGetter;
@@ -20,9 +21,9 @@ public class EmergencyDetailPresenter implements EmergencyDetailGetter.Emergency
     private EmergencyDetailGetter getter;
     private HttpSession session;
 
-    public EmergencyDetailPresenter(EmergencyDetailActivity view) {
+    public EmergencyDetailPresenter(ActivityFragmentAvaliable host, EmergencyDetailActivity view) {
         this.view = view;
-        getter = new EmergencyDetailGetter(view.getBaseContext());
+        getter = new EmergencyDetailGetter(host, view.getBaseContext());
         getter.setEmergencyCallback(this);
     }
 

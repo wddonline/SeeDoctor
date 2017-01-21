@@ -12,6 +12,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 
@@ -28,8 +29,10 @@ public class HospitalMapDataGetter implements PoiSearch.OnPoiSearchListener {
     private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private SearchCallback callback;
+    private ActivityFragmentAvaliable host;
 
-    public HospitalMapDataGetter(Context context) {
+    public HospitalMapDataGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         query = new PoiSearch.Query("医院", "", LocationHelper.getInstance(context).getCity_code());
         query.setCityLimit(true);
@@ -46,6 +49,7 @@ public class HospitalMapDataGetter implements PoiSearch.OnPoiSearchListener {
 
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
+        if (!host.isAvaliable()) return;
         if (rCode == 1000) {
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条

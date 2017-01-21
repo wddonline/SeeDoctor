@@ -60,7 +60,7 @@ public class HospitalSecondDepartmentAdtivity extends BaseActivity {
         parenthosdepname = getIntent().getStringExtra("parenthosdepname");
         parenthosdepid = getIntent().getStringExtra("parenthosdepid");
 
-        presenter = new HospitalSecondDepartmentPresenter(this);
+        presenter = new HospitalSecondDepartmentPresenter(host, this);
     }
 
     private void initTitles() {

@@ -30,13 +30,13 @@ public class DrugstoreListDataGetter implements PoiSearch.OnPoiSearchListener {
     private final int RADIUS = 30000;
 
     private Context context;
-    private ActivityFragmentAvaliable holder;
+    private ActivityFragmentAvaliable host;
     private PoiSearch poiSearch;
     private PoiSearch.Query query;
     private SearchCallback callback;
 
-    public DrugstoreListDataGetter(ActivityFragmentAvaliable holder, Context context) {
-        this.holder = holder;
+    public DrugstoreListDataGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         query = new PoiSearch.Query("药店", "", LocationHelper.getInstance(context).getCity_code());
         query.setPageSize(PAGEZISE);
@@ -72,7 +72,7 @@ public class DrugstoreListDataGetter implements PoiSearch.OnPoiSearchListener {
 
     @Override
     public void onPoiSearched(PoiResult result, int rCode) {
-        if (!holder.isAvaliable()) return;
+        if (!host.isAvaliable()) return;
         if (rCode == 1000) {
             if (result != null && result.getQuery() != null) {// 搜索poi的结果
                 if (result.getQuery().equals(query)) {// 是否是同一条

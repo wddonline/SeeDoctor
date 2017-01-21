@@ -12,6 +12,7 @@ import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
@@ -27,11 +28,13 @@ public class WikiDiseaseGetter {
 
     private Context context;
     private HttpManager manager;
+    private ActivityFragmentAvaliable host;
     private WikiDiseaseDataCallback callback;
 
     private int page = 1;
 
-    public WikiDiseaseGetter(Context context) {
+    public WikiDiseaseGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
         manager = HttpManager.getInstance(context);
     }
@@ -42,7 +45,7 @@ public class WikiDiseaseGetter {
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
-        HttpSession request = manager.sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
+        HttpSession request = manager.sendHttpRequest(host, requestEntry, Disease.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
                 if (res.getData() != null) {

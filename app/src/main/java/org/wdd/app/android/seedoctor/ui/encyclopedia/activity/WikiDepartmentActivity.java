@@ -48,7 +48,7 @@ public class WikiDepartmentActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new WikiDepartmentPresenter(this);
+        presenter = new WikiDepartmentPresenter(host, this);
     }
 
     private void initTitle() {

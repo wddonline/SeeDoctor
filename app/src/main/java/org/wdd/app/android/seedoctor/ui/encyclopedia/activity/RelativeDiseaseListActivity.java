@@ -70,7 +70,7 @@ public class RelativeDiseaseListActivity extends BaseActivity {
         drugname = getIntent().getStringExtra("drugname");
         departmentid = getIntent().getStringExtra("departmentid");
         departmentname = getIntent().getStringExtra("departmentname");
-        presenter = new RelativeDiseaseListPresenter(this);
+        presenter = new RelativeDiseaseListPresenter(host, this);
     }
 
     private void initTitle() {

@@ -21,9 +21,9 @@ public class DoctorDetailPresenter implements BasePresenter, DoctorDetailGetter.
     private DoctorDetailGetter getter;
     private HttpSession session;
 
-    public DoctorDetailPresenter(ActivityFragmentAvaliable holder, DoctorDetailActivity view) {
+    public DoctorDetailPresenter(ActivityFragmentAvaliable host, DoctorDetailActivity view) {
         this.view = view;
-        getter = new DoctorDetailGetter(holder, view.getBaseContext(), this);
+        getter = new DoctorDetailGetter(host, view.getBaseContext(), this);
     }
 
     public void getDoctorDetailData(String hospitalid) {

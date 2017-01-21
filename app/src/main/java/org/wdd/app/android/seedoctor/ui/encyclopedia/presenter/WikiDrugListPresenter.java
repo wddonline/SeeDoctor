@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugListActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDrugListGetter;
@@ -19,9 +20,9 @@ public class WikiDrugListPresenter implements BasePresenter, WikiDrugListGetter.
     private WikiDrugListGetter getter;
     private HttpSession session;
 
-    public WikiDrugListPresenter(WikiDrugListActivity view) {
+    public WikiDrugListPresenter(ActivityFragmentAvaliable host, WikiDrugListActivity view) {
         this.view = view;
-        getter = new WikiDrugListGetter(view.getBaseContext());
+        getter = new WikiDrugListGetter(host, view.getBaseContext());
         getter.setCallback(this);
     }
 

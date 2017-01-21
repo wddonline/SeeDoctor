@@ -56,7 +56,7 @@ public class DoctorFilterActivity extends BaseActivity {
         initProvinceid = confManager.getWikiDoctorProvinceId();
         initHospitalLevelid = confManager.getWikiDoctorLevelId();
         initDoctorLevelid = confManager.getWikiDoctorJobLevelId();
-        presenter = new DoctorFilterPresenter(this);
+        presenter = new DoctorFilterPresenter(host, this);
     }
 
     private void initTitles() {

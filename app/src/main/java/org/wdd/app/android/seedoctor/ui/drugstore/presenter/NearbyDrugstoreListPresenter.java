@@ -18,9 +18,9 @@ public class NearbyDrugstoreListPresenter implements BasePresenter, DrugstoreLis
     private NearbyDrugstoreFragment view;
     private DrugstoreListDataGetter data;
 
-    public NearbyDrugstoreListPresenter(ActivityFragmentAvaliable holder, NearbyDrugstoreFragment view) {
+    public NearbyDrugstoreListPresenter(ActivityFragmentAvaliable host, NearbyDrugstoreFragment view) {
         this.view = view;
-        data = new DrugstoreListDataGetter(holder, view.getContext());
+        data = new DrugstoreListDataGetter(host, view.getContext());
         data.setSearchCallback(this);
     }
 

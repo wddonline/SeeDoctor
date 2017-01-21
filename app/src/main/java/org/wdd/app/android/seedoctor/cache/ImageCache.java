@@ -93,4 +93,8 @@ public class ImageCache implements com.android.volley.toolbox.ImageLoader.ImageC
 	public long getDiskCacheSize() {
 		return diskCache.getDiskCacheSize();
 	}
+
+	public void cleanDiskCache() {
+		diskCache.clean();
+	}
 }

@@ -23,7 +23,7 @@ import java.util.List;
 public class DepartmentDetailGetter {
 
     private Context context;
-    private ActivityFragmentAvaliable holder;
+    private ActivityFragmentAvaliable host;
     private DepartmentDetailCallback callback;
 
     public enum Type {
@@ -31,8 +31,8 @@ public class DepartmentDetailGetter {
         Disease
     }
 
-    public DepartmentDetailGetter(ActivityFragmentAvaliable holder, Context context) {
-        this.holder = holder;
+    public DepartmentDetailGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
     }
 
@@ -40,10 +40,9 @@ public class DepartmentDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.DEPARTMENT_DETAIL);
         requestEntry.addRequestParam("departmentid", departmentid);
-        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(requestEntry, Department.class, new HttpConnectCallback() {
+        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(host, requestEntry, Department.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 if (res.getData() == null) {
                     callback.onFailure(Type.Department, new HttpError(ErrorCode.UNKNOW_ERROR, ""));
@@ -54,14 +53,12 @@ public class DepartmentDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 callback.onFailure(Type.Department, error);
             }
 
             @Override
             public void onNetworkError() {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 callback.onNetworkError(Type.Department);
             }
@@ -73,10 +70,9 @@ public class DepartmentDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.NEW_WIKI_DISEASE_LIST);
         requestEntry.addRequestParam("departmentid", departmentid);
-        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(requestEntry, Disease.class, new HttpConnectCallback() {
+        HttpSession session = HttpManager.getInstance(context).sendHttpRequest(host, requestEntry, Disease.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 if (res.getData() == null && ((List)res.getData()).size() == 0) {
                     callback.onFailure(Type.Disease, new HttpError(ErrorCode.UNKNOW_ERROR, ""));
@@ -87,14 +83,12 @@ public class DepartmentDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 callback.onFailure(Type.Disease, error);
             }
 
             @Override
             public void onNetworkError() {
-                if (!holder.isAvaliable()) return;
                 if (callback == null) return;
                 callback.onNetworkError(Type.Disease);
             }

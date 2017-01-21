@@ -41,7 +41,7 @@ public class DoctorDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        presenter = new DoctorDetailPresenter(this);
+        presenter = new DoctorDetailPresenter(host, this);
         doctorid = getIntent().getStringExtra("doctorid");
         doctorname = getIntent().getStringExtra("doctorname");
     }

@@ -141,6 +141,7 @@ class DiskCache {
 	private long getTotalSize() {
 		long totalSize = 0;
 		File[] files = imageCacheDir.listFiles();
+		if (files == null) return 0;
 		for (File file : files) {
 			totalSize += file.length();
 		}
@@ -149,5 +150,10 @@ class DiskCache {
 
 	public long getDiskCacheSize() {
 		return FileUtils.getFolderSize(imageCacheDir) + FileUtils.getFolderSize(context.getCacheDir());
+	}
+
+	public void clean() {
+		FileUtils.deleteFolder(imageCacheDir);
+		FileUtils.deleteFolder(context.getCacheDir());
 	}
 }

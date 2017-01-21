@@ -46,7 +46,7 @@ public class EmergencyDetailActivity extends BaseActivity {
         emeid = getIntent().getStringExtra("emeid");
         eme = getIntent().getStringExtra("eme");
 
-        presenter = new EmergencyDetailPresenter(this);
+        presenter = new EmergencyDetailPresenter(host, this);
     }
 
     private void initTitles() {

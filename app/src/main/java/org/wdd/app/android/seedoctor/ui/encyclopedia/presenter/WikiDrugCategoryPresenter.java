@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDrugCategoryGetter;
@@ -20,9 +21,9 @@ public class WikiDrugCategoryPresenter implements BasePresenter, WikiDrugCategor
     private WikiDrugCategoryGetter getter;
     private HttpSession session;
 
-    public WikiDrugCategoryPresenter(WikiDrugCategoryActivity view) {
+    public WikiDrugCategoryPresenter(ActivityFragmentAvaliable host, WikiDrugCategoryActivity view) {
         this.view = view;
-        getter = new WikiDrugCategoryGetter(view.getBaseContext());
+        getter = new WikiDrugCategoryGetter(host, view.getBaseContext());
         getter.setCallback(this);
     }
 

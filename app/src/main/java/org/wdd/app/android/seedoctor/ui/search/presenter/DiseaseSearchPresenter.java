@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.search.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
+import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
@@ -21,9 +22,9 @@ public class DiseaseSearchPresenter implements BasePresenter, DiseaseSearchGette
 
     private HttpSession session = null;
 
-    public DiseaseSearchPresenter(DiseaseSearchActivity view) {
+    public DiseaseSearchPresenter(ActivityFragmentAvaliable host, DiseaseSearchActivity view) {
         this.view = view;
-        getter = new DiseaseSearchGetter(view, this);
+        getter = new DiseaseSearchGetter(host, view, this);
     }
 
     public void searchDiseaseByName(String keyword, boolean refresh) {

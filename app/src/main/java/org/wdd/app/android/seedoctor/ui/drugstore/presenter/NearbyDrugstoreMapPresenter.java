@@ -19,9 +19,9 @@ public class NearbyDrugstoreMapPresenter implements BasePresenter, DrugstoreMapD
     private NearbyDrugstoreMapActivity view;
     private DrugstoreMapDataGetter data;
 
-    public NearbyDrugstoreMapPresenter(ActivityFragmentAvaliable holder, NearbyDrugstoreMapActivity view) {
+    public NearbyDrugstoreMapPresenter(ActivityFragmentAvaliable host, NearbyDrugstoreMapActivity view) {
         this.view = view;
-        data = new DrugstoreMapDataGetter(holder, view);
+        data = new DrugstoreMapDataGetter(host, view);
         data.setSearchCallback(this);
     }
 

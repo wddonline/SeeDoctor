@@ -53,7 +53,7 @@ public class NearbySearchActivity extends BaseActivity implements AbstractCommon
     }
 
     private void initData() {
-        presenter = new NearbySearchPresenter(this);
+        presenter = new NearbySearchPresenter(host, this);
     }
 
     private void initViews() {

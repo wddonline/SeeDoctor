@@ -20,12 +20,12 @@ import org.wdd.app.android.seedoctor.utils.ServiceApi;
 public class DiseaseDetailGetter {
 
     private Context context;
-    private ActivityFragmentAvaliable holder;
+    private ActivityFragmentAvaliable host;
     private DiseaseDetailCallback callback;
     private HttpManager manager;
 
-    public DiseaseDetailGetter(ActivityFragmentAvaliable holder, Context context, DiseaseDetailCallback callback) {
-        this.holder = holder;
+    public DiseaseDetailGetter(ActivityFragmentAvaliable host, Context context, DiseaseDetailCallback callback) {
+        this.host = host;
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
@@ -35,10 +35,9 @@ public class DiseaseDetailGetter {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DISEASE_DETAIL);
         requestEntry.addRequestParam("diseaseid", diseaseId + "");
-        HttpSession session = manager.sendHttpRequest(requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
+        HttpSession session = manager.sendHttpRequest(host, requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
-                if (!holder.isAvaliable()) return;
                 if (res.getData() != null) {
                     DiseaseDetail diseaseDetail = (DiseaseDetail) res.getData();
                     callback.onRequestOk(diseaseDetail);
@@ -50,13 +49,11 @@ public class DiseaseDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (!holder.isAvaliable()) return;
                 callback.onRequestFailure(error);
             }
 
             @Override
             public void onNetworkError() {
-                if (!holder.isAvaliable()) return;
                 callback.onNetworkError();
             }
         });
