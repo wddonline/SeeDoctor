@@ -60,7 +60,7 @@
     <string name="exit_nav_msg">确定退出导航？</string>
     <string name="nav_init_error">导航初始化失败</string>
     <string name="caculate_route_line_error">计算路线失败，错误码[%1$d]</string>
-    <string name="tts_init_error">语音初始化失败</string>
+    <string name="tts_init_error">语音初始化失败，错误码[%1$d]</string>
 
     <!-- 百科 -->
     <string name="wiki_title">医药百科</string>
@@ -117,7 +117,6 @@
 
     <!-- 个人中心 -->
     <string name="collection">收藏</string>
-    <string name="footprint">足迹</string>
     <string name="nav_setting">导航设置</string>
     <string name="version_check">版本检测</string>
     <string name="cache_clean">缓存清理</string>
@@ -132,5 +131,6 @@
     <string name="checking_version">正在获取最新版本数据...</string>
     <string name="deleting_cache">正在清理缓存文件...</string>
     <string name="disk_cache_clean_result">恭喜你清除掉了%1$sM的垃圾，再接再厉！</string>
+    <string name="nav_voice_setting">语音设置</string>
 
 </resources>

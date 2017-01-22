@@ -96,9 +96,9 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
         notifyItemChanged(data.size());
     }
 
-    protected abstract void onBindDataViewHolder(RecyclerView.ViewHolder holder, T item, int position);
-
     protected abstract RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType);
+
+    protected abstract void onBindDataViewHolder(RecyclerView.ViewHolder holder, T item, int position);
 
     private class MoreDataVH extends RecyclerView.ViewHolder {
 

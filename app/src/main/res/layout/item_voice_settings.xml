@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_voice_settings_click"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:background="@drawable/common_list_item_bg">
+
+    <TextView
+        android:id="@+id/item_voice_settings_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSizeItemTitle"
+        android:textColor="@color/colorItemTitle"
+        android:layout_centerVertical="true"/>
+
+    <CheckBox
+        android:id="@+id/item_voice_settings_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:button="@drawable/blue_radion_button_bg"/>
+</RelativeLayout>

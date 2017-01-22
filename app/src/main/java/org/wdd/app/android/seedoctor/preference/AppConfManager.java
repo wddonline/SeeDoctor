@@ -31,6 +31,7 @@ public class AppConfManager {
     private final String WIKI_DOCTOR_LEVEL_NAME = "wiki_doctor_level_name";
     private final String WIKI_DOCTOR_JOB_LEVEL_ID = "wiki_doctor_job_level_id";
     private final String WIKI_DOCTOR_JOB_LEVEL_NAME = "wiki_doctor_job_level_name";
+    private final String NAVIGATION_VOICE_SETTING = "navigation_voice_setting";
 
     private Context context;
 
@@ -204,5 +205,22 @@ public class AppConfManager {
     public String getWikiDoctorJobLevelName() {
         SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
         return preferences.getString(WIKI_DOCTOR_JOB_LEVEL_NAME, "");
+    }
+
+    public void saveNavigationVoiceSetting(String setting) {
+        SharedPreferences preference = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        if (TextUtils.isEmpty(setting)) {
+            editor.remove(NAVIGATION_VOICE_SETTING);
+        } else {
+            editor.putString(NAVIGATION_VOICE_SETTING, setting);
+        }
+
+        editor.commit();
+    }
+
+    public String getNavigationVoiceSetting() {
+        SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(NAVIGATION_VOICE_SETTING, "");
     }
 }

@@ -3,8 +3,7 @@ package org.wdd.app.android.seedoctor.ui.navigation.utils;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.model.AMapLaneInfo;
@@ -27,6 +26,7 @@ import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 /**
@@ -132,7 +132,11 @@ public class TTSController implements AMapNaviListener {
         mTts.setParameter(SpeechConstant.PARAMS, null);
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         // 设置在线合成发音人
-        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
+        String vocieName = AppConfManager.getInstance(mContext).getNavigationVoiceSetting();
+        if (TextUtils.isEmpty(vocieName)) {
+            vocieName = mContext.getResources().getStringArray(R.array.voicer_cloud_values)[0];
+        }
+        mTts.setParameter(SpeechConstant.VOICE_NAME, vocieName);
         //设置合成语速
         mTts.setParameter(SpeechConstant.SPEED, "50");
         //设置合成音调
