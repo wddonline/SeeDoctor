@@ -10,4 +10,11 @@ public class DbDrug {
     public String drugid;
     public String drugname;
 
+    public DbDrug() {
+    }
+
+    public DbDrug(String drugid, String drugname) {
+        this.drugid = drugid;
+        this.drugname = drugname;
+    }
 }

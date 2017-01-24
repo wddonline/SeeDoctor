@@ -14,6 +14,7 @@ import android.widget.TextView;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.me.activity.AboutActivity;
+import org.wdd.app.android.seedoctor.ui.me.activity.FavoritesActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.NavigationSettingsActivity;
 import org.wdd.app.android.seedoctor.ui.me.presenter.MePresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
@@ -76,6 +77,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initViews() {
+        rootView.findViewById(R.id.fragment_me_collection_click).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_me_nav_click).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_me_version_check_click).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_me_clear_cache_click).setOnClickListener(this);
@@ -85,6 +87,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_me_collection_click:
+                FavoritesActivity.show(getContext());
+                break;
             case R.id.fragment_me_nav_click:
                 NavigationSettingsActivity.show(getContext());
                 break;

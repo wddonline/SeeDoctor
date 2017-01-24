@@ -8,7 +8,7 @@ import org.wdd.app.android.seedoctor.database.manager.impl.DepartmentDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.DiseaseDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.DoctorDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.DrugDbManager;
-import org.wdd.app.android.seedoctor.database.manager.impl.EmerencyDbManager;
+import org.wdd.app.android.seedoctor.database.manager.impl.EmergencyDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.HospitalDbManager;
 
 /**
@@ -33,7 +33,7 @@ class SDSqliteOpenHelper extends SQLiteOpenHelper {
             DiseaseDbManager.createTable(db);
             DoctorDbManager.createTable(db);
             DrugDbManager.createTable(db);
-            EmerencyDbManager.createTable(db);
+            EmergencyDbManager.createTable(db);
             HospitalDbManager.createTable(db);
 
             db.setTransactionSuccessful();

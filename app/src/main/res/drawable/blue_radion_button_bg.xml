@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@mipmap/blue_radion_button_checked_bg" android:state_checked="true"/>
-    <item android:drawable="@mipmap/blue_radion_button_unchecked_bg" android:state_checked="false"/>
-    <item android:drawable="@mipmap/blue_radion_button_unchecked_bg"/>
+    <item android:drawable="@drawable/ic_radio_button_checked_blue" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_radio_button_unchecked_blue" android:state_checked="false"/>
+    <item android:drawable="@drawable/ic_radio_button_checked_blue"/>
 
 </selector>

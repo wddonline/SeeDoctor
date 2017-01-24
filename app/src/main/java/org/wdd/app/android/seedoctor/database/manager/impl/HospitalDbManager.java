@@ -19,10 +19,10 @@ import java.util.List;
 public class HospitalDbManager extends DbManager<DbHospital> {
 
     public static void createTable(SQLiteDatabase db) {
-        String[] args = {HospitalTable.TABLE_NAME, HospitalTable.FIELD_ID, HospitalTable.FIELD_HOSPITAL_ID,
-                HospitalTable.FIELD_HOSPITAL_NAME, HospitalTable.FIELD_PICURL};
-        db.execSQL("CREATE TABLE IF NOT EXISTS ?(? INTEGER PRIMARYKEY AUTOINCREMENT, ? VARCHAR2(15) " +
-                "NOT NULL UNIQUE, ? VARCHAR2(10) NOT NULL, ? VARCHAR2(100));", args);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + HospitalTable.TABLE_NAME + "(" + HospitalTable.FIELD_ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + HospitalTable.FIELD_HOSPITAL_ID + " VARCHAR2(15) " +
+                "NOT NULL UNIQUE, " + HospitalTable.FIELD_HOSPITAL_NAME + " VARCHAR2(10) NOT NULL, " +
+                HospitalTable.FIELD_PICURL + " VARCHAR2(100));");
     }
 
     public HospitalDbManager(Context context) {
@@ -30,12 +30,11 @@ public class HospitalDbManager extends DbManager<DbHospital> {
     }
 
     @Override
-    protected long insert(DbHospital data) {
+    public long insert(DbHospital data) {
         long result = -1;
         try {
             SQLiteDatabase db = getReadableDatabase();
             ContentValues values = new ContentValues();
-            values.put(HospitalTable.FIELD_ID, data.id);
             values.put(HospitalTable.FIELD_HOSPITAL_ID, data.hospitalid);
             values.put(HospitalTable.FIELD_HOSPITAL_NAME, data.hospitalname);
             values.put(HospitalTable.FIELD_PICURL, data.picurl);
@@ -49,16 +48,17 @@ public class HospitalDbManager extends DbManager<DbHospital> {
     }
 
     @Override
-    protected List<DbHospital> queryAll() {
+    public List<DbHospital> queryAll() {
         List<DbHospital> result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
             String[] columns = {HospitalTable.FIELD_ID, HospitalTable.FIELD_HOSPITAL_ID, HospitalTable.FIELD_HOSPITAL_NAME,
                     HospitalTable.FIELD_PICURL};
-            Cursor cursor = db.query(HospitalTable.TABLE_NAME, columns, null, null, null, null, null);
+            String orderBy = HospitalTable.FIELD_ID + " DESC";
+            Cursor cursor = db.query(HospitalTable.TABLE_NAME, columns, null, null, null, null, orderBy);
             result = new ArrayList<>();
             DbHospital doctor;
-            if (cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
                 doctor = new DbHospital();
                 doctor.id = cursor.getInt(cursor.getColumnIndex(HospitalTable.FIELD_ID));
                 doctor.hospitalid = cursor.getString(cursor.getColumnIndex(HospitalTable.FIELD_HOSPITAL_ID));
@@ -75,7 +75,7 @@ public class HospitalDbManager extends DbManager<DbHospital> {
     }
 
     @Override
-    protected DbHospital queryById(int id) {
+    public DbHospital queryById(int id) {
         DbHospital result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -99,8 +99,32 @@ public class HospitalDbManager extends DbManager<DbHospital> {
         return result;
     }
 
+    public DbHospital getHospitaByHospitaid(String hospitalid) {
+        DbHospital result = null;
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String[] columns = {HospitalTable.FIELD_ID, HospitalTable.FIELD_HOSPITAL_ID, HospitalTable.FIELD_HOSPITAL_NAME,
+                    HospitalTable.FIELD_PICURL};
+            String selection = HospitalTable.FIELD_HOSPITAL_ID + "=?";
+            String[] selectionArgs = {hospitalid};
+            Cursor cursor = db.query(HospitalTable.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+            if (cursor.getCount() > 0 && cursor.moveToNext()) {
+                result = new DbHospital();
+                result.id = cursor.getInt(cursor.getColumnIndex(HospitalTable.FIELD_ID));
+                result.hospitalid = cursor.getString(cursor.getColumnIndex(HospitalTable.FIELD_HOSPITAL_ID));
+                result.hospitalname = cursor.getString(cursor.getColumnIndex(HospitalTable.FIELD_HOSPITAL_NAME));
+                result.picurl = cursor.getString(cursor.getColumnIndex(HospitalTable.FIELD_PICURL));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return result;
+    }
+
     @Override
-    protected int deleteAll() {
+    public int deleteAll() {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -114,7 +138,7 @@ public class HospitalDbManager extends DbManager<DbHospital> {
     }
 
     @Override
-    protected int deleteById(int id) {
+    public int deleteById(int id) {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -129,4 +153,40 @@ public class HospitalDbManager extends DbManager<DbHospital> {
         return affectedRows;
     }
 
+    public long deleteByHospitalid(String hospitalid) {
+        int affectedRows = 0;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            String whereClause = HospitalTable.FIELD_HOSPITAL_ID + "=?";
+            String[] whereArgs = {hospitalid};
+            affectedRows = db.delete(HospitalTable.TABLE_NAME, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return affectedRows;
+    }
+
+    public int deleteHospitals(List<DbHospital> hospitals) {
+        int affectedRows = 0;
+        SQLiteDatabase db = null;
+        try {
+            db = getWritableDatabase();
+            db.beginTransaction();
+            String whereClause = HospitalTable.FIELD_ID + " = ?";
+            for (DbHospital h : hospitals) {
+                String[] whereArgs = {h.id + ""};
+                affectedRows += db.delete(HospitalTable.TABLE_NAME, whereClause, whereArgs);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+        return affectedRows;
+    }
 }

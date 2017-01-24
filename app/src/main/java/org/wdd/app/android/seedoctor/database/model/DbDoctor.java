@@ -11,4 +11,12 @@ public class DbDoctor {
     public String doctorname;
     public String photourl;
 
+    public DbDoctor() {
+    }
+
+    public DbDoctor(String doctorid, String doctorname, String photourl) {
+        this.doctorid = doctorid;
+        this.doctorname = doctorname;
+        this.photourl = photourl;
+    }
 }

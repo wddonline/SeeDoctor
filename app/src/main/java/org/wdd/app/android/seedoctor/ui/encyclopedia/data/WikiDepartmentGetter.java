@@ -27,6 +27,7 @@ public class WikiDepartmentGetter {
     private DepartmentCallback callback;
 
     public WikiDepartmentGetter(ActivityFragmentAvaliable host, Context context) {
+        this.host = host;
         this.context = context;
     }
 

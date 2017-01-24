@@ -10,12 +10,12 @@ public class Disease {
     public String introduction;
     public String diseasepicurl;
     public String diseasepic;
-    public int diseaseid;
+    public String diseaseid;
 
     public Disease() {
     }
 
-    public Disease(String diseasename, String introduction, String diseasepicurl, String diseasepic, int diseaseid) {
+    public Disease(String diseasename, String introduction, String diseasepicurl, String diseasepic, String diseaseid) {
         this.diseasename = diseasename;
         this.introduction = introduction;
         this.diseasepicurl = diseasepicurl;
@@ -31,11 +31,11 @@ public class Disease {
         this.diseasename = diseasename;
     }
 
-    public int getDiseaseid() {
+    public String getDiseaseid() {
         return diseaseid;
     }
 
-    public void setDiseaseid(int diseaseid) {
+    public void setDiseaseid(String diseaseid) {
         this.diseaseid = diseaseid;
     }
 

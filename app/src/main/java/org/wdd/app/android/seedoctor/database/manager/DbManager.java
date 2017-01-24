@@ -31,14 +31,14 @@ public abstract class DbManager<T> {
         connecter.closeDatabase();
     }
 
-    protected abstract long insert(T data);
+    public abstract long insert(T data);
 
-    protected abstract List<T> queryAll();
+    public abstract List<T> queryAll();
 
-    protected abstract T queryById(int id);
+    public abstract T queryById(int id);
 
-    protected abstract int deleteAll();
+    public abstract int deleteAll();
 
-    protected abstract int deleteById(int id);
+    public abstract int deleteById(int id);
 
 }

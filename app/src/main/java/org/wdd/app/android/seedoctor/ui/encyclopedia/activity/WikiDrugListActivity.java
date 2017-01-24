@@ -3,6 +3,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDrugListPrese
 import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
 import org.wdd.app.android.seedoctor.ui.search.activity.DrugSearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -55,6 +57,7 @@ public class WikiDrugListActivity extends BaseActivity {
 
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_drug_list_toolbar);
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

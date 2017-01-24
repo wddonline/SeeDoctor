@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements Runnable {
         int[] tabIcons = {R.drawable.icon_hospital, R.drawable.icon_drugstore, R.drawable.icon_wiki,
                 R.drawable.icon_me};
         int[] tabTxts = {R.string.hospital, R.string.drug_store, R.string.wiki, R.string.me};
-        String[] tabTags = {"hospital", "drugstore", "wiki", "me"};
+        String[] tabTags = {"doctor", "drugstore", "wiki", "me"};
         Class[] tabClasses = {NearbyHospitalFragment.class, NearbyDrugstoreFragment.class,
                 WikiFragment.class, MeFragment.class};
 

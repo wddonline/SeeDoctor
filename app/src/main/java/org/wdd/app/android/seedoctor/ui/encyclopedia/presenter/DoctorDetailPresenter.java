@@ -30,6 +30,18 @@ public class DoctorDetailPresenter implements BasePresenter, DoctorDetailGetter.
         session = getter.requestDoctorDetailData(hospitalid);
     }
 
+    public void getCollectionStatus(String doctorid) {
+        getter.getCollectionStatus(doctorid);
+    }
+
+    public void collectDoctor(String doctorid, String doctorname, String photourl) {
+        getter.collectDoctor(doctorid, doctorname, photourl);
+    }
+
+    public void uncollectDoctor(String departmentid) {
+        getter.collectDoctor(departmentid);
+    }
+
     public void destory() {
         if (session == null) return;
         session.cancelRequest();
@@ -51,5 +63,20 @@ public class DoctorDetailPresenter implements BasePresenter, DoctorDetailGetter.
     public void onNetworkError() {
         session = null;
         view.showNetworkErrorViews();
+    }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setDoctorCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateDoctorCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateDoctorUncollectedStatus(success);
     }
 }

@@ -19,10 +19,9 @@ import java.util.List;
 public class DepartmentDbManager extends DbManager<DbDepartment> {
 
     public static void createTable(SQLiteDatabase db) {
-        String[] args = {DepartmentTable.TABLE_NAME, DepartmentTable.FIELD_ID, DepartmentTable.FIELD_DEPARTMENT_ID,
-                DepartmentTable.FIELD_DEPARTMENT_NAME};
-        db.execSQL("CREATE TABLE IF NOT EXISTS ?(? INTEGER PRIMARYKEY AUTOINCREMENT, ? VARCHAR2(15) " +
-                "NOT NULL UNIQUE, ? VARCHAR2(10) NOT NULL);", args);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DepartmentTable.TABLE_NAME + "(" + DepartmentTable.FIELD_ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + DepartmentTable.FIELD_DEPARTMENT_ID + " VARCHAR2(15) " +
+                "NOT NULL UNIQUE, " + DepartmentTable.FIELD_DEPARTMENT_NAME + " VARCHAR2(10) NOT NULL);");
     }
 
     public DepartmentDbManager(Context context) {
@@ -30,7 +29,7 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
     }
 
     @Override
-    protected long insert(DbDepartment data) {
+    public long insert(DbDepartment data) {
         long result = -1;
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -47,15 +46,16 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
     }
 
     @Override
-    protected List<DbDepartment> queryAll() {
+    public List<DbDepartment> queryAll() {
         List<DbDepartment> result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
             String[] columns = {DepartmentTable.FIELD_ID, DepartmentTable.FIELD_DEPARTMENT_ID, DepartmentTable.FIELD_DEPARTMENT_NAME};
-            Cursor cursor = db.query(DepartmentTable.TABLE_NAME, columns, null, null, null, null, null);
+            String orderBy = DepartmentTable.FIELD_ID + " DESC";
+            Cursor cursor = db.query(DepartmentTable.TABLE_NAME, columns, null, null, null, null, orderBy);
             result = new ArrayList<>();
             DbDepartment department;
-            if (cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
                 department = new DbDepartment();
                 department.id = cursor.getInt(cursor.getColumnIndex(DepartmentTable.FIELD_ID));
                 department.departmentid = cursor.getString(cursor.getColumnIndex(DepartmentTable.FIELD_DEPARTMENT_ID));
@@ -71,7 +71,7 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
     }
 
     @Override
-    protected DbDepartment queryById(int id) {
+    public DbDepartment queryById(int id) {
         DbDepartment result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -93,8 +93,30 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
         return result;
     }
 
+    public DbDepartment getDepartmentByDepartmentid(String departmentid) {
+        DbDepartment result = null;
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String[] columns = {DepartmentTable.FIELD_ID, DepartmentTable.FIELD_DEPARTMENT_ID, DepartmentTable.FIELD_DEPARTMENT_NAME};
+            String selection = DepartmentTable.FIELD_DEPARTMENT_ID + "=?";
+            String[] selectionArgs = {departmentid};
+            Cursor cursor = db.query(DepartmentTable.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+            if (cursor.getCount() > 0 && cursor.moveToNext()) {
+                result = new DbDepartment();
+                result.id = cursor.getInt(cursor.getColumnIndex(DepartmentTable.FIELD_ID));
+                result.departmentid = cursor.getString(cursor.getColumnIndex(DepartmentTable.FIELD_DEPARTMENT_ID));
+                result.departmentname = cursor.getString(cursor.getColumnIndex(DepartmentTable.FIELD_DEPARTMENT_NAME));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return result;
+    }
+
     @Override
-    protected int deleteAll() {
+    public int deleteAll() {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -108,7 +130,7 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
     }
 
     @Override
-    protected int deleteById(int id) {
+    public int deleteById(int id) {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -123,4 +145,40 @@ public class DepartmentDbManager extends DbManager<DbDepartment> {
         return affectedRows;
     }
 
+    public long deleteByDepartmentid(String departmentid) {
+        int affectedRows = 0;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            String whereClause = DepartmentTable.FIELD_DEPARTMENT_ID + "=?";
+            String[] whereArgs = {departmentid};
+            affectedRows = db.delete(DepartmentTable.TABLE_NAME, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return affectedRows;
+    }
+
+    public int deleteDepartments(List<DbDepartment> departments) {
+        int affectedRows = 0;
+        SQLiteDatabase db = null;
+        try {
+            db = getWritableDatabase();
+            db.beginTransaction();
+            String whereClause = DepartmentTable.FIELD_ID + " = ?";
+            for (DbDepartment d : departments) {
+                String[] whereArgs = {d.id + ""};
+                affectedRows += db.delete(DepartmentTable.TABLE_NAME, whereClause, whereArgs);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+        return affectedRows;
+    }
 }

@@ -69,7 +69,7 @@ public class VoiceSettingsAdapter extends AbstractCommonAdapter<SettingModel> {
 
         public SettingViewHolder(View itemView) {
             super(itemView);
-            clickView = itemView.findViewById(R.id.item_voice_settings_check);
+            clickView = itemView.findViewById(R.id.item_voice_settings_click);
             labelView = (TextView) itemView.findViewById(R.id.item_voice_settings_label);
             checkBox = (CheckBox) itemView.findViewById(R.id.item_voice_settings_check);
         }

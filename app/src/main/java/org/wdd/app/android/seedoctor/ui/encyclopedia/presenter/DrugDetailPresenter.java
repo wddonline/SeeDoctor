@@ -5,9 +5,7 @@ import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DiseaseDetailGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DrugDetailGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 
 /**
@@ -25,8 +23,20 @@ public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.Drug
         getter = new DrugDetailGetter(host, view.getBaseContext(), this);
     }
 
-    public void getDrugDetailData(int drugId) {
+    public void getDrugDetailData(String drugId) {
         session = getter.requestDrugDetailData(drugId);
+    }
+
+    public void getCollectionStatus(String drugid) {
+        getter.getCollectionStatus(drugid);
+    }
+
+    public void collectDrug(String drugid, String drugname) {
+        getter.collectDrug(drugid, drugname);
+    }
+
+    public void uncollectDrug(String drugid) {
+        getter.uncollectDrug(drugid);
     }
 
     public void destory() {
@@ -51,4 +61,20 @@ public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.Drug
         session = null;
         view.showNetworkErrorViews();
     }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setDrugCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateDrugCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateDrugUncollectedStatus(success);
+    }
+
 }

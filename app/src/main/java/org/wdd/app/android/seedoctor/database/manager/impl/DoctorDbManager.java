@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import org.wdd.app.android.seedoctor.database.manager.DbManager;
 import org.wdd.app.android.seedoctor.database.model.DbDoctor;
+import org.wdd.app.android.seedoctor.database.model.DbHospital;
 import org.wdd.app.android.seedoctor.database.table.DoctorTable;
+import org.wdd.app.android.seedoctor.database.table.HospitalTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,10 @@ import java.util.List;
 public class DoctorDbManager extends DbManager<DbDoctor> {
 
     public static void createTable(SQLiteDatabase db) {
-        String[] args = {DoctorTable.TABLE_NAME, DoctorTable.FIELD_ID, DoctorTable.FIELD_DOCTOR_ID,
-                DoctorTable.FIELD_DOCTOR_NAME, DoctorTable.FIELD_PHOTO_URL};
-        db.execSQL("CREATE TABLE IF NOT EXISTS ?(? INTEGER PRIMARYKEY AUTOINCREMENT, ? VARCHAR2(15) " +
-                "NOT NULL UNIQUE, ? VARCHAR2(10) NOT NULL, ? VARCHAR2(100));", args);
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + DoctorTable.TABLE_NAME + "(" + DoctorTable.FIELD_ID +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + DoctorTable.FIELD_DOCTOR_ID + " VARCHAR2(15) " +
+                "NOT NULL UNIQUE, " + DoctorTable.FIELD_DOCTOR_NAME + " VARCHAR2(10) NOT NULL, " + DoctorTable.FIELD_PHOTO_URL +
+                " VARCHAR2(100));");
     }
 
     public DoctorDbManager(Context context) {
@@ -30,12 +32,11 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
     }
 
     @Override
-    protected long insert(DbDoctor data) {
+    public long insert(DbDoctor data) {
         long result = -1;
         try {
             SQLiteDatabase db = getReadableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DoctorTable.FIELD_ID, data.id);
             values.put(DoctorTable.FIELD_DOCTOR_ID, data.doctorid);
             values.put(DoctorTable.FIELD_DOCTOR_NAME, data.doctorname);
             values.put(DoctorTable.FIELD_PHOTO_URL, data.photourl);
@@ -49,16 +50,17 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
     }
 
     @Override
-    protected List<DbDoctor> queryAll() {
+    public List<DbDoctor> queryAll() {
         List<DbDoctor> result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
             String[] columns = {DoctorTable.FIELD_ID, DoctorTable.FIELD_ID, DoctorTable.FIELD_DOCTOR_ID,
                     DoctorTable.FIELD_DOCTOR_NAME, DoctorTable.FIELD_PHOTO_URL};
-            Cursor cursor = db.query(DoctorTable.TABLE_NAME, columns, null, null, null, null, null);
+            String orderBy = DoctorTable.FIELD_ID + " DESC";
+            Cursor cursor = db.query(DoctorTable.TABLE_NAME, columns, null, null, null, null, orderBy);
             result = new ArrayList<>();
             DbDoctor doctor;
-            if (cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
                 doctor = new DbDoctor();
                 doctor.id = cursor.getInt(cursor.getColumnIndex(DoctorTable.FIELD_ID));
                 doctor.doctorid = cursor.getString(cursor.getColumnIndex(DoctorTable.FIELD_DOCTOR_ID));
@@ -75,7 +77,7 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
     }
 
     @Override
-    protected DbDoctor queryById(int id) {
+    public DbDoctor queryById(int id) {
         DbDoctor result = null;
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -99,8 +101,32 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
         return result;
     }
 
+    public DbDoctor getDoctorByDoctorid(String doctorid) {
+        DbDoctor result = null;
+        try {
+            SQLiteDatabase db = getReadableDatabase();
+            String[] columns = {DoctorTable.FIELD_ID, DoctorTable.FIELD_ID, DoctorTable.FIELD_DOCTOR_ID,
+                    DoctorTable.FIELD_DOCTOR_NAME, DoctorTable.FIELD_PHOTO_URL};
+            String selection = DoctorTable.FIELD_DOCTOR_ID + "=?";
+            String[] selectionArgs = {doctorid};
+            Cursor cursor = db.query(DoctorTable.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+            if (cursor.getCount() > 0 && cursor.moveToNext()) {
+                result = new DbDoctor();
+                result.id = cursor.getInt(cursor.getColumnIndex(DoctorTable.FIELD_ID));
+                result.doctorid = cursor.getString(cursor.getColumnIndex(DoctorTable.FIELD_DOCTOR_ID));
+                result.doctorname = cursor.getString(cursor.getColumnIndex(DoctorTable.FIELD_DOCTOR_NAME));
+                result.photourl = cursor.getString(cursor.getColumnIndex(DoctorTable.FIELD_PHOTO_URL));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return result;
+    }
+
     @Override
-    protected int deleteAll() {
+    public int deleteAll() {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -114,7 +140,7 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
     }
 
     @Override
-    protected int deleteById(int id) {
+    public int deleteById(int id) {
         int affectedRows = 0;
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -129,4 +155,40 @@ public class DoctorDbManager extends DbManager<DbDoctor> {
         return affectedRows;
     }
 
+    public long deleteByDoctorid(String doctorid) {
+        int affectedRows = 0;
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            String whereClause = DoctorTable.FIELD_DOCTOR_ID + "=?";
+            String[] whereArgs = {doctorid};
+            affectedRows = db.delete(DoctorTable.TABLE_NAME, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDatabase();
+        }
+        return affectedRows;
+    }
+
+    public int deleteDoctors(List<DbDoctor> doctors) {
+        int affectedRows = 0;
+        SQLiteDatabase db = null;
+        try {
+            db = getWritableDatabase();
+            db.beginTransaction();
+            String whereClause = DoctorTable.FIELD_ID + " = ?";
+            for (DbDoctor d : doctors) {
+                String[] whereArgs = {d.id + ""};
+                affectedRows += db.delete(DoctorTable.TABLE_NAME, whereClause, whereArgs);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+        return affectedRows;
+    }
 }

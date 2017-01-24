@@ -8,7 +8,13 @@ public class DbDisease {
 
     public int id;
     public String diseasename;
-    public String diseasepicurl;
     public String diseaseid;
 
+    public DbDisease() {
+    }
+
+    public DbDisease(String diseaseid, String diseasename) {
+        this.diseaseid = diseaseid;
+        this.diseasename = diseasename;
+    }
 }

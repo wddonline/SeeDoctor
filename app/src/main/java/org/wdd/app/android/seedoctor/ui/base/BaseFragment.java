@@ -55,7 +55,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showLoadingDialog(String msg, DialogInterface.OnCancelListener listener) {
-        if (getActivity() == null) return;
+        if (!host.isAvaliable()) return;
         if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(msg);
@@ -71,7 +71,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showMessageDialog(String msg) {
-        if (getActivity() == null) return;
+        if (!host.isAvaliable()) return;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.tip);
         builder.setMessage(msg);

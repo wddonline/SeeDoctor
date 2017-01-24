@@ -96,6 +96,10 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
         notifyItemChanged(data.size());
     }
 
+    public LoadStatus getLoadStatus() {
+        return status;
+    }
+
     protected abstract RecyclerView.ViewHolder onCreateDataViewHolder(ViewGroup parent, int viewType);
 
     protected abstract void onBindDataViewHolder(RecyclerView.ViewHolder holder, T item, int position);

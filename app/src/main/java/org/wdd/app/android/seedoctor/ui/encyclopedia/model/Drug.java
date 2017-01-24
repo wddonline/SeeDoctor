@@ -6,7 +6,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.model;
 
 public class Drug {
 
-    public int drugid;
+    public String drugid;
     public String drugname;
     public int catgory;
     public String indication;
@@ -16,11 +16,11 @@ public class Drug {
     public Drug() {
     }
 
-    public int getDrugid() {
+    public String getDrugid() {
         return drugid;
     }
 
-    public void setDrugid(int drugid) {
+    public void setDrugid(String drugid) {
         this.drugid = drugid;
     }
 

@@ -21,7 +21,7 @@ public class ServiceApi {
     public final static String WIKI_DEPARTMENT_LIST = BASE_URL_V4 + "department/";//科室列表
     public final static String DEPARTMENT_DETAIL = BASE_URL_V4 + "department/detail/";//科室列表
     public final static String DOCTOR_LIST = BASE_URL + "doctor/";//医生列表
-    public final static String HOSPITAL_LIST = BASE_URL + "wiki/hospital/";//医院列表
+    public final static String HOSPITAL_LIST = BASE_URL + "wiki/doctor/";//医院列表
     public final static String HOSPITAL_DETAIL = BASE_URL + "wiki/hospitalDetailInfo/";//医院详情
     public final static String HOSPITAL_DEPARTMENT = BASE_URL + "wiki/hospitalDepartment/";//医院科室列表
     public final static String DOCTOR_DETAIL = BASE_URL + "doctor/detailInfo";//医生详情

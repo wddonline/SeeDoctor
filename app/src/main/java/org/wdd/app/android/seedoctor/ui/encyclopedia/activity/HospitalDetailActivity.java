@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -43,10 +46,19 @@ public class HospitalDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void showForResult(Activity activity, int position, String hospitalid, String hospitalname, int requsetCode) {
+        Intent intent = new Intent(activity, HospitalDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("hospitalid", hospitalid);
+        intent.putExtra("hospitalname", hospitalname);
+        activity.startActivityForResult(intent, requsetCode);
+    }
+
     private ViewPager viewPager;
+    private Toolbar toolbar;
     private LoadView loadView;
     private View briefView;
-    private  TabLayout tabLayout;
+    private TabLayout tabLayout;
     private TextView phoneView;
 
     private HospitalAdapter adapter;
@@ -55,6 +67,10 @@ public class HospitalDetailActivity extends BaseActivity {
     private String hospitalname;
     private HospitalDetail detail;
     private List<String> phones;
+
+    private int position;
+    private boolean initCollectStatus = false;
+    private boolean currentCollectStatus = initCollectStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,12 +83,14 @@ public class HospitalDetailActivity extends BaseActivity {
 
     private void initData() {
         presenter = new HospitalDetailPresenter(host, this);
+        position = getIntent().getIntExtra("position" , -1);
         hospitalid = getIntent().getStringExtra("hospitalid");
         hospitalname = getIntent().getStringExtra("hospitalname");
     }
 
     private void initTitles() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_hospital_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_hospital_detail_toolbar);
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(getBaseContext(), 3));
         toolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -82,6 +100,7 @@ public class HospitalDetailActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backAction();
                 finish();
             }
         });
@@ -89,7 +108,23 @@ public class HospitalDetailActivity extends BaseActivity {
         titleView.post(new Runnable() {
             @Override
             public void run() {
-                titleView.setPadding(0, 0, toolbar.getWidth() - titleView.getWidth(), 0);
+                titleView.setPadding(0, 0, Math.round((toolbar.getWidth() - titleView.getWidth()) * 0.5f), 0);
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_collection_do:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.collectHospital(hospitalid, hospitalname, detail.picurl);
+                        return true;
+                    case R.id.menu_collection_undo:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.uncollectHospital(hospitalid);
+                        return true;
+                }
+                return false;
             }
         });
     }
@@ -121,6 +156,26 @@ public class HospitalDetailActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_collection, menu);
+        return true;
+    }
+
+    private void backAction() {
+        if (currentCollectStatus != initCollectStatus) {
+            Intent intent = new Intent();
+            intent.putExtra("position", position);
+            setResult(RESULT_OK, intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backAction();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.destory();
@@ -128,6 +183,7 @@ public class HospitalDetailActivity extends BaseActivity {
 
     public void showHospitalDetalViews(HospitalDetail detail) {
         this.detail = detail;
+        presenter.getCollectionStatus(hospitalid);
 
         loadView.setStatus(LoadView.LoadStatus.Normal);
         viewPager.setVisibility(View.VISIBLE);
@@ -213,6 +269,32 @@ public class HospitalDetailActivity extends BaseActivity {
 
     public void showNetworkErrorViews() {
         loadView.setStatus(LoadView.LoadStatus.Network_Error);
+    }
+
+    public void setHospitalCollectionViews(boolean isCollected) {
+        initCollectStatus = isCollected;
+        currentCollectStatus = isCollected;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(!isCollected);
+        menu.findItem(R.id.menu_collection_undo).setVisible(isCollected);
+    }
+
+    public void updateHospitalCollectedStatus(boolean success) {
+        currentCollectStatus = true;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(false);
+        menu.findItem(R.id.menu_collection_undo).setVisible(true);
+    }
+
+    public void updateHospitalUncollectedStatus(boolean success) {
+        currentCollectStatus = false;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(true);
+        menu.findItem(R.id.menu_collection_undo).setVisible(false);
     }
 
     /**

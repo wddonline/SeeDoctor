@@ -2,6 +2,10 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
 
+import org.wdd.app.android.seedoctor.app.SDApplication;
+import org.wdd.app.android.seedoctor.database.manager.impl.DoctorDbManager;
+import org.wdd.app.android.seedoctor.database.model.DbDepartment;
+import org.wdd.app.android.seedoctor.database.model.DbDoctor;
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
 import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
@@ -22,6 +26,7 @@ public class DoctorDetailGetter {
     private Context context;
     private ActivityFragmentAvaliable host;
     private DoctorDetailCallback callback;
+    private DoctorDbManager dbManager;
     private HttpManager manager;
 
     public DoctorDetailGetter(ActivityFragmentAvaliable host, Context context, DoctorDetailCallback callback) {
@@ -29,6 +34,7 @@ public class DoctorDetailGetter {
         this.context = context;
         this.callback = callback;
         manager = HttpManager.getInstance(context);
+        dbManager = new DoctorDbManager(context);
     }
 
     public HttpSession requestDoctorDetailData(String doctorid) {
@@ -60,11 +66,105 @@ public class DoctorDetailGetter {
         return session;
     }
 
+    public void getCollectionStatus(String doctorid) {
+        Thread thread = new Thread(new DoctorDetailGetter.GetCollectionStatusAction(doctorid));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectDoctor(String doctorid, String doctorname, String photourl) {
+        Thread thread = new Thread(new DoctorDetailGetter.CollectDoctorAction(doctorid, doctorname, photourl));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectDoctor(String doctorid) {
+        Thread thread = new Thread(new DoctorDetailGetter.UncollectDoctorAction(doctorid));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private class GetCollectionStatusAction implements Runnable {
+
+        private String doctorid;
+
+        public GetCollectionStatusAction(String doctorid) {
+            this.doctorid = doctorid;
+        }
+
+        @Override
+        public void run() {
+            final DbDoctor doctor = dbManager.getDoctorByDoctorid(doctorid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectionStatusGetted(doctor != null);
+                }
+            });
+        }
+    }
+
+    private class CollectDoctorAction implements Runnable {
+
+        private String doctorid;
+        private String doctorname;
+        private String photourl;
+
+        public CollectDoctorAction(String doctorid, String doctorname, String photourl) {
+            this.doctorid = doctorid;
+            this.doctorname = doctorname;
+            this.photourl = photourl;
+        }
+
+        @Override
+        public void run() {
+            DbDoctor doctor = new DbDoctor(doctorid, doctorname, photourl);
+            final long result = dbManager.insert(doctor);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectOver(result != -1);
+                }
+            });
+        }
+    }
+
+    private class UncollectDoctorAction implements Runnable {
+
+        private String doctorid;
+
+        public UncollectDoctorAction(String doctorid) {
+            this.doctorid = doctorid;
+        }
+
+        @Override
+        public void run() {
+            final long result = dbManager.deleteByDoctorid(doctorid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onUncollectOver(result != -1);
+                }
+            });
+        }
+    }
+
+
     public interface DoctorDetailCallback {
 
         void onRequestOk(DoctorDetail data);
         void onRequestFailure(HttpError error);
         void onNetworkError();
+
+        void onCollectionStatusGetted(boolean isCollected);
+        void onCollectOver(boolean success);
+        void onUncollectOver(boolean success);
 
     }
 }

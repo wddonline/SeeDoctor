@@ -10,4 +10,11 @@ public class DbDepartment {
     public String departmentid;
     public String departmentname;
 
+    public DbDepartment() {
+    }
+
+    public DbDepartment(String departmentid, String departmentname) {
+        this.departmentid = departmentid;
+        this.departmentname = departmentname;
+    }
 }

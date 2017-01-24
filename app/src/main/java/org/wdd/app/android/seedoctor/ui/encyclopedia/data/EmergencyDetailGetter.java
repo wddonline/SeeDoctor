@@ -2,6 +2,9 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
 
+import org.wdd.app.android.seedoctor.app.SDApplication;
+import org.wdd.app.android.seedoctor.database.manager.impl.EmergencyDbManager;
+import org.wdd.app.android.seedoctor.database.model.DbEmergency;
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
 import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
@@ -21,11 +24,13 @@ public class EmergencyDetailGetter {
 
     private Context context;
     private EmergencyCallback callback;
+    private EmergencyDbManager dbManager;
     private ActivityFragmentAvaliable host;
 
     public EmergencyDetailGetter(ActivityFragmentAvaliable host, Context context) {
         this.host = host;
         this.context = context;
+        dbManager = new EmergencyDbManager(context);
     }
 
     public HttpSession requestEmergencyData(String emeid) {
@@ -58,9 +63,95 @@ public class EmergencyDetailGetter {
         return session;
     }
 
+    public void getCollectionStatus(String emeid) {
+        Thread thread = new Thread(new EmergencyDetailGetter.GetCollectionStatusAction(emeid));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectEmergency(String emeid, String eme) {
+        Thread thread = new Thread(new CollectEmergencyAction(emeid, eme));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectEmergency(String emeid) {
+        Thread thread = new Thread(new UncollectEmergencyAction(emeid));
+        thread.setDaemon(true);
+        thread.start();
+    }
 
     public void setEmergencyCallback(EmergencyCallback callback) {
         this.callback = callback;
+    }
+
+    private class GetCollectionStatusAction implements Runnable {
+
+        private String emeid;
+
+        public GetCollectionStatusAction(String emeid) {
+            this.emeid = emeid;
+        }
+
+        @Override
+        public void run() {
+            final DbEmergency department = dbManager.getEmergencyByEmeid(emeid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectionStatusGetted(department != null);
+                }
+            });
+        }
+    }
+
+    private class CollectEmergencyAction implements Runnable {
+
+        private String emeid;
+        private String eme;
+
+        public CollectEmergencyAction(String emeid, String eme) {
+            this.emeid = emeid;
+            this.eme = eme;
+        }
+
+        @Override
+        public void run() {
+            DbEmergency emergency = new DbEmergency(emeid, eme);
+            final long result = dbManager.insert(emergency);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectOver(result != -1);
+                }
+            });
+        }
+    }
+
+    private class UncollectEmergencyAction implements Runnable {
+
+        private String emeid;
+
+        public UncollectEmergencyAction(String emeid) {
+            this.emeid = emeid;
+        }
+
+        @Override
+        public void run() {
+            final long result = dbManager.deleteByEmeid(emeid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onUncollectOver(result != -1);
+                }
+            });
+        }
     }
 
     public interface EmergencyCallback {
@@ -68,6 +159,10 @@ public class EmergencyDetailGetter {
         void onDataGetted(Emergency data);
         void onFailure(HttpError error);
         void onNetworkError();
+
+        void onCollectionStatusGetted(boolean isCollected);
+        void onCollectOver(boolean success);
+        void onUncollectOver(boolean success);
 
     }
 }

@@ -30,6 +30,18 @@ public class HospitalDetailPresenter implements BasePresenter, HospitalDetailGet
         session = getter.requestHospitalDetailData(hospitalid);
     }
 
+    public void getCollectionStatus(String hospitalid) {
+        getter.getCollectionStatus(hospitalid);
+    }
+
+    public void collectHospital(String hospitalid, String hospitalname, String picurl) {
+        getter.collectHospital(hospitalid, hospitalname, picurl);
+    }
+
+    public void uncollectHospital(String hospitalid) {
+        getter.collectHospital(hospitalid);
+    }
+
     public void destory() {
         if (session == null) return;
         session.cancelRequest();
@@ -52,4 +64,20 @@ public class HospitalDetailPresenter implements BasePresenter, HospitalDetailGet
         session = null;
         view.showNetworkErrorViews();
     }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setHospitalCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateHospitalCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateHospitalUncollectedStatus(success);
+    }
+
 }

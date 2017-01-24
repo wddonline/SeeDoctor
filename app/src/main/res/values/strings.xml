@@ -73,6 +73,7 @@
     <string name="in_area">所在地区</string>
     <string name="hospital_level">医院等级</string>
     <string name="doctor_level">医生等级</string>
+    <string name="doing_background">正在处理...</string>
 
     <!-- 疾病详情 -->
     <string name="disease_brief_introduction">简介</string>
@@ -116,7 +117,8 @@
     <string name="hospital_phone_cliped">医院电话信息已经复制到剪切板</string>
 
     <!-- 个人中心 -->
-    <string name="collection">收藏</string>
+    <string name="collect">收藏</string>
+    <string name="uncollect">取消收藏</string>
     <string name="nav_setting">导航设置</string>
     <string name="version_check">版本检测</string>
     <string name="cache_clean">缓存清理</string>
@@ -132,5 +134,15 @@
     <string name="deleting_cache">正在清理缓存文件...</string>
     <string name="disk_cache_clean_result">恭喜你清除掉了%1$sM的垃圾，再接再厉！</string>
     <string name="nav_voice_setting">语音设置</string>
+    <string name="favorites_disease">收藏的疾病</string>
+    <string name="favorites_drug">收藏的药品</string>
+    <string name="favorites_emergency">收藏的急诊</string>
+    <string name="favorites_department">收藏的科室</string>
+    <string name="favorites_doctor">收藏的医生</string>
+    <string name="favorites_hospital">收藏的医院</string>
+    <string name="all">全部</string>
+    <string name="deleting_favotites_items">正在删除选择的条目</string>
+    <string name="no_favorite_selected">至少选择一项</string>
+    <string name="trash">删除</string>
 
 </resources>

@@ -1,9 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,12 +31,24 @@ public class DepartmentDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void showForResult(Activity activity, int position, String departmentid, String departmentname, int requsetCode) {
+        Intent intent = new Intent(activity, DepartmentDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("departmentid", departmentid);
+        intent.putExtra("departmentname", departmentname);
+        activity.startActivityForResult(intent, requsetCode);
+    }
+
     private LoadView loadView;
+    private Toolbar toolbar;
 
     private DepartmentDetailPresenter presenter;
 
     private String departmentid;
     private String departmentname;
+    private int position;
+    private boolean initCollectStatus = false;
+    private boolean currentCollectStatus = initCollectStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,25 +61,42 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     private void initData() {
         presenter = new DepartmentDetailPresenter(host, this);
-
+        position = getIntent().getIntExtra("position" , -1);
         departmentid = getIntent().getStringExtra("departmentid");
         departmentname = getIntent().getStringExtra("departmentname");
     }
 
     private void initTitles() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_department_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_department_detail_toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backAction();
                 finish();
             }
         });
 
         TextView titleView = (TextView) findViewById(R.id.activity_department_detail_title);
         titleView.setText(departmentname);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_collection_do:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.collectDepartment(departmentid, departmentname);
+                        return true;
+                    case R.id.menu_collection_undo:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.uncollectDepartment(departmentid);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void initViews() {
@@ -78,6 +110,27 @@ public class DepartmentDetailActivity extends BaseActivity {
         });
         presenter.getDepartmentDetailData(departmentid);
         presenter.getDiseaseListByDepartmentId(departmentid);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_collection, menu);
+        presenter.getCollectionStatus(departmentid);
+        return true;
+    }
+
+    private void backAction() {
+        if (currentCollectStatus != initCollectStatus) {
+            Intent intent = new Intent();
+            intent.putExtra("position", position);
+            setResult(RESULT_OK, intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backAction();
+        super.onBackPressed();
     }
 
     @Override
@@ -139,5 +192,31 @@ public class DepartmentDetailActivity extends BaseActivity {
         } else {
             container.removeViewAt(container.getChildCount() - 1);
         }
+    }
+
+    public void setDepartmentCollectionViews(boolean isCollected) {
+        initCollectStatus = isCollected;
+        currentCollectStatus = isCollected;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(!isCollected);
+        menu.findItem(R.id.menu_collection_undo).setVisible(isCollected);
+    }
+
+    public void updateDepartmentCollectedStatus(boolean success) {
+        currentCollectStatus = true;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(false);
+        menu.findItem(R.id.menu_collection_undo).setVisible(true);
+    }
+
+    public void updateDepartmentUncollectedStatus(boolean success) {
+        currentCollectStatus = false;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(true);
+        menu.findItem(R.id.menu_collection_undo).setVisible(false);
     }
 }

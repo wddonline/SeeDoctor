@@ -11,4 +11,12 @@ public class DbHospital {
     public String hospitalname;
     public String picurl;
 
+    public DbHospital() {
+    }
+
+    public DbHospital(String hospitalid, String hospitalname, String picurl) {
+        this.hospitalid = hospitalid;
+        this.hospitalname = hospitalname;
+        this.picurl = picurl;
+    }
 }

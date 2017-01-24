@@ -23,8 +23,20 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
         getter = new DiseaseDetailGetter(host, view.getBaseContext(), this);
     }
 
-    public void getDiseaseDetailData(int diseaseId) {
+    public void getDiseaseDetailData(String diseaseId) {
         session = getter.requestDiseaseDetailData(diseaseId);
+    }
+
+    public void getCollectionStatus(String departmentid) {
+        getter.getCollectionStatus(departmentid);
+    }
+
+    public void collectDisease(String departmentid, String departmentname) {
+        getter.collectDisease(departmentid, departmentname);
+    }
+
+    public void uncollectDisease(String departmentid) {
+        getter.uncollectDisease(departmentid);
     }
 
     public void destory() {
@@ -48,5 +60,20 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     public void onNetworkError() {
         session = null;
         view.showNetworkErrorViews();
+    }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setDiseaseCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateDiseaseCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateDiseaseUncollectedStatus(success);
     }
 }

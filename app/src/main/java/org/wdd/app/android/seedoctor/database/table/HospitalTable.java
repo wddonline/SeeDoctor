@@ -6,7 +6,7 @@ package org.wdd.app.android.seedoctor.database.table;
 
 public class HospitalTable {
 
-    public final static String TABLE_NAME = "hospital";
+    public final static String TABLE_NAME = "doctor";
 
     public final static String FIELD_ID = "id";
     public final static String FIELD_HOSPITAL_ID = "hospitalid";

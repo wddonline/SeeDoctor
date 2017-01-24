@@ -2,6 +2,9 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.data;
 
 import android.content.Context;
 
+import org.wdd.app.android.seedoctor.app.SDApplication;
+import org.wdd.app.android.seedoctor.database.manager.impl.DepartmentDbManager;
+import org.wdd.app.android.seedoctor.database.model.DbDepartment;
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
 import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
@@ -25,6 +28,7 @@ public class DepartmentDetailGetter {
     private Context context;
     private ActivityFragmentAvaliable host;
     private DepartmentDetailCallback callback;
+    private DepartmentDbManager dbManager;
 
     public enum Type {
         Department,
@@ -34,6 +38,25 @@ public class DepartmentDetailGetter {
     public DepartmentDetailGetter(ActivityFragmentAvaliable host, Context context) {
         this.host = host;
         this.context = context;
+        dbManager = new DepartmentDbManager(context);
+    }
+
+    public void getCollectionStatus(String departmentid) {
+        Thread thread = new Thread(new GetCollectionStatusAction(departmentid));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectDepartment(String departmentid, String departmentname) {
+        Thread thread = new Thread(new CollectDepartmentAction(departmentid, departmentname));
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public void collectDepartment(String departmentid) {
+        Thread thread = new Thread(new UncollectDepartmentAction(departmentid));
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public HttpSession requestDepartmentData(String departmentid) {
@@ -101,11 +124,84 @@ public class DepartmentDetailGetter {
         this.callback = callback;
     }
 
+    private class GetCollectionStatusAction implements Runnable {
+
+        private String departmentid;
+
+        public GetCollectionStatusAction(String departmentid) {
+            this.departmentid = departmentid;
+        }
+
+        @Override
+        public void run() {
+            final DbDepartment department = dbManager.getDepartmentByDepartmentid(departmentid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectionStatusGetted(department != null);
+                }
+            });
+        }
+    }
+
+    private class CollectDepartmentAction implements Runnable {
+
+        private String departmentid;
+        private String departmentname;
+
+        public CollectDepartmentAction(String departmentid, String departmentname) {
+            this.departmentid = departmentid;
+            this.departmentname = departmentname;
+        }
+
+        @Override
+        public void run() {
+            DbDepartment department = new DbDepartment(departmentid, departmentname);
+            final long result = dbManager.insert(department);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onCollectOver(result != -1);
+                }
+            });
+        }
+    }
+
+    private class UncollectDepartmentAction implements Runnable {
+
+        private String departmentid;
+
+        public UncollectDepartmentAction(String departmentid) {
+            this.departmentid = departmentid;
+        }
+
+        @Override
+        public void run() {
+            final long result = dbManager.deleteByDepartmentid(departmentid);
+            if (callback == null) return;
+            if (!host.isAvaliable()) return;
+            SDApplication.getInstance().getUiHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onUncollectOver(result != -1);
+                }
+            });
+        }
+    }
+
     public interface DepartmentDetailCallback {
 
         void onDataGetted(Type type, Object data);
         void onFailure(Type type, HttpError error);
         void onNetworkError(Type type);
+
+        void onCollectionStatusGetted(boolean isCollected);
+        void onCollectOver(boolean success);
+        void onUncollectOver(boolean success);
 
     }
 }

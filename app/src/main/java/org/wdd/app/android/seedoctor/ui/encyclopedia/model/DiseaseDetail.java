@@ -6,7 +6,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.model;
 
 public class DiseaseDetail {
 
-    public int diseaseid;//疾病id
+    public String diseaseid;//疾病id
     public String diseasename;//疾病名称
     public String introduction;//疾病简介
     public String cause;//病因
@@ -21,11 +21,11 @@ public class DiseaseDetail {
     public DiseaseDetail() {
     }
 
-    public int getDiseaseid() {
+    public String getDiseaseid() {
         return diseaseid;
     }
 
-    public void setDiseaseid(int diseaseid) {
+    public void setDiseaseid(String diseaseid) {
         this.diseaseid = diseaseid;
     }
 

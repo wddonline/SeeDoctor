@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +13,11 @@ import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
+import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.me.adapter.VoiceSettingsAdapter;
 import org.wdd.app.android.seedoctor.ui.me.model.SettingModel;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 
 import java.util.ArrayList;
@@ -67,6 +70,7 @@ public class VoiceSettingsActivity extends BaseActivity {
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_voice_settings_toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -97,6 +101,7 @@ public class VoiceSettingsActivity extends BaseActivity {
             }
         });
         recyclerView.setAdapter(settingsAdapter);
+        settingsAdapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }
 
     @Override

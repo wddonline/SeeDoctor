@@ -4,12 +4,9 @@ import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.EmergencyDetailActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.EmergencyDetailGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiEmergencyGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 
-import java.util.List;
 
 /**
  * Created by richard on 1/3/17.
@@ -29,6 +26,18 @@ public class EmergencyDetailPresenter implements EmergencyDetailGetter.Emergency
 
     public void getEmergencyDetailDataData(String emeid) {
         session = getter.requestEmergencyData(emeid);
+    }
+
+    public void getCollectionStatus(String emeid) {
+        getter.getCollectionStatus(emeid);
+    }
+
+    public void collectEmergency(String emeid, String eme) {
+        getter.collectEmergency(emeid, eme);
+    }
+
+    public void uncollectEmergency(String emeid) {
+        getter.collectEmergency(emeid);
     }
 
     public void destory() {
@@ -54,4 +63,20 @@ public class EmergencyDetailPresenter implements EmergencyDetailGetter.Emergency
         session = null;
         view.showNetworkErrorViews();
     }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setEmergencyCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateEmergencyCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateEmergencyUncollectedStatus(success);
+    }
+
 }

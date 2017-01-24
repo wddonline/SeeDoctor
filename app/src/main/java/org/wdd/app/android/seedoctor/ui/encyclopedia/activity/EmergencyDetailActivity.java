@@ -1,9 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,8 +16,6 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.EmergencyDetailPresenter;
 import org.wdd.app.android.seedoctor.views.HttpImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
-
-import java.util.List;
 
 public class EmergencyDetailActivity extends BaseActivity {
 
@@ -26,10 +27,22 @@ public class EmergencyDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void showForResult(Activity activity, int position, String emeid, String eme, int requsetCode) {
+        Intent intent = new Intent(activity, EmergencyDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("emeid", emeid);
+        intent.putExtra("eme", eme);
+        activity.startActivityForResult(intent, requsetCode);
+    }
+
     private LoadView loadView;
+    private Toolbar toolbar;
 
     private String emeid;
     private String eme;
+    private int position;
+    private boolean initCollectStatus = false;
+    private boolean currentCollectStatus = initCollectStatus;
 
     private EmergencyDetailPresenter presenter;
 
@@ -43,6 +56,7 @@ public class EmergencyDetailActivity extends BaseActivity {
     }
 
     private void initData() {
+        position = getIntent().getIntExtra("position" , -1);
         emeid = getIntent().getStringExtra("emeid");
         eme = getIntent().getStringExtra("eme");
 
@@ -50,7 +64,7 @@ public class EmergencyDetailActivity extends BaseActivity {
     }
 
     private void initTitles() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_emergency_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_emergency_detail_toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -59,7 +73,24 @@ public class EmergencyDetailActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backAction();
                 finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_collection_do:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.collectEmergency(emeid, eme);
+                        return true;
+                    case R.id.menu_collection_undo:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.uncollectEmergency(emeid);
+                        return true;
+                }
+                return false;
             }
         });
     }
@@ -73,6 +104,27 @@ public class EmergencyDetailActivity extends BaseActivity {
             }
         });
         presenter.getEmergencyDetailDataData(emeid);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_collection, menu);
+        presenter.getCollectionStatus(emeid);
+        return true;
+    }
+
+    private void backAction() {
+        if (currentCollectStatus != initCollectStatus) {
+            Intent intent = new Intent();
+            intent.putExtra("position", position);
+            setResult(RESULT_OK, intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backAction();
+        super.onBackPressed();
     }
 
     @Override
@@ -101,5 +153,31 @@ public class EmergencyDetailActivity extends BaseActivity {
 
     public void showNetworkErrorViews() {
         loadView.setStatus(LoadView.LoadStatus.Network_Error);
+    }
+
+    public void setEmergencyCollectionViews(boolean isCollected) {
+        initCollectStatus = isCollected;
+        currentCollectStatus = isCollected;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(!isCollected);
+        menu.findItem(R.id.menu_collection_undo).setVisible(isCollected);
+    }
+
+    public void updateEmergencyCollectedStatus(boolean success) {
+        currentCollectStatus = true;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(false);
+        menu.findItem(R.id.menu_collection_undo).setVisible(true);
+    }
+
+    public void updateEmergencyUncollectedStatus(boolean success) {
+        currentCollectStatus = false;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(true);
+        menu.findItem(R.id.menu_collection_undo).setVisible(false);
     }
 }

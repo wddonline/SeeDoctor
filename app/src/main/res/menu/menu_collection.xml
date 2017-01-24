@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_collection_do"
+        android:title="@string/collect"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_star_gray"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_collection_undo"
+        android:title="@string/uncollect"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_star_yellow"
+        android:visible="false"/>
+
+</menu>

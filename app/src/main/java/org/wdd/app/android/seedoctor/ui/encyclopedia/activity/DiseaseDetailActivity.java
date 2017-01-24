@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class DiseaseDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    public static void show(Context context, int diseaseid, String diseasename) {
+    public static void show(Context context, String diseaseid, String diseasename) {
         Intent intent = new Intent(context, DiseaseDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("diseaseid", diseaseid);
@@ -28,7 +29,16 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         context.startActivity(intent);
     }
 
+    public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
+        Intent intent = new Intent(activity, DiseaseDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("doctorid", doctorid);
+        intent.putExtra("doctorname", doctorname);
+        activity.startActivityForResult(intent, requsetCode);
+    }
+
     private LoadView loadView;
+    private Toolbar toolbar;
     private ImageView[] arrowViews;
     private TextView[] labelViews;
     private TextView[] textViews;
@@ -36,9 +46,13 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     private DiseaseDetailPresenter presenter;
     private Animation openAnim;
     private Animation closeAnim;
-    private int diseaseId;
+    private String diseaseId;
     private String diseaseName;
     private boolean[] openStatus;
+
+    private int position;
+    private boolean initCollectStatus = false;
+    private boolean currentCollectStatus = initCollectStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +64,8 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initData() {
-        diseaseId = getIntent().getIntExtra("diseaseid", 0);
+        position = getIntent().getIntExtra("position" , -1);
+        diseaseId = getIntent().getStringExtra("diseaseid");
         diseaseName = getIntent().getStringExtra("diseasename");
 
         openStatus = new boolean[]{false, false, false, false, false, false, false, false};
@@ -66,12 +81,13 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initTitle() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_disease_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_disease_detail_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backAction();
                 finish();
             }
         });
@@ -79,8 +95,20 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                RelativeDrugListActivity.show(getBaseContext(), diseaseId + "", diseaseName);
-                return true;
+                switch (item.getItemId()) {
+                    case R.id.menu_disease_detail_sale:
+                        RelativeDrugListActivity.show(getBaseContext(), diseaseId + "", diseaseName);
+                        return true;
+                    case R.id.menu_collection_do:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.collectDisease(diseaseId, diseaseName);
+                        return true;
+                    case R.id.menu_collection_undo:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.uncollectDisease(diseaseId);
+                        return true;
+                }
+                return false;
             }
         });
 
@@ -139,9 +167,24 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         presenter.getDiseaseDetailData(diseaseId);
     }
 
+    private void backAction() {
+        if (currentCollectStatus != initCollectStatus) {
+            Intent intent = new Intent();
+            intent.putExtra("position", position);
+            setResult(RESULT_OK, intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backAction();
+        super.onBackPressed();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_disease_detail, menu);
+        presenter.getCollectionStatus(diseaseId);
         return true;
     }
 
@@ -208,5 +251,31 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
         arrowViews[index].clearAnimation();
         arrowViews[index].startAnimation(openStatus[index] ? openAnim : closeAnim);
+    }
+
+    public void setDiseaseCollectionViews(boolean isCollected) {
+        initCollectStatus = isCollected;
+        currentCollectStatus = isCollected;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(!isCollected);
+        menu.findItem(R.id.menu_collection_undo).setVisible(isCollected);
+    }
+
+    public void updateDiseaseCollectedStatus(boolean success) {
+        currentCollectStatus = true;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(false);
+        menu.findItem(R.id.menu_collection_undo).setVisible(true);
+    }
+
+    public void updateDiseaseUncollectedStatus(boolean success) {
+        currentCollectStatus = false;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(true);
+        menu.findItem(R.id.menu_collection_undo).setVisible(false);
     }
 }

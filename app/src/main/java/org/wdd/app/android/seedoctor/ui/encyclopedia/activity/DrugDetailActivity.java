@@ -1,8 +1,10 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,11 +18,12 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DrugDetailPresenter;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class DrugDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    public static void show(Context context, int drugid, String drugname) {
+    public static void show(Context context, String drugid, String drugname) {
         Intent intent = new Intent(context, DrugDetailActivity.class);
         intent.putExtra("drugid", drugid);
         intent.putExtra("drugname", drugname);
@@ -28,7 +31,17 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         context.startActivity(intent);
     }
 
+    public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
+        Intent intent = new Intent(activity, DrugDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("drugid", doctorid);
+        intent.putExtra("drugname", doctorname);
+        activity.startActivityForResult(intent, requsetCode);
+    }
+
     private LoadView loadView;
+    private Toolbar toolbar;
+
     private ImageView[] arrowViews;
     private TextView[] labelViews;
     private TextView[] textViews;
@@ -36,9 +49,13 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     private DrugDetailPresenter presenter;
     private Animation openAnim;
     private Animation closeAnim;
-    private int drugid;
+    private String drugid;
     private String drugname;
     private boolean[] openStatus;
+
+    private int position;
+    private boolean initCollectStatus = false;
+    private boolean currentCollectStatus = initCollectStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +67,8 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-        drugid = getIntent().getIntExtra("drugid", 0);
+        position = getIntent().getIntExtra("position" , -1);
+        drugid = getIntent().getStringExtra("drugid");
         drugname = getIntent().getStringExtra("drugname");
 
         openStatus = new boolean[]{false, false, false, false, false, false, false, false, false, false};
@@ -66,12 +84,14 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initTitle() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_drug_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_drug_detail_toolbar);
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backAction();
                 finish();
             }
         });
@@ -79,8 +99,20 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
-                return true;
+                switch (item.getItemId()) {
+                    case R.id.menu_disease_detail_sale:
+                        RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
+                        return true;
+                    case R.id.menu_collection_do:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.collectDrug(drugid, drugname);
+                        return true;
+                    case R.id.menu_collection_undo:
+                        showLoadingDialog(R.string.doing_background);
+                        presenter.uncollectDrug(drugid);
+                        return true;
+                }
+                return false;
             }
         });
 
@@ -147,9 +179,24 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         presenter.getDrugDetailData(drugid);
     }
 
+    private void backAction() {
+        if (currentCollectStatus != initCollectStatus) {
+            Intent intent = new Intent();
+            intent.putExtra("position", position);
+            setResult(RESULT_OK, intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        backAction();
+        super.onBackPressed();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_drug_detail, menu);
+        presenter.getCollectionStatus(drugid);
         return true;
     }
 
@@ -225,5 +272,31 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
 
         arrowViews[index].clearAnimation();
         arrowViews[index].startAnimation(openStatus[index] ? openAnim : closeAnim);
+    }
+
+    public void setDrugCollectionViews(boolean isCollected) {
+        initCollectStatus = isCollected;
+        currentCollectStatus = isCollected;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(!isCollected);
+        menu.findItem(R.id.menu_collection_undo).setVisible(isCollected);
+    }
+
+    public void updateDrugCollectedStatus(boolean success) {
+        currentCollectStatus = true;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(false);
+        menu.findItem(R.id.menu_collection_undo).setVisible(true);
+    }
+
+    public void updateDrugUncollectedStatus(boolean success) {
+        currentCollectStatus = false;
+        hideLoadingDialog();
+        if (!success) return;
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.menu_collection_do).setVisible(true);
+        menu.findItem(R.id.menu_collection_undo).setVisible(false);
     }
 }

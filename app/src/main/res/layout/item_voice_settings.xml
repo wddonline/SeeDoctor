@@ -24,5 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:clickable="false"
         android:button="@drawable/blue_radion_button_bg"/>
 </RelativeLayout>

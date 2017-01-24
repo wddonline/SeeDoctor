@@ -35,6 +35,18 @@ public class DepartmentDetailPresenter implements DepartmentDetailGetter.Departm
         diseaseSession = getter.requestDiseaseData(departmentid);
     }
 
+    public void getCollectionStatus(String departmentid) {
+        getter.getCollectionStatus(departmentid);
+    }
+
+    public void collectDepartment(String departmentid, String departmentname) {
+        getter.collectDepartment(departmentid, departmentname);
+    }
+
+    public void uncollectDepartment(String departmentid) {
+        getter.collectDepartment(departmentid);
+    }
+
     public void destory() {
         if (departmentSession != null) {
             departmentSession.cancelRequest();
@@ -83,4 +95,20 @@ public class DepartmentDetailPresenter implements DepartmentDetailGetter.Departm
                 break;
         }
     }
+
+    @Override
+    public void onCollectionStatusGetted(boolean isCollected) {
+        view.setDepartmentCollectionViews(isCollected);
+    }
+
+    @Override
+    public void onCollectOver(boolean success) {
+        view.updateDepartmentCollectedStatus(success);
+    }
+
+    @Override
+    public void onUncollectOver(boolean success) {
+        view.updateDepartmentUncollectedStatus(success);
+    }
+
 }

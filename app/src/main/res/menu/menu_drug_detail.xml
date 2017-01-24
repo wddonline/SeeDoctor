@@ -7,5 +7,17 @@
         android:title="@string/wiki_disease"
         app:showAsAction="always"
         android:icon="@mipmap/img_hurt"/>
+    <item
+        android:id="@+id/menu_collection_do"
+        android:title="@string/collect"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_star_gray"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_collection_undo"
+        android:title="@string/uncollect"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_star_yellow"
+        android:visible="false"/>
 
 </menu>
