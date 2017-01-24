@@ -23,6 +23,7 @@ import org.wdd.app.android.seedoctor.http.StatusCode;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
+import org.wdd.app.android.seedoctor.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -145,6 +146,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
     }
 
     private void handleResponse(String txt, Class clazz, HttpConnectCallback callback) {
+        LogUtils.e(txt);
         JSONObject json = JSONObject.parseObject(txt);
         int status = json.getInteger("status");
 
