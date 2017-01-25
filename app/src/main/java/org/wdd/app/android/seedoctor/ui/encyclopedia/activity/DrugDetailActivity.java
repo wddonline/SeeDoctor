@@ -100,7 +100,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.menu_disease_detail_sale:
+                    case R.id.menu_drug_detail_sale:
                         RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
                         return true;
                     case R.id.menu_collection_do:
