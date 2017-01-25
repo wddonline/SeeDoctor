@@ -59,6 +59,16 @@
         <activity android:name=".ui.encyclopedia.activity.DoctorFilterActivity" />
         <activity android:name=".ui.me.activity.AboutActivity" />
         <activity android:name=".ui.web.activity.WebActivity" />
+        <activity android:name=".ui.me.activity.NavigationSettingsActivity" />
+        <activity android:name=".ui.me.activity.VoiceSettingsActivity" />
+        <activity android:name=".ui.me.activity.FavoritesActivity" />
+        <activity android:name=".ui.me.activity.FavoritesHospitalActivity" />
+        <activity android:name=".ui.me.activity.FavoritesDoctorActivity" />
+        <activity android:name=".ui.me.activity.FavoritesDepartmentActivity" />
+        <activity android:name=".ui.me.activity.FavoritesDiseaseActivity" />
+        <activity android:name=".ui.me.activity.FavoritesDrugActivity" />
+        <activity android:name=".ui.me.activity.FavoritesEmergencyActivity" />
+        <activity android:name=".ui.me.activity.ProfileEditActivity"/>
 
         <service android:name="com.amap.api.location.APSService" />
         <service
@@ -79,15 +89,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="f3efbad56fbc2f520121f28d33dc09c5" />
 
-        <activity android:name=".ui.me.activity.NavigationSettingsActivity" />
-        <activity android:name=".ui.me.activity.VoiceSettingsActivity" />
-        <activity android:name=".ui.me.activity.FavoritesActivity" />
-        <activity android:name=".ui.me.activity.FavoritesHospitalActivity" />
-        <activity android:name=".ui.me.activity.FavoritesDoctorActivity" />
-        <activity android:name=".ui.me.activity.FavoritesDepartmentActivity" />
-        <activity android:name=".ui.me.activity.FavoritesDiseaseActivity" />
-        <activity android:name=".ui.me.activity.FavoritesDrugActivity" />
-        <activity android:name=".ui.me.activity.FavoritesEmergencyActivity"></activity>
     </application>
 
 </manifest>

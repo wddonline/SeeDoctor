@@ -96,7 +96,7 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
         });
         diseaseVH.checkBox.setVisibility(mode == Mode.Select ? View.VISIBLE : View.GONE);
         diseaseVH.checkBox.setChecked(favorites.isSelected);
-//        diseaseVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
+        diseaseVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
         diseaseVH.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
             public void onStartOpen(SwipeLayout layout) {

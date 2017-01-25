@@ -41,31 +41,23 @@ public class BusRouteDetailAdapter extends AbstractCommonAdapter<SchemeBusStep> 
         if (position == 0) {
             viewHolder.busDirIcon.setImageResource(R.mipmap.dir_start);
             viewHolder.busLineName.setText(R.string.set_out);
-            viewHolder.busDirUp.setVisibility(View.INVISIBLE);
-            viewHolder.busDirDown.setVisibility(View.VISIBLE);
             viewHolder.splitLine.setVisibility(View.GONE);
             viewHolder.busStationNum.setVisibility(View.GONE);
             viewHolder.busExpandImage.setVisibility(View.GONE);
         } else if (position == data.size() - 1) {
             viewHolder.busDirIcon.setImageResource(R.mipmap.dir_end);
             viewHolder.busLineName.setText(R.string.reach_the_end);
-            viewHolder.busDirUp.setVisibility(View.VISIBLE);
-            viewHolder.busDirDown.setVisibility(View.INVISIBLE);
             viewHolder.busStationNum.setVisibility(View.INVISIBLE);
             viewHolder.busExpandImage.setVisibility(View.INVISIBLE);
         } else {
             if (item.isWalk() && item.getWalk() != null && item.getWalk().getDistance() > 0) {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir13);
-                viewHolder.busDirUp.setVisibility(View.VISIBLE);
-                viewHolder.busDirDown.setVisibility(View.VISIBLE);
                 viewHolder.busLineName.setText(String.format(context.getString(R.string.walk_distance_format),
                         (int) item.getWalk().getDistance()));
                 viewHolder.busStationNum.setVisibility(View.GONE);
                 viewHolder.busExpandImage.setVisibility(View.GONE);
             }else if (item.isBus() && item.getBusLines().size() > 0) {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir14);
-                viewHolder.busDirUp.setVisibility(View.VISIBLE);
-                viewHolder.busDirDown.setVisibility(View.VISIBLE);
                 viewHolder.busLineName.setText(item.getBusLines().get(0).getBusLineName());
                 viewHolder.busStationNum.setVisibility(View.VISIBLE);
                 viewHolder.busStationNum.setText((String.format(context.getString(R.string.station),
@@ -76,8 +68,6 @@ public class BusRouteDetailAdapter extends AbstractCommonAdapter<SchemeBusStep> 
                 viewHolder.parent.setOnClickListener(arrowClick);
             } else if (item.isRailway() && item.getRailway() != null) {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir16);
-                viewHolder.busDirUp.setVisibility(View.VISIBLE);
-                viewHolder.busDirDown.setVisibility(View.VISIBLE);
                 viewHolder.busLineName.setText(item.getRailway().getName());
                 viewHolder.busStationNum.setVisibility(View.VISIBLE);
                 viewHolder.busStationNum.setText((String.format(context.getString(R.string.station),
@@ -88,8 +78,6 @@ public class BusRouteDetailAdapter extends AbstractCommonAdapter<SchemeBusStep> 
                 viewHolder.parent.setOnClickListener(arrowClick);
             } else if (item.isTaxi() && item.getTaxi() != null) {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir14);
-                viewHolder.busDirUp.setVisibility(View.VISIBLE);
-                viewHolder.busDirDown.setVisibility(View.VISIBLE);
                 viewHolder.busLineName.setText(R.string.tax_the_end);
                 viewHolder.busStationNum.setVisibility(View.GONE);
                 viewHolder.busExpandImage.setVisibility(View.GONE);
@@ -104,8 +92,6 @@ public class BusRouteDetailAdapter extends AbstractCommonAdapter<SchemeBusStep> 
         ImageView busDirIcon;
         TextView busStationNum;
         ImageView busExpandImage;
-        ImageView busDirUp;
-        ImageView busDirDown;
         ImageView splitLine;
         LinearLayout expandContent;
         boolean arrowExpend = false;
@@ -117,8 +103,6 @@ public class BusRouteDetailAdapter extends AbstractCommonAdapter<SchemeBusStep> 
             busDirIcon = (ImageView) itemView.findViewById(R.id.item_route_line_dir);
             busStationNum = (TextView) itemView.findViewById(R.id.item_route_line_bus_station_num);
             busExpandImage = (ImageView) itemView.findViewById(R.id.item_route_line_bus_expand_image);
-            busDirUp = (ImageView) itemView.findViewById(R.id.item_route_line_dir_up);
-            busDirDown = (ImageView) itemView.findViewById(R.id.item_route_line_dir_down);
             splitLine = (ImageView) itemView.findViewById(R.id.item_route_line_seg_split_line);
             expandContent = (LinearLayout) itemView.findViewById(R.id.item_route_line_expand_content);
         }

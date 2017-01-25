@@ -10,6 +10,9 @@ import com.umeng.analytics.MobclickAgent;
 import org.wdd.app.android.seedoctor.http.HttpManager;
 import org.wdd.app.android.seedoctor.location.LocationFinder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by wangdd on 16-11-27.
  */
@@ -23,11 +26,13 @@ public class SDApplication extends Application {
     }
 
     private Handler uiHandler;
+    private Map<String, Object> tempZone;
 
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+        tempZone = new HashMap<>();
 
         uiHandler = new Handler(Looper.getMainLooper());
         //设置umeng统计场景
@@ -36,6 +41,16 @@ public class SDApplication extends Application {
 
     public Handler getUiHandler() {
         return uiHandler;
+    }
+
+    public void putTempData(String key, Object data) {
+        tempZone.put(key, data);
+    }
+
+    public Object getTempData(String key) {
+        Object data = tempZone.get(key);
+        tempZone.remove(key);
+        return data;
     }
 
     public void exitApp() {

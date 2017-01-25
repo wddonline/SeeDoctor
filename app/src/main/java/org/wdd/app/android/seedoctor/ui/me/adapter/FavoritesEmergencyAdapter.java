@@ -96,7 +96,7 @@ public class FavoritesEmergencyAdapter extends AbstractCommonAdapter<FavoritesEm
         });
         emergencyVH.checkBox.setVisibility(mode == Mode.Select ? View.VISIBLE : View.GONE);
         emergencyVH.checkBox.setChecked(favorites.isSelected);
-//        emergencyVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
+        emergencyVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
         emergencyVH.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
             public void onStartOpen(SwipeLayout layout) {

@@ -29,11 +29,11 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
+    public static void showForResult(Activity activity, int position, String diseaseid, String diseasename, int requsetCode) {
         Intent intent = new Intent(activity, DiseaseDetailActivity.class);
         intent.putExtra("position", position);
-        intent.putExtra("doctorid", doctorid);
-        intent.putExtra("doctorname", doctorname);
+        intent.putExtra("diseaseid", diseaseid);
+        intent.putExtra("diseasename", diseasename);
         activity.startActivityForResult(intent, requsetCode);
     }
 
@@ -100,11 +100,11 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
                         RelativeDrugListActivity.show(getBaseContext(), diseaseId + "", diseaseName);
                         return true;
                     case R.id.menu_collection_do:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.collectDisease(diseaseId, diseaseName);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.uncollectDisease(diseaseId);
                         return true;
                 }

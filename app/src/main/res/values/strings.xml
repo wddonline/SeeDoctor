@@ -73,7 +73,6 @@
     <string name="in_area">所在地区</string>
     <string name="hospital_level">医院等级</string>
     <string name="doctor_level">医生等级</string>
-    <string name="doing_background">正在处理...</string>
 
     <!-- 疾病详情 -->
     <string name="disease_brief_introduction">简介</string>
@@ -130,8 +129,6 @@
     <string name="lastest_version_already">您现在使用的客户端已经是最新版本</string>
     <string name="wifi_update_only">没有wifi连接， 只在wifi下更新</string>
     <string name="query_version_timeout">检查版本超时</string>
-    <string name="checking_version">正在获取最新版本数据...</string>
-    <string name="deleting_cache">正在清理缓存文件...</string>
     <string name="disk_cache_clean_result">恭喜你清除掉了%1$sM的垃圾，再接再厉！</string>
     <string name="nav_voice_setting">语音设置</string>
     <string name="favorites_disease">收藏的疾病</string>
@@ -141,8 +138,13 @@
     <string name="favorites_doctor">收藏的医生</string>
     <string name="favorites_hospital">收藏的医院</string>
     <string name="all">全部</string>
-    <string name="deleting_favotites_items">正在删除选择的条目</string>
     <string name="no_favorite_selected">至少选择一项</string>
     <string name="trash">删除</string>
+    <string name="profile_edit">编辑个人资料</string>
+    <string name="nickname">昵称</string>
+    <string name="sex">性别</string>
+    <string name="sex_male">一位绅士</string>
+    <string name="sex_female">一位淑女</string>
+    <string name="waiting_for_a_name">取一个响亮的名字</string>
 
 </resources>

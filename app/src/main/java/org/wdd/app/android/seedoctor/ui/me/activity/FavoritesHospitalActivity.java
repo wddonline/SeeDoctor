@@ -63,14 +63,14 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_hospital_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
     }
 
     private void initViews() {
@@ -105,7 +105,7 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
                             AppToaster.show(R.string.no_favorite_selected);
                             return true;
                         }
-                        showLoadingDialog(R.string.deleting_favotites_items);
+                        showLoadingDialog();
                         presenter.deleteSelectedHospitals(adapter.getSelectedItem());
                         return true;
                 }
@@ -182,7 +182,7 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
 
     @Override
     public void onHospitalDeleted(int position, FavoritesHospitalAdapter.HospitalFavorites favorites) {
-        showLoadingDialog(R.string.deleting_favotites_items);
+        showLoadingDialog();
         presenter.deleteSelectedHospital(position, favorites.hospital);
     }
 
@@ -208,14 +208,12 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
         hideLoadingDialog();
         List<FavoritesHospitalAdapter.HospitalFavorites> selectedItems = adapter.getSelectedOriginItem();
         hospitals.removeAll(selectedItems);
-        adapter.notifyDataSetChanged();
         cancelSelectMode();
     }
 
     public void showDeleteOverViews(int position) {
         hideLoadingDialog();
-        cancelSelectMode();
         hospitals.remove(position);
-        adapter.notifyItemRemoved(position);
+        cancelSelectMode();
     }
 }

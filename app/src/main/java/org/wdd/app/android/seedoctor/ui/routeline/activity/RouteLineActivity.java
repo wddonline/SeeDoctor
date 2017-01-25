@@ -199,13 +199,16 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         switch (checkedId) {
             case R.id.activity_root_line_bus:
                 toolbar.getMenu().getItem(0).setVisible(false);
+                bottomLayout.setVisibility(View.GONE);
                 presenter.searchBusRouteLineData();
                 break;
             case R.id.activity_root_line_drive:
+                recyclerView.setVisibility(View.GONE);
                 toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchDriveRouteLineData();
                 break;
             case R.id.activity_root_line_walk:
+                recyclerView.setVisibility(View.GONE);
                 toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchWalkRouteLineData();
                 break;
@@ -249,7 +252,6 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         busRouteResult = result;
         recyclerView.setVisibility(View.VISIBLE);
         mapView.setVisibility(View.GONE);
-        bottomLayout.setVisibility(View.GONE);
         aMap.clear();
         BusRouteLineAdapter adapter = new BusRouteLineAdapter(this, result.getPaths());
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);

@@ -28,7 +28,7 @@ public class DoctorDetailActivity extends BaseActivity {
     }
 
     public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
-        Intent intent = new Intent(activity, HospitalDetailActivity.class);
+        Intent intent = new Intent(activity, DoctorDetailActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("doctorid", doctorid);
         intent.putExtra("doctorname", doctorname);
@@ -82,11 +82,11 @@ public class DoctorDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.collectDoctor(doctorid, doctorname, detail.photourl);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.uncollectDoctor(doctorid);
                         return true;
                 }

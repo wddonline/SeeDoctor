@@ -82,11 +82,11 @@ public class EmergencyDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.collectEmergency(emeid, eme);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.uncollectEmergency(emeid);
                         return true;
                 }

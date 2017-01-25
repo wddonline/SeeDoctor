@@ -2,16 +2,15 @@ package org.wdd.app.android.seedoctor.ui.base;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.views.LoadingDialog;
 
 /**
  * Created by richard on 11/28/16.
@@ -19,7 +18,7 @@ import org.wdd.app.android.seedoctor.R;
 
 public abstract class BaseFragment extends Fragment {
 
-    private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
     public ActivityFragmentAvaliable host = new ActivityFragmentAvaliable(this);
 
     private boolean dataLoaded = false;
@@ -46,27 +45,22 @@ public abstract class BaseFragment extends Fragment {
         dataLoaded = true;
     }
 
-    public void showLoadingDialog(String msg) {
-        showLoadingDialog(msg, null);
+    protected void showLoadingDialog() {
+        showLoadingDialog(null);
     }
 
-    public void showLoadingDialog(int msg) {
-        showLoadingDialog(getString(msg), null);
-    }
-
-    protected void showLoadingDialog(String msg, DialogInterface.OnCancelListener listener) {
+    protected void showLoadingDialog(DialogInterface.OnCancelListener listener) {
         if (!host.isAvaliable()) return;
-        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage(msg);
-        if (listener != null) progressDialog.setOnCancelListener(listener);
-        progressDialog.show();
+        if (loadingDialog != null && loadingDialog.isShowing()) loadingDialog.dismiss();
+        loadingDialog = new LoadingDialog(getActivity());
+        if (listener != null) loadingDialog.setOnCancelListener(listener);
+        loadingDialog.show();
     }
 
     protected void hideLoadingDialog() {
-        if(progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-            progressDialog = null;
+        if(loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
         }
     }
 

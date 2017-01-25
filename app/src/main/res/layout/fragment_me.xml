@@ -29,13 +29,16 @@
                     android:src="@mipmap/user_top_bg" />
 
                 <LinearLayout
+                    android:id="@+id/fragment_me_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:clickable="true">
 
                     <ImageView
+                        android:id="@+id/fragment_me_headimg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_male_header"

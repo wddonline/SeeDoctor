@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.routeline.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +14,7 @@ import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.WalkRouteDetailAdapter;
@@ -27,12 +28,11 @@ import java.util.List;
 
 public class WalkRouteDetailActivity extends BaseActivity {
 
-    public static void show(Context context, WalkPath walkPath, WalkRouteResult result) {
-        Intent intent = new Intent(context, WalkRouteDetailActivity.class);
-        intent.putExtra("walk_path", walkPath);
-        intent.putExtra("walk_result", result);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity, WalkPath walkPath, WalkRouteResult result) {
+        Intent intent = new Intent(activity, WalkRouteDetailActivity.class);
+        SDApplication.getInstance().putTempData("walk_path", walkPath);
+        SDApplication.getInstance().putTempData("walk_result", result);
+        activity.startActivity(intent);
     }
 
     private Toolbar toolbar;
@@ -50,9 +50,8 @@ public class WalkRouteDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        walkPath = intent.getParcelableExtra("walk_path");
-        walkRouteResult = intent.getParcelableExtra("walk_result");
+        walkPath = (WalkPath) SDApplication.getInstance().getTempData("walk_path");
+        walkRouteResult = (WalkRouteResult) SDApplication.getInstance().getTempData("walk_result");
     }
 
     private void initTitle() {

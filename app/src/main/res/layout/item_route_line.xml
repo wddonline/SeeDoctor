@@ -9,48 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
         android:background="#e0e0e0"/>
 
-    <RelativeLayout
-        android:id="@+id/item_route_line_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+    <ImageView
+        android:id="@+id/item_route_line_dir"
+        android:layout_width="22dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" >
-
-        <ImageView
-            android:id="@+id/item_route_line_dir"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/dir_start" />
-
-        <ImageView
-            android:id="@+id/item_route_line_dir_up"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_above="@id/item_route_line_dir"
-            android:layout_centerHorizontal="true"
-            android:background="#b6b6b6"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/item_route_line_dir_down"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_below="@id/item_route_line_dir"
-            android:layout_centerHorizontal="true"
-            android:background="#b6b6b6"
-            android:visibility="gone"/>
-    </RelativeLayout>
+        android:src="@mipmap/dir_start" />
 
     <RelativeLayout
         android:id="@+id/item_route_line_bus_item"
         android:layout_width="match_parent"
-        android:layout_height="44dp" >
+        android:layout_height="wrap_content" >
 
         <RelativeLayout
             android:id="@+id/item_route_line_stationinfo"
@@ -87,19 +59,22 @@
                 android:visibility="gone" >
             </TextView>
         </RelativeLayout>
+
         <TextView
             android:id="@+id/item_route_line_bus_line_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp"
             android:layout_marginRight="70dp"
-            android:layout_marginEnd="70dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:textColor="#333333"
             android:text="出发"
             android:textSize="14sp" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/item_route_line_expand_content"
         android:layout_width="match_parent"

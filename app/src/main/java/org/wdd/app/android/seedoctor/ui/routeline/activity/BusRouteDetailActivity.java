@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.routeline.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +14,7 @@ import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.BusStep;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusRouteDetailAdapter;
@@ -25,12 +26,11 @@ import java.util.List;
 
 public class BusRouteDetailActivity extends BaseActivity {
 
-    public static void show(Context context, BusPath path, BusRouteResult result) {
-        Intent intent = new Intent(context, BusRouteDetailActivity.class);
-        intent.putExtra("bus_path", path);
-        intent.putExtra("bus_result", result);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity, BusPath path, BusRouteResult result) {
+        Intent intent = new Intent(activity, BusRouteDetailActivity.class);
+        SDApplication.getInstance().putTempData("bus_path", path);
+        SDApplication.getInstance().putTempData("bus_result", result);
+        activity.startActivity(intent);
     }
 
     private Toolbar toolbar;
@@ -48,9 +48,8 @@ public class BusRouteDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        busPath = intent.getParcelableExtra("bus_path");
-        busRouteResult = intent.getParcelableExtra("bus_result");
+        busPath = (BusPath) SDApplication.getInstance().getTempData("bus_path");
+        busRouteResult = (BusRouteResult) SDApplication.getInstance().getTempData("bus_result");
     }
 
     private void initTitle() {

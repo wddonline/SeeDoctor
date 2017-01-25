@@ -86,11 +86,11 @@ public class DepartmentDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.collectDepartment(departmentid, departmentname);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.uncollectDepartment(departmentid);
                         return true;
                 }

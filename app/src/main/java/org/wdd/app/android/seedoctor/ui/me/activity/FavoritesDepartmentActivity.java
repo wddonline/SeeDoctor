@@ -63,14 +63,14 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_department_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
     }
 
     private void initViews() {
@@ -105,7 +105,7 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
                             AppToaster.show(R.string.no_favorite_selected);
                             return true;
                         }
-                        showLoadingDialog(R.string.deleting_favotites_items);
+                        showLoadingDialog();
                         presenter.deleteSelectedDepartments(adapter.getSelectedItem());
                         return true;
                 }
@@ -162,8 +162,8 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String hospitalid, String hospitalname) {
-        DepartmentDetailActivity.showForResult(this, position, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(int position, String departmentid, String departmentname) {
+        DepartmentDetailActivity.showForResult(this, position, departmentid, departmentname, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
 
     @Override
     public void onDepartmentDeleted(int position, FavoritesDepartmentAdapter.DepartmentFavorites favorites) {
-        showLoadingDialog(R.string.deleting_favotites_items);
+        showLoadingDialog();
         presenter.deleteSelectedDepartment(position, favorites.department);
     }
 
@@ -208,14 +208,12 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
         hideLoadingDialog();
         List<FavoritesDepartmentAdapter.DepartmentFavorites> selectedItems = adapter.getSelectedOriginItem();
         departments.removeAll(selectedItems);
-        adapter.notifyDataSetChanged();
         cancelSelectMode();
     }
 
     public void showDeleteOverViews(int position) {
         hideLoadingDialog();
-        cancelSelectMode();
         departments.remove(position);
-        adapter.notifyItemRemoved(position);
+        cancelSelectMode();
     }
 }

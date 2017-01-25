@@ -32,6 +32,8 @@ public class AppConfManager {
     private final String WIKI_DOCTOR_JOB_LEVEL_ID = "wiki_doctor_job_level_id";
     private final String WIKI_DOCTOR_JOB_LEVEL_NAME = "wiki_doctor_job_level_name";
     private final String NAVIGATION_VOICE_SETTING = "navigation_voice_setting";
+    private final String NICKNAME = "nickname";
+    private final String SEX = "sex";
 
     private Context context;
 
@@ -222,5 +224,39 @@ public class AppConfManager {
     public String getNavigationVoiceSetting() {
         SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
         return preferences.getString(NAVIGATION_VOICE_SETTING, "");
+    }
+
+    public void saveNickname(String nickname) {
+        SharedPreferences preference = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        if (TextUtils.isEmpty(nickname)) {
+            editor.remove(NICKNAME);
+        } else {
+            editor.putString(NICKNAME, nickname);
+        }
+
+        editor.commit();
+    }
+
+    public String getNickname() {
+        SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(NICKNAME, "");
+    }
+
+    public void saveSex(String sex) {
+        SharedPreferences preference = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        if (TextUtils.isEmpty(sex)) {
+            editor.remove(SEX);
+        } else {
+            editor.putString(SEX, sex);
+        }
+
+        editor.commit();
+    }
+
+    public String getSex() {
+        SharedPreferences preferences = context.getSharedPreferences(CONF_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(SEX, "0");
     }
 }

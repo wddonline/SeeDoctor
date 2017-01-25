@@ -31,18 +31,12 @@ public class WalkRouteDetailAdapter extends AbstractCommonAdapter<WalkStep> {
         if (position == 0) {
             viewHolder.dirIcon.setImageResource(R.mipmap.dir_start);
             viewHolder.lineName.setText(R.string.set_out);
-            viewHolder.dirUp.setVisibility(View.INVISIBLE);
-            viewHolder.dirDown.setVisibility(View.VISIBLE);
             viewHolder.splitLine.setVisibility(View.INVISIBLE);
         } else if (position == data.size() - 1) {
             viewHolder.dirIcon.setImageResource(R.mipmap.dir_end);
             viewHolder.lineName.setText(R.string.reach_the_end);
-            viewHolder.dirUp.setVisibility(View.VISIBLE);
-            viewHolder.dirDown.setVisibility(View.INVISIBLE);
         } else {
             viewHolder.splitLine.setVisibility(View.VISIBLE);
-            viewHolder.dirUp.setVisibility(View.VISIBLE);
-            viewHolder.dirDown.setVisibility(View.VISIBLE);
             String actionName = item.getAction();
             int resID = AMapUtil.getWalkActionID(actionName);
             viewHolder.dirIcon.setImageResource(resID);
@@ -61,16 +55,12 @@ public class WalkRouteDetailAdapter extends AbstractCommonAdapter<WalkStep> {
 
         TextView lineName;
         ImageView dirIcon;
-        ImageView dirUp;
-        ImageView dirDown;
         ImageView splitLine;
 
         public WalkViewHolder(View itemView) {
             super(itemView);
             lineName = (TextView) itemView.findViewById(R.id.item_route_line_bus_line_name);
             dirIcon = (ImageView) itemView.findViewById(R.id.item_route_line_dir);
-            dirUp = (ImageView) itemView.findViewById(R.id.item_route_line_dir_up);
-            dirDown = (ImageView) itemView.findViewById(R.id.item_route_line_dir_down);
             splitLine = (ImageView) itemView.findViewById(R.id.item_route_line_seg_split_line);
         }
     }

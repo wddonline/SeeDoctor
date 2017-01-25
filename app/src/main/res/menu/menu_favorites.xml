@@ -6,10 +6,12 @@
         android:id="@+id/menu_favorites_delete"
         app:showAsAction="always"
         android:visible="false"
-        android:title="@string/trash"/>
+        android:title="@string/trash"
+        android:icon="@drawable/ic_done"/>
     <item
         android:id="@+id/menu_favorites_cancel"
         app:showAsAction="always"
         android:visible="false"
-        android:title="@string/cancel"/>
+        android:title="@string/cancel"
+        android:icon="@drawable/ic_close"/>
 </menu>

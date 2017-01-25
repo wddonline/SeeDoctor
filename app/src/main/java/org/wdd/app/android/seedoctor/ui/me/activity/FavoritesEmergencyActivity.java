@@ -63,14 +63,14 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_emergency_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
     }
 
     private void initViews() {
@@ -105,7 +105,7 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
                             AppToaster.show(R.string.no_favorite_selected);
                             return true;
                         }
-                        showLoadingDialog(R.string.deleting_favotites_items);
+                        showLoadingDialog();
                         presenter.deleteSelectedEmergencys(adapter.getSelectedItem());
                         return true;
                 }
@@ -162,8 +162,8 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String hospitalid, String hospitalname) {
-        EmergencyDetailActivity.showForResult(this, position, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(int position, String emeid, String eme) {
+        EmergencyDetailActivity.showForResult(this, position, emeid, eme, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
 
     @Override
     public void onEmergencyDeleted(int position, FavoritesEmergencyAdapter.EmergencyFavorites favorites) {
-        showLoadingDialog(R.string.deleting_favotites_items);
+        showLoadingDialog();
         presenter.deleteSelectedEmergency(position, favorites.emergency);
     }
 
@@ -208,14 +208,12 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
         hideLoadingDialog();
         List<FavoritesEmergencyAdapter.EmergencyFavorites> selectedItems = adapter.getSelectedOriginItem();
         emergencys.removeAll(selectedItems);
-        adapter.notifyDataSetChanged();
         cancelSelectMode();
     }
 
     public void showDeleteOverViews(int position) {
         hideLoadingDialog();
-        cancelSelectMode();
         emergencys.remove(position);
-        adapter.notifyItemRemoved(position);
+        cancelSelectMode();
     }
 }

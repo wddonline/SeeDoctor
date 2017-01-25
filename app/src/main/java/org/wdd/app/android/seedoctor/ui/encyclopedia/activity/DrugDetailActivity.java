@@ -31,11 +31,11 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
+    public static void showForResult(Activity activity, int position, String drugid, String drugname, int requsetCode) {
         Intent intent = new Intent(activity, DrugDetailActivity.class);
         intent.putExtra("position", position);
-        intent.putExtra("drugid", doctorid);
-        intent.putExtra("drugname", doctorname);
+        intent.putExtra("drugid", drugid);
+        intent.putExtra("drugname", drugname);
         activity.startActivityForResult(intent, requsetCode);
     }
 
@@ -104,11 +104,11 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
                         RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
                         return true;
                     case R.id.menu_collection_do:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.collectDrug(drugid, drugname);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog(R.string.doing_background);
+                        showLoadingDialog();
                         presenter.uncollectDrug(drugid);
                         return true;
                 }

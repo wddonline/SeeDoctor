@@ -98,7 +98,7 @@ public class FavoritesHospitalAdapter extends AbstractCommonAdapter<FavoritesHos
         });
         hospitalVH.checkBox.setVisibility(mode == Mode.Select ? View.VISIBLE : View.GONE);
         hospitalVH.checkBox.setChecked(favorites.isSelected);
-//        hospitalVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
+        hospitalVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
         hospitalVH.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
             public void onStartOpen(SwipeLayout layout) {

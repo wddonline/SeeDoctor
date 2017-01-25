@@ -63,14 +63,14 @@ public class FavoritesDoctorActivity extends BaseActivity implements FavoritesDo
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_doctor_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
     }
 
     private void initViews() {
@@ -105,7 +105,7 @@ public class FavoritesDoctorActivity extends BaseActivity implements FavoritesDo
                             AppToaster.show(R.string.no_favorite_selected);
                             return true;
                         }
-                        showLoadingDialog(R.string.deleting_favotites_items);
+                        showLoadingDialog();
                         presenter.deleteSelectedDoctors(adapter.getSelectedItem());
                         return true;
                 }
@@ -162,8 +162,8 @@ public class FavoritesDoctorActivity extends BaseActivity implements FavoritesDo
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String hospitalid, String hospitalname) {
-        DoctorDetailActivity.showForResult(this, position, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(int position, String doctorid, String doctorname) {
+        DoctorDetailActivity.showForResult(this, position, doctorid, doctorname, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class FavoritesDoctorActivity extends BaseActivity implements FavoritesDo
 
     @Override
     public void onDoctorDeleted(int position, FavoritesDoctorAdapter.DoctorFavorites favorites) {
-        showLoadingDialog(R.string.deleting_favotites_items);
+        showLoadingDialog();
         presenter.deleteSelectedDoctor(position, favorites.doctor);
     }
 
@@ -208,14 +208,12 @@ public class FavoritesDoctorActivity extends BaseActivity implements FavoritesDo
         hideLoadingDialog();
         List<FavoritesDoctorAdapter.DoctorFavorites> selectedItems = adapter.getSelectedOriginItem();
         doctors.removeAll(selectedItems);
-        adapter.notifyDataSetChanged();
         cancelSelectMode();
     }
 
     public void showDeleteOverViews(int position) {
         hideLoadingDialog();
-        cancelSelectMode();
         doctors.remove(position);
-        adapter.notifyItemRemoved(position);
+        cancelSelectMode();
     }
 }

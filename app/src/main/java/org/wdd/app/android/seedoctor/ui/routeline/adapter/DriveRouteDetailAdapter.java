@@ -39,22 +39,16 @@ public class DriveRouteDetailAdapter extends AbstractCommonAdapter<DriveStep> {
         if (position == 0) {
             viewHolder.driveDirIcon.setImageResource(R.mipmap.dir_start);
             viewHolder.driveLineName.setText("出发");
-            viewHolder.driveDirUp.setVisibility(View.GONE);
-            viewHolder.driveDirDown.setVisibility(View.VISIBLE);
             viewHolder.splitLine.setVisibility(View.GONE);
         } else if (position == data.size() - 1) {
             viewHolder.driveDirIcon.setImageResource(R.mipmap.dir_end);
             viewHolder.driveLineName.setText("到达终点");
-            viewHolder.driveDirUp.setVisibility(View.VISIBLE);
-            viewHolder.driveDirDown.setVisibility(View.GONE);
             viewHolder.splitLine.setVisibility(View.VISIBLE);
         } else {
             String actionName = item.getAction();
             int resID = AMapUtil.getDriveActionID(actionName);
             viewHolder.driveDirIcon.setImageResource(resID);
             viewHolder.driveLineName.setText(item.getInstruction());
-            viewHolder.driveDirUp.setVisibility(View.VISIBLE);
-            viewHolder.driveDirDown.setVisibility(View.VISIBLE);
             viewHolder.splitLine.setVisibility(View.VISIBLE);
         }
     }
@@ -62,16 +56,12 @@ public class DriveRouteDetailAdapter extends AbstractCommonAdapter<DriveStep> {
     private class DriveRouteViewHolder extends RecyclerView.ViewHolder {
         TextView driveLineName;
         ImageView driveDirIcon;
-        ImageView driveDirUp;
-        ImageView driveDirDown;
         ImageView splitLine;
 
         public DriveRouteViewHolder(View itemView) {
             super(itemView);
             driveDirIcon = (ImageView) itemView.findViewById(R.id.item_route_line_dir);
             driveLineName = (TextView) itemView.findViewById(R.id.item_route_line_bus_line_name);
-            driveDirUp = (ImageView) itemView.findViewById(R.id.item_route_line_dir_up);
-            driveDirDown = (ImageView) itemView.findViewById(R.id.item_route_line_dir_down);
             splitLine = (ImageView) itemView.findViewById(R.id.item_route_line_seg_split_line);
         }
     }

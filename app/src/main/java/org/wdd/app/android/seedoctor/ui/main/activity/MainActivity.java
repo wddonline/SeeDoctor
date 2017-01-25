@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        UmengUpdateAgent.update(this);//Umeng更新检测
+        UmengUpdateAgent.update(SDApplication.getInstance().getBaseContext());//Umeng更新检测
     }
 
     private void initViews() {

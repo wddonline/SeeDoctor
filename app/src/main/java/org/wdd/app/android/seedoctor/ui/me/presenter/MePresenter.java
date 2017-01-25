@@ -25,7 +25,7 @@ public class MePresenter implements BasePresenter, MeDataGetter.DataCallbck, App
 
     public MePresenter(ActivityFragmentAvaliable host, MeFragment view) {
         this.view = view;
-        getter = new MeDataGetter(host, view.getContext(), this);
+        getter = new MeDataGetter(host, view.getActivity(), this);
         cacheManeger = new AppDiskCacheManeger(host, view.getContext(), this);
     }
 

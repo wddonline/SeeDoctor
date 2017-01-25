@@ -96,7 +96,7 @@ public class FavoritesDrugAdapter extends AbstractCommonAdapter<FavoritesDrugAda
         });
         drugVH.checkBox.setVisibility(mode == Mode.Select ? View.VISIBLE : View.GONE);
         drugVH.checkBox.setChecked(favorites.isSelected);
-//        drugVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
+        drugVH.swipeLayout.setRightSwipeEnabled(mode == Mode.Normal);
         drugVH.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
             public void onStartOpen(SwipeLayout layout) {

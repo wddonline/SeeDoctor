@@ -63,14 +63,14 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_drug_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
     }
 
     private void initViews() {
@@ -105,7 +105,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
                             AppToaster.show(R.string.no_favorite_selected);
                             return true;
                         }
-                        showLoadingDialog(R.string.deleting_favotites_items);
+                        showLoadingDialog();
                         presenter.deleteSelectedDrugs(adapter.getSelectedItem());
                         return true;
                 }
@@ -162,8 +162,8 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String hospitalid, String hospitalname) {
-        DrugDetailActivity.showForResult(this, position, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(int position, String drugid, String drugname) {
+        DrugDetailActivity.showForResult(this, position, drugid, drugname, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
 
     @Override
     public void onDrugDeleted(int position, FavoritesDrugAdapter.DrugFavorites favorites) {
-        showLoadingDialog(R.string.deleting_favotites_items);
+        showLoadingDialog();
         presenter.deleteSelectedDrug(position, favorites.drug);
     }
 
@@ -208,14 +208,12 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
         hideLoadingDialog();
         List<FavoritesDrugAdapter.DrugFavorites> selectedItems = adapter.getSelectedOriginItem();
         drugs.removeAll(selectedItems);
-        adapter.notifyDataSetChanged();
         cancelSelectMode();
     }
 
     public void showDeleteOverViews(int position) {
         hideLoadingDialog();
-        cancelSelectMode();
         drugs.remove(position);
-        adapter.notifyItemRemoved(position);
+        cancelSelectMode();
     }
 }
