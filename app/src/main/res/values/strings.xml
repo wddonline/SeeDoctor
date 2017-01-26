@@ -122,6 +122,8 @@
     <string name="version_check">版本检测</string>
     <string name="cache_clean">缓存清理</string>
     <string name="about">关于</string>
+    <string name="about_app">关于看医生</string>
+    <string name="about_developer">关于我们</string>
     <string name="contact_us">联系我们</string>
     <string name="disclaimer">免责声明</string>
     <string name="bit_cat_owner">比特猫(BitCat)工作室</string>

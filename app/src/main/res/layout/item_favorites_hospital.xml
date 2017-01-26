@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:id="@+id/item_favorites_hospital_drawer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
         android:clickable="true"
         android:gravity="center">
 
@@ -24,6 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
         android:background="@drawable/common_list_item_bg"
         android:clickable="true">
 
@@ -38,8 +41,8 @@
 
         <org.wdd.app.android.seedoctor.views.HttpImageView
             android:id="@+id/item_favorites_hospital_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -47,7 +50,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:ellipsize="end"
-            android:maxLines="1"
             android:gravity="center_vertical"
             android:textColor="@color/colorItemTitle"
             android:textSize="@dimen/textSizeItemTitle"

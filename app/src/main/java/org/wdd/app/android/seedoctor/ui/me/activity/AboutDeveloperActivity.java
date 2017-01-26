@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
@@ -11,27 +11,26 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
-public class AboutActivity extends BaseActivity {
+public class AboutDeveloperActivity extends BaseActivity {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, AboutActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, AboutDeveloperActivity.class);
+        activity.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_about_developer);
         initTitles();
     }
 
     private void initTitles() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_about_toolbar);
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_about_developer_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back);
+        getSupportActionBar().setTitle("");
+        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,13 +38,4 @@ public class AboutActivity extends BaseActivity {
             }
         });
     }
-
-    public void onAppsClicked(View v) {
-        AboutAppActivity.show(this);
-    }
-
-    public void onDeveloperClicked(View v) {
-        AboutDeveloperActivity.show(this);
-    }
-
 }

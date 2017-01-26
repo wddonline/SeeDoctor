@@ -19,6 +19,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.me.activity.AboutActivity;
+import org.wdd.app.android.seedoctor.ui.me.activity.AboutAppActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.FavoritesActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.NavigationSettingsActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.ProfileEditActivity;

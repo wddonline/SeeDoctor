@@ -1,14 +1,11 @@
 package org.wdd.app.android.seedoctor.ui.main.activity;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
-
-import com.umeng.update.UmengUpdateAgent;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
@@ -18,6 +15,7 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment;
 import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment;
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.BmobUtils;
 import org.wdd.app.android.seedoctor.views.SDFragmentTabHost;
 
 public class MainActivity extends BaseActivity implements Runnable {
@@ -33,8 +31,12 @@ public class MainActivity extends BaseActivity implements Runnable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkVersion();
         initViews();
-        UmengUpdateAgent.update(SDApplication.getInstance().getBaseContext());//Umeng更新检测
+    }
+
+    private void checkVersion() {
+        BmobUtils.checkAppVersion(this);
     }
 
     private void initViews() {

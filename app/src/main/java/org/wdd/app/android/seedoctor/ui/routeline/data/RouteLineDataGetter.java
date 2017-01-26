@@ -10,10 +10,8 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
 
-import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.utils.AppToaster;
 
 /**
  * Created by richard on 12/1/16.
@@ -64,42 +62,45 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
     @Override
     public void onBusRouteSearched(BusRouteResult busRouteResult, int rCode) {
         if (!host.isAvaliable()) return;
+        if (callback == null) return;
         if (rCode == 1000) {
             if (busRouteResult == null || busRouteResult.getPaths() == null || busRouteResult.getPaths().size() == 0) {
-                AppToaster.show(R.string.no_routline_data);
+                callback.onNoRouteFound();
             } else {
-                if (callback != null) callback.onBusRouteSearched(busRouteResult);
+                callback.onBusRouteSearched(busRouteResult);
             }
         } else {
-            AppToaster.show(R.string.no_routline_data);
+            callback.onNoRouteFound();
         }
     }
 
     @Override
     public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int rCode) {
         if (!host.isAvaliable()) return;
+        if (callback == null) return;
         if (rCode == 1000) {
             if (driveRouteResult == null || driveRouteResult.getPaths() == null || driveRouteResult.getPaths().size() == 0) {
-                AppToaster.show(R.string.no_routline_data);
+                callback.onNoRouteFound();
             } else {
-                if (callback != null) callback.onDriveRouteSearched(driveRouteResult);
+                callback.onDriveRouteSearched(driveRouteResult);
             }
         } else {
-            AppToaster.show(R.string.no_routline_data);
+            callback.onNoRouteFound();
         }
     }
 
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int rCode) {
         if (!host.isAvaliable()) return;
+        if (callback == null) return;
         if (rCode == 1000) {
             if (walkRouteResult == null || walkRouteResult.getPaths() == null || walkRouteResult.getPaths().size() == 0) {
-                AppToaster.show(R.string.no_routline_data);
+                callback.onNoRouteFound();
             } else {
                 if (callback != null) callback.onWalkRouteSearched(walkRouteResult);
             }
         } else {
-            AppToaster.show(R.string.no_routline_data);
+            callback.onNoRouteFound();
         }
     }
 
@@ -119,6 +120,8 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
         void onDriveRouteSearched(DriveRouteResult result);
 
         void onWalkRouteSearched(WalkRouteResult result);
+
+        void onNoRouteFound();
 
     }
 }

@@ -52,4 +52,9 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
         view.showWalkRouteOnMap(result);
     }
 
+    @Override
+    public void onNoRouteFound() {
+        view.showNoRouteViews();
+    }
+
 }

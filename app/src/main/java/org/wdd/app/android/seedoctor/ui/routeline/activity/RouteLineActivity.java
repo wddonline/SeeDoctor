@@ -18,9 +18,6 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.overlay.BusRouteOverlay;
-import com.amap.api.maps.overlay.DrivingRouteOverlay;
-import com.amap.api.maps.overlay.WalkRouteOverlay;
 import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
@@ -29,6 +26,9 @@ import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.map.overlay.BusRouteOverlay;
+import org.wdd.app.android.seedoctor.map.overlay.DrivingRouteOverlay;
+import org.wdd.app.android.seedoctor.map.overlay.WalkRouteOverlay;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
@@ -36,6 +36,7 @@ import org.wdd.app.android.seedoctor.ui.navigation.activity.NavigationActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusRouteLineAdapter;
 import org.wdd.app.android.seedoctor.ui.routeline.presenter.RouteLinePresenter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
+import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 
@@ -315,6 +316,12 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 WalkRouteDetailActivity.show(RouteLineActivity.this, walkPath, result);
             }
         });
+    }
+
+    public void showNoRouteViews() {
+        bottomLayout.setVisibility(View.GONE);
+        aMap.clear();
+        AppToaster.show(R.string.no_routline_data);
     }
 
     @Override

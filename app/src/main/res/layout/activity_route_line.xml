@@ -70,7 +70,7 @@
         android:padding="5dp"
         android:background="@drawable/bg_bottom_bar"
         android:gravity="center_vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:clickable="true">
 
         <TextView

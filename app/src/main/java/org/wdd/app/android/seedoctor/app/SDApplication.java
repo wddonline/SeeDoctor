@@ -9,6 +9,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.wdd.app.android.seedoctor.http.HttpManager;
 import org.wdd.app.android.seedoctor.location.LocationFinder;
+import org.wdd.app.android.seedoctor.utils.BmobUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class SDApplication extends Application {
         tempZone = new HashMap<>();
 
         uiHandler = new Handler(Looper.getMainLooper());
+        BmobUtils.initBombClient(this);
         //设置umeng统计场景
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
