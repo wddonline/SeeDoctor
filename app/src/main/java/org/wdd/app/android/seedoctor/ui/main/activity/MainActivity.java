@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements Runnable {
     }
 
     private void checkVersion() {
-        BmobUtils.checkAppVersion(this);
+        BmobUtils.autoUpdateApp(this);
     }
 
     private void initViews() {

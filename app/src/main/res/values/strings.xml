@@ -149,4 +149,10 @@
     <string name="sex_female">一位淑女</string>
     <string name="waiting_for_a_name">取一个响亮的名字</string>
 
+    <string name="bmob_update_lastest_already">已是最新版本，无需更新</string>
+    <string name="bmob_update_field_error">请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。</string>
+    <string name="bmob_update_version_ignore">该版本已被忽略更新</string>
+    <string name="bmob_update_apk_size_error">请检查target_size填写的格式，请使用file.length()方法获取apk大小。</string>
+    <string name="bmob_update_error">查询出错或查询超时</string>
+
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
+import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
@@ -17,7 +18,8 @@ public class BmobUtils {
         BmobUpdateAgent.update(context);
     }
 
-    public static void mannelUpdateApp(Context context) {
+    public static void mannelUpdateApp(Context context, BmobUpdateListener listener) {
+        BmobUpdateAgent.setUpdateListener(listener);
         BmobUpdateAgent.forceUpdate(context);
     }
 
@@ -26,7 +28,7 @@ public class BmobUtils {
         BmobUpdateAgent.setUpdateCheckConfig(true);
         BmobConfig.Builder builder = new BmobConfig.Builder(context);
         //设置appkey
-        builder.setApplicationId("Your Application ID");
+        builder.setApplicationId("81a627f64fc142a48b5379da490ca5f9");
         //请求超时时间（单位为秒）：默认15s
         builder.setConnectTimeout(30);
         //文件分片上传时每片的大小（单位字节），默认512*1024
@@ -37,6 +39,6 @@ public class BmobUtils {
         Bmob.initialize(config);
 
         //调试结束，且后台生成AppVersion后注销此代码，否则产生多与记录
-        BmobUpdateAgent.initAppVersion();
+//        BmobUpdateAgent.initAppVersion();
     }
 }
