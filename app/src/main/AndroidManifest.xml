@@ -72,12 +72,19 @@
         <activity android:name=".ui.me.activity.ProfileEditActivity"></activity>
         <activity android:name=".ui.me.activity.AboutDeveloperActivity"></activity>
         <activity android:name=".ui.me.activity.AboutActivity"></activity>
+        <activity android:name=".ui.gallery.activity.ImageBrowserActivity"></activity>
 
         <service android:name="com.amap.api.location.APSService"></service>
 
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
+        <service android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" />
+
+        <activity android:name="com.qq.e.ads.ADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -92,7 +99,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="f3efbad56fbc2f520121f28d33dc09c5" />
 
-        <activity android:name=".ui.gallery.activity.ImageBrowserActivity"></activity>
     </application>
 
 </manifest>

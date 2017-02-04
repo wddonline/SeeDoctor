@@ -28,6 +28,14 @@ public static final int *;
    public <init> (org.json.JSONObject);
 }
 
+# 广点通联盟
+-keep class com.qq.e.** {
+    public protected *;
+}
+-keep class android.support.v4.app.NotificationCompat**{
+    public *;
+}
+
 # 高的地图混淆
 # 3D地图
 -keep class com.amap.api.maps.**{*;}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Yan Zhenjie
+ * Copyright 2016 Bit Cat
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import android.view.ViewGroup;
  * <p>下拉时显示FAB，上拉隐藏，留出更多位置给用户。</p>
  * Created on 2016/7/14.
  *
- * @author Yan Zhenjie.
+ * @author Bit Cat.
  */
 public class ScaleDownShowBehavior extends FloatingActionButton.Behavior {
     /**

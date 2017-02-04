@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.drugstore.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import com.daimajia.swipe.SwipeLayout;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.drugstore.model.Drugstore;
+import org.wdd.app.android.seedoctor.ui.gallery.activity.ImageBrowserActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
@@ -26,10 +28,12 @@ import java.util.List;
 
 public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
 
+    private Activity activity;
     private SwipeLayout openSwipeLayout;
 
-    public DrugstoreAdapter(Context context, List<Drugstore> data) {
-        super(context, data);
+    public DrugstoreAdapter(Activity activity, List<Drugstore> data) {
+        super(activity, data);
+        this.activity = activity;
     }
 
     @Override
@@ -41,12 +45,22 @@ public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
 
     @Override
     protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Drugstore drugstore, int position) {
-        DrugstoreVH drugstoreVH = (DrugstoreVH) holder;
+        final DrugstoreVH drugstoreVH = (DrugstoreVH) holder;
         if (drugstore.getImgUrls() != null && drugstore.getImgUrls().length > 0) {
             drugstoreVH.imageView.setImageUrl(drugstore.getImgUrls()[0]);
         } else {
             drugstoreVH.imageView.setImageUrl(null);
         }
+        drugstoreVH.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drugstore.getImgUrls() != null && drugstore.getImgUrls().length > 0) {
+                    ImageBrowserActivity.show(activity, v, drugstore.getImgUrls());
+                } else {
+                    drugstoreVH.rootView.performClick();
+                }
+            }
+        });
         drugstoreVH.nameView.setText(drugstore.getName());
         drugstoreVH.addressView.setText(drugstore.getAddress());
         drugstoreVH.distanceView.setText(getDistanceDesc(drugstore.getDistance()));

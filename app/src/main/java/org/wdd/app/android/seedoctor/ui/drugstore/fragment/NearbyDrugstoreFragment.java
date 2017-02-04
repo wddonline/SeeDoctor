@@ -185,7 +185,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
         if (adapter == null) {
             drugstores = new ArrayList<>();
             drugstores.addAll(data);
-            adapter = new DrugstoreAdapter(getContext(), drugstores);
+            adapter = new DrugstoreAdapter(getActivity(), drugstores);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
             loadView.setStatus(LoadView.LoadStatus.Normal);

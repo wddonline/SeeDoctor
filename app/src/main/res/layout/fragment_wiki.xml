@@ -28,26 +28,31 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <org.wdd.app.android.seedoctor.views.BannerLayout
-        android:id="@+id/fragment_wiki_banner"
+    <RelativeLayout
+        android:id="@+id/fragment_wiki_banner_container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        app:autoPlayDuration="5000"
-        app:indicatorMarginLeft="0dp"
-        app:indicatorMarginTop="0dp"
-        app:indicatorMarginRight="0dp"
-        app:indicatorMarginBottom="8dp"
-        app:indicatorPosition="centerBottom"
-        app:indicatorShape="rect"
-        app:indicatorSpace="3dp"
-        app:scrollDuration="1000"
-        app:selectedIndicatorColor="#fff"
-        app:selectedIndicatorHeight="3dp"
-        app:selectedIndicatorWidth="12dp"
-        app:unSelectedIndicatorColor="#99ffffff"
-        app:unSelectedIndicatorHeight="3dp"
-        app:unSelectedIndicatorWidth="12dp"/>
+        android:layout_height="wrap_content"/>
+
+    <!--<org.wdd.app.android.seedoctor.views.BannerLayout-->
+        <!--android:id="@+id/fragment_wiki_banner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--app:autoPlayDuration="5000"-->
+        <!--app:indicatorMarginLeft="0dp"-->
+        <!--app:indicatorMarginTop="0dp"-->
+        <!--app:indicatorMarginRight="0dp"-->
+        <!--app:indicatorMarginBottom="8dp"-->
+        <!--app:indicatorPosition="centerBottom"-->
+        <!--app:indicatorShape="rect"-->
+        <!--app:indicatorSpace="3dp"-->
+        <!--app:scrollDuration="1000"-->
+        <!--app:selectedIndicatorColor="#fff"-->
+        <!--app:selectedIndicatorHeight="3dp"-->
+        <!--app:selectedIndicatorWidth="12dp"-->
+        <!--app:unSelectedIndicatorColor="#99ffffff"-->
+        <!--app:unSelectedIndicatorHeight="3dp"-->
+        <!--app:unSelectedIndicatorWidth="12dp"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
