@@ -22,12 +22,12 @@ import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class ProfileEditActivity extends BaseActivity {
 
-    private static String SHAREDEL_EMENTNAME = "sharedview";
+    private static String SHARED_ELEMENT_NAME = "sharedview";
 
     public static void showForResult(Activity activity, View sharedView, int requestCode) {
 
-        ViewCompat.setTransitionName(sharedView, SHAREDEL_EMENTNAME);
-        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, SHAREDEL_EMENTNAME).toBundle();
+        ViewCompat.setTransitionName(sharedView, SHARED_ELEMENT_NAME);
+        Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedView, SHARED_ELEMENT_NAME).toBundle();
         Intent intent = new Intent(activity, ProfileEditActivity.class);
         ActivityCompat.startActivityForResult(activity, intent, requestCode, bundle);
     }
@@ -99,7 +99,7 @@ public class ProfileEditActivity extends BaseActivity {
     private void initViews() {
         nameEdit = (EditText) findViewById(R.id.activity_profie_edit_name);
         final ImageView headimgView = (ImageView) findViewById(R.id.activity_profie_edit_headimg);
-        ViewCompat.setTransitionName(headimgView, SHAREDEL_EMENTNAME);
+        ViewCompat.setTransitionName(headimgView, SHARED_ELEMENT_NAME);
         sexGroup = (RadioGroup) findViewById(R.id.activity_profie_edit_sex);
         sexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

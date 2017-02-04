@@ -25,10 +25,14 @@ android {
     }
 
     productFlavors {
-        yingyongbao {}
-        baidu {}
-        qihu360 {}
-        xiaomi {}
+        BDYY {}
+        YYB {}
+        AZSC {}
+        QH360 {}
+        XIAOMI {}
+        WDJ {}
+        ZS91 {}
+        WO {}
     }
 
     productFlavors.all {

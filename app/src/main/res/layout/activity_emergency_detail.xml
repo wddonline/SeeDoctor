@@ -46,7 +46,7 @@
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <org.wdd.app.android.seedoctor.views.HttpImageView
+            <org.wdd.app.android.seedoctor.views.NetworkImageView
                 android:id="@+id/activity_emergency_detail_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

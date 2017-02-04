@@ -30,7 +30,7 @@ import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.AppUtils;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.ActionSheet;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.ArrayList;
@@ -190,7 +190,7 @@ public class HospitalDetailActivity extends BaseActivity {
         briefView.setVisibility(View.VISIBLE);
         tabLayout.setVisibility(View.VISIBLE);
 
-        HttpImageView imageView = (HttpImageView) findViewById(R.id.activity_hospital_detail_image);
+        NetworkImageView imageView = (NetworkImageView) findViewById(R.id.activity_hospital_detail_image);
         imageView.setImageUrl(detail.picurl);
 
         TextView nameView = (TextView) findViewById(R.id.activity_hospital_detail_name);

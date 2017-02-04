@@ -189,7 +189,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
         if (adapter == null) {
             hospitals = new ArrayList<>();
             hospitals.addAll(data);
-            adapter = new HospitalAdapter(getContext(), hospitals);
+            adapter = new HospitalAdapter(getActivity(), hospitals);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
             loadView.setStatus(LoadView.LoadStatus.Normal);

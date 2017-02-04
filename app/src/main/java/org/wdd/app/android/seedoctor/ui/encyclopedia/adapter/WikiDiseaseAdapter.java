@@ -10,7 +10,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DiseaseDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.List;
 
@@ -48,14 +48,14 @@ public class WikiDiseaseAdapter extends AbstractCommonAdapter<Disease> {
     private class DiseaseViewHolder extends RecyclerView.ViewHolder {
 
         View clickView;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView nameView;
         TextView descView;
 
         public DiseaseViewHolder(View itemView) {
             super(itemView);
             clickView = itemView.findViewById(R.id.item_wiki_disease_list_click);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_wiki_disease_list_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_wiki_disease_list_img);
             nameView = (TextView) itemView.findViewById(R.id.item_wiki_disease_list_name);
             descView = (TextView) itemView.findViewById(R.id.item_wiki_disease_list_desc);
         }

@@ -14,7 +14,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DoctorDetailPresenter;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class DoctorDetailActivity extends BaseActivity {
@@ -146,7 +146,7 @@ public class DoctorDetailActivity extends BaseActivity {
         loadView.setStatus(LoadView.LoadStatus.Normal);
         findViewById(R.id.activity_doctor_detail_hospital_data).setVisibility(View.VISIBLE);
 
-        HttpImageView imageView = (HttpImageView) findViewById(R.id.activity_doctor_detail_image);
+        NetworkImageView imageView = (NetworkImageView) findViewById(R.id.activity_doctor_detail_image);
         imageView.setImageUrl(detail.photourl);
         TextView nameView = (TextView) findViewById(R.id.activity_doctor_detail_name);
         nameView.setText(detail.doctorname);

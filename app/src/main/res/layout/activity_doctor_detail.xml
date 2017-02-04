@@ -48,7 +48,7 @@
                 android:background="@color/white"
                 android:padding="@dimen/activity_horizontal_margin">
 
-                <org.wdd.app.android.seedoctor.views.HttpImageView
+                <org.wdd.app.android.seedoctor.views.NetworkImageView
                     android:id="@+id/activity_doctor_detail_image"
                     android:layout_width="80dp"
                     android:layout_height="80dp"

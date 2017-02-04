@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.hospital.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,9 +16,10 @@ import com.daimajia.swipe.SwipeLayout;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
+import org.wdd.app.android.seedoctor.ui.gallery.activity.ImageBrowserActivity;
 import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.List;
 
@@ -27,10 +29,12 @@ import java.util.List;
 
 public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
 
+    private Activity activity;
     private SwipeLayout openSwipeLayout;
 
-    public HospitalAdapter(Context context, List<Hospital> data) {
-        super(context, data);
+    public HospitalAdapter(Activity activity, List<Hospital> data) {
+        super(activity, data);
+        this.activity = activity;
     }
 
     @Override
@@ -41,13 +45,23 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Hospital hospital, int position) {
-        HospitalVH hospitalVH = (HospitalVH) holder;
+    protected void onBindDataViewHolder(final RecyclerView.ViewHolder holder, final Hospital hospital, int position) {
+        final HospitalVH hospitalVH = (HospitalVH) holder;
         if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
             hospitalVH.imageView.setImageUrl(hospital.getImgUrls()[0]);
         } else {
             hospitalVH.imageView.setImageUrl(null);
         }
+        hospitalVH.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
+                    ImageBrowserActivity.show(activity, v, hospital.getImgUrls());
+                } else {
+                    hospitalVH.rootView.performClick();
+                }
+            }
+        });
         if (!TextUtils.isEmpty(hospital.getTypeDes())) {
             hospitalVH.levelView.setVisibility(View.VISIBLE);
             String[] types = hospital.getTypeDes().split(";");
@@ -126,7 +140,7 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
 
         SwipeLayout swipeLayout;
         View rootView;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView levelView;
         TextView nameView;
         TextView addressView;
@@ -140,7 +154,7 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
             swipeLayout.addDrag(SwipeLayout.DragEdge.Right, itemView.findViewById(R.id.item_nearby_hospital_drawer));
 
             rootView = itemView.findViewById(R.id.item_nearby_hospital_root);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_nearby_hospital_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_nearby_hospital_img);
             levelView = (TextView) itemView.findViewById(R.id.item_nearby_hospital_level);
             nameView = (TextView) itemView.findViewById(R.id.item_nearby_hospital_name);
             addressView = (TextView) itemView.findViewById(R.id.item_nearby_hospital_address);

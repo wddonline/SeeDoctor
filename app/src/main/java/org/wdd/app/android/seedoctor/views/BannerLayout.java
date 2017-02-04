@@ -180,7 +180,7 @@ public class BannerLayout extends RelativeLayout {
 
     @NonNull
     private ImageView getImageView(Integer res, final int position) {
-        HttpImageView imageView = new HttpImageView(getContext());
+        NetworkImageView imageView = new NetworkImageView(getContext());
         imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +205,7 @@ public class BannerLayout extends RelativeLayout {
 
     @NonNull
     private ImageView getImageView(String url, final int position) {
-        HttpImageView imageView = new HttpImageView(getContext());
+        NetworkImageView imageView = new NetworkImageView(getContext());
         imageView.setAdjustViewBounds(true);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setOnClickListener(new OnClickListener() {

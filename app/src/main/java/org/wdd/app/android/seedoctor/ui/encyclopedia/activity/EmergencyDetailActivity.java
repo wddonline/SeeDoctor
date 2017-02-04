@@ -14,7 +14,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.EmergencyDetailPresenter;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class EmergencyDetailActivity extends BaseActivity {
@@ -136,7 +136,7 @@ public class EmergencyDetailActivity extends BaseActivity {
     public void showEmergencyDetailViews(Emergency data) {
         loadView.setStatus(LoadView.LoadStatus.Normal);
         findViewById(R.id.activity_emergency_detail_dataview).setVisibility(View.VISIBLE);
-        HttpImageView imageView = (HttpImageView) findViewById(R.id.activity_emergency_detail_img);
+        NetworkImageView imageView = (NetworkImageView) findViewById(R.id.activity_emergency_detail_img);
         imageView.setImageUrl(data.picurl);
 
         if (data.more != null && data.more.size() > 0) {

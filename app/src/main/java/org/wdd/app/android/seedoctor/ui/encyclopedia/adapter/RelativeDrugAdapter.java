@@ -10,7 +10,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class RelativeDrugAdapter extends AbstractCommonAdapter<Drug> {
     private class DrugViewHolder extends RecyclerView.ViewHolder {
 
         View clickView;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView nameView;
         TextView sellerView;
         TextView descView;
@@ -57,7 +57,7 @@ public class RelativeDrugAdapter extends AbstractCommonAdapter<Drug> {
         public DrugViewHolder(View itemView) {
             super(itemView);
             clickView = itemView.findViewById(R.id.item_relative_drug_list_click);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_relative_drug_list_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_relative_drug_list_img);
             nameView = (TextView) itemView.findViewById(R.id.item_relative_drug_list_name);
             sellerView = (TextView) itemView.findViewById(R.id.item_relative_drug_list_seller);
             descView = (TextView) itemView.findViewById(R.id.item_relative_drug_list_desc);

@@ -14,7 +14,7 @@ import com.daimajia.swipe.SwipeLayout;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.database.model.DbDoctor;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,7 +198,7 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
         SwipeLayout swipeLayout;
         View rootView;
         CheckBox checkBox;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView nameView;
         View deleteView;
 
@@ -210,7 +210,7 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
 
             rootView = itemView.findViewById(R.id.item_favorites_hospital_root);
             checkBox = (CheckBox) itemView.findViewById(R.id.item_favorites_hospital_check);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_favorites_hospital_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_favorites_hospital_img);
             nameView = (TextView) itemView.findViewById(R.id.item_favorites_hospital_name);
             deleteView = itemView.findViewById(R.id.item_favorites_hospital_delete);
         }

@@ -10,7 +10,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DoctorDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class WikiDoctorAdapter extends AbstractCommonAdapter<Doctor> {
     private class DoctorViewHolder extends RecyclerView.ViewHolder {
 
         View clickView;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView nameView;
         TextView levelView;
         TextView descView;
@@ -57,7 +57,7 @@ public class WikiDoctorAdapter extends AbstractCommonAdapter<Doctor> {
         public DoctorViewHolder(View itemView) {
             super(itemView);
             clickView = itemView.findViewById(R.id.item_wiki_doctor_list_click);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_wiki_doctor_list_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_wiki_doctor_list_img);
             nameView = (TextView) itemView.findViewById(R.id.item_wiki_doctor_list_name);
             levelView = (TextView) itemView.findViewById(R.id.item_wiki_doctor_list_level);
             descView = (TextView) itemView.findViewById(R.id.item_wiki_doctor_list_desc);

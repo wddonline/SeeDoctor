@@ -10,7 +10,6 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Drug;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
 
 import java.util.List;
 

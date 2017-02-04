@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <org.wdd.app.android.seedoctor.views.HttpImageView
+        <org.wdd.app.android.seedoctor.views.NetworkImageView
             android:id="@+id/item_wiki_hospital_list_img"
             android:layout_width="70dp"
             android:layout_height="70dp"

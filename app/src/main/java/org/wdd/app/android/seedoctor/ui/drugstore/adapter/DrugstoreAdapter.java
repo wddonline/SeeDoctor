@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +16,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.drugstore.model.Drugstore;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
-import org.wdd.app.android.seedoctor.views.HttpImageView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.List;
 
@@ -119,7 +118,7 @@ public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
 
         SwipeLayout swipeLayout;
         View rootView;
-        HttpImageView imageView;
+        NetworkImageView imageView;
         TextView nameView;
         TextView addressView;
         TextView distanceView;
@@ -132,7 +131,7 @@ public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
             swipeLayout.addDrag(SwipeLayout.DragEdge.Right, itemView.findViewById(R.id.item_nearby_drugstore_drawer));
 
             rootView = itemView.findViewById(R.id.item_nearby_drugstore_root);
-            imageView = (HttpImageView) itemView.findViewById(R.id.item_nearby_drugstore_img);
+            imageView = (NetworkImageView) itemView.findViewById(R.id.item_nearby_drugstore_img);
             nameView = (TextView) itemView.findViewById(R.id.item_nearby_drugstore_name);
             addressView = (TextView) itemView.findViewById(R.id.item_nearby_drugstore_address);
             distanceView = (TextView) itemView.findViewById(R.id.item_nearby_drugstore_distance);

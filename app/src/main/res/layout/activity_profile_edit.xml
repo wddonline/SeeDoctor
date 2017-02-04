@@ -36,9 +36,11 @@
 
         <ImageView
             android:id="@+id/activity_profie_edit_headimg"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_male_header"/>
+            android:layout_width="123dp"
+            android:layout_height="123dp"
+            android:src="@drawable/ic_male_header"
+            android:padding="3dp"
+            android:background="@drawable/shape_white_circle_bg"/>
 
     </LinearLayout>
 
