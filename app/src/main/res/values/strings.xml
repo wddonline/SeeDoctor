@@ -5,6 +5,7 @@
     <string name="wiki">百科</string>
     <string name="me">我</string>
     <string name="back_to_exit">再按一次返回键退出看医生</string>
+    <string name="click_to_skip">点击跳过 %ds</string>
 
     <!-- 通用 -->
     <string name="locating">获取您当前的位置</string>
@@ -121,6 +122,7 @@
     <string name="nav_setting">导航设置</string>
     <string name="version_check">版本检测</string>
     <string name="cache_clean">缓存清理</string>
+    <string name="app_recommand">应用推荐</string>
     <string name="about">关于</string>
     <string name="about_app">关于看医生</string>
     <string name="about_developer">关于我们</string>

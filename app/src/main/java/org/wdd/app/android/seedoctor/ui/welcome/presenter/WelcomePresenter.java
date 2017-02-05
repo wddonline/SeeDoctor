@@ -1,10 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.welcome.presenter;
 
-import com.amap.api.location.AMapLocation;
-
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.location.LocationFinder;
-import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.welcome.activity.WelcomeActivity;
@@ -19,8 +16,6 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     private WelcomeActivity view;
     private ActivityFragmentAvaliable host;
 
-    private long startTime;
-
     public WelcomePresenter(ActivityFragmentAvaliable host, WelcomeActivity view) {
         this.host = host;
         this.view = view;
@@ -29,7 +24,6 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     }
 
     public void findLocation() {
-        startTime = System.currentTimeMillis();
         finder.start();
     }
 
@@ -41,18 +35,13 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
     public void onLocationGeted(LatLong location) {
         if (!host.isAvaliable()) return;
         finder.removeLocationListener(this);
-        long endTime = System.currentTimeMillis();
-        boolean immediately = true;
-        if (endTime - startTime < 3000) {
-            immediately = false;
-        }
-        view.jumpToNextActivity(immediately);
+        view.showSplashAds();
     }
 
     @Override
     public void onLocationError(String error) {
         if (!host.isAvaliable()) return;
-        view.jumpToNextActivity(true);
+        view.showSplashAds();
     }
 
     public void exitApp() {

@@ -1,10 +1,15 @@
 package org.wdd.app.android.seedoctor.ui.welcome.activity;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.qq.e.ads.splash.SplashAD;
+import com.qq.e.ads.splash.SplashADListener;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.permission.PermissionManager;
@@ -15,15 +20,20 @@ import org.wdd.app.android.seedoctor.permission.SettingDialog;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.main.activity.MainActivity;
 import org.wdd.app.android.seedoctor.ui.welcome.presenter.WelcomePresenter;
+import org.wdd.app.android.seedoctor.utils.Constants;
 
 import java.util.List;
 
-public class WelcomeActivity extends BaseActivity implements Runnable, PermissionListener {
+public class WelcomeActivity extends BaseActivity implements Runnable, PermissionListener, SplashADListener {
 
     private final int REQUEST_PERMISSION_CODE = 100;
 
-    private Handler handler = new Handler();
-    private WelcomePresenter presenter;
+    private RelativeLayout mAdsContainer;
+    private SplashAD mSplashAD;
+    private TextView mSkipView;
+
+    private Handler mHandler = new Handler();
+    private WelcomePresenter mPresenter;
 
     private boolean isCheckRequired = false;
 
@@ -31,7 +41,13 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        initViews();
         checkPermission();
+    }
+
+    private void initViews() {
+        mAdsContainer = (RelativeLayout) findViewById(R.id.activity_welcome_ads_container);
+        mSkipView = (TextView) findViewById(R.id.activity_welcome_skip);
     }
 
     private void checkPermission() {
@@ -61,9 +77,9 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     }
 
     private void initData() {
-        presenter = new WelcomePresenter(host, this);
+        mPresenter = new WelcomePresenter(host, this);
 
-        presenter.findLocation();
+        mPresenter.findLocation();
     }
 
     @Override
@@ -76,26 +92,22 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (presenter != null) {
-            presenter.exitApp();
+        if (mPresenter != null) {
+            mPresenter.exitApp();
         }
-        handler.removeCallbacks(this);
+        mHandler.removeCallbacks(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (presenter != null) {
-            presenter.destory();
+        if (mPresenter != null) {
+            mPresenter.destory();
         }
     }
 
-    public void jumpToNextActivity(boolean immediately) {
-        if (immediately) {
-            run();
-        } else {
-            handler.postDelayed(this, 1000);
-        }
+    public void showSplashAds() {
+        mSplashAD = new SplashAD(this, mAdsContainer, mSkipView, Constants.TENCENT_APP_ID, Constants.SPLASH_AD_ID, this, 0);
     }
 
     @Override
@@ -137,5 +149,31 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
         } else {
             finish();
         }
+    }
+
+    @Override
+    public void onADDismissed() {
+        run();
+    }
+
+    @Override
+    public void onNoAD(int i) {
+        mHandler.postDelayed(this, 1000);
+    }
+
+    @Override
+    public void onADPresent() {
+        mSkipView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onADClicked() {
+
+    }
+
+    @Override
+    public void onADTick(long millisUntilFinished) {
+        String skipText = getString(R.string.click_to_skip);
+        mSkipView.setText(String.format(skipText, Math.round(millisUntilFinished / 1000f)));
     }
 }

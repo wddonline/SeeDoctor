@@ -17,6 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.BannerAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.drugstore.adapter.DrugstoreAdapter;
@@ -27,6 +28,7 @@ import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
 import org.wdd.app.android.seedoctor.ui.hospital.presenter.NearbyHospitalListPresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.utils.SimpleAnimationListener;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
@@ -52,6 +54,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
     private NearbyHospitalListPresenter presenter;
     private TranslateAnimation hideAnim;
     private TranslateAnimation openAnim;
+    private BannerAdsBuilder adsBuilder;
 
     private boolean isRefreshing = false;
 
@@ -126,6 +129,9 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
                 presenter.searchNearbyHospital();
             }
         });
+
+        ViewGroup dataView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_hospital_data_view);
+        adsBuilder = new BannerAdsBuilder(getActivity(), dataView, Constants.HOME_HOSPITAL_AD_ID);
     }
 
     private void showMapHideAnim() {
@@ -199,6 +205,9 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
             refreshLayout.setVisibility(View.VISIBLE);
             loadView.setStatus(LoadView.LoadStatus.Normal);
             mapButton.setVisibility(View.VISIBLE);
+            if (BannerAdsBuilder.shouldShowAds(BannerAdsBuilder.BannerType.NearbyHospital)) {
+                adsBuilder.addBannerAds();
+            }
             return;
         }
         if (isRefreshing) {

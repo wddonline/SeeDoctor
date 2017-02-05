@@ -17,6 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.BannerAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.drugstore.activity.NearbyDrugstoreMapActivity;
@@ -27,6 +28,7 @@ import org.wdd.app.android.seedoctor.ui.hospital.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.hospital.data.HospitalListDataGetter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.utils.SimpleAnimationListener;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
@@ -52,6 +54,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
     private DrugstoreAdapter adapter;
     private TranslateAnimation hideAnim;
     private TranslateAnimation openAnim;
+    private BannerAdsBuilder adsBuilder;
 
     private boolean isRefreshing = false;
 
@@ -127,6 +130,9 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
                 NearbyDrugstoreMapActivity.show(getContext());
             }
         });
+
+        ViewGroup dataView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_drugstore_data_view);
+        adsBuilder = new BannerAdsBuilder(getActivity(), dataView, Constants.HOME_DRUGSTORE_AD_ID);
     }
 
     private void showMapHideAnim() {
@@ -195,6 +201,10 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
             refreshLayout.setVisibility(View.VISIBLE);
             loadView.setStatus(LoadView.LoadStatus.Normal);
             mapButton.setVisibility(View.VISIBLE);
+
+            if (BannerAdsBuilder.shouldShowAds(BannerAdsBuilder.BannerType.NearbyDrugstore)) {
+                adsBuilder.addBannerAds();
+            }
             return;
         }
         if (isRefreshing) {
