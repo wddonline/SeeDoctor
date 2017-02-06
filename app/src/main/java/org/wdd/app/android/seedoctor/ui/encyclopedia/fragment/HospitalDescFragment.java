@@ -9,6 +9,7 @@ import android.view.ViewParent;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 
 /**
@@ -35,6 +36,9 @@ public class HospitalDescFragment extends BaseFragment {
             rootView = View.inflate(getContext(), R.layout.fragment_hospital_desc, null);
             TextView descView = (TextView) rootView.findViewById(R.id.fragment_hospital_desc_txt);
             descView.setText(hospitalDesc);
+
+            new NativeAdsBuilder(getActivity(), (ViewGroup) rootView.findViewById(R.id.fragment_hospital_desc_container), "");
+
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {

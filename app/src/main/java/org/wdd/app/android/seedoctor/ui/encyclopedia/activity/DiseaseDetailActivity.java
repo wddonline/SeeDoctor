@@ -8,12 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DiseaseDetailPresenter;
@@ -204,7 +206,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
     public void showDiseaseDetalViews(DiseaseDetail data) {
         loadView.setStatus(LoadView.LoadStatus.Normal);
-        findViewById(R.id.activity_disease_detail_content).setVisibility(View.VISIBLE);
+        findViewById(R.id.activity_disease_detail_scrollview).setVisibility(View.VISIBLE);
         textViews[0].setText(data.introduction);
         textViews[1].setText(data.cause);
         textViews[2].setText(data.clinical_manifestation);
@@ -213,6 +215,8 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         textViews[5].setText(data.complication);
         textViews[6].setText(data.prevention);
         textViews[7].setText(data.treatment);
+
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_disease_detail_container), "");
     }
 
     @Override

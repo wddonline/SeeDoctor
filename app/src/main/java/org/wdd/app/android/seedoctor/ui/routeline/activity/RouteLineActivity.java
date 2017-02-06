@@ -24,6 +24,7 @@ import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
+import com.umeng.analytics.MobclickAgent;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.map.overlay.BusRouteOverlay;
@@ -89,6 +90,8 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     private void initData() {
+        MobclickAgent.openActivityDurationTrack(false);
+
         lat = getIntent().getDoubleExtra("lat", 0);
         lon = getIntent().getDoubleExtra("lon", 0);
         presenter = new RouteLinePresenter(host, this, new LatLng(lat, lon));

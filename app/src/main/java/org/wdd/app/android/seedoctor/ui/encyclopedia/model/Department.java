@@ -6,7 +6,7 @@ import org.wdd.app.android.seedoctor.views.index_bar.bean.BaseIndexPinyinBean;
  * Created by richard on 1/3/17.
  */
 
-public class Department  extends BaseIndexPinyinBean {
+public class Department extends BaseIndexPinyinBean {
 
     public String hospitalid;
     public String hospitalname;

@@ -6,6 +6,7 @@
     tools:context="org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.HospitalDescFragment">
 
     <LinearLayout
+        android:id="@+id/fragment_hospital_desc_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.EmergencyDetailPresenter;
@@ -145,6 +147,8 @@ public class EmergencyDetailActivity extends BaseActivity {
             titleView.setText(data.more.get(0).title);
             descView.setText(data.more.get(0).content.trim());
         }
+
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_emergency_detail_container), "");
     }
 
     public void showDataGettedFailureViews(String errorMsg) {

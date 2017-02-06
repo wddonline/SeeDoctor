@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
@@ -66,6 +68,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     }
 
     private void initData() {
+        MobclickAgent.openActivityDurationTrack(false);
         presenter = new WikiDiseasePresenter(host, this);
     }
 

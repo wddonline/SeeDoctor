@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity implements Runnable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobclickAgent.openActivityDurationTrack(false);
         checkVersion();
         initViews();
     }

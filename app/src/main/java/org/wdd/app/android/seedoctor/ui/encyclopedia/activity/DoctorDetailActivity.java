@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DoctorDetailPresenter;
@@ -160,6 +162,8 @@ public class DoctorDetailActivity extends BaseActivity {
         majorView.setText(detail.feature);
         TextView briefView = (TextView) findViewById(R.id.activity_doctor_detail_short_brief);
         briefView.setText(detail.introduction);
+
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_doctor_detail_container), "");
     }
 
     public void showRequestErrorViews(String errorMsg) {

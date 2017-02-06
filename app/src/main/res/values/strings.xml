@@ -7,13 +7,22 @@
     <string name="back_to_exit">再按一次返回键退出看医生</string>
     <string name="click_to_skip">点击跳过 %ds</string>
 
+    <!-- 广告 -->
+    <string name="view_detail">查看详情</string>
+    <string name="click_to_download">点击下载</string>
+    <string name="click_to_start">点击启动</string>
+    <string name="click_to_update">点击更新</string>
+    <string name="downloading">下载中</string>
+    <string name="download_completely">下载完成</string>
+    <string name="download_failure">下载失败,点击重试</string>
+
     <!-- 通用 -->
     <string name="locating">获取您当前的位置</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="loading_more_data">加载更多数据...</string>
     <string name="load_more_data">加载更多</string>
-    <string name="error_no_connection">网络已断开，请确认是否联网，然后点击重试</string>
+    <string name="error_no_connection">网络已断开，点击重试</string>
     <string name="error_no_data">没有获取的数据，点击重试</string>
     <string name="error_request_failure">获取数据失败，点击重试</string>
     <string name="loading">加载数据...</string>

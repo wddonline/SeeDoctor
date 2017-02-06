@@ -9,12 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DrugDetailPresenter;
@@ -216,7 +218,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
 
     public void showDrugDetalViews(DrugDetail data) {
         loadView.setStatus(LoadView.LoadStatus.Normal);
-        findViewById(R.id.activity_drug_detail_content).setVisibility(View.VISIBLE);
+        findViewById(R.id.activity_drug_detail_scrollview).setVisibility(View.VISIBLE);
         String introduction = getString(R.string.drug_detail_basic_info_value);
         textViews[0].setText(String.format(introduction, data.drugname, data.composition, data.drugattribute,
                 data.indication, data.unit, data.companyname, data.storage, data.shelflife, data.codename));
@@ -229,6 +231,8 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         textViews[7].setText(data.elderlytaboo);
         textViews[8].setText(data.interaction);
         textViews[9].setText(data.drugen);
+
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_drug_detail_container), "");
     }
 
     @Override

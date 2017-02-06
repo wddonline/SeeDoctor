@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.views.LoadingDialog;
 
@@ -33,6 +35,18 @@ public abstract class BaseFragment extends Fragment {
         lazyLoad();
         dataLoaded = true;
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
     }
 
     @Override

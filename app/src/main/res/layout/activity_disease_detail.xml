@@ -34,15 +34,16 @@
         android:id="@+id/activity_disease_detail_loadview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <ScrollView
-        android:id="@+id/activity_disease_detail_content"
+        android:id="@+id/activity_disease_detail_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/activity_disease_detail_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

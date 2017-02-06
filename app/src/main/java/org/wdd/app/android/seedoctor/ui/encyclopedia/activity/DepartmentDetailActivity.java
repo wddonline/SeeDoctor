@@ -8,11 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
@@ -192,6 +194,8 @@ public class DepartmentDetailActivity extends BaseActivity {
         } else {
             container.removeViewAt(container.getChildCount() - 1);
         }
+
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_department_detail_container), "");
     }
 
     public void setDepartmentCollectionViews(boolean isCollected) {

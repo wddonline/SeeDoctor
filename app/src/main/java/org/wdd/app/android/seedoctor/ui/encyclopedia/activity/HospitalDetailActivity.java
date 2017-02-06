@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.HospitalDepartmentFragment;
@@ -82,6 +84,8 @@ public class HospitalDetailActivity extends BaseActivity {
     }
 
     private void initData() {
+        MobclickAgent.openActivityDurationTrack(false);
+
         presenter = new HospitalDetailPresenter(host, this);
         position = getIntent().getIntExtra("position" , -1);
         hospitalid = getIntent().getStringExtra("hospitalid");
