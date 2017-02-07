@@ -22,6 +22,8 @@ import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RidePath;
+import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.umeng.analytics.MobclickAgent;
@@ -29,6 +31,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.map.overlay.BusRouteOverlay;
 import org.wdd.app.android.seedoctor.map.overlay.DrivingRouteOverlay;
+import org.wdd.app.android.seedoctor.map.overlay.RideRouteOverlay;
 import org.wdd.app.android.seedoctor.map.overlay.WalkRouteOverlay;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
@@ -86,6 +89,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_line);
         initData();
+        initTitle();
         initViews(savedInstanceState);
     }
 
@@ -98,7 +102,6 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     private void initViews(Bundle savedInstanceState) {
-        initTitle();
 
         mapView = (MapView) findViewById(R.id.activity_route_line_mapview);
         radioGroup = (RadioGroup) findViewById(R.id.activity_route_line_traffic);
@@ -152,6 +155,10 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.activity_root_line_drive:
                         NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_DRIVE, locationHelper.getLatitude(),
+                                locationHelper.getLongitude(), lat, lon);
+                        break;
+                    case R.id.activity_root_line_ride:
+                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_RIDE, locationHelper.getLatitude(),
                                 locationHelper.getLongitude(), lat, lon);
                         break;
                     case R.id.activity_root_line_walk:
@@ -210,6 +217,11 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 recyclerView.setVisibility(View.GONE);
                 toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchDriveRouteLineData();
+                break;
+            case R.id.activity_root_line_ride:
+                recyclerView.setVisibility(View.GONE);
+                toolbar.getMenu().getItem(0).setVisible(true);
+                presenter.searchRideRouteLineData();
                 break;
             case R.id.activity_root_line_walk:
                 recyclerView.setVisibility(View.GONE);
@@ -294,11 +306,40 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         });
     }
 
+    public void showRideRouteOnMap(final RideRouteResult result) {
+        recyclerView.setVisibility(View.GONE);
+        mapView.setVisibility(View.VISIBLE);
+        bottomLayout.setVisibility(View.VISIBLE);
+        aMap.clear();
+
+        final RidePath ridePath = result.getPaths().get(0);
+        RideRouteOverlay rideRouteOverlay = new RideRouteOverlay(
+                this, aMap, ridePath,
+                result.getStartPos(),
+                result.getTargetPos());
+        rideRouteOverlay.removeFromMap();
+        rideRouteOverlay.addToMap();
+        rideRouteOverlay.zoomToSpan();
+
+        int dis = (int) ridePath.getDistance();
+        int dur = (int) ridePath.getDuration();
+        String des = AMapUtil.getFriendlyTime(dur) + "(" + AMapUtil.getFriendlyLength(dis) + ")";
+        timeDistanceView.setText(des);
+        taxtView.setVisibility(View.GONE);
+        bottomBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RideRouteDetailActivity.show(RouteLineActivity.this, ridePath, result);
+            }
+        });
+    }
+
     public void showWalkRouteOnMap(final WalkRouteResult result) {
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         bottomLayout.setVisibility(View.VISIBLE);
         aMap.clear();
+
         final WalkPath walkPath = result.getPaths().get(0);
         WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
                 this, aMap, walkPath,

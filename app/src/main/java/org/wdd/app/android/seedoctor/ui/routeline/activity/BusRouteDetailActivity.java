@@ -3,10 +3,9 @@ package org.wdd.app.android.seedoctor.ui.routeline.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.amap.api.services.route.BusPath;
@@ -15,7 +14,6 @@ import com.amap.api.services.route.BusStep;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
-import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.BusRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.ui.routeline.model.SchemeBusStep;
@@ -34,10 +32,11 @@ public class BusRouteDetailActivity extends BaseActivity {
     }
 
     private Toolbar toolbar;
-    private RecyclerView recyclerView;
+    private ExpandableListView listView;
 
     private BusPath busPath;
     private BusRouteResult busRouteResult;
+    private BusRouteDetailAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,9 +66,15 @@ public class BusRouteDetailActivity extends BaseActivity {
 
     private void initViews() {
         initTitle();
-        recyclerView = (RecyclerView) findViewById(R.id.activity_bus_route_detail_recyclerview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        listView = (ExpandableListView) findViewById(R.id.activity_bus_route_detail_listview);
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (adapter == null) return false;
+                adapter.toggleExpandStatus(groupPosition);
+                return false;
+            }
+        });
 
         String dur = AMapUtil.getFriendlyTime((int) busPath.getDuration());
         String dis = AMapUtil.getFriendlyLength((int) busPath.getDistance());
@@ -112,9 +117,8 @@ public class BusRouteDetailActivity extends BaseActivity {
         SchemeBusStep end = new SchemeBusStep(null);
         end.setEnd(true);
         busStepList.add(end);
-        BusRouteDetailAdapter adapter = new BusRouteDetailAdapter(getBaseContext(), busStepList);
-        recyclerView.setAdapter(adapter);
-        adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
+        adapter = new BusRouteDetailAdapter(getBaseContext(), busStepList);
+        listView.setAdapter(adapter);
     }
 
 }

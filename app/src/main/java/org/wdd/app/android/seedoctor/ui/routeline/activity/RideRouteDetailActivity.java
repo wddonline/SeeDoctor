@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.amap.api.services.route.RidePath;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RideStep;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
@@ -17,47 +20,43 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
+import org.wdd.app.android.seedoctor.ui.routeline.adapter.RideRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.WalkRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by wangdd on 16-12-3.
- */
+public class RideRouteDetailActivity extends BaseActivity {
 
-public class WalkRouteDetailActivity extends BaseActivity {
-
-    public static void show(Activity activity, WalkPath walkPath, WalkRouteResult result) {
-        Intent intent = new Intent(activity, WalkRouteDetailActivity.class);
-        SDApplication.getInstance().putTempData("walk_path", walkPath);
-        SDApplication.getInstance().putTempData("walk_result", result);
+    public static void show(Activity activity, RidePath ridePath, RideRouteResult result) {
+        Intent intent = new Intent(activity, RideRouteDetailActivity.class);
+        SDApplication.getInstance().putTempData("ride_path", ridePath);
+        SDApplication.getInstance().putTempData("ride_result", result);
         activity.startActivity(intent);
     }
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
 
-    private WalkPath walkPath;
-    private WalkRouteResult walkRouteResult;
+    private RidePath ridePath;
+    private RideRouteResult rideRouteResult;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_walk_route_detail);
+        setContentView(R.layout.activity_ride_route_detail);
         initData();
-        initTitle();
         initViews();
     }
 
     private void initData() {
-        walkPath = (WalkPath) SDApplication.getInstance().getTempData("walk_path");
-        walkRouteResult = (WalkRouteResult) SDApplication.getInstance().getTempData("walk_result");
+        ridePath = (RidePath) SDApplication.getInstance().getTempData("ride_path");
+        rideRouteResult = (RideRouteResult) SDApplication.getInstance().getTempData("ride_result");
     }
 
     private void initTitle() {
-        toolbar = (Toolbar) findViewById(R.id.activity_walk_route_detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_ride_route_detail_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -71,22 +70,24 @@ public class WalkRouteDetailActivity extends BaseActivity {
     }
 
     private void initViews() {
-        recyclerView = (RecyclerView) findViewById(R.id.activity_walk_route_detail_recyclerview);
+        initTitle();
+        recyclerView = (RecyclerView) findViewById(R.id.activity_ride_route_detail_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        String dur = AMapUtil.getFriendlyTime((int) walkPath.getDuration());
-        String dis = AMapUtil.getFriendlyLength((int) walkPath.getDistance());
-        TextView timeDistanceView = (TextView) findViewById(R.id.activity_walk_route_detail_time_distance);
+        String dur = AMapUtil.getFriendlyTime((int) ridePath.getDuration());
+        String dis = AMapUtil.getFriendlyLength((int) ridePath.getDistance());
+        TextView timeDistanceView = (TextView) findViewById(R.id.activity_ride_route_detail_time_distance);
         timeDistanceView.setText(dur + "(" + dis + ")");
 
-        List<WalkStep> walkStepList = new ArrayList<>();
-        walkStepList.add(new WalkStep());
-        walkStepList.addAll(walkPath.getSteps());
-        walkStepList.add(new WalkStep());
-        WalkRouteDetailAdapter adapter = new WalkRouteDetailAdapter(this, walkStepList);
+        List<RideStep> rideStepList = new ArrayList<>();
+        rideStepList.add(new RideStep());
+        rideStepList.addAll(ridePath.getSteps());
+        rideStepList.add(new RideStep());
+        RideRouteDetailAdapter adapter = new RideRouteDetailAdapter(this, rideStepList);
         recyclerView.setAdapter(adapter);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }
+
 }

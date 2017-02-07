@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.services.route.WalkStep;
+import com.amap.api.services.route.RideStep;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
@@ -19,14 +19,14 @@ import java.util.List;
  * Created by richard on 12/9/16.
  */
 
-public class WalkRouteDetailAdapter extends AbstractCommonAdapter<WalkStep> {
+public class RideRouteDetailAdapter extends AbstractCommonAdapter<RideStep> {
 
-    public WalkRouteDetailAdapter(Context context, List<WalkStep> data) {
+    public RideRouteDetailAdapter(Context context, List<RideStep> data) {
         super(context, data);
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, WalkStep item, int position) {
+    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, RideStep item, int position) {
         WalkViewHolder viewHolder = (WalkViewHolder) holder;
         if (position == 0) {
             viewHolder.walkDirUp.setVisibility(View.INVISIBLE);

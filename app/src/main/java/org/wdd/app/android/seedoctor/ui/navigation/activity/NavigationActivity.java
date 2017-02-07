@@ -35,8 +35,9 @@ import java.util.List;
 
 public class NavigationActivity extends Activity implements AMapNaviListener, AMapNaviViewListener {
 
-    public static final int NAVI_WALK = 0;
-    public static final int NAVI_DRIVE = 1;
+    public static final int NAVI_DRIVE = 0;
+    public static final int NAVI_RIDE = 1;
+    public static final int NAVI_WALK = 2;
 
     public static void show(Context context, int naviType, double startLat, double startLon,
                             double endLat, double endLon) {
@@ -162,6 +163,9 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
                 List<NaviLatLng> endList = new ArrayList<>();
                 endList.add(to);
                 aMapNavi.calculateDriveRoute(fromList, endList, null, strategy);
+                break;
+            case NAVI_RIDE:
+                aMapNavi.calculateRideRoute(from, to);
                 break;
             case NAVI_WALK:
                 aMapNavi.calculateWalkRoute(from, to);

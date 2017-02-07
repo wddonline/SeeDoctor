@@ -20,6 +20,7 @@ import java.util.List;
 public class NativeAdsBuilder implements NativeAD.NativeAdListener {
 
     private Activity mActivity;
+    private ViewGroup mOutContainer;
     private View mRootView;
 
     private NativeADDataRef mAdItem;
@@ -28,10 +29,11 @@ public class NativeAdsBuilder implements NativeAD.NativeAdListener {
 
     public NativeAdsBuilder(Activity activity, ViewGroup outContainer, String adId) {
         this.mActivity = activity;
-
+        this.mOutContainer = outContainer;
         mRootView = View.inflate(activity, R.layout.layout_native_ads, null);
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        outContainer.addView(mRootView, lp);
+        mOutContainer.addView(mRootView, lp);
+        mRootView.setVisibility(View.GONE);
 
         mQuery = new AQuery(activity);
         mNativeAD = new NativeAD(activity, Constants.TENCENT_APP_ID, adId, this);
@@ -40,12 +42,14 @@ public class NativeAdsBuilder implements NativeAD.NativeAdListener {
     }
 
     public void showAD() {
+        mRootView.setVisibility(View.VISIBLE);
+
         mQuery.id(R.id.layout_native_ads_logo).image((String) mAdItem.getIconUrl(), false, true);
         mQuery.id(R.id.layout_native_ads_poster).image(mAdItem.getImgUrl(), false, true);
         mQuery.id(R.id.layout_native_ads_name).text((String) mAdItem.getTitle());
         mQuery.id(R.id.layout_native_ads_desc).text((String) mAdItem.getDesc());
         mQuery.id(R.id.layout_native_ads_download).text(getADButtonText());
-        mAdItem.onExposured(mRootView.findViewById(R.id.layout_native_ads)); // 需要先调用曝光接口
+        mAdItem.onExposured(mRootView); // 需要先调用曝光接口
         mQuery.id(R.id.layout_native_ads_download).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +63,8 @@ public class NativeAdsBuilder implements NativeAD.NativeAdListener {
         if (list.size() > 0) {
             mAdItem = list.get(0);
             showAD();
+        } else {
+            mOutContainer.removeView(mRootView);
         }
     }
 
@@ -69,12 +75,12 @@ public class NativeAdsBuilder implements NativeAD.NativeAdListener {
 
     @Override
     public void onNoAD(int i) {
-
+        mOutContainer.removeView(mRootView);
     }
 
     @Override
     public void onADError(NativeADDataRef nativeADDataRef, int i) {
-
+        mOutContainer.removeView(mRootView);
     }
 
     /**

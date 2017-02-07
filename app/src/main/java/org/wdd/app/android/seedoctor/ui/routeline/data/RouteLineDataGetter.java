@@ -52,6 +52,13 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
         routeSearch.calculateDriveRouteAsyn(query);
     }
 
+    public void searchRideRouteLineData() {
+        RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(new LatLonPoint(start.latitude, start.longitude),
+                new LatLonPoint(dst.latitude, dst.longitude));
+        RouteSearch.RideRouteQuery query = new RouteSearch.RideRouteQuery(fromAndTo, RouteSearch.RIDING_DEFAULT);
+        routeSearch.calculateRideRouteAsyn(query);
+    }
+
     public void searchWalkRouteLineData() {
         RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(new LatLonPoint(start.latitude, start.longitude),
                 new LatLonPoint(dst.latitude, dst.longitude));
@@ -90,6 +97,21 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
     }
 
     @Override
+    public void onRideRouteSearched(RideRouteResult rideRouteResult, int rCode) {
+        if (!host.isAvaliable()) return;
+        if (callback == null) return;
+        if (rCode == 1000) {
+            if (rideRouteResult == null || rideRouteResult.getPaths() == null || rideRouteResult.getPaths().size() == 0) {
+                callback.onNoRouteFound();
+            } else {
+                callback.onRideRouteSearched(rideRouteResult);
+            }
+        } else {
+            callback.onNoRouteFound();
+        }
+    }
+
+    @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int rCode) {
         if (!host.isAvaliable()) return;
         if (callback == null) return;
@@ -104,11 +126,6 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
         }
     }
 
-    @Override
-    public void onRideRouteSearched(RideRouteResult rideRouteResult, int rCode) {
-
-    }
-
     public void addCallback(SearchCallback callback) {
         this.callback = callback;
     }
@@ -118,6 +135,8 @@ public class RouteLineDataGetter implements RouteSearch.OnRouteSearchListener {
         void onBusRouteSearched(BusRouteResult result);
 
         void onDriveRouteSearched(DriveRouteResult result);
+
+        void onRideRouteSearched(RideRouteResult result);
 
         void onWalkRouteSearched(WalkRouteResult result);
 

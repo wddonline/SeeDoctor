@@ -45,6 +45,13 @@
                     android:button="@drawable/selector_traffic_drive"/>
 
                 <RadioButton
+                    android:id="@+id/activity_root_line_ride"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/selector_traffic_ride"/>
+
+                <RadioButton
                     android:id="@+id/activity_root_line_walk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -20,6 +20,7 @@ import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.routeline.adapter.DriveRouteDetailAdapter;
 import org.wdd.app.android.seedoctor.utils.AMapUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DriveRouteDetailActivity extends BaseActivity {
@@ -80,10 +81,11 @@ public class DriveRouteDetailActivity extends BaseActivity {
         TextView taxCostView = (TextView) findViewById(R.id.activity_drive_route_detail_tax_cost);
         taxCostView.setText(String.format(getString(R.string.tax_cost), taxCost));
 
-        List<DriveStep> data = drivePath.getSteps();
-        data.add(0, new DriveStep());
-        data.add(data.size(), new DriveStep());
-        DriveRouteDetailAdapter adapter = new DriveRouteDetailAdapter(this, data);
+        List<DriveStep> driveStepList = new ArrayList<>();
+        driveStepList.add(new DriveStep());
+        driveStepList.addAll(drivePath.getSteps());
+        driveStepList.add(new DriveStep());
+        DriveRouteDetailAdapter adapter = new DriveRouteDetailAdapter(this, driveStepList);
         recyclerView.setAdapter(adapter);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }

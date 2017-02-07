@@ -37,32 +37,42 @@ public class DriveRouteDetailAdapter extends AbstractCommonAdapter<DriveStep> {
     protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, DriveStep item, int position) {
         DriveRouteViewHolder viewHolder = (DriveRouteViewHolder) holder;
         if (position == 0) {
+            viewHolder.driveDirUp.setVisibility(View.INVISIBLE);
             viewHolder.driveDirIcon.setImageResource(R.mipmap.dir_start);
+            viewHolder.driveDirDown.setVisibility(View.VISIBLE);
             viewHolder.driveLineName.setText("出发");
-            viewHolder.splitLine.setVisibility(View.GONE);
-        } else if (position == data.size() - 1) {
-            viewHolder.driveDirIcon.setImageResource(R.mipmap.dir_end);
-            viewHolder.driveLineName.setText("到达终点");
             viewHolder.splitLine.setVisibility(View.VISIBLE);
+        } else if (position == data.size() - 1) {
+            viewHolder.driveDirUp.setVisibility(View.VISIBLE);
+            viewHolder.driveDirIcon.setImageResource(R.mipmap.dir_end);
+            viewHolder.driveDirDown.setVisibility(View.INVISIBLE);
+            viewHolder.driveLineName.setText("到达终点");
+            viewHolder.splitLine.setVisibility(View.GONE);
         } else {
+            viewHolder.driveDirUp.setVisibility(View.VISIBLE);
             String actionName = item.getAction();
             int resID = AMapUtil.getDriveActionID(actionName);
             viewHolder.driveDirIcon.setImageResource(resID);
+            viewHolder.driveDirDown.setVisibility(View.VISIBLE);
             viewHolder.driveLineName.setText(item.getInstruction());
             viewHolder.splitLine.setVisibility(View.VISIBLE);
         }
     }
 
     private class DriveRouteViewHolder extends RecyclerView.ViewHolder {
-        TextView driveLineName;
+        View driveDirUp;
         ImageView driveDirIcon;
-        ImageView splitLine;
+        View driveDirDown;
+        TextView driveLineName;
+        View splitLine;
 
         public DriveRouteViewHolder(View itemView) {
             super(itemView);
+            driveDirUp = itemView.findViewById(R.id.bus_dir_icon_up);
             driveDirIcon = (ImageView) itemView.findViewById(R.id.item_route_line_dir);
+            driveDirDown = itemView.findViewById(R.id.bus_dir_icon_down);
             driveLineName = (TextView) itemView.findViewById(R.id.item_route_line_bus_line_name);
-            splitLine = (ImageView) itemView.findViewById(R.id.item_route_line_seg_split_line);
+            splitLine = itemView.findViewById(R.id.item_route_line_seg_split_line);
         }
     }
 }

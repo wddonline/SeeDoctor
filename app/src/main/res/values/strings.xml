@@ -59,6 +59,7 @@
     <string name="bus_route_detail">公交路线详情</string>
     <string name="tax_cost">打车约%1$d元</string>
     <string name="walk_route_detail">步行路线详情</string>
+    <string name="ride_route_detail">骑行路线详情</string>
     <string name="set_out">出发</string>
     <string name="reach_the_end">到达终点</string>
     <string name="tax_the_end">打车到终点</string>

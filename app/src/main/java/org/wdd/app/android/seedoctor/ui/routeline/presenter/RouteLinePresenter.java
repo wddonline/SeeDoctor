@@ -3,6 +3,7 @@ package org.wdd.app.android.seedoctor.ui.routeline.presenter;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.WalkRouteResult;
 
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
@@ -33,6 +34,10 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
         dataGetter.searchDriveRouteLineData();
     }
 
+    public void searchRideRouteLineData() {
+        dataGetter.searchRideRouteLineData();
+    }
+
     public void searchWalkRouteLineData() {
         dataGetter.searchWalkRouteLineData();
     }
@@ -48,6 +53,11 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
     }
 
     @Override
+    public void onRideRouteSearched(RideRouteResult result) {
+        view.showRideRouteOnMap(result);
+    }
+
+    @Override
     public void onWalkRouteSearched(WalkRouteResult result) {
         view.showWalkRouteOnMap(result);
     }
@@ -56,5 +66,4 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
     public void onNoRouteFound() {
         view.showNoRouteViews();
     }
-
 }
