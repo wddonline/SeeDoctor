@@ -96,12 +96,12 @@ public class BannerAdsBuilder implements View.OnClickListener {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         switch (type) {
             case NearbyHospital:
-                if (hour % 2 == 0) {
+                if (hour % 3 == 0) {
                     return true;
                 }
                 break;
             case NearbyDrugstore:
-                if (hour % 2 != 0) {
+                if (hour % 4 != 0) {
                     return true;
                 }
                 break;
