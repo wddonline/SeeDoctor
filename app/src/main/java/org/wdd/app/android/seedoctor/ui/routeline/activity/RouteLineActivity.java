@@ -214,6 +214,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 presenter.searchBusRouteLineData();
                 break;
             case R.id.activity_root_line_drive:
+
                 recyclerView.setVisibility(View.GONE);
                 toolbar.getMenu().getItem(0).setVisible(true);
                 presenter.searchDriveRouteLineData();
@@ -265,6 +266,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     public void showBusRouteOnMap(BusRouteResult result) {
+        if (radioGroup.getCheckedRadioButtonId() != R.id.activity_root_line_bus) return;
         busRouteResult = result;
         recyclerView.setVisibility(View.VISIBLE);
         mapView.setVisibility(View.GONE);
@@ -276,6 +278,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     public void showDriveRouteOnMap(final DriveRouteResult result) {
+        if (radioGroup.getCheckedRadioButtonId() != R.id.activity_root_line_drive) return;
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         bottomLayout.setVisibility(View.VISIBLE);
@@ -307,6 +310,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     public void showRideRouteOnMap(final RideRouteResult result) {
+        if (radioGroup.getCheckedRadioButtonId() != R.id.activity_root_line_ride) return;
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         bottomLayout.setVisibility(View.VISIBLE);
@@ -335,6 +339,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
     }
 
     public void showWalkRouteOnMap(final WalkRouteResult result) {
+        if (radioGroup.getCheckedRadioButtonId() != R.id.activity_root_line_walk) return;
         recyclerView.setVisibility(View.GONE);
         mapView.setVisibility(View.VISIBLE);
         bottomLayout.setVisibility(View.VISIBLE);

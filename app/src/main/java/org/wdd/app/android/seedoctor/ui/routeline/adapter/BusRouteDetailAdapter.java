@@ -118,7 +118,7 @@ public class BusRouteDetailAdapter extends BaseExpandableListAdapter {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir14);
                 viewHolder.busLineName.setText(wrapper.step.getBusLines().get(0).getBusLineName());
                 viewHolder.busStationNum.setVisibility(View.VISIBLE);
-                viewHolder.busStationNum.setText((String.format(mContext.getString(R.string.station), wrapper.step.getBusLines().get(0).getPassStationNum() + 1)));
+                viewHolder.busStationNum.setText((String.format(mContext.getString(R.string.station), wrapper.step.getBusLine().getPassStations().size())));
                 viewHolder.busExpandImage.setVisibility(View.VISIBLE);
                 if (wrapper.isExpanded) {
                     viewHolder.busExpandImage.setImageResource(R.mipmap.down);
@@ -131,7 +131,7 @@ public class BusRouteDetailAdapter extends BaseExpandableListAdapter {
                 viewHolder.busDirIcon.setImageResource(R.mipmap.dir16);
                 viewHolder.busLineName.setText(wrapper.step.getRailway().getName());
                 viewHolder.busStationNum.setVisibility(View.VISIBLE);
-                viewHolder.busStationNum.setText((String.format(mContext.getString(R.string.station), wrapper.step.getRailway().getViastops().size() + 1)));
+                viewHolder.busStationNum.setText((String.format(mContext.getString(R.string.station), wrapper.step.getRailway().getViastops().size())));
                 if (wrapper.isExpanded) {
                     viewHolder.busExpandImage.setImageResource(R.mipmap.down);
                     viewHolder.splitLine.setVisibility(View.GONE);
@@ -160,7 +160,6 @@ public class BusRouteDetailAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = (StationViewHolder) convertView.getTag();
         }
-        viewHolder.stationName = (TextView) convertView.findViewById(R.id.bus_line_station_name);
         SchemeBusStep step = mData.get(groupPosition).step;
         if (step.isBus()) {
             viewHolder.stationName.setText(step.getBusLine().getPassStations().get(childPosition).getBusStationName());
