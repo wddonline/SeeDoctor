@@ -6,7 +6,7 @@ package org.wdd.app.android.seedoctor.utils;
 
 public class Constants {
 
-    public static final Boolean DEBUG = true;
+    public static final Boolean DEBUG = false;
 
     public static final String TENCENT_APP_ID = "1105969490";
     public static final String SPLASH_AD_ID = "2020814981099538";

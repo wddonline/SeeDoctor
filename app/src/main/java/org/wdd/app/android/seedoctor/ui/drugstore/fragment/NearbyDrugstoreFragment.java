@@ -131,8 +131,8 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
             }
         });
 
-        ViewGroup dataView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_drugstore_data_view);
-        adsBuilder = new BannerAdsBuilder(getActivity(), dataView, Constants.HOME_DRUGSTORE_AD_ID);
+        ViewGroup adsView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_drugstore_ads);
+        adsBuilder = new BannerAdsBuilder(getActivity(), adsView, Constants.HOME_DRUGSTORE_AD_ID);
     }
 
     private void showMapHideAnim() {

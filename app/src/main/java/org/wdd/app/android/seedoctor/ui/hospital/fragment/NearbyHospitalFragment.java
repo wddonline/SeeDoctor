@@ -130,8 +130,8 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
             }
         });
 
-        ViewGroup dataView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_hospital_data_view);
-        adsBuilder = new BannerAdsBuilder(getActivity(), dataView, Constants.HOME_HOSPITAL_AD_ID);
+        ViewGroup adsView = (ViewGroup) rootView.findViewById(R.id.fragment_nearby_hospital_ads);
+        adsBuilder = new BannerAdsBuilder(getActivity(), adsView, Constants.HOME_HOSPITAL_AD_ID);
     }
 
     private void showMapHideAnim() {

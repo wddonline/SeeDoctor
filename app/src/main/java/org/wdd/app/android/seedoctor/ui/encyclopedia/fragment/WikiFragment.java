@@ -51,7 +51,7 @@ public class WikiFragment extends Fragment implements View.OnClickListener {
         rootView.findViewById(R.id.fragment_wiki_hospital_clickable).setOnClickListener(this);
 
         RelativeLayout bannerContainer = (RelativeLayout) rootView.findViewById(R.id.fragment_wiki_banner_container);
-        BannerAdsBuilder adsBuilder = new BannerAdsBuilder(getActivity(), bannerContainer, Constants.WIKI_HOME_AD_ID);
+        BannerAdsBuilder adsBuilder = new BannerAdsBuilder(getActivity(), bannerContainer, Constants.WIKI_HOME_AD_ID, true);
         adsBuilder.addBannerAds();
     }
 
