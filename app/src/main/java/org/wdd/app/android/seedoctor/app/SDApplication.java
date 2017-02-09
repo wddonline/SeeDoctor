@@ -37,9 +37,10 @@ public class SDApplication extends MultiDexApplication {
 
         uiHandler = new Handler(Looper.getMainLooper());
         BmobUtils.initBombClient(this);
+        MobclickAgent.setDebugMode(false);
         //设置umeng统计场景
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
-        MobclickAgent.setSessionContinueMillis(10 * 60 * 1000);
+        MobclickAgent.setSessionContinueMillis(120 * 1000);
     }
 
 //    @Override

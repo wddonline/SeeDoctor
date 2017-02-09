@@ -20,6 +20,7 @@ import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DrugDetailPresenter;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -232,7 +233,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         textViews[8].setText(data.interaction);
         textViews[9].setText(data.drugen);
 
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_drug_detail_container), "");
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_drug_detail_container), Constants.WIKI_DRUG_DETAIL_AD_ID);
     }
 
     @Override

@@ -139,6 +139,7 @@
     <string name="contact_us">联系我们</string>
     <string name="disclaimer">免责声明</string>
     <string name="bit_cat_owner">比特猫(BitCat)工作室</string>
+    <string name="app_qq_group">看医生App交流QQ群号：467321786</string>
     <string name="mail_client_choose">请选择邮件类应用</string>
     <string name="lastest_version_already">您现在使用的客户端已经是最新版本</string>
     <string name="wifi_update_only">没有wifi连接， 只在wifi下更新</string>

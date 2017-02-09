@@ -33,11 +33,17 @@ public class BannerAdsBuilder implements View.OnClickListener {
     private View mCloseView;
 
     private String mAdId;
+    private boolean mIsPersistent;
 
     public BannerAdsBuilder(Activity activity, ViewGroup outContainer, String adId) {
+        this(activity, outContainer, adId, false);
+    }
+
+    public BannerAdsBuilder(Activity activity, ViewGroup outContainer, String adId, boolean isPersistent) {
         this.mActivity = activity;
         this.mOutContainer = outContainer;
         this.mAdId = adId;
+        this.mIsPersistent = isPersistent;
 
         mRootView = View.inflate(activity, R.layout.layout_banner_ads, null);
         mBannerAdsContainer = (RelativeLayout) mRootView.findViewById(R.id.layout_banner_ads_container);
@@ -69,6 +75,7 @@ public class BannerAdsBuilder implements View.OnClickListener {
 
             @Override
             public void onADReceiv() {
+                if (mIsPersistent) return;
                 mCloseView.setVisibility(View.VISIBLE);
             }
         });

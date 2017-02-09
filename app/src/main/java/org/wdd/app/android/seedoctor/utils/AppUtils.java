@@ -2,6 +2,8 @@ package org.wdd.app.android.seedoctor.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,30 @@ import android.support.v4.app.Fragment;
  */
 
 public class AppUtils {
+
+    public static String getVersionName(Context context) {
+        String versionName = "";
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),0);//getPackageName()是你当前类的包名，0代表是获取版本信息
+            versionName = packInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
+    public static int getVersionCode(Context context) {
+        int versionCode = 0;
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),0);//getPackageName()是你当前类的包名，0代表是获取版本信息
+            versionCode = packInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
 
     public static boolean isFragmentAvaliable(Fragment fragment) {
         if (fragment == null) return false;

@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.web.activity.WebActivity;
+import org.wdd.app.android.seedoctor.utils.AppUtils;
 import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class AboutAppActivity extends BaseActivity {
@@ -48,7 +50,8 @@ public class AboutAppActivity extends BaseActivity {
     }
 
     private void initViews() {
-
+        TextView versionView = (TextView) findViewById(R.id.activity_about_version_name);
+        versionView.setText("V " + AppUtils.getVersionName(this));
     }
 
     public void onDisclaimerClicked(View view) {

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import com.amap.api.navi.AMapNavi;
@@ -63,6 +64,7 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         initData();
         initView(savedInstanceState);
     }

@@ -19,6 +19,7 @@ import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DiseaseDetailPresenter;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class DiseaseDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -216,7 +217,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         textViews[6].setText(data.prevention);
         textViews[7].setText(data.treatment);
 
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_disease_detail_container), "");
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_disease_detail_container), Constants.WIKI_DISEASE_DETAIL_AD_ID);
     }
 
     @Override

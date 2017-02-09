@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
+import org.wdd.app.android.seedoctor.utils.Constants;
 
 /**
  * Created by richard on 1/6/17.
@@ -37,7 +38,7 @@ public class HospitalDescFragment extends BaseFragment {
             TextView descView = (TextView) rootView.findViewById(R.id.fragment_hospital_desc_txt);
             descView.setText(hospitalDesc);
 
-            new NativeAdsBuilder(getActivity(), (ViewGroup) rootView.findViewById(R.id.fragment_hospital_desc_container), "");
+            new NativeAdsBuilder(getActivity(), (ViewGroup) rootView.findViewById(R.id.fragment_hospital_desc_container), Constants.WIKI_HOSPITAL_DETAIL_AD_ID);
 
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();

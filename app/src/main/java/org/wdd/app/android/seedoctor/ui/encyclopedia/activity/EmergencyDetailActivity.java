@@ -16,6 +16,7 @@ import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.EmergencyDetailPresenter;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -148,7 +149,7 @@ public class EmergencyDetailActivity extends BaseActivity {
             descView.setText(data.more.get(0).content.trim());
         }
 
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_emergency_detail_container), "");
+        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_emergency_detail_container), Constants.WIKI_EMERGENCY_DETAIL_AD_ID);
     }
 
     public void showDataGettedFailureViews(String errorMsg) {
