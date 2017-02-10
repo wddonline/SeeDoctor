@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.ads.builder.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DoctorDetailPresenter;
@@ -164,7 +165,9 @@ public class DoctorDetailActivity extends BaseActivity {
         TextView briefView = (TextView) findViewById(R.id.activity_doctor_detail_short_brief);
         briefView.setText(detail.introduction);
 
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_doctor_detail_container), Constants.WIKI_DOCTOR_DETAIL_AD_ID);
+        if (SDApplication.getInstance().isAdsOpen()) {
+            new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_doctor_detail_container), Constants.WIKI_DOCTOR_DETAIL_AD_ID);
+        }
     }
 
     public void showRequestErrorViews(String errorMsg) {

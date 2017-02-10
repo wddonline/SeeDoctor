@@ -12,6 +12,7 @@ import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.permission.PermissionManager;
 import org.wdd.app.android.seedoctor.permission.PermissionListener;
 import org.wdd.app.android.seedoctor.permission.Rationale;
@@ -107,7 +108,11 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     }
 
     public void showSplashAds() {
-        mSplashAD = new SplashAD(this, mAdsContainer, mSkipView, Constants.TENCENT_APP_ID, Constants.SPLASH_AD_ID, this, 0);
+        if (SDApplication.getInstance().isAdsOpen()) {
+            mSplashAD = new SplashAD(this, mAdsContainer, mSkipView, Constants.TENCENT_APP_ID, Constants.SPLASH_AD_ID, this, 0);
+        } else {
+            mHandler.postDelayed(this, 1000);
+        }
     }
 
     @Override

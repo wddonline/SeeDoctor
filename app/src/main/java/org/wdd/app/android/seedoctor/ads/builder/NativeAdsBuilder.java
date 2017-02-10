@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ads;
+package org.wdd.app.android.seedoctor.ads.builder;
 
 import android.app.Activity;
 import android.view.View;
@@ -112,4 +112,6 @@ public class NativeAdsBuilder implements NativeAD.NativeAdListener {
                 return mActivity.getString(R.string.view_detail);
         }
     }
+
+
 }

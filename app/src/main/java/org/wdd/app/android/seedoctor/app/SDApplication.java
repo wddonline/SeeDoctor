@@ -28,6 +28,7 @@ public class SDApplication extends MultiDexApplication {
 
     private Handler uiHandler;
     private Map<String, Object> tempZone;
+    private AdsConfManager adsConfManager;
 
     @Override
     public void onCreate() {
@@ -41,6 +42,13 @@ public class SDApplication extends MultiDexApplication {
         //设置umeng统计场景
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType.E_UM_NORMAL);
         MobclickAgent.setSessionContinueMillis(120 * 1000);
+
+        adsConfManager = new AdsConfManager(this);
+        adsConfManager.init();
+    }
+
+    public boolean isAdsOpen() {
+        return adsConfManager.isAdsOpen();
     }
 
 //    @Override

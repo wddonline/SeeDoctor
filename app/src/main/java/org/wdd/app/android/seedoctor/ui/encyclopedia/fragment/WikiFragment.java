@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.ads.BannerAdsBuilder;
+import org.wdd.app.android.seedoctor.ads.builder.BannerAdsBuilder;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity;
@@ -50,9 +51,11 @@ public class WikiFragment extends Fragment implements View.OnClickListener {
         rootView.findViewById(R.id.fragment_wiki_doctor_clickable).setOnClickListener(this);
         rootView.findViewById(R.id.fragment_wiki_hospital_clickable).setOnClickListener(this);
 
-        RelativeLayout bannerContainer = (RelativeLayout) rootView.findViewById(R.id.fragment_wiki_banner_container);
-        BannerAdsBuilder adsBuilder = new BannerAdsBuilder(getActivity(), bannerContainer, Constants.WIKI_HOME_AD_ID, true);
-        adsBuilder.addBannerAds();
+        if (SDApplication.getInstance().isAdsOpen()) {
+            RelativeLayout bannerContainer = (RelativeLayout) rootView.findViewById(R.id.fragment_wiki_banner_container);
+            BannerAdsBuilder adsBuilder = new BannerAdsBuilder(getActivity(), bannerContainer, Constants.WIKI_HOME_AD_ID, true);
+            adsBuilder.addBannerAds();
+        }
     }
 
     @Override

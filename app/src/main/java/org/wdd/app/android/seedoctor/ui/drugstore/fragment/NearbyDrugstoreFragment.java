@@ -17,7 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.ads.BannerAdsBuilder;
+import org.wdd.app.android.seedoctor.ads.builder.BannerAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.drugstore.activity.NearbyDrugstoreMapActivity;

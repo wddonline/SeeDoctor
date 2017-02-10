@@ -1,4 +1,4 @@
-package org.wdd.app.android.seedoctor.ads;
+package org.wdd.app.android.seedoctor.ads.builder;
 
 import android.app.Activity;
 import android.view.View;
@@ -10,6 +10,7 @@ import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.utils.Constants;
 
 import java.util.Calendar;
@@ -99,6 +100,7 @@ public class BannerAdsBuilder implements View.OnClickListener {
     }
 
     public static boolean shouldShowAds(BannerType type) {
+        if (!SDApplication.getInstance().isAdsOpen()) return false;
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         switch (type) {

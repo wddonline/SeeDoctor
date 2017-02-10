@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.ads.builder.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DiseaseDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.DiseaseDetailPresenter;
@@ -216,8 +217,9 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
         textViews[5].setText(data.complication);
         textViews[6].setText(data.prevention);
         textViews[7].setText(data.treatment);
-
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_disease_detail_container), Constants.WIKI_DISEASE_DETAIL_AD_ID);
+        if (SDApplication.getInstance().isAdsOpen()) {
+            new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_disease_detail_container), Constants.WIKI_DISEASE_DETAIL_AD_ID);
+        }
     }
 
     @Override

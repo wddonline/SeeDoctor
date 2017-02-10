@@ -14,7 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.ads.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.ads.builder.NativeAdsBuilder;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
@@ -196,7 +197,9 @@ public class DepartmentDetailActivity extends BaseActivity {
             container.removeViewAt(container.getChildCount() - 1);
         }
 
-        new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_department_detail_container), Constants.WIKI_DEPARTMENT_DETAIL_AD_ID);
+        if (SDApplication.getInstance().isAdsOpen()) {
+            new NativeAdsBuilder(this, (ViewGroup) findViewById(R.id.activity_department_detail_container), Constants.WIKI_DEPARTMENT_DETAIL_AD_ID);
+        }
     }
 
     public void setDepartmentCollectionViews(boolean isCollected) {
