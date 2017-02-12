@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -111,6 +112,7 @@ public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
 
             }
         });
+        drugstoreVH.callView.setEnabled(!TextUtils.isEmpty(drugstore.getTelephone()));
         drugstoreVH.callView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

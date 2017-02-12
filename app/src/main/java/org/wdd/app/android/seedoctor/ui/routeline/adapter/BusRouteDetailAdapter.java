@@ -7,6 +7,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.services.busline.BusStationItem;
 import com.amap.api.services.route.RailwayStationItem;
 
 import org.wdd.app.android.seedoctor.R;
@@ -29,6 +30,23 @@ public class BusRouteDetailAdapter extends BaseExpandableListAdapter {
         mData = new ArrayList<>();
         for (SchemeBusStep step : busStepList) {
             mData.add(new SchemeBusStepWrapper(false, step));
+            if (step.isBus()) {
+                List<BusStationItem> stationItems = step.getBusLine().getPassStations();
+                if (step.getBusLine().getDepartureBusStation() != null) {
+                    stationItems.add(0, step.getBusLine().getDepartureBusStation());
+                }
+                if (step.getBusLine().getArrivalBusStation() != null) {
+                    stationItems.add(step.getBusLine().getArrivalBusStation());
+                }
+            } else if (step.isRailway()) {
+                List<RailwayStationItem> stationItems = step.getRailway().getViastops();
+                if (step.getRailway().getDeparturestop() != null) {
+                    stationItems.add(0, step.getRailway().getDeparturestop());
+                }
+                if (step.getRailway().getArrivalstop() != null) {
+                    stationItems.add(step.getRailway().getArrivalstop());
+                }
+            }
         }
     }
 

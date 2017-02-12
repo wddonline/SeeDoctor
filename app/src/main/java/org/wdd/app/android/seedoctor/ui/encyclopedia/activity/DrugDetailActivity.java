@@ -144,7 +144,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         labelViews[4] = (TextView) findViewById(R.id.activity_drug_detail_note_label);
         labelViews[5] = (TextView) findViewById(R.id.activity_drug_detail_pregnantwomentaboo_label);
         labelViews[6] = (TextView) findViewById(R.id.activity_drug_detail_childrentaboo_label);
-        labelViews[7] = (TextView) findViewById(R.id.activity_drug_detail_elderlytaboo);
+        labelViews[7] = (TextView) findViewById(R.id.activity_drug_detail_elderlytaboo_label);
         labelViews[8] = (TextView) findViewById(R.id.activity_drug_detail_interaction_label);
         labelViews[9] = (TextView) findViewById(R.id.activity_drug_detail_drugen_label);
 

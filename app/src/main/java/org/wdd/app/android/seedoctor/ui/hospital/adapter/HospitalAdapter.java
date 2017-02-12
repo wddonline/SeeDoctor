@@ -119,6 +119,7 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
 
             }
         });
+        hospitalVH.callView.setEnabled(!TextUtils.isEmpty(hospital.getTelephone()));
         hospitalVH.callView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

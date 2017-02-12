@@ -52,7 +52,7 @@ import java.util.ArrayList;
  * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentTabsFragmentSupport.java
  *      complete}
  */
-public class SDFragmentTabHost extends TabHost
+public class XFragmentTabHost extends TabHost
         implements TabHost.OnTabChangeListener {
     private final ArrayList<TabInfo> mTabs = new ArrayList<>();
 
@@ -134,14 +134,14 @@ public class SDFragmentTabHost extends TabHost
         };
     }
 
-    public SDFragmentTabHost(Context context) {
+    public XFragmentTabHost(Context context) {
         // Note that we call through to the version that takes an AttributeSet,
         // because the simple Context construct can result in a broken object!
         super(context, null);
         initFragmentTabHost(context, null);
     }
 
-    public SDFragmentTabHost(Context context, AttributeSet attrs) {
+    public XFragmentTabHost(Context context, AttributeSet attrs) {
         super(context, attrs);
         initFragmentTabHost(context, attrs);
     }
