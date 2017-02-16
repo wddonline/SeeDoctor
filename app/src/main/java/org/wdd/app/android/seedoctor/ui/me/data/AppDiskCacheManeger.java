@@ -2,8 +2,11 @@ package org.wdd.app.android.seedoctor.ui.me.data;
 
 import android.content.Context;
 
+import com.android.volley.Cache;
+
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.cache.ImageCache;
+import org.wdd.app.android.seedoctor.http.impl.VolleyTool;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.utils.NumberUtils;
 
@@ -35,8 +38,9 @@ public class AppDiskCacheManeger {
 
         @Override
         public void run() {
-            final String result = NumberUtils.formatFloatString(NumberUtils.b2mb(ImageCache.instance(context).getDiskCacheSize()));
-            ImageCache.instance(context).cleanDiskCache();
+            Cache cache = VolleyTool.getInstance(context).getRequestQueue().getCache();
+            final String result = NumberUtils.formatFloatString(NumberUtils.b2mb(cache.getCacheSize()));
+            cache.clear();
             if (!host.isAvaliable()) return;
             SDApplication.getInstance().getUiHandler().post(new Runnable() {
                 @Override

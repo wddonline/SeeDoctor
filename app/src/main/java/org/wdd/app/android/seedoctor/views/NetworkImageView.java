@@ -49,7 +49,7 @@ public class NetworkImageView extends ImageView {
 
     public NetworkImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mImageLoader = new ImageLoader(VolleyTool.getInstance(context).getRequestQueue(), ImageCache.instance(context));
+        mImageLoader = new ImageLoader(VolleyTool.getInstance(context).getRequestQueue(), ImageCache.getInstance());
         setDefaultImageResId(R.drawable.default_img);
         setErrorImageResId(R.drawable.default_img);
     }

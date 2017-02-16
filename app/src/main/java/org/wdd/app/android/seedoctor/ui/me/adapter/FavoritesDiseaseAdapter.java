@@ -150,6 +150,7 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
         for (DiseaseFavorites favorites : data) {
             favorites.isSelected = true;
         }
+        selectedCount = getLoadStatus() == LoadStatus.NoMore ? data.size() : data.size() - 1;
         notifyDataSetChanged();
     }
 
@@ -183,6 +184,7 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
             for (DiseaseFavorites favorites : data) {
                 favorites.isSelected = false;
             }
+            selectedCount = 0;
         }
         notifyDataSetChanged();
     }

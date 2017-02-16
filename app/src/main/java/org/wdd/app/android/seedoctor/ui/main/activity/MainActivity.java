@@ -18,13 +18,13 @@ import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.BmobUtils;
-import org.wdd.app.android.seedoctor.views.SDFragmentTabHost;
+import org.wdd.app.android.seedoctor.views.XFragmentTabHost;
 
 public class MainActivity extends BaseActivity implements Runnable {
 
     private final long TIME_LIMIT = 3000;
 
-    private SDFragmentTabHost tabHost;
+    private XFragmentTabHost tabHost;
     private Handler handler = new Handler();
 
     private int backPressedCount = 0;
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements Runnable {
     }
 
     private void initViews() {
-        tabHost = (SDFragmentTabHost) findViewById(android.R.id.tabhost);
+        tabHost = (XFragmentTabHost) findViewById(android.R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.getTabWidget().setDividerDrawable(null);
 
