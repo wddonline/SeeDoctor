@@ -1,14 +1,10 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiEmergencyGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
 
 import java.util.List;
 
@@ -49,9 +45,9 @@ public class WikiDepartmentPresenter implements WikiDepartmentGetter.DepartmentC
     }
 
     @Override
-    public void onFailure(HttpError error) {
+    public void onFailure(String error) {
         session = null;
-        view.showDataGettedFailureViews(error.getErrorMsg());
+        view.showDataGettedFailureViews(error);
     }
 
     @Override

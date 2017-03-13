@@ -11,6 +11,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -51,22 +52,20 @@ public class DiseaseSearchGetter {
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error, refresh);
+                    if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR), refresh);
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
                 page--;
-                if (callback != null) callback.onRequestFailure(error, refresh);
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(refresh);
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()), refresh);
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                page--;
-                if (callback != null) callback.onNetworkError(refresh);
-            }
         });
         page++;
         return request;
@@ -75,7 +74,7 @@ public class DiseaseSearchGetter {
     public interface SearchCallback {
 
         void onRequestOk(List<Disease> data, boolean refresh);
-        void onRequestFailure(HttpError error, boolean refresh);
+        void onRequestFailure(String error, boolean refresh);
         void onNetworkError(boolean refresh);
 
     }

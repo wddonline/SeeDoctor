@@ -228,10 +228,10 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
         }
         switch (status) {
             case Request_Failure:
-                AppToaster.show(R.string.error_request);
+                AppToaster.show(R.string.request_failure);
                 break;
             case Network_Error:
-                AppToaster.show(R.string.error_no_connection);
+                AppToaster.show(R.string.no_connection_error);
                 break;
             default:
                 break;

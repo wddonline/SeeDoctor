@@ -94,7 +94,7 @@ public class HospitalDoctorFragment extends BaseFragment {
         if (adapter == null) {
             loadView.setStatus(LoadView.LoadStatus.No_Data);
         } else {
-            AppToaster.show(R.string.error_no_data);
+            AppToaster.show(R.string.no_data_error);
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
         }
     }
@@ -136,7 +136,7 @@ public class HospitalDoctorFragment extends BaseFragment {
         if (adapter == null) {
             loadView.setStatus(LoadView.LoadStatus.Network_Error);
         } else {
-            AppToaster.show(R.string.error_no_connection);
+            AppToaster.show(R.string.no_connection_error);
             adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.Normal);
         }
     }

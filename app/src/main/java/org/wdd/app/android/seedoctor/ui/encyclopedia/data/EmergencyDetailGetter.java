@@ -14,6 +14,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 /**
@@ -42,7 +43,7 @@ public class EmergencyDetailGetter {
             public void onRequestOk(HttpResponseEntry res) {
                 if (callback == null) return;
                 if (res.getData() == null) {
-                    callback.onFailure(new HttpError(ErrorCode.UNKNOW_ERROR, ""));
+                    callback.onFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 } else {
                     callback.onDataGetted((Emergency) res.getData());
                 }
@@ -51,14 +52,13 @@ public class EmergencyDetailGetter {
             @Override
             public void onRequestFailure(HttpError error) {
                 if (callback == null) return;
-                callback.onFailure(error);
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                if (callback == null) return;
-                callback.onNetworkError();
-            }
         });
         return session;
     }
@@ -157,7 +157,7 @@ public class EmergencyDetailGetter {
     public interface EmergencyCallback {
 
         void onDataGetted(Emergency data);
-        void onFailure(HttpError error);
+        void onFailure(String error);
         void onNetworkError();
 
         void onCollectionStatusGetted(boolean isCollected);

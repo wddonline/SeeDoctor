@@ -77,14 +77,14 @@ public class LoadView extends FrameLayout {
                 loadView.setVisibility(GONE);
                 clickView.setVisibility(VISIBLE);
                 hintImageView.setImageResource(R.mipmap.error_no_connection);
-                hintTextView.setText(R.string.error_no_connection);
+                hintTextView.setText(R.string.no_connection_error);
                 break;
             case No_Data:
                 setVisibility(VISIBLE);
                 loadView.setVisibility(GONE);
                 clickView.setVisibility(VISIBLE);
                 hintImageView.setImageResource(R.mipmap.error_no_data);
-                hintTextView.setText(R.string.error_no_data);
+                hintTextView.setText(R.string.no_data_error);
                 break;
             case Request_Failure:
                 setVisibility(VISIBLE);
@@ -93,12 +93,12 @@ public class LoadView extends FrameLayout {
                 hintImageView.setImageResource(R.mipmap.error_request_failure);
                 if (msg.length > 0) {
                     if (TextUtils.isEmpty(msg[0])) {
-                        hintTextView.setText(R.string.error_request_failure);
+                        hintTextView.setText(R.string.unknown_error);
                     } else {
                         hintTextView.setText(msg[0]);
                     }
                 } else {
-                    hintTextView.setText(R.string.error_request_failure);
+                    hintTextView.setText(R.string.unknown_error);
                 }
                 break;
             default:

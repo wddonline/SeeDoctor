@@ -11,6 +11,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Province;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -43,20 +44,20 @@ public class HospitalFilterGetter {
                     List<Province> provinces = (List<Province>) res.getData();
                     callback.onRequestOk(provinces);
                 } else {
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    callback.onRequestFailure(error);
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
-                callback.onRequestFailure(error);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                callback.onNetworkError();
-            }
         });
         return session;
     }
@@ -64,7 +65,7 @@ public class HospitalFilterGetter {
     public interface DataCallback {
 
         void onRequestOk(List<Province> data);
-        void onRequestFailure(HttpError error);
+        void onRequestFailure(String error);
         void onNetworkError();
 
     }

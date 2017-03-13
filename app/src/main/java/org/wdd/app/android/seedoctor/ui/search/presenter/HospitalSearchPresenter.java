@@ -39,7 +39,7 @@ public class HospitalSearchPresenter implements BasePresenter, HospitalSearchGet
     }
 
     @Override
-    public void onRequestFailure(HttpError error, boolean refresh) {
+    public void onRequestFailure(String error, boolean refresh) {
         session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Request_Failure, refresh);
     }

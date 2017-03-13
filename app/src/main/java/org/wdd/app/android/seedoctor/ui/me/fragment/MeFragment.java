@@ -121,7 +121,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_me_profile:
-                ProfileEditActivity.showForResult(getActivity(), v, PROFILE_REQUEST_CODE);
+                ProfileEditActivity.showForResult(getActivity(), ((ViewGroup)v).getChildAt(0), PROFILE_REQUEST_CODE);
                 break;
             case R.id.fragment_me_collection_click:
                 FavoritesActivity.show(getContext());

@@ -14,10 +14,10 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugCategory;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,25 +94,24 @@ public class WikiDrugCategoryGetter {
                         if (callback != null) callback.onRequestOk(data);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        HttpError error = new HttpError(ErrorCode.SERVER_ERROR, e.getMessage());
-                        if (callback != null) callback.onRequestFailure(error);
+                        if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                     }
 
                 } else {
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error);
+                    if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.UNKNOW_ERROR));
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (callback != null) callback.onRequestFailure(error);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                if (callback != null) callback.onNetworkError();
-            }
         });
         return request;
     }
@@ -124,7 +123,7 @@ public class WikiDrugCategoryGetter {
     public interface WikiDrugCategoryDataCallback {
 
         void onRequestOk(Map<String, Map<String, List<DrugCategory>>> data);
-        void onRequestFailure(HttpError error);
+        void onRequestFailure(String error);
         void onNetworkError();
     }
 }

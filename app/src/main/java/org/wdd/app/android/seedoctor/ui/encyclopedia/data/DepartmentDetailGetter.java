@@ -15,6 +15,7 @@ import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -68,7 +69,7 @@ public class DepartmentDetailGetter {
             public void onRequestOk(HttpResponseEntry res) {
                 if (callback == null) return;
                 if (res.getData() == null) {
-                    callback.onFailure(Type.Department, new HttpError(ErrorCode.UNKNOW_ERROR, ""));
+                    callback.onFailure(Type.Department, HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 } else {
                     callback.onDataGetted(Type.Department, res.getData());
                 }
@@ -77,13 +78,11 @@ public class DepartmentDetailGetter {
             @Override
             public void onRequestFailure(HttpError error) {
                 if (callback == null) return;
-                callback.onFailure(Type.Department, error);
-            }
-
-            @Override
-            public void onNetworkError() {
-                if (callback == null) return;
-                callback.onNetworkError(Type.Department);
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(Type.Department);
+                } else {
+                    callback.onFailure(Type.Department, HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
         });
         return session;
@@ -98,7 +97,7 @@ public class DepartmentDetailGetter {
             public void onRequestOk(HttpResponseEntry res) {
                 if (callback == null) return;
                 if (res.getData() == null && ((List)res.getData()).size() == 0) {
-                    callback.onFailure(Type.Disease, new HttpError(ErrorCode.UNKNOW_ERROR, ""));
+                    callback.onFailure(Type.Disease, HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 } else {
                     callback.onDataGetted(Type.Disease, res.getData());
                 }
@@ -107,13 +106,11 @@ public class DepartmentDetailGetter {
             @Override
             public void onRequestFailure(HttpError error) {
                 if (callback == null) return;
-                callback.onFailure(Type.Disease, error);
-            }
-
-            @Override
-            public void onNetworkError() {
-                if (callback == null) return;
-                callback.onNetworkError(Type.Disease);
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(Type.Disease);
+                } else {
+                    callback.onFailure(Type.Disease, HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
         });
         return session;
@@ -196,7 +193,7 @@ public class DepartmentDetailGetter {
     public interface DepartmentDetailCallback {
 
         void onDataGetted(Type type, Object data);
-        void onFailure(Type type, HttpError error);
+        void onFailure(Type type, String error);
         void onNetworkError(Type type);
 
         void onCollectionStatusGetted(boolean isCollected);

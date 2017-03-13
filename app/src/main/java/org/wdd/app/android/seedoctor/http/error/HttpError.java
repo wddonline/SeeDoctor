@@ -8,10 +8,20 @@ public class HttpError extends Throwable {
 
     private int errorCode;
     private String errorMsg;
+    private int statusCode = -1;
+
+    public HttpError() {
+    }
 
     public HttpError(int errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
+    }
+
+    public HttpError(int errorCode, String errorMsg, int statusCode) {
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+        this.statusCode = statusCode;
     }
 
     public int getErrorCode() {

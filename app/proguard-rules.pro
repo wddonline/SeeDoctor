@@ -98,7 +98,7 @@
 -keep class com.amap.api.navi.**{*;}
 -keep class com.autonavi.**{*;}
 
-#Bmob
+# Bmob
 -ignorewarnings
 
 -keepattributes Signature,*Annotation*

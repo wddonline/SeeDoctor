@@ -11,6 +11,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class WikiEmergencyGetter {
             public void onRequestOk(HttpResponseEntry res) {
                 if (callback == null) return;
                 if (res.getData() == null) {
-                    callback.onFailure(new HttpError(ErrorCode.UNKNOW_ERROR, ""));
+                    callback.onFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 } else {
                     callback.onDataGetted((List<Emergency>) res.getData());
                 }
@@ -47,14 +48,13 @@ public class WikiEmergencyGetter {
             @Override
             public void onRequestFailure(HttpError error) {
                 if (callback == null) return;
-                callback.onFailure(error);
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                if (callback == null) return;
-                callback.onNetworkError();
-            }
         });
         return session;
     }
@@ -67,7 +67,7 @@ public class WikiEmergencyGetter {
     public interface EmergencyCallback {
 
         void onDataGetted(List<Emergency> data);
-        void onFailure(HttpError error);
+        void onFailure(String error);
         void onNetworkError();
 
     }

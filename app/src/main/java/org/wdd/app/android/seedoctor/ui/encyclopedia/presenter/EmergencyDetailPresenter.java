@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.EmergencyDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.EmergencyDetailGetter;
@@ -53,9 +52,9 @@ public class EmergencyDetailPresenter implements EmergencyDetailGetter.Emergency
     }
 
     @Override
-    public void onFailure(HttpError error) {
+    public void onFailure(String error) {
         session = null;
-        view.showDataGettedFailureViews(error.getErrorMsg());
+        view.showDataGettedFailureViews(error);
     }
 
     @Override

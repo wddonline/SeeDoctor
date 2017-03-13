@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugListActivity;
@@ -41,9 +40,9 @@ public class WikiDrugListPresenter implements BasePresenter, WikiDrugListGetter.
     }
 
     @Override
-    public void onRequestFailure(HttpError error, boolean refresh) {
+    public void onRequestFailure(String error, boolean refresh) {
         session = null;
-        view.showRequetErrorView(error.getErrorMsg(), refresh);
+        view.showRequetErrorView(error, refresh);
     }
 
     @Override

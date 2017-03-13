@@ -11,6 +11,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -44,20 +45,20 @@ public class HospitalDepartmentGetter {
                     List<Department> data = (List<Department>) res.getData();
                     if (callback != null) callback.onRequestOk(data);
                 } else {
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error);
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
-                if (callback != null) callback.onRequestFailure(error);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                if (callback != null) callback.onNetworkError();
-            }
         });
         return request;
     }
@@ -69,7 +70,7 @@ public class HospitalDepartmentGetter {
     public interface DepartmentDataCallback {
 
         void onRequestOk(List<Department> data);
-        void onRequestFailure(HttpError error);
+        void onRequestFailure(String error);
         void onNetworkError();
     }
 }

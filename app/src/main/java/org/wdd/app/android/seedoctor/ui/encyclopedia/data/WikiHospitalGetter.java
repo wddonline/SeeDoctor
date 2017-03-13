@@ -11,8 +11,8 @@ import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Hospital;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -58,22 +58,21 @@ public class WikiHospitalGetter {
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error, refresh);
+                    if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR), refresh);
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
                 page--;
-                if (callback != null) callback.onRequestFailure(error, refresh);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(refresh);
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()), refresh);
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                page--;
-                if (callback != null) callback.onNetworkError(refresh);
-            }
         });
         page++;
         return request;
@@ -86,7 +85,7 @@ public class WikiHospitalGetter {
     public interface WikiHospitalDataCallback {
 
         void onRequestOk(List<Hospital> data, boolean refresh);
-        void onRequestFailure(HttpError error, boolean refresh);
+        void onRequestFailure(String error, boolean refresh);
         void onNetworkError(boolean refresh);
     }
 }

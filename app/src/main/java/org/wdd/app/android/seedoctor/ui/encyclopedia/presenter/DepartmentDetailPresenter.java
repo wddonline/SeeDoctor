@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DepartmentDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DepartmentDetailGetter;
@@ -71,11 +70,11 @@ public class DepartmentDetailPresenter implements DepartmentDetailGetter.Departm
     }
 
     @Override
-    public void onFailure(DepartmentDetailGetter.Type type, HttpError error) {
+    public void onFailure(DepartmentDetailGetter.Type type, String error) {
         switch (type) {
             case Department:
                 departmentSession = null;
-                view.showDataGettedFailureViews(error.getErrorMsg());
+                view.showDataGettedFailureViews(error);
                 break;
             case Disease:
                 diseaseSession = null;

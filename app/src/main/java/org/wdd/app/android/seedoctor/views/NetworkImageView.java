@@ -1,15 +1,19 @@
 package org.wdd.app.android.seedoctor.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.cache.ImageCache;
 import org.wdd.app.android.seedoctor.http.impl.VolleyTool;
 
@@ -17,7 +21,7 @@ import org.wdd.app.android.seedoctor.http.impl.VolleyTool;
  * Created by richard on 11/28/16.
  */
 
-public class NetworkImageView extends ImageView {
+public class NetworkImageView extends AppCompatImageView {
 
     /** The URL of the network image to load */
     private String mUrl;
@@ -49,7 +53,7 @@ public class NetworkImageView extends ImageView {
 
     public NetworkImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mImageLoader = new ImageLoader(VolleyTool.getInstance(context).getRequestQueue(), ImageCache.getInstance());
+        mImageLoader = new ImageLoader(VolleyTool.getInstance(SDApplication.getInstance()).getRequestQueue(), ImageCache.getInstance());
         setDefaultImageResId(R.drawable.default_img);
         setErrorImageResId(R.drawable.default_img);
     }
@@ -141,6 +145,15 @@ public class NetworkImageView extends ImageView {
         if (mImageContainer != null && mImageContainer.getRequestUrl() != null) {
             if (mImageContainer.getRequestUrl().equals(mUrl)) {
                 // if the request is from the same URL, return.
+                Drawable drawable = getDrawable();
+                if (drawable != null) {
+                    if (drawable instanceof BitmapDrawable) {
+                        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                        if (!bitmapDrawable.getBitmap().isRecycled()) {
+                            return;
+                        }
+                    }
+                }
                 return;
             } else {
                 // if there is a pre-existing request, cancel it if it's fetching a different URL.
@@ -159,6 +172,7 @@ public class NetworkImageView extends ImageView {
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        mImageContainer = null;
                         if (mLoaderListener != null) mLoaderListener.onLoadError();
                         if (mErrorImageId != 0) {
                             setImageResource(mErrorImageId);
@@ -167,7 +181,7 @@ public class NetworkImageView extends ImageView {
 
                     @Override
                     public void onResponse(final ImageLoader.ImageContainer response, boolean isImmediate) {
-                        if (mLoaderListener != null) mLoaderListener.onLoadError();
+                        if (mLoaderListener != null) mLoaderListener.onLoadCompleted();
                         // If this was an immediate response that was delivered inside of a layout
                         // pass do not set the image immediately as it will trigger a requestLayout
                         // inside of a layout. Instead, defer setting the image by posting back to
@@ -181,7 +195,6 @@ public class NetworkImageView extends ImageView {
                             });
                             return;
                         }
-
                         if (response.getBitmap() != null) {
                             setImageBitmap(response.getBitmap());
                         } else if (mDefaultImageId != 0) {
@@ -226,6 +239,23 @@ public class NetworkImageView extends ImageView {
     protected void drawableStateChanged() {
         super.drawableStateChanged();
         invalidate();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        try {
+            super.onDraw(canvas);
+        } catch (IllegalStateException e) {
+            mImageContainer = null;
+            setImageResource(R.drawable.default_img);
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getUrl() {
+        return mUrl;
     }
 
     public void setImageLoaderListener(ImageLoaderListener loaderListener) {

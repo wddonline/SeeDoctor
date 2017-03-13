@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.search.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
@@ -39,7 +38,7 @@ public class DiseaseSearchPresenter implements BasePresenter, DiseaseSearchGette
     }
 
     @Override
-    public void onRequestFailure(HttpError error, boolean refresh) {
+    public void onRequestFailure(String error, boolean refresh) {
         session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Request_Failure, refresh);
     }

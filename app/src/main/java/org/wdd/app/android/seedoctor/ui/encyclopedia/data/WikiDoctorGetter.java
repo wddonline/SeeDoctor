@@ -12,6 +12,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 import java.util.List;
@@ -53,22 +54,21 @@ public class WikiDoctorGetter {
                     if (callback != null) callback.onRequestOk(data, false);
                 } else {
                     page--;
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error, false);
+                    if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR), false);
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
                 page--;
-                if (callback != null) callback.onRequestFailure(error, false);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(false);
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()), false);
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                page--;
-                if (callback != null) callback.onNetworkError(false);
-            }
         });
         page++;
         return request;
@@ -97,22 +97,21 @@ public class WikiDoctorGetter {
                     if (callback != null) callback.onRequestOk(data, refresh);
                 } else {
                     page--;
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    if (callback != null) callback.onRequestFailure(error, refresh);
+                    if (callback != null) callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR), refresh);
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
                 page--;
-                if (callback != null) callback.onRequestFailure(error, refresh);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError(refresh);
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()), refresh);
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                page--;
-                if (callback != null) callback.onNetworkError(refresh);
-            }
         });
         page++;
         return request;
@@ -125,7 +124,7 @@ public class WikiDoctorGetter {
     public interface WikiDoctorDataCallback {
 
         void onRequestOk(List<Doctor> data, boolean refresh);
-        void onRequestFailure(HttpError error, boolean refresh);
+        void onRequestFailure(String error, boolean refresh);
         void onNetworkError(boolean refresh);
     }
 }

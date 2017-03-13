@@ -1,14 +1,10 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.HospitalDetailActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.DrugDetailGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.HospitalDetailGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DrugDetail;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.HospitalDetail;
 
 /**
@@ -54,9 +50,9 @@ public class HospitalDetailPresenter implements BasePresenter, HospitalDetailGet
     }
 
     @Override
-    public void onRequestFailure(HttpError error) {
+    public void onRequestFailure(String error) {
         session = null;
-        view.showRequestErrorViews(error.getErrorMsg());
+        view.showRequestErrorViews(error);
     }
 
     @Override

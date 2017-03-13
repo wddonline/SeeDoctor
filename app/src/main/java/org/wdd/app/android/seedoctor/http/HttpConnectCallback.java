@@ -12,6 +12,4 @@ public interface HttpConnectCallback {
 
     void onRequestFailure(HttpError error);
 
-    void onNetworkError();
-
 }

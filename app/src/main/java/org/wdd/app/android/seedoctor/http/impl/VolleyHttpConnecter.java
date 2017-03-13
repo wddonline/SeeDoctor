@@ -7,9 +7,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
@@ -18,7 +23,6 @@ import org.wdd.app.android.seedoctor.http.HttpConnecter;
 import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
 import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.HttpUtils;
 import org.wdd.app.android.seedoctor.http.StatusCode;
 import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
@@ -52,10 +56,6 @@ public class VolleyHttpConnecter implements HttpConnecter {
 
     @Override
     public HttpSession sendHttpRequest(final ActivityFragmentAvaliable host, final HttpRequestEntry requestEntry, final Class clazz, final HttpConnectCallback callback) {
-        if (!HttpUtils.isNetworkEnabled(context)) {
-            callback.onNetworkError();
-            return null;
-        }
         int method = Request.Method.POST;
         if (requestEntry.getMethod() == HttpRequestEntry.Method.GET) {
             method = Request.Method.GET;
@@ -71,12 +71,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
             @Override
             public void onErrorResponse(VolleyError err) {
                 if (!host.isAvaliable()) return;
-                HttpError error;
-                if (err.networkResponse == null)
-                    error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());
-                else
-                    error= new HttpError(err.networkResponse.statusCode, err.getMessage());
-                callback.onRequestFailure(error);
+                handleError(err, callback);
             }
         }) {
             @Override
@@ -89,6 +84,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
                 return requestEntry.getRequestHeaders();
             }
         };
+        request.setShouldCache(requestEntry.shouldCache());
         request.setRetryPolicy(new DefaultRetryPolicy(requestEntry.getTimeOut(),
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
@@ -99,10 +95,6 @@ public class VolleyHttpConnecter implements HttpConnecter {
 
     @Override
     public HttpSession sendHttpRequest(final ActivityFragmentAvaliable host, final HttpRequestEntry requestEntry, final HttpConnectCallback callback) {
-        if (!HttpUtils.isNetworkEnabled(context)) {
-            callback.onNetworkError();
-            return null;
-        }
         int method = Request.Method.POST;
         if (requestEntry.getMethod() == HttpRequestEntry.Method.GET) {
             method = Request.Method.GET;
@@ -119,12 +111,7 @@ public class VolleyHttpConnecter implements HttpConnecter {
             @Override
             public void onErrorResponse(VolleyError err) {
                 if (!host.isAvaliable()) return;
-                HttpError error;
-                if (err.networkResponse == null)
-                    error= new HttpError(ErrorCode.CONNECT_ERROR, err.getMessage());
-                else
-                    error= new HttpError(err.networkResponse.statusCode, err.getMessage());
-                callback.onRequestFailure(error);
+                handleError(err, callback);
             }
         }) {
             @Override
@@ -137,12 +124,37 @@ public class VolleyHttpConnecter implements HttpConnecter {
                 return requestEntry.getRequestHeaders();
             }
         };
+        request.setShouldCache(requestEntry.shouldCache());
         request.setRetryPolicy(new DefaultRetryPolicy(requestEntry.getTimeOut(),
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
         HttpSession session = new VolleyHttpSession(request, requestEntry);
         sessionList.add(session);
         return session;
+    }
+
+    private void handleError(VolleyError err, HttpConnectCallback callback) {
+        HttpError error;
+        if (err instanceof AuthFailureError) {
+            error= new HttpError(ErrorCode.AUTH_FAILURE_ERROR, err.getMessage());
+        } else if(err instanceof NoConnectionError) {
+            error= new HttpError(ErrorCode.NO_CONNECTION_ERROR, err.getMessage());
+        } else if(err instanceof NetworkError) {
+            error= new HttpError(ErrorCode.NETWORK_ERROR, err.getMessage());
+        } else if(err instanceof ParseError) {
+            error= new HttpError(ErrorCode.PARSE_ERROR, err.getMessage());
+        } else if(err instanceof ServerError) {
+            if (err.networkResponse == null) {
+                error = new HttpError(ErrorCode.SERVER_ERROR, err.getMessage());
+            } else {
+                error = new HttpError(ErrorCode.SERVER_ERROR, err.getMessage(), err.networkResponse.statusCode);
+            }
+        } else if(err instanceof TimeoutError) {
+            error= new HttpError(ErrorCode.TIMEOUT_ERROR, err.getMessage());
+        } else {
+            error= new HttpError(ErrorCode.UNKNOW_ERROR, err.getMessage());
+        }
+        callback.onRequestFailure(error);
     }
 
     private void handleResponse(String txt, Class clazz, HttpConnectCallback callback) {

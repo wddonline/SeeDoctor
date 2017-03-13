@@ -21,13 +21,20 @@
     <string name="locating">获取您当前的位置</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-    <string name="loading_more_data">加载更多数据...</string>
-    <string name="load_more_data">加载更多</string>
-    <string name="error_no_connection">网络已断开，点击重试</string>
-    <string name="error_no_data">没有获取的数据，点击重试</string>
-    <string name="error_request_failure">获取数据失败，点击重试</string>
-    <string name="loading">加载数据...</string>
-    <string name="error_request">获取数据失败</string>
+    <string name="loading_more_data">更多数据加载中...</string>
+    <string name="load_more_data">点击加载更多数据</string>
+    <string name="loading">数据加载中...</string>
+    <string name="request_failure">请求失败</string>
+
+    <!-- 错误 -->
+    <string name="unknown_error">未知错误</string>
+    <string name="auth_failure_error">HTTP身份验证错误</string>
+    <string name="network_error">服务器通信失败</string>
+    <string name="no_connection_error">网络未连接</string>
+    <string name="parse_error">数据错误</string>
+    <string name="server_error">服务器处理错误</string>
+    <string name="timeout_error">连接服务器超时</string>
+    <string name="no_data_error">没有数据返回</string>
 
     <!-- 定位 -->
     <string name="find_loc_failure">获取当前位置出错</string>

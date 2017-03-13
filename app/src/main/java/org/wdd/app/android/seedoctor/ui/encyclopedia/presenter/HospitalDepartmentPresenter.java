@@ -1,11 +1,9 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.HospitalDepartmentGetter;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.HospitalDepartmentFragment;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
 
@@ -42,9 +40,9 @@ public class HospitalDepartmentPresenter implements BasePresenter, HospitalDepar
     }
 
     @Override
-    public void onRequestFailure(HttpError error) {
+    public void onRequestFailure(String error) {
         session = null;
-        view.showRequetErrorView(error.getErrorMsg());
+        view.showRequetErrorView(error);
     }
 
     @Override

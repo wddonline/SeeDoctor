@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.database.manager.impl.DoctorDbManager;
-import org.wdd.app.android.seedoctor.database.model.DbDepartment;
 import org.wdd.app.android.seedoctor.database.model.DbDoctor;
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpManager;
@@ -15,6 +14,7 @@ import org.wdd.app.android.seedoctor.http.error.ErrorCode;
 import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.DoctorDetail;
+import org.wdd.app.android.seedoctor.utils.HttpUtils;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 /**
@@ -48,20 +48,20 @@ public class DoctorDetailGetter {
                     DoctorDetail detail = (DoctorDetail) res.getData();
                     callback.onRequestOk(detail);
                 } else {
-                    HttpError error = new HttpError(ErrorCode.UNKNOW_ERROR, "");
-                    callback.onRequestFailure(error);
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, ErrorCode.SERVER_ERROR));
                 }
             }
 
             @Override
             public void onRequestFailure(HttpError error) {
-                callback.onRequestFailure(error);
+                if (callback == null) return;
+                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
+                    callback.onNetworkError();
+                } else {
+                    callback.onRequestFailure(HttpUtils.getErrorDescFromErrorCode(context, error.getErrorCode()));
+                }
             }
 
-            @Override
-            public void onNetworkError() {
-                callback.onNetworkError();
-            }
         });
         return session;
     }
@@ -159,7 +159,7 @@ public class DoctorDetailGetter {
     public interface DoctorDetailCallback {
 
         void onRequestOk(DoctorDetail data);
-        void onRequestFailure(HttpError error);
+        void onRequestFailure(String error);
         void onNetworkError();
 
         void onCollectionStatusGetted(boolean isCollected);

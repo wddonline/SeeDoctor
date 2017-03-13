@@ -53,7 +53,7 @@
             android:textSize="@dimen/textSizeItemContent"
             android:textColor="#c0c0c0"
             android:gravity="center"
-            android:text="@string/error_no_connection"/>
+            android:text="@string/no_connection_error"/>
     </LinearLayout>
 
 </FrameLayout>

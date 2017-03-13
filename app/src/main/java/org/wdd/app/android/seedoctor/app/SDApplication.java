@@ -1,9 +1,9 @@
 package org.wdd.app.android.seedoctor.app;
 
+import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
-import android.support.multidex.MultiDexApplication;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by wangdd on 16-11-27.
  */
 
-public class SDApplication extends MultiDexApplication {
+public class SDApplication extends Application {
 
     private static SDApplication INSTANCE;
 
@@ -50,12 +50,6 @@ public class SDApplication extends MultiDexApplication {
     public boolean isAdsOpen() {
         return adsConfManager.isAdsOpen();
     }
-
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(base);
-//        MultiDex.install(getBaseContext());
-//    }
 
     public Handler getUiHandler() {
         return uiHandler;

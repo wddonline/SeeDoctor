@@ -38,7 +38,7 @@ public class HttpManager {
 
     public HttpSession sendHttpRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, Class clazz, HttpConnectCallback callback) {
         if (connecter == null) {
-            Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
+            Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");
             return null;
         }
         return connecter.sendHttpRequest(host, entry, clazz, callback);
@@ -46,7 +46,7 @@ public class HttpManager {
 
     public HttpSession sendHttpRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback) {
         if (connecter == null) {
-            Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
+            Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");
             return null;
         }
         return connecter.sendHttpRequest(host, entry, callback);
@@ -54,7 +54,7 @@ public class HttpManager {
 
     public void stopAllSession() {
         if (connecter == null) {
-            Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
+            Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");
             return;
         }
         connecter.stopAllSession();
@@ -62,7 +62,7 @@ public class HttpManager {
 
     public void stopSessionByTag(String tag) {
         if (connecter == null) {
-            Log.e(TAG, "A HttpConnecter instance isn\'t setted for HttpManager");
+            Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");
             return;
         }
         connecter.stopSessionByTag(tag);
