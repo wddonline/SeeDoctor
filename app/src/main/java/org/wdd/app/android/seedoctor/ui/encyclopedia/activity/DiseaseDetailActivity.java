@@ -87,7 +87,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     private void initTitle() {
         toolbar = (Toolbar) findViewById(R.id.activity_disease_detail_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

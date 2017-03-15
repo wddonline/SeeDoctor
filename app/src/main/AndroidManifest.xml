@@ -36,8 +36,8 @@
         <activity android:name=".ui.routeline.activity.BusRouteDetailActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDiseaseActivity" />
         <activity android:name=".ui.encyclopedia.activity.DiseaseDetailActivity" />
-        <activity android:name=".ui.hospital.activity.NearbyHospitalMapActivity" />
-        <activity android:name=".ui.drugstore.activity.NearbyDrugstoreMapActivity" />
+        <activity android:name=".ui.nearby.activity.NearbyHospitalMapActivity" />
+        <activity android:name=".ui.nearby.activity.NearbyDrugstoreMapActivity" />
         <activity android:name=".ui.search.activity.DiseaseSearchActivity" />
         <activity android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity" />
         <activity android:name=".ui.search.activity.DrugSearchActivity" />

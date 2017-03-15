@@ -59,7 +59,7 @@ public class ProfileEditActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_profie_edit_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

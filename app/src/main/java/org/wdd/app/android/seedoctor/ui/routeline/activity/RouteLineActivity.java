@@ -133,7 +133,7 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
         toolbar = (Toolbar) findViewById(R.id.activity_route_line_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

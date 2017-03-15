@@ -69,7 +69,7 @@ public class VoiceSettingsActivity extends BaseActivity {
 
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_voice_settings_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

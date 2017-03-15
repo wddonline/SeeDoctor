@@ -72,7 +72,7 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_department_detail_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

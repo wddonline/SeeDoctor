@@ -91,7 +91,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         toolbar = (Toolbar) findViewById(R.id.activity_drug_detail_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

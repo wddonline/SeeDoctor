@@ -1,8 +1,10 @@
 package org.wdd.app.android.seedoctor.ui.main.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
@@ -12,10 +14,10 @@ import com.umeng.analytics.MobclickAgent;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.drugstore.fragment.NearbyDrugstoreFragment;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment;
-import org.wdd.app.android.seedoctor.ui.hospital.fragment.NearbyHospitalFragment;
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
+import org.wdd.app.android.seedoctor.ui.nearby.fragment.NearbyFragment;
+import org.wdd.app.android.seedoctor.ui.news.fragment.NewsFragment;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.BmobUtils;
 import org.wdd.app.android.seedoctor.views.XFragmentTabHost;
@@ -32,6 +34,10 @@ public class MainActivity extends BaseActivity implements Runnable {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.activity_main);
         MobclickAgent.openActivityDurationTrack(false);
         checkVersion();
@@ -51,12 +57,10 @@ public class MainActivity extends BaseActivity implements Runnable {
         ImageView tabImgView;
         TextView tabTxtView;
 
-        int[] tabIcons = {R.drawable.icon_hospital, R.drawable.icon_drugstore, R.drawable.icon_wiki,
-                R.drawable.icon_me};
-        int[] tabTxts = {R.string.hospital, R.string.drug_store, R.string.wiki, R.string.me};
-        String[] tabTags = {"doctor", "drugstore", "wiki", "me"};
-        Class[] tabClasses = {NearbyHospitalFragment.class, NearbyDrugstoreFragment.class,
-                WikiFragment.class, MeFragment.class};
+        int[] tabIcons = {R.drawable.icon_nearby, R.drawable.icon_news, R.drawable.icon_wiki, R.drawable.icon_me};
+        int[] tabTxts = {R.string.nearby, R.string.news, R.string.wiki, R.string.me};
+        String[] tabTags = {"nearby", "news", "wiki", "me"};
+        Class[] tabClasses = {NearbyFragment.class, NewsFragment.class, WikiFragment.class, MeFragment.class};
 
         int tabCount = tabIcons.length;
 

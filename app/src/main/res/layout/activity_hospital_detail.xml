@@ -239,7 +239,8 @@
             android:id="@+id/activity_hospital_detail_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorPrimary"
+            android:background="#bec3c7"
             android:elevation="0dp"
             android:visibility="gone"/>
 

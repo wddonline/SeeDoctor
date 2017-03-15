@@ -10,7 +10,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
 import org.wdd.app.android.seedoctor.utils.LogUtils;
 import org.wdd.app.android.seedoctor.utils.NetworkUtils;
 

@@ -95,7 +95,7 @@ public class HospitalDetailActivity extends BaseActivity {
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_hospital_detail_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(getBaseContext(), 3));
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));

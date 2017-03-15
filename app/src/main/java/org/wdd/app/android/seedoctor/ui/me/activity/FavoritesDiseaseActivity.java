@@ -62,7 +62,7 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_disease_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
 
     private void cancelSelectMode() {
         adapter.setMode(FavoritesDiseaseAdapter.Mode.Normal);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         checkBox.setVisibility(View.GONE);
         toolbar.getMenu().findItem(R.id.menu_favorites_delete).setVisible(false);
         toolbar.getMenu().findItem(R.id.menu_favorites_cancel).setVisible(false);

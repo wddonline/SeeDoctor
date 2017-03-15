@@ -2,7 +2,7 @@
     android:viewportWidth="58.0" android:width="22dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00666666"
         android:pathData="M55,1L3,1C1.9,1 1,1.9 1,3L22,34C22,34.7 22.4,35.4 23,35.7L23,63L35,56L35,35.7C35.6,35.4 36,34.7 36,34L57,3C57,1.9 56.1,1 55,1L55,1Z"
-        android:strokeColor="#6B6C6E" android:strokeWidth="2"/>
-    <path android:fillColor="#00666666" android:pathData="M8,5L24,29"
-        android:strokeColor="#666666" android:strokeWidth="2"/>
+        android:strokeColor="#FFFFFF" android:strokeWidth="2"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M8,5L24,29"
+        android:strokeColor="#FFFFFF" android:strokeWidth="2"/>
 </vector>

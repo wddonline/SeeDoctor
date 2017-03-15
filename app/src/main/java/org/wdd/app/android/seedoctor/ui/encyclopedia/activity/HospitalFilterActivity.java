@@ -57,7 +57,7 @@ public class HospitalFilterActivity extends BaseActivity {
 
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_hospital_filter_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

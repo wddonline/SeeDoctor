@@ -3,9 +3,11 @@ package org.wdd.app.android.seedoctor.ui.me.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,12 +21,12 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.me.activity.AboutActivity;
-import org.wdd.app.android.seedoctor.ui.me.activity.AboutAppActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.FavoritesActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.NavigationSettingsActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.ProfileEditActivity;
 import org.wdd.app.android.seedoctor.ui.me.presenter.MePresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
+import org.wdd.app.android.seedoctor.utils.AppUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +35,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private final int PROFILE_REQUEST_CODE = 1;
 
-    private View rootView;
+    private ViewGroup mRootView;
     private ImageView headerView;
     private TextView nameView;
 
@@ -41,17 +43,17 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_me, container, false);
+        if (mRootView == null) {
+            mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_me, container, false);
             initData();
             initTitle();
             initViews();
         }
-        ViewGroup parent = (ViewGroup) rootView.getParent();
+        ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null) {
-            parent.removeView(rootView);
+            parent.removeView(mRootView);
         }
-        return rootView;
+        return mRootView;
     }
 
     @Override
@@ -63,10 +65,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initTitle() {
-        final Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.fragment_me_toolbar);
+        final Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.fragment_me_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
-        final TextView titleView = (TextView) rootView.findViewById(R.id.fragment_me_title);
+        final TextView titleView = (TextView) mRootView.findViewById(R.id.fragment_me_title);
         titleView.post(new Runnable() {
             @Override
             public void run() {
@@ -74,7 +76,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
-        AppBarLayout barLayout = (AppBarLayout) rootView.findViewById(R.id.fragment_me_bar_layout);
+        AppBarLayout barLayout = (AppBarLayout) mRootView.findViewById(R.id.fragment_me_bar_layout);
         barLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -85,18 +87,23 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 }
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int statusHeight = AppUtils.getStatusHeight(getActivity());
+            toolbar.getLayoutParams().height = toolbar.getLayoutParams().height + statusHeight;
+            toolbar.setPadding(toolbar.getPaddingLeft(), statusHeight, toolbar.getPaddingRight(), toolbar.getPaddingBottom());
+        }
     }
 
     private void initViews() {
-        headerView = (ImageView) rootView.findViewById(R.id.fragment_me_headimg);
-        nameView = (TextView) rootView.findViewById(R.id.fragment_me_name);
+        headerView = (ImageView) mRootView.findViewById(R.id.fragment_me_headimg);
+        nameView = (TextView) mRootView.findViewById(R.id.fragment_me_name);
 
-        rootView.findViewById(R.id.fragment_me_profile).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_me_collection_click).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_me_nav_click).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_me_version_check_click).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_me_clear_cache_click).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_me_about_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_profile).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_collection_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_nav_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_version_check_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_clear_cache_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_about_click).setOnClickListener(this);
 
         setHeaderAndName();
     }

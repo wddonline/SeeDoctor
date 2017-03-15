@@ -28,7 +28,7 @@ public class AboutDeveloperActivity extends BaseActivity {
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_about_developer_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setTitle("");
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

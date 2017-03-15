@@ -61,7 +61,7 @@ public class DoctorFilterActivity extends BaseActivity {
 
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_doctor_filter_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

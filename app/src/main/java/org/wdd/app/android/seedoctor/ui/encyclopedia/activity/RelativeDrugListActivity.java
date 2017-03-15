@@ -63,7 +63,7 @@ public class RelativeDrugListActivity extends BaseActivity {
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_relative_drug_list_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

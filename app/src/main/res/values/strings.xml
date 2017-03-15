@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">看医生</string>
     <!--<string name="app_name">看看医生</string>&lt;!&ndash; for xiaomi&ndash;&gt;-->
-    <string name="hospital">医院</string>
-    <string name="drug_store">药店</string>
+    <string name="nearby">附近</string>
+    <string name="news">资讯</string>
     <string name="wiki">百科</string>
     <string name="me">我</string>
     <string name="back_to_exit">再按一次返回键退出看医生</string>
@@ -43,13 +43,11 @@
     <string name="distance_desc_m">%1$d米</string>
     <string name="distance_desc_km">%1$s公里</string>
 
-    <!-- 附近医院 -->
+    <!-- 附近 -->
     <string name="nearby_hospital">附近医院</string>
+    <string name="nearby_drugstore">附近药店</string>
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>
-
-    <!-- 附近药店 -->
-    <string name="nearby_drugstore">附近药店</string>
 
     <!-- 搜索 -->
     <string name="search">搜索</string>
@@ -83,6 +81,7 @@
 
     <!-- 百科 -->
     <string name="wiki_title">医药百科</string>
+    <string name="hospital">医院</string>
     <string name="wiki_disease">疾病</string>
     <string name="wiki_drugs">药品</string>
     <string name="wiki_emergency_treatment">急诊</string>

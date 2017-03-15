@@ -1,6 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.fragment;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDoctorActivity
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiHospitalActivity;
+import org.wdd.app.android.seedoctor.utils.AppUtils;
 import org.wdd.app.android.seedoctor.utils.Constants;
 
 /**
@@ -24,35 +26,39 @@ import org.wdd.app.android.seedoctor.utils.Constants;
  */
 public class WikiFragment extends Fragment implements View.OnClickListener {
 
-    private View rootView;
+    private ViewGroup mRootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_wiki, container, false);
+        if (mRootView == null) {
+            mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_wiki, container, false);
             initTitle();
             initView();
         }
-        if (rootView.getParent() != null) {
-            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        if (mRootView.getParent() != null) {
+            ((ViewGroup) mRootView.getParent()).removeView(mRootView);
         }
-        return rootView;
+        return mRootView;
     }
 
     private void initTitle() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View spaceView = mRootView.getChildAt(0);
+            spaceView.setVisibility(View.VISIBLE);
+            spaceView.getLayoutParams().height = AppUtils.getStatusHeight(getActivity());
+        }
     }
 
     private void initView() {
-        rootView.findViewById(R.id.fragment_wiki_disease_clickable).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_wiki_drug_clickable).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_wiki_emergency_clickable).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_wiki_department_clickable).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_wiki_doctor_clickable).setOnClickListener(this);
-        rootView.findViewById(R.id.fragment_wiki_hospital_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_disease_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_drug_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_emergency_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_department_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_doctor_clickable).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_wiki_hospital_clickable).setOnClickListener(this);
 
         if (SDApplication.getInstance().isAdsOpen()) {
-            RelativeLayout bannerContainer = (RelativeLayout) rootView.findViewById(R.id.fragment_wiki_banner_container);
+            RelativeLayout bannerContainer = (RelativeLayout) mRootView.findViewById(R.id.fragment_wiki_banner_container);
             BannerAdsBuilder adsBuilder = new BannerAdsBuilder(getActivity(), bannerContainer, Constants.WIKI_HOME_AD_ID, true);
             adsBuilder.addBannerAds();
         }

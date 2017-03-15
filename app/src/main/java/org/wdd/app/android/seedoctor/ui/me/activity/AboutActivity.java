@@ -31,7 +31,7 @@ public class AboutActivity extends BaseActivity {
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

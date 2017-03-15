@@ -54,7 +54,7 @@ public class BusRouteDetailActivity extends BaseActivity {
     private void initTitle() {
         toolbar = (Toolbar) findViewById(R.id.activity_bus_route_detail_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

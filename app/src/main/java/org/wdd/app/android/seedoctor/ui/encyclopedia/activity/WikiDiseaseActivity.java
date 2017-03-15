@@ -57,7 +57,7 @@ public class WikiDiseaseActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_disease_toolbar);
         setSupportActionBar(toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

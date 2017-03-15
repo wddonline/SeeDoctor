@@ -53,7 +53,7 @@ public class WikiDepartmentActivity extends BaseActivity {
 
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_department_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

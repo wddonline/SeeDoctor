@@ -59,7 +59,7 @@ public class WikiDrugListActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_drug_list_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

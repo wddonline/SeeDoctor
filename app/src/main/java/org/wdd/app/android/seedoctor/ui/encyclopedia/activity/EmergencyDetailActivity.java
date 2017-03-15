@@ -69,7 +69,7 @@ public class EmergencyDetailActivity extends BaseActivity {
 
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_emergency_detail_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         TextView titleView = (TextView) findViewById(R.id.activity_emergency_detail_title);

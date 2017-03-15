@@ -54,7 +54,7 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_drug_category_title);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

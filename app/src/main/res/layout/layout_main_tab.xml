@@ -11,7 +11,7 @@
         android:id="@+id/layout_main_tab_img"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/icon_hospital" />
+        android:src="@drawable/icon_nearby" />
 
     <TextView
         android:id="@+id/layout_main_tab_txt"

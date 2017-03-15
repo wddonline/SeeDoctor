@@ -21,8 +21,8 @@
 -keep class com.alibaba.sdk.android.httpdns.**{*;}
 -keep class org.wdd.app.android.seedoctor.ui.drugstore.model.**{*;}
 -keep class org.wdd.app.android.seedoctor.ui.encyclopedia.model.**{*;}
--keep class org.wdd.app.android.seedoctor.ui.hospital.model.**{*;}
--keep class org.wdd.app.android.seedoctor.ui.hospital.model.**{*;}
+-keep class org.wdd.app.android.seedoctor.ui.nearby.model.**{*;}
+-keep class org.wdd.app.android.seedoctor.ui.nearby.model.**{*;}
 
 -dontwarn com.alibaba.fastjson.**
 

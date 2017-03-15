@@ -58,7 +58,7 @@ public class RideRouteDetailActivity extends BaseActivity {
     private void initTitle() {
         toolbar = (Toolbar) findViewById(R.id.activity_ride_route_detail_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

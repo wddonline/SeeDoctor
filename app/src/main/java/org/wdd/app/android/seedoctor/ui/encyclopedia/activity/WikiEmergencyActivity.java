@@ -53,7 +53,7 @@ public class WikiEmergencyActivity extends BaseActivity {
 
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_emergency_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

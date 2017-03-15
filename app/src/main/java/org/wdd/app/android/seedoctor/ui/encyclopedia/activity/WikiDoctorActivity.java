@@ -71,7 +71,7 @@ public class WikiDoctorActivity extends BaseActivity {
     private void initTitles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_doctor_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -4,7 +4,7 @@ import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.NearbySearchActivity;
 import org.wdd.app.android.seedoctor.ui.search.data.NearbySearchGetter;
-import org.wdd.app.android.seedoctor.ui.hospital.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.List;

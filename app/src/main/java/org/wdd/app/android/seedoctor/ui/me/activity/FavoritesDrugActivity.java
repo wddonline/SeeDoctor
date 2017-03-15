@@ -62,7 +62,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_drug_toolbar);
         ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
 
     private void cancelSelectMode() {
         adapter.setMode(FavoritesDrugAdapter.Mode.Normal);
-        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationIcon(R.mipmap.back);;
         checkBox.setVisibility(View.GONE);
         toolbar.getMenu().findItem(R.id.menu_favorites_delete).setVisible(false);
         toolbar.getMenu().findItem(R.id.menu_favorites_cancel).setVisible(false);
