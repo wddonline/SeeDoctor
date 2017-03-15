@@ -4,7 +4,7 @@ import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.nearby.data.DrugstoreListDataGetter;
 import org.wdd.app.android.seedoctor.ui.nearby.fragment.NearbyDrugstoreFragment;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Drugstore;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class NearbyDrugstoreListPresenter implements BasePresenter, DrugstoreLis
     }
 
     @Override
-    public void onSearchOk(List<Drugstore> data) {
+    public void onSearchOk(List<Mark> data) {
         view.appendHospitalList(data);
     }
 

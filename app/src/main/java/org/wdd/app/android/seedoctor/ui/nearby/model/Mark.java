@@ -5,11 +5,10 @@ import org.wdd.app.android.seedoctor.location.LatLong;
 import java.util.Arrays;
 
 /**
- * Created by richard on 12/13/16.
+ * Created by richard on 11/28/16.
  */
 
-public class Drugstore {
-
+public class Mark {
     private String name;//医院名称
     private String address;//地址
     private LatLong latLong;//位置
@@ -21,7 +20,7 @@ public class Drugstore {
     private long distance;//距离当前位置的距离
     private String typeDes;//类型描述
 
-    public Drugstore() {
+    public Mark() {
     }
 
     public String getName() {
@@ -106,7 +105,7 @@ public class Drugstore {
 
     @Override
     public String toString() {
-        return "Hospital{" +
+        return "Mark{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", latLong=" + latLong +

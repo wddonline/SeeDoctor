@@ -15,8 +15,8 @@ import com.daimajia.swipe.SwipeLayout;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Drugstore;
 import org.wdd.app.android.seedoctor.ui.gallery.activity.ImageBrowserActivity;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
@@ -26,12 +26,12 @@ import java.util.List;
  * Created by richard on 11/28/16.
  */
 
-public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
+public class DrugstoreAdapter extends AbstractCommonAdapter<Mark> {
 
     private Activity activity;
     private SwipeLayout openSwipeLayout;
 
-    public DrugstoreAdapter(Activity activity, List<Drugstore> data) {
+    public DrugstoreAdapter(Activity activity, List<Mark> data) {
         super(activity, data);
         this.activity = activity;
     }
@@ -44,7 +44,7 @@ public class DrugstoreAdapter extends AbstractCommonAdapter<Drugstore> {
     }
 
     @Override
-    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Drugstore drugstore, int position) {
+    protected void onBindDataViewHolder(RecyclerView.ViewHolder holder, final Mark drugstore, int position) {
         final DrugstoreVH drugstoreVH = (DrugstoreVH) holder;
         if (drugstore.getImgUrls() != null && drugstore.getImgUrls().length > 0) {
             drugstoreVH.imageView.setImageUrl(drugstore.getImgUrls()[0]);

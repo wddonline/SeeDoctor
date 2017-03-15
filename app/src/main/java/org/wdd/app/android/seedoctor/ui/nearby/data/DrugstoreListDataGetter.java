@@ -11,7 +11,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Drugstore;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.utils.LogUtils;
 import org.wdd.app.android.seedoctor.utils.NetworkUtils;
 
@@ -79,10 +79,10 @@ public class DrugstoreListDataGetter implements PoiSearch.OnPoiSearchListener {
                     // 取得搜索到的poiitems有多少页
                     List<PoiItem> poiItems = result.getPois();// 取得第一页的poiitem数据，页数从数字0开始
                     if (poiItems != null && poiItems.size() > 0) {
-                        List<Drugstore> data = new ArrayList<>();
-                        Drugstore drugstore;
+                        List<Mark> data = new ArrayList<>();
+                        Mark drugstore;
                         for (PoiItem item : poiItems) {
-                            drugstore = new Drugstore();
+                            drugstore = new Mark();
                             drugstore.setName(item.getTitle());
                             drugstore.setAddress(item.getSnippet());
                             LatLong latLong = new LatLong();
@@ -134,7 +134,7 @@ public class DrugstoreListDataGetter implements PoiSearch.OnPoiSearchListener {
 
     public interface SearchCallback {
 
-        void onSearchOk(List<Drugstore> data);
+        void onSearchOk(List<Mark> data);
         void onNetworkError();
         void onSearchFailure();
         void onSearchNoData();

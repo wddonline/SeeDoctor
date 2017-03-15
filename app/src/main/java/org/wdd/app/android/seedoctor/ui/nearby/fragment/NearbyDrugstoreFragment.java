@@ -21,7 +21,7 @@ import org.wdd.app.android.seedoctor.ui.nearby.activity.NearbyDrugstoreMapActivi
 import org.wdd.app.android.seedoctor.ui.nearby.adapter.DrugstoreAdapter;
 import org.wdd.app.android.seedoctor.ui.nearby.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.nearby.data.HospitalListDataGetter;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Drugstore;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.ui.nearby.presenter.NearbyDrugstoreListPresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.Constants;
@@ -45,7 +45,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
     private LoadView loadView;
 
     private NearbyDrugstoreListPresenter presenter;
-    private List<Drugstore> drugstores;
+    private List<Mark> drugstores;
     private DrugstoreAdapter adapter;
     private TranslateAnimation hideAnim;
     private TranslateAnimation openAnim;
@@ -164,7 +164,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
         presenter.searchNearbyDrugstores();
     }
 
-    public void appendHospitalList(List<Drugstore> data) {
+    public void appendHospitalList(List<Mark> data) {
         if (adapter == null) {
             drugstores = new ArrayList<>();
             drugstores.addAll(data);

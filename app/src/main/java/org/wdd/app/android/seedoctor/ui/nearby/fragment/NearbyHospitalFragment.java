@@ -21,7 +21,7 @@ import org.wdd.app.android.seedoctor.ui.nearby.activity.NearbyHospitalMapActivit
 import org.wdd.app.android.seedoctor.ui.nearby.adapter.DrugstoreAdapter;
 import org.wdd.app.android.seedoctor.ui.nearby.adapter.HospitalAdapter;
 import org.wdd.app.android.seedoctor.ui.nearby.data.HospitalListDataGetter;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.ui.nearby.presenter.NearbyHospitalListPresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.Constants;
@@ -45,7 +45,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
     private SwipeRefreshLayout refreshLayout;
     private LoadView loadView;
 
-    private List<Hospital> hospitals;
+    private List<Mark> hospitals;
     private HospitalAdapter adapter;
     private NearbyHospitalListPresenter presenter;
     private TranslateAnimation hideAnim;
@@ -172,7 +172,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
         super.onDestroy();
     }
 
-    public void appendHospitalList(List<Hospital> data) {
+    public void appendHospitalList(List<Mark> data) {
         if (adapter == null) {
             hospitals = new ArrayList<>();
             hospitals.addAll(data);

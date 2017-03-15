@@ -2,9 +2,11 @@ package org.wdd.app.android.seedoctor.ui.welcome.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,14 +15,15 @@ import com.qq.e.ads.splash.SplashADListener;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.app.SDApplication;
-import org.wdd.app.android.seedoctor.permission.PermissionManager;
 import org.wdd.app.android.seedoctor.permission.PermissionListener;
+import org.wdd.app.android.seedoctor.permission.PermissionManager;
 import org.wdd.app.android.seedoctor.permission.Rationale;
 import org.wdd.app.android.seedoctor.permission.RationaleListener;
 import org.wdd.app.android.seedoctor.permission.SettingDialog;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.main.activity.MainActivity;
 import org.wdd.app.android.seedoctor.ui.welcome.presenter.WelcomePresenter;
+import org.wdd.app.android.seedoctor.utils.AppUtils;
 import org.wdd.app.android.seedoctor.utils.Constants;
 
 import java.util.List;
@@ -41,6 +44,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.activity_welcome);
         initViews();
         checkPermission();
@@ -49,6 +56,10 @@ public class WelcomeActivity extends BaseActivity implements Runnable, Permissio
     private void initViews() {
         mAdsContainer = (RelativeLayout) findViewById(R.id.activity_welcome_ads_container);
         mSkipView = (TextView) findViewById(R.id.activity_welcome_skip);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mSkipView.getLayoutParams();
+            lp.topMargin = lp.topMargin + AppUtils.getStatusHeight(this);
+        }
     }
 
     private void checkPermission() {

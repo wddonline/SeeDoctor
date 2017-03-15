@@ -14,8 +14,8 @@ import android.widget.EditText;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.nearby.adapter.HospitalSearchAdapter;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.adapter.NearbySearchAdapter;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.ui.search.data.NearbySearchGetter;
 import org.wdd.app.android.seedoctor.ui.search.presenter.NearbySearchPresenter;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
@@ -39,8 +39,8 @@ public class NearbySearchActivity extends BaseActivity implements AbstractCommon
     private EditText inputView;
 
     private NearbySearchPresenter presenter;
-    private HospitalSearchAdapter adapter;
-    private List<Hospital> hospitals;
+    private NearbySearchAdapter adapter;
+    private List<Mark> hospitals;
 
     private boolean isAppend = false;
 
@@ -90,12 +90,12 @@ public class NearbySearchActivity extends BaseActivity implements AbstractCommon
         recyclerView.setHasFixedSize(true);
     }
 
-    public void showHospitalDataView(List<Hospital> data) {
+    public void showHospitalDataView(List<Mark> data) {
         if (inputView.getText().length() == 0) return;//防止文字清空后，上次结果返回导致仍有数据显示的bug
         if (adapter == null) {
             hospitals = new ArrayList<>();
             hospitals.addAll(data);
-            adapter = new HospitalSearchAdapter(getBaseContext(), hospitals);
+            adapter = new NearbySearchAdapter(this, hospitals);
             adapter.setOnLoadMoreListener(this);
             recyclerView.setAdapter(adapter);
             if (data.size() < NearbySearchGetter.PAGEZISE) {

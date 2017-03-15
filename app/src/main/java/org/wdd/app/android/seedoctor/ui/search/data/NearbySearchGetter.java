@@ -10,7 +10,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import org.wdd.app.android.seedoctor.location.LatLong;
 import org.wdd.app.android.seedoctor.preference.LocationHelper;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.utils.LogUtils;
 import org.wdd.app.android.seedoctor.utils.NetworkUtils;
 
@@ -67,22 +67,22 @@ public class NearbySearchGetter implements PoiSearch.OnPoiSearchListener {
                     // 取得搜索到的poiitems有多少页
                     List<PoiItem> poiItems = result.getPois();// 取得第一页的poiitem数据，页数从数字0开始
                     if (poiItems != null && poiItems.size() > 0) {
-                        List<Hospital> data = new ArrayList<>();
-                        Hospital hospital;
+                        List<Mark> data = new ArrayList<>();
+                        Mark mark;
                         for (PoiItem item : poiItems) {
-                            hospital = new Hospital();
-                            hospital.setName(item.getTitle());
-                            hospital.setAddress(item.getSnippet());
+                            mark = new Mark();
+                            mark.setName(item.getTitle());
+                            mark.setAddress(item.getSnippet());
                             LatLong latLong = new LatLong();
                             latLong.latitude = (float) item.getLatLonPoint().getLatitude();
                             latLong.longitude = (float) item.getLatLonPoint().getLongitude();
-                            hospital.setLatLong(latLong);
-                            hospital.setTelephone(item.getTel());
-                            hospital.setWebsite(item.getWebsite());
-                            hospital.setPostcode(item.getPostcode());
-                            hospital.setEmail(item.getEmail());
-                            hospital.setDistance(item.getDistance());
-                            hospital.setTypeDes(item.getTypeDes());
+                            mark.setLatLong(latLong);
+                            mark.setTelephone(item.getTel());
+                            mark.setWebsite(item.getWebsite());
+                            mark.setPostcode(item.getPostcode());
+                            mark.setEmail(item.getEmail());
+                            mark.setDistance(item.getDistance());
+                            mark.setTypeDes(item.getTypeDes());
                             List<Photo> photos = item.getPhotos();
                             if (photos != null && photos.size() > 0) {
                                 String[] imgUrls = new String[photos.size()];
@@ -91,9 +91,9 @@ public class NearbySearchGetter implements PoiSearch.OnPoiSearchListener {
                                     p = photos.get(i);
                                     imgUrls[i] = p.getUrl();
                                 }
-                                hospital.setImgUrls(imgUrls);
+                                mark.setImgUrls(imgUrls);
                             }
-                            data.add(hospital);
+                            data.add(mark);
                         }
                         if (callback != null) callback.onSearchOk(data);
                     } else {
@@ -118,7 +118,7 @@ public class NearbySearchGetter implements PoiSearch.OnPoiSearchListener {
 
     public interface SearchCallback {
 
-        void onSearchOk(List<Hospital> data);
+        void onSearchOk(List<Mark> data);
         void onNetworkError();
         void onSearchFailure();
         void onSearchNoData();

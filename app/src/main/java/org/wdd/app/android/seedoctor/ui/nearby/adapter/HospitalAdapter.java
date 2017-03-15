@@ -16,7 +16,7 @@ import com.daimajia.swipe.SwipeLayout;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.gallery.activity.ImageBrowserActivity;
-import org.wdd.app.android.seedoctor.ui.nearby.model.Hospital;
+import org.wdd.app.android.seedoctor.ui.nearby.model.Mark;
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
@@ -26,12 +26,12 @@ import java.util.List;
  * Created by richard on 11/28/16.
  */
 
-public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
+public class HospitalAdapter extends AbstractCommonAdapter<Mark> {
 
     private Activity activity;
     private SwipeLayout openSwipeLayout;
 
-    public HospitalAdapter(Activity activity, List<Hospital> data) {
+    public HospitalAdapter(Activity activity, List<Mark> data) {
         super(activity, data);
         this.activity = activity;
     }
@@ -44,7 +44,7 @@ public class HospitalAdapter extends AbstractCommonAdapter<Hospital> {
     }
 
     @Override
-    protected void onBindDataViewHolder(final RecyclerView.ViewHolder holder, final Hospital hospital, int position) {
+    protected void onBindDataViewHolder(final RecyclerView.ViewHolder holder, final Mark hospital, int position) {
         final HospitalVH hospitalVH = (HospitalVH) holder;
         if (hospital.getImgUrls() != null && hospital.getImgUrls().length > 0) {
             hospitalVH.imageView.setImageUrl(hospital.getImgUrls()[0]);
