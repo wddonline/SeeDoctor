@@ -30,6 +30,7 @@ public class HospitalSearchGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private SearchCallback callback;
+    private HttpSession session;
 
     public HospitalSearchGetter(ActivityFragmentAvaliable host, Context context, SearchCallback callback) {
         this.host = host;
@@ -38,7 +39,8 @@ public class HospitalSearchGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession getHospitalList(String provinceid, String hospitallevel, String keyword, final boolean refresh) {
+    public void getHospitalList(String provinceid, String hospitallevel, String keyword, final boolean refresh) {
+        if (session != null) session.cancelRequest();
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
@@ -51,9 +53,10 @@ public class HospitalSearchGetter {
             requestEntry.addRequestParam("level", hospitallevel);
         }
         requestEntry.setUrl(ServiceApi.HOSPITAL_LIST);
-        HttpSession request = manager.sendHttpRequest(host, requestEntry, Hospital.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Hospital.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Hospital> data = (List<Hospital>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
@@ -65,6 +68,7 @@ public class HospitalSearchGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 page--;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
@@ -76,7 +80,12 @@ public class HospitalSearchGetter {
 
         });
         page++;
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public interface SearchCallback {

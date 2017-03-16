@@ -71,7 +71,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = s.toString();
                 if (TextUtils.isEmpty(name)) {
-                    presenter.destory();
+                    presenter.cancelRequest();
                     if (adapter == null) return;
                     diseases.clear();
                     adapter.notifyDataSetChanged();
@@ -97,7 +97,7 @@ public class DiseaseSearchActivity extends BaseActivity implements AbstractCommo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showDiseaseDataView(List<Disease> data, boolean refresh) {

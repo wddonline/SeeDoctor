@@ -73,7 +73,8 @@
         <activity android:name=".ui.me.activity.AboutDeveloperActivity" />
         <activity android:name=".ui.me.activity.AboutActivity" />
         <activity android:name=".ui.gallery.activity.ImageBrowserActivity" />
-        <activity android:name=".ui.routeline.activity.RideRouteDetailActivity"/>
+        <activity android:name=".ui.routeline.activity.RideRouteDetailActivity" />
+        <activity android:name=".ui.news.activity.NewsDetailActivity"/>
 
         <service android:name="com.amap.api.location.APSService" />
 

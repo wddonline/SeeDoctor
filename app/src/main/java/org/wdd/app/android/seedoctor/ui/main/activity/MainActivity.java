@@ -17,7 +17,7 @@ import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.fragment.WikiFragment;
 import org.wdd.app.android.seedoctor.ui.me.fragment.MeFragment;
 import org.wdd.app.android.seedoctor.ui.nearby.fragment.NearbyFragment;
-import org.wdd.app.android.seedoctor.ui.news.fragment.NewsFragment;
+import org.wdd.app.android.seedoctor.ui.news.fragment.NewsHomeFragment;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.BmobUtils;
 import org.wdd.app.android.seedoctor.views.XFragmentTabHost;
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements Runnable {
         int[] tabIcons = {R.drawable.icon_nearby, R.drawable.icon_news, R.drawable.icon_wiki, R.drawable.icon_me};
         int[] tabTxts = {R.string.nearby, R.string.news, R.string.wiki, R.string.me};
         String[] tabTags = {"nearby", "news", "wiki", "me"};
-        Class[] tabClasses = {NearbyFragment.class, NewsFragment.class, WikiFragment.class, MeFragment.class};
+        Class[] tabClasses = {NearbyFragment.class, NewsHomeFragment.class, WikiFragment.class, MeFragment.class};
 
         int tabCount = tabIcons.length;
 

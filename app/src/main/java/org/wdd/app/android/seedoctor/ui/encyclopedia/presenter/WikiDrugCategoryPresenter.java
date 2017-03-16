@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDrugCategoryActivity;
@@ -18,7 +17,6 @@ public class WikiDrugCategoryPresenter implements BasePresenter, WikiDrugCategor
 
     private WikiDrugCategoryActivity view;
     private WikiDrugCategoryGetter getter;
-    private HttpSession session;
 
     public WikiDrugCategoryPresenter(ActivityFragmentAvaliable host, WikiDrugCategoryActivity view) {
         this.view = view;
@@ -27,12 +25,11 @@ public class WikiDrugCategoryPresenter implements BasePresenter, WikiDrugCategor
     }
 
     public void getDrugCategoryListData() {
-        session = getter.requestDrugCategoryList();
+        getter.requestDrugCategoryList();
     }
 
     @Override
     public void onRequestOk(Map<String, Map<String, List<DrugCategory>>> data) {
-        session = null;
         if (data.size() == 0) {
             view.showNoDiseaseListResult();
             return;
@@ -42,17 +39,15 @@ public class WikiDrugCategoryPresenter implements BasePresenter, WikiDrugCategor
 
     @Override
     public void onRequestFailure(String error) {
-        session = null;
         view.showRequetErrorView(error);
     }
 
     @Override
     public void onNetworkError() {
-        session = null;
         view.showNetworkErrorView();
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

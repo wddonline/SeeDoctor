@@ -8,6 +8,7 @@ public class ServiceApi {
 
     private final static String BASE_URL = "http://api.niruoanhao.com/";
     private final static String BASE_URL_V4 = "http://api4.niruoanhao.com/";
+    private final static String BASE_NEWS_URL = "https://api.chunyuyisheng.com/";
 
     public final static String WIKI_DISEASE_LIST = BASE_URL + "wiki/diseaseList/";//疾病列表
     public final static String WIKI_DISEASE_DETAIL = BASE_URL_V4 + "disease/detail/";//疾病详情
@@ -27,5 +28,7 @@ public class ServiceApi {
     public final static String DOCTOR_DETAIL = BASE_URL + "doctor/detailInfo";//医生详情
     public final static String PROVINCE_LIST = BASE_URL + "wiki/area";//医院地区列表
 
+    public final static String NEWS_LIST = BASE_NEWS_URL + "community/v2/channel/detail/";//热门资讯
+    public final static String NEWS_DETAIL = BASE_NEWS_URL + "webapp/news/%1$s/detail/?w=%2$d&app=0&platform=android";//资讯详情
 
 }

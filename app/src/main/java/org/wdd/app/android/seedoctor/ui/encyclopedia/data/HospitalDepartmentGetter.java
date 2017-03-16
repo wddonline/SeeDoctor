@@ -26,6 +26,7 @@ public class HospitalDepartmentGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private DepartmentDataCallback callback;
+    private HttpSession session;
 
     public HospitalDepartmentGetter(ActivityFragmentAvaliable host, Context context) {
         this.host = host;
@@ -33,14 +34,15 @@ public class HospitalDepartmentGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDepartmentData(String hospitalid, String parenthosdepid) {
+    public void requestDepartmentData(String hospitalid, String parenthosdepid) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("hospitalid",  hospitalid);
         requestEntry.addRequestParam("parenthosdepid", parenthosdepid);
         requestEntry.setUrl(ServiceApi.HOSPITAL_DEPARTMENT);
-        final HttpSession request = manager.sendHttpRequest(host, requestEntry, Department.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Department.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Department> data = (List<Department>) res.getData();
                     if (callback != null) callback.onRequestOk(data);
@@ -51,6 +53,7 @@ public class HospitalDepartmentGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -60,7 +63,12 @@ public class HospitalDepartmentGetter {
             }
 
         });
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void setCallback(DepartmentDataCallback callback) {

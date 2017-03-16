@@ -26,6 +26,7 @@ public class HospitalFilterGetter {
     private DataCallback callback;
     private ActivityFragmentAvaliable host;
     private HttpManager manager;
+    private HttpSession session;
 
     public HospitalFilterGetter(ActivityFragmentAvaliable host, Context context, DataCallback callback) {
         this.host = host;
@@ -34,12 +35,13 @@ public class HospitalFilterGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestHospitalDetailData() {
+    public void requestHospitalDetailData() {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.PROVINCE_LIST);
-        HttpSession session = manager.sendHttpRequest(host, requestEntry, Province.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Province.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Province> provinces = (List<Province>) res.getData();
                     callback.onRequestOk(provinces);
@@ -50,6 +52,7 @@ public class HospitalFilterGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -59,7 +62,12 @@ public class HospitalFilterGetter {
             }
 
         });
-        return session;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public interface DataCallback {

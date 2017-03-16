@@ -28,6 +28,7 @@ public class WikiDiseaseGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private WikiDiseaseDataCallback callback;
+    private HttpSession session;
 
     private int page = 1;
 
@@ -37,15 +38,16 @@ public class WikiDiseaseGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDiseaseList(final boolean refresh) {
+    public void requestDiseaseList(final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
         requestEntry.setUrl(ServiceApi.WIKI_DISEASE_LIST);
-        HttpSession request = manager.sendHttpRequest(host, requestEntry, Disease.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Disease.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Disease> data = (List<Disease>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
@@ -57,6 +59,7 @@ public class WikiDiseaseGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 page--;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
@@ -68,7 +71,12 @@ public class WikiDiseaseGetter {
 
         });
         page++;
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void setCallback(WikiDiseaseDataCallback callback) {

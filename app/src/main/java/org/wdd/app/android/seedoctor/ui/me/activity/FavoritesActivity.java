@@ -3,13 +3,11 @@ package org.wdd.app.android.seedoctor.ui.me.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class FavoritesActivity extends BaseActivity {
 
@@ -34,7 +32,6 @@ public class FavoritesActivity extends BaseActivity {
 
     private void initTitiles() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_favorites_toolbar);
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back);;

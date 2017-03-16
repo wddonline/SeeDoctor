@@ -28,6 +28,7 @@ public class HospitalDetailGetter {
     private ActivityFragmentAvaliable host;
     private HospitalDbManager dbManager;
     private HttpManager manager;
+    private HttpSession session;
 
     public HospitalDetailGetter(ActivityFragmentAvaliable host, Context context, HospitalDetailCallback callback) {
         this.host = host;
@@ -37,13 +38,14 @@ public class HospitalDetailGetter {
         dbManager = new HospitalDbManager(context);
     }
 
-    public HttpSession requestHospitalDetailData(String hospitalid) {
+    public void requestHospitalDetailData(String hospitalid) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.HOSPITAL_DETAIL);
         requestEntry.addRequestParam("hospitalid", hospitalid);
-        HttpSession session = manager.sendHttpRequest(host, requestEntry, HospitalDetail.class, new HttpConnectCallback() {
+        manager.sendHttpRequest(host, requestEntry, HospitalDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     HospitalDetail hospitalDetail = (HospitalDetail) res.getData();
                     callback.onRequestOk(hospitalDetail);
@@ -54,6 +56,7 @@ public class HospitalDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -63,7 +66,12 @@ public class HospitalDetailGetter {
             }
 
         });
-        return session;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void getCollectionStatus(String hospitalid) {

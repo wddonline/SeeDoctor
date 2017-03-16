@@ -27,6 +27,11 @@ public class WelcomePresenter implements BasePresenter, LocationFinder.LocationL
         finder.start();
     }
 
+    @Override
+    public void cancelRequest() {
+
+    }
+
     public void destory() {
         finder.removeLocationListener(this);
     }

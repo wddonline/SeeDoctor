@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.web.activity.WebActivity;
 import org.wdd.app.android.seedoctor.utils.AppUtils;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class AboutAppActivity extends BaseActivity {
 
@@ -40,7 +38,6 @@ public class AboutAppActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setTitle("");
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

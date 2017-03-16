@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.RelativeDiseaseListActivity;
@@ -17,7 +16,6 @@ public class RelativeDiseaseListPresenter implements BasePresenter, RelativeDise
 
     private RelativeDiseaseListActivity view;
     private RelativeDiseaseListGetter getter;
-    private HttpSession session;
 
     public RelativeDiseaseListPresenter(ActivityFragmentAvaliable host, RelativeDiseaseListActivity view) {
         this.view = view;
@@ -26,12 +24,11 @@ public class RelativeDiseaseListPresenter implements BasePresenter, RelativeDise
     }
 
     public void getDiseaseListData(String drugid, String departmentid, boolean refresh) {
-        session = getter.requestDiseaseList(drugid, departmentid, refresh);
+        getter.requestDiseaseList(drugid, departmentid, refresh);
     }
 
     @Override
     public void onRequestOk(List<Disease> data, boolean refresh) {
-        session = null;
         if (data.size() == 0) {
             view.showNoDrugListResult(refresh);
             return;
@@ -41,17 +38,15 @@ public class RelativeDiseaseListPresenter implements BasePresenter, RelativeDise
 
     @Override
     public void onRequestFailure(String error, boolean refresh) {
-        session = null;
         view.showRequetErrorView(error, refresh);
     }
 
     @Override
     public void onNetworkError(boolean refresh) {
-        session = null;
         view.showNetworkErrorView(refresh);
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

@@ -96,7 +96,7 @@ public class WikiDrugCategoryActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showDiseaseListData(Map<String, Map<String, List<DrugCategory>>> data) {

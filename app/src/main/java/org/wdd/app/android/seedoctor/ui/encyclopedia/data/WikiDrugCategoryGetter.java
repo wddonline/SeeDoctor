@@ -32,6 +32,7 @@ public class WikiDrugCategoryGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private WikiDrugCategoryDataCallback callback;
+    private HttpSession session;
 
     public WikiDrugCategoryGetter(ActivityFragmentAvaliable host, Context context) {
         this.host = host;
@@ -39,12 +40,13 @@ public class WikiDrugCategoryGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDrugCategoryList() {
+    public void requestDrugCategoryList() {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_CATEGORY_LIST);
-        final HttpSession request = manager.sendHttpRequest(host, requestEntry, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     String jsonStr = (String) res.getData();
                     try {
@@ -104,6 +106,7 @@ public class WikiDrugCategoryGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -113,7 +116,12 @@ public class WikiDrugCategoryGetter {
             }
 
         });
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void setCallback(WikiDrugCategoryDataCallback callback) {

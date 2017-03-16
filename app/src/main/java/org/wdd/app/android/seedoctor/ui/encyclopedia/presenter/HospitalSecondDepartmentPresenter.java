@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity;
@@ -17,7 +16,6 @@ public class HospitalSecondDepartmentPresenter implements BasePresenter, Hospita
 
     private HospitalSecondDepartmentAdtivity view;
     private HospitalDepartmentGetter getter;
-    private HttpSession session;
 
     public HospitalSecondDepartmentPresenter(ActivityFragmentAvaliable host, HospitalSecondDepartmentAdtivity view) {
         this.view = view;
@@ -26,12 +24,11 @@ public class HospitalSecondDepartmentPresenter implements BasePresenter, Hospita
     }
 
     public void getDepartmentListData(String hospitalid, String parenthosdepid) {
-        session = getter.requestDepartmentData(hospitalid, parenthosdepid);
+        getter.requestDepartmentData(hospitalid, parenthosdepid);
     }
 
     @Override
     public void onRequestOk(List<Department> data) {
-        session = null;
         if (data.size() == 0) {
             view.showNoDoctorListResult();
             return;
@@ -41,17 +38,15 @@ public class HospitalSecondDepartmentPresenter implements BasePresenter, Hospita
 
     @Override
     public void onRequestFailure(String error) {
-        session = null;
         view.showRequetErrorView(error);
     }
 
     @Override
     public void onNetworkError() {
-        session = null;
         view.showNetworkErrorView();
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

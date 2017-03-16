@@ -30,6 +30,11 @@ public class NearbyHospitalMapPresenter implements BasePresenter, HospitalMapDat
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onSearchOk(List<PoiItem> data) {
         view.showHospitalMarker(data);
     }

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
@@ -18,8 +17,8 @@ import java.util.List;
 
 public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final int TYPE_DATA = 0;
-    private final int TYPE_MORE = 1;
+    private final int TYPE_DATA = -1;
+    private final int TYPE_MORE = -2;
 
     public enum LoadStatus {
         Normal, Loading, NoMore
@@ -29,6 +28,10 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
     protected List<T> data;
     private AbstractCommonAdapter.OnLoadMoreListener loadMoreListener;
     private AbstractCommonAdapter.LoadStatus status = AbstractCommonAdapter.LoadStatus.Normal;
+
+    public AbstractCommonAdapter(Context context) {
+        this.context = context;
+    }
 
     public AbstractCommonAdapter(Context context, List<T> data) {
         this.context = context;
@@ -83,8 +86,12 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
 
     @Override
     public int getItemViewType(int position) {
-        if (status == LoadStatus.NoMore) return TYPE_DATA;
-        return position == data.size() ? TYPE_MORE : TYPE_DATA;
+        if (status == LoadStatus.NoMore) return getSubItemViewType(position);
+        return position == data.size() ? TYPE_MORE : getSubItemViewType(position);
+    }
+
+    protected int getSubItemViewType(int position) {
+        return TYPE_DATA;
     }
 
     public void setOnLoadMoreListener(AbstractCommonAdapter.OnLoadMoreListener loadMoreListener) {
@@ -94,6 +101,10 @@ public abstract class AbstractCommonAdapter<T> extends RecyclerView.Adapter<Recy
     public void setLoadStatus(AbstractCommonAdapter.LoadStatus status) {
         this.status = status;
         notifyItemChanged(data.size());
+    }
+
+    protected void setStatus(AbstractCommonAdapter.LoadStatus status) {
+        this.status = status;
     }
 
     public LoadStatus getLoadStatus() {

@@ -116,7 +116,7 @@ public class DoctorDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     @Override

@@ -34,6 +34,11 @@ public class FavoritesDiseasePresenter implements BasePresenter, FavoritesDiseas
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onDataGetted(List<DbDisease> data) {
         view.bindDiseaseListViews(data);
     }

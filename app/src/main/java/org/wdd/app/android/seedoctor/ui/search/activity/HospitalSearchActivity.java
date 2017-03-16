@@ -74,7 +74,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String name = s.toString();
                 if (TextUtils.isEmpty(name)) {
-                    presenter.destory();
+                    presenter.cancelRequest();
                     if (adapter == null) return;
                     doctors.clear();
                     adapter.notifyDataSetChanged();
@@ -100,7 +100,7 @@ public class HospitalSearchActivity extends BaseActivity implements AbstractComm
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showHospitalDataView(List<Hospital> data, boolean refresh) {

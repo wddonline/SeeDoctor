@@ -33,6 +33,11 @@ public class NearbyHospitalListPresenter implements BasePresenter, HospitalListD
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onSearchOk(List<Mark> data) {
         view.appendHospitalList(data);
     }

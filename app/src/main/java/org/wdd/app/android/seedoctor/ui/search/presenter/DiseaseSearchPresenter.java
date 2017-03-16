@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.search.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
@@ -19,37 +18,31 @@ public class DiseaseSearchPresenter implements BasePresenter, DiseaseSearchGette
     private DiseaseSearchActivity view;
     private DiseaseSearchGetter getter;
 
-    private HttpSession session = null;
-
     public DiseaseSearchPresenter(ActivityFragmentAvaliable host, DiseaseSearchActivity view) {
         this.view = view;
         getter = new DiseaseSearchGetter(host, view, this);
     }
 
     public void searchDiseaseByName(String keyword, boolean refresh) {
-        if (session != null) session.cancelRequest();
-        session = getter.getDiseaseListByName(keyword, refresh);
+        getter.getDiseaseListByName(keyword, refresh);
     }
 
     @Override
     public void onRequestOk(List<Disease> data, boolean refresh) {
-        session = null;
         view.showDiseaseDataView(data, refresh);
     }
 
     @Override
     public void onRequestFailure(String error, boolean refresh) {
-        session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Request_Failure, refresh);
     }
 
     @Override
     public void onNetworkError(boolean refresh) {
-        session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Network_Error, refresh);
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

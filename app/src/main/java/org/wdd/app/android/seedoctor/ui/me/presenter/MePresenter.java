@@ -48,6 +48,10 @@ public class MePresenter implements BasePresenter, AppDiskCacheManeger.AppDiskCa
         });
     }
 
+    @Override
+    public void cancelRequest() {
+
+    }
 
     public void cleanDiskCache() {
         cacheManeger.cleanDiskCache();

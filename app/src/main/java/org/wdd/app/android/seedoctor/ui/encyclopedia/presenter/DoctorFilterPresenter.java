@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DoctorFilterActivity;
@@ -17,7 +16,6 @@ public class DoctorFilterPresenter implements BasePresenter, HospitalFilterGette
 
     private DoctorFilterActivity view;
     private HospitalFilterGetter getter;
-    private HttpSession session;
 
     public DoctorFilterPresenter(ActivityFragmentAvaliable host, DoctorFilterActivity view) {
         this.view = view;
@@ -25,29 +23,25 @@ public class DoctorFilterPresenter implements BasePresenter, HospitalFilterGette
     }
 
     public void getProvinceData() {
-        session = getter.requestHospitalDetailData();
+        getter.requestHospitalDetailData();
     }
 
-    public void destory() {
-        if (session == null) return;
-        session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 
     @Override
     public void onRequestOk(List<Province> data) {
-        session = null;
         view.showProvinceViews(data);
     }
 
     @Override
     public void onRequestFailure(String error) {
-        session = null;
         view.showRequestErrorViews(error);
     }
 
     @Override
     public void onNetworkError() {
-        session = null;
         view.showNetworkErrorViews();
     }
 }

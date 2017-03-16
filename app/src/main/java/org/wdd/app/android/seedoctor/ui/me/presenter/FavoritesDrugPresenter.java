@@ -34,6 +34,11 @@ public class FavoritesDrugPresenter implements BasePresenter, FavoritesDrugDataG
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onDataGetted(List<DbDrug> data) {
         view.bindDrugListViews(data);
     }

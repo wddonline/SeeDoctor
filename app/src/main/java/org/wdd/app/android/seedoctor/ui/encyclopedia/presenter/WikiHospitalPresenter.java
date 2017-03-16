@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiHospitalActivity;
@@ -17,7 +16,6 @@ public class WikiHospitalPresenter implements BasePresenter, WikiHospitalGetter.
 
     private WikiHospitalActivity view;
     private WikiHospitalGetter getter;
-    private HttpSession session;
 
     public WikiHospitalPresenter(ActivityFragmentAvaliable host, WikiHospitalActivity view) {
         this.view = view;
@@ -26,12 +24,11 @@ public class WikiHospitalPresenter implements BasePresenter, WikiHospitalGetter.
     }
 
     public void getHospitalListData(String provinceid, String hospitallevel, boolean refresh) {
-        session = getter.requestHospitalList(provinceid, hospitallevel, refresh);
+        getter.requestHospitalList(provinceid, hospitallevel, refresh);
     }
 
     @Override
     public void onRequestOk(List<Hospital> data, boolean refresh) {
-        session = null;
         if (data.size() == 0) {
             view.showNoHospitalListResult(refresh);
             return;
@@ -41,17 +38,15 @@ public class WikiHospitalPresenter implements BasePresenter, WikiHospitalGetter.
 
     @Override
     public void onRequestFailure(String error, boolean refresh) {
-        session = null;
         view.showRequetErrorView(error, refresh);
     }
 
     @Override
     public void onNetworkError(boolean refresh) {
-        session = null;
         view.showNetworkErrorView(refresh);
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

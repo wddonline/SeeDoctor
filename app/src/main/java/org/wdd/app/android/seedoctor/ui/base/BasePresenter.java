@@ -5,4 +5,7 @@ package org.wdd.app.android.seedoctor.ui.base;
  */
 
 public interface BasePresenter {
+
+    void cancelRequest();
+
 }

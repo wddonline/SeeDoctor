@@ -28,6 +28,7 @@ public class DrugDetailGetter {
     private ActivityFragmentAvaliable host;
     private HttpManager manager;
     private DrugDbManager dbManager;
+    private HttpSession session;
 
     public DrugDetailGetter(ActivityFragmentAvaliable host, Context context, DrugDetailCallback callback) {
         this.host = host;
@@ -37,13 +38,14 @@ public class DrugDetailGetter {
         dbManager = new DrugDbManager(context);
     }
 
-    public HttpSession requestDrugDetailData(String drugId) {
+    public void requestDrugDetailData(String drugId) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_DETAIL);
         requestEntry.addRequestParam("drugid", drugId);
-        HttpSession session = manager.sendHttpRequest(host, requestEntry, DrugDetail.class, new HttpConnectCallback() {
+        manager.sendHttpRequest(host, requestEntry, DrugDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     DrugDetail diseaseDetail = (DrugDetail) res.getData();
                     callback.onRequestOk(diseaseDetail);
@@ -54,6 +56,7 @@ public class DrugDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -63,7 +66,12 @@ public class DrugDetailGetter {
             }
 
         });
-        return session;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void getCollectionStatus(String drugid) {

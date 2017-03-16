@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -13,17 +14,21 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -178,6 +183,15 @@ public class BannerLayout extends RelativeLayout {
 
     }
 
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+        pager.setCurrentItem(currentPosition);
+    }
+
     @NonNull
     private ImageView getImageView(Integer res, final int position) {
         NetworkImageView imageView = new NetworkImageView(getContext());
@@ -203,7 +217,6 @@ public class BannerLayout extends RelativeLayout {
         return imageView;
     }
 
-    @NonNull
     private ImageView getImageView(String url, final int position) {
         NetworkImageView imageView = new NetworkImageView(getContext());
         imageView.setAdjustViewBounds(true);
@@ -221,6 +234,39 @@ public class BannerLayout extends RelativeLayout {
         }
         imageView.setImageUrl(url);
         return imageView;
+    }
+
+    @NonNull
+    private FrameLayout getImageView(String url, String title, final int position) {
+        FrameLayout container = new FrameLayout(getContext());
+        NetworkImageView imageView = new NetworkImageView(getContext());
+        imageView.setAdjustViewBounds(true);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBannerItemClickListener != null) {
+                    onBannerItemClickListener.onItemClick(position);
+                }
+            }
+        });
+        if (defaultImage != 0){
+            imageView.setImageResource(defaultImage);
+        }
+        imageView.setImageUrl(url);
+        container.addView(imageView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        TextView titleView = new TextView(getContext());
+        titleView.setTextColor(Color.WHITE);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+        titleView.setText(title);
+        titleView.setBackgroundResource(R.drawable.mask);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        int hPadding = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        int vPadding = DensityUtils.dip2px(getContext(), 20);
+        titleView.setPadding(hPadding, vPadding, hPadding, vPadding);
+        lp.gravity = Gravity.BOTTOM;
+        container.addView(titleView, lp);
+        return container;
     }
 
     //添加本地图片路径
@@ -247,8 +293,7 @@ public class BannerLayout extends RelativeLayout {
         setSubViews(views);
     }
 
-    //添加网络图片路径
-    public void setViewUrls(List<String> urls) {
+    public void setViewUrls(List<String> urls, List<String> titles) {
         removeAllViews();
         stopAutoPlay();
         if (pager != null) {
@@ -262,20 +307,44 @@ public class BannerLayout extends RelativeLayout {
 //            throw new IllegalStateException("item count not equal zero");
             return;
         } else if (itemCount < 2) { //当item个数为1
-            views.add(getImageView(urls.get(0), 0));
-            views.add(getImageView(urls.get(0), 0));
-            views.add(getImageView(urls.get(0), 0));
+            if (titles == null) {
+                views.add(getImageView(urls.get(0), 0));
+                views.add(getImageView(urls.get(0), 0));
+                views.add(getImageView(urls.get(0), 0));
+            } else {
+                views.add(getImageView(urls.get(0), titles.get(0), 0));
+                views.add(getImageView(urls.get(0), titles.get(0), 0));
+                views.add(getImageView(urls.get(0), titles.get(0), 0));
+            }
         } else if (itemCount < 3) {//当item个数为2
-            views.add(getImageView(urls.get(0), 0));
-            views.add(getImageView(urls.get(1), 1));
-            views.add(getImageView(urls.get(0), 0));
-            views.add(getImageView(urls.get(1), 1));
+            if (titles == null) {
+                views.add(getImageView(urls.get(0), 0));
+                views.add(getImageView(urls.get(1), 1));
+                views.add(getImageView(urls.get(0), 0));
+                views.add(getImageView(urls.get(1), 1));
+            } else {
+                views.add(getImageView(urls.get(0), titles.get(0), 0));
+                views.add(getImageView(urls.get(1), titles.get(1), 1));
+                views.add(getImageView(urls.get(0), titles.get(0), 0));
+                views.add(getImageView(urls.get(1), titles.get(1), 1));
+            }
         } else {
-            for (int i = 0; i < urls.size(); i++) {
-                views.add(getImageView(urls.get(i), i));
+            if (titles == null) {
+                for (int i = 0; i < urls.size(); i++) {
+                    views.add(getImageView(urls.get(i), i));
+                }
+            } else {
+                for (int i = 0; i < urls.size(); i++) {
+                    views.add(getImageView(urls.get(i), titles.get(i), i));
+                }
             }
         }
         setSubViews(views);
+    }
+
+    //添加网络图片路径
+    public void setViewUrls(List<String> urls) {
+        setViewUrls(urls, null);
     }
 
     //添加任意View视图

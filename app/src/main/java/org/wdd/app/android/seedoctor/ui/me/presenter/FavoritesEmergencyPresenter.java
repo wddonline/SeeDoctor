@@ -34,6 +34,11 @@ public class FavoritesEmergencyPresenter implements BasePresenter, FavoritesEmer
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onDataGetted(List<DbEmergency> data) {
         view.bindEmergencyListViews(data);
     }

@@ -18,7 +18,6 @@ import android.widget.RadioGroup;
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class ProfileEditActivity extends BaseActivity {
 
@@ -60,7 +59,6 @@ public class ProfileEditActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationIcon(R.mipmap.back);;
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,7 +3,6 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +20,6 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Disease;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.WikiDiseasePresenter;
 import org.wdd.app.android.seedoctor.ui.search.activity.DiseaseSearchActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -56,7 +54,6 @@ public class WikiDiseaseActivity extends BaseActivity {
     private void initTitle() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_wiki_disease_toolbar);
         setSupportActionBar(toolbar);
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -105,7 +102,7 @@ public class WikiDiseaseActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showDiseaseListData(List<Disease> data, boolean refresh) {

@@ -87,7 +87,7 @@ public class HospitalDoctorFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showNoDoctorListResult() {

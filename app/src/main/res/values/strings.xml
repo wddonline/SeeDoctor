@@ -49,6 +49,9 @@
     <string name="go_there">前往</string>
     <string name="make_a_call">打电话</string>
 
+    <!-- 资讯 -->
+    <string name="healthy_news">健康资讯</string>
+
     <!-- 搜索 -->
     <string name="search">搜索</string>
     <string name="nearby_search_hint">输入医院或者药店的名称</string>

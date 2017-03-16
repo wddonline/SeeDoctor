@@ -195,7 +195,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showRequestErrorViews(String errorMsg) {

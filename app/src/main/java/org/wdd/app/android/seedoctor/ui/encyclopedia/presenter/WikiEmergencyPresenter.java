@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
+import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiEmergencyActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiEmergencyGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Emergency;
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by richard on 1/3/17.
  */
 
-public class WikiEmergencyPresenter implements WikiEmergencyGetter.EmergencyCallback {
+public class WikiEmergencyPresenter implements BasePresenter, WikiEmergencyGetter.EmergencyCallback {
 
     private WikiEmergencyActivity view;
     private WikiEmergencyGetter getter;
@@ -28,7 +29,7 @@ public class WikiEmergencyPresenter implements WikiEmergencyGetter.EmergencyCall
         session = getter.requestEmergencyData();
     }
 
-    public void destory() {
+    public void cancelRequest() {
         if (session != null) {
             session.cancelRequest();
         }

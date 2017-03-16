@@ -26,6 +26,11 @@ public class RouteLinePresenter implements BasePresenter, RouteLineDataGetter.Se
         dataGetter.addCallback(this);
     }
 
+    @Override
+    public void cancelRequest() {
+        
+    }
+
     public void searchBusRouteLineData() {
         dataGetter.searchBusRouteLineData();
     }

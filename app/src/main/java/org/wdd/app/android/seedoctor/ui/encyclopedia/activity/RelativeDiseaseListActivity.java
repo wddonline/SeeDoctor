@@ -117,7 +117,7 @@ public class RelativeDiseaseListActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showDiseaseListData(List<Disease> data, boolean refresh) {

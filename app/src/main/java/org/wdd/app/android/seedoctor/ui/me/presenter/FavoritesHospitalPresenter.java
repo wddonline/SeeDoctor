@@ -34,6 +34,11 @@ public class FavoritesHospitalPresenter implements BasePresenter, FavoritesHospi
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onDataGetted(List<DbHospital> data) {
         view.bindHospitalListViews(data);
     }

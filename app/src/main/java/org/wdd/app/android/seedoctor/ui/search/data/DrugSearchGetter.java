@@ -29,6 +29,7 @@ public class DrugSearchGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private SearchCallback callback;
+    private HttpSession session;
 
     public DrugSearchGetter(ActivityFragmentAvaliable host, Context context, SearchCallback callback) {
         this.host = host;
@@ -37,16 +38,18 @@ public class DrugSearchGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession getDrugListByName(String keyword, final boolean refresh) {
+    public void getDrugListByName(String keyword, final boolean refresh) {
+        if (session != null) session.cancelRequest();
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("keyword", keyword);
         requestEntry.addRequestParam("pagesize", PAGE_SISE + "");
         requestEntry.setUrl(ServiceApi.WIKI_DRUG_LIST);
-        HttpSession request = manager.sendHttpRequest(host, requestEntry, Drug.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Drug.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Drug> data = (List<Drug>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
@@ -58,6 +61,7 @@ public class DrugSearchGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 page--;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
@@ -68,7 +72,12 @@ public class DrugSearchGetter {
             }
         });
         page++;
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public interface SearchCallback {

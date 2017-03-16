@@ -1,7 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.search.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Doctor;
@@ -20,37 +18,31 @@ public class DoctorSearchPresenter implements BasePresenter, DoctorSearchGetter.
     private DoctorSearchActivity view;
     private DoctorSearchGetter getter;
 
-    private HttpSession session = null;
-
     public DoctorSearchPresenter(ActivityFragmentAvaliable host, DoctorSearchActivity view) {
         this.view = view;
         getter = new DoctorSearchGetter(host, view, this);
     }
 
     public void searchDoctorByName(String provinceid, String hospitallevel, String keyword, boolean refresh) {
-        if (session != null) session.cancelRequest();
-        session = getter.getDoctorList(provinceid, hospitallevel, keyword, refresh);
+        getter.getDoctorList(provinceid, hospitallevel, keyword, refresh);
     }
 
     @Override
     public void onRequestOk(List<Doctor> data, boolean refresh) {
-        session = null;
         view.showDoctorDataView(data, refresh);
     }
 
     @Override
     public void onRequestFailure(String error, boolean refresh) {
-        session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Request_Failure, refresh);
     }
 
     @Override
     public void onNetworkError(boolean refresh) {
-        session = null;
         view.handleRequestErrorViews(LoadView.LoadStatus.Network_Error, refresh);
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

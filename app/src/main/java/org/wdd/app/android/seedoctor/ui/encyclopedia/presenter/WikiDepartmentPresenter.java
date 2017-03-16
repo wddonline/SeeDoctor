@@ -2,6 +2,7 @@ package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
 import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
+import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDepartmentActivity;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.data.WikiDepartmentGetter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.model.Department;
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by richard on 1/3/17.
  */
 
-public class WikiDepartmentPresenter implements WikiDepartmentGetter.DepartmentCallback {
+public class WikiDepartmentPresenter implements BasePresenter, WikiDepartmentGetter.DepartmentCallback {
 
     private WikiDepartmentActivity view;
     private WikiDepartmentGetter getter;
@@ -28,7 +29,7 @@ public class WikiDepartmentPresenter implements WikiDepartmentGetter.DepartmentC
         session = getter.requestDepartmentData();
     }
 
-    public void destory() {
+    public void cancelRequest() {
         if (session != null) {
             session.cancelRequest();
         }

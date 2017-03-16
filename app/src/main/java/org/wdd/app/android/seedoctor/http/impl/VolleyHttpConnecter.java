@@ -190,18 +190,31 @@ public class VolleyHttpConnecter implements HttpConnecter {
 
     private void handleResponse(String txt, HttpConnectCallback callback) {
         JSONObject json = JSONObject.parseObject(txt);
-        int status = json.getInteger("status");
+        if (json.containsKey("status")) {
+            int status = json.getInteger("status");
 
-        if (status == 1) {//请求成功
-            String data = json.getString("data");
-            HttpResponseEntry responseEntry = new HttpResponseEntry();
-            responseEntry.setStatusCode(StatusCode.HTTP_OK);
-            responseEntry.setData(data);
-            callback.onRequestOk(responseEntry);
+            if (status == 1) {//请求成功
+                String data = json.getString("data");
+                HttpResponseEntry responseEntry = new HttpResponseEntry();
+                responseEntry.setStatusCode(StatusCode.HTTP_OK);
+                responseEntry.setData(data);
+                callback.onRequestOk(responseEntry);
 
-        } else {//请求失败
-            HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("msg"));
-            callback.onRequestFailure(error);
+            } else {//请求失败
+                HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("msg"));
+                callback.onRequestFailure(error);
+            }
+        } else {
+            boolean success = json.getBoolean("success");
+            if (success) {
+                HttpResponseEntry responseEntry = new HttpResponseEntry();
+                responseEntry.setStatusCode(StatusCode.HTTP_OK);
+                responseEntry.setData(json);
+                callback.onRequestOk(responseEntry);
+            } else {
+                HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("error_msg"));
+                callback.onRequestFailure(error);
+            }
         }
     }
 

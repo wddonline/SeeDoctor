@@ -106,7 +106,7 @@ public class WikiEmergencyActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showNoDataViews() {

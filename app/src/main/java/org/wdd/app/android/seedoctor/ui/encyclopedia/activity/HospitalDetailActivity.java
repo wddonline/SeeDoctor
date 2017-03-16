@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,10 +29,9 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.presenter.HospitalDetailPre
 import org.wdd.app.android.seedoctor.ui.routeline.activity.RouteLineActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.utils.AppUtils;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.ActionSheet;
-import org.wdd.app.android.seedoctor.views.NetworkImageView;
 import org.wdd.app.android.seedoctor.views.LoadView;
+import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,11 +92,9 @@ public class HospitalDetailActivity extends BaseActivity {
 
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_hospital_detail_toolbar);
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(getBaseContext(), 3));
         toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         final TextView titleView = (TextView) findViewById(R.id.activity_hospital_detail_title);
         titleView.setText(hospitalname);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -182,7 +178,7 @@ public class HospitalDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showHospitalDetalViews(HospitalDetail detail) {

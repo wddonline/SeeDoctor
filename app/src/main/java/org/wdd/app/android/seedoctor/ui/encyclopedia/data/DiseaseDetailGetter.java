@@ -28,6 +28,7 @@ public class DiseaseDetailGetter {
     private DiseaseDbManager dbManager;
     private DiseaseDetailCallback callback;
     private HttpManager manager;
+    private HttpSession session;
 
     public DiseaseDetailGetter(ActivityFragmentAvaliable host, Context context, DiseaseDetailCallback callback) {
         this.host = host;
@@ -37,13 +38,14 @@ public class DiseaseDetailGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDiseaseDetailData(String diseaseId) {
+    public void requestDiseaseDetailData(String diseaseId) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.setUrl(ServiceApi.WIKI_DISEASE_DETAIL);
         requestEntry.addRequestParam("diseaseid", diseaseId);
-        HttpSession session = manager.sendHttpRequest(host, requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, DiseaseDetail.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     DiseaseDetail diseaseDetail = (DiseaseDetail) res.getData();
                     callback.onRequestOk(diseaseDetail);
@@ -54,6 +56,7 @@ public class DiseaseDetailGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
                     callback.onNetworkError();
@@ -63,7 +66,12 @@ public class DiseaseDetailGetter {
             }
 
         });
-        return session;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void getCollectionStatus(String diseaseId) {

@@ -34,6 +34,10 @@ public class FavoritesDepartmentPresenter implements BasePresenter, FavoritesDep
     }
 
     @Override
+    public void cancelRequest() {
+    }
+
+    @Override
     public void onDataGetted(List<DbDepartment> data) {
         view.bindDepartmentListViews(data);
     }

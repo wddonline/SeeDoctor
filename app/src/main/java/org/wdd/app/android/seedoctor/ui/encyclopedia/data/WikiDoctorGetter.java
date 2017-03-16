@@ -29,6 +29,7 @@ public class WikiDoctorGetter {
     private HttpManager manager;
     private ActivityFragmentAvaliable host;
     private WikiDoctorDataCallback callback;
+    private HttpSession session;
 
     private int page = 1;
 
@@ -38,7 +39,7 @@ public class WikiDoctorGetter {
         manager = HttpManager.getInstance(context);
     }
 
-    public HttpSession requestDoctorList(String hospitalid) {
+    public void requestDoctorList(String hospitalid) {
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
         requestEntry.addRequestParam("pagesize", PAGE_SIZE + "");
@@ -46,9 +47,10 @@ public class WikiDoctorGetter {
             requestEntry.addRequestParam("hospitalid", hospitalid);
         }
         requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
-        HttpSession request = manager.sendHttpRequest(host, requestEntry, Doctor.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Doctor.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Doctor> data = (List<Doctor>) res.getData();
                     if (callback != null) callback.onRequestOk(data, false);
@@ -60,6 +62,7 @@ public class WikiDoctorGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 page--;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
@@ -71,10 +74,9 @@ public class WikiDoctorGetter {
 
         });
         page++;
-        return request;
     }
 
-    public HttpSession requestDoctorList(String provinceid, String hospitallevel, String doclevelid, final boolean refresh) {
+    public void requestDoctorList(String provinceid, String hospitallevel, String doclevelid, final boolean refresh) {
         if (refresh) page = 1;
         HttpRequestEntry requestEntry = new HttpRequestEntry();
         requestEntry.addRequestParam("page", page + "");
@@ -89,9 +91,10 @@ public class WikiDoctorGetter {
             requestEntry.addRequestParam("doclevelid", doclevelid);
         }
         requestEntry.setUrl(ServiceApi.DOCTOR_LIST);
-        HttpSession request = manager.sendHttpRequest(host, requestEntry, Doctor.class, new HttpConnectCallback() {
+        session = manager.sendHttpRequest(host, requestEntry, Doctor.class, new HttpConnectCallback() {
             @Override
             public void onRequestOk(HttpResponseEntry res) {
+                session = null;
                 if (res.getData() != null) {
                     List<Doctor> data = (List<Doctor>) res.getData();
                     if (callback != null) callback.onRequestOk(data, refresh);
@@ -103,6 +106,7 @@ public class WikiDoctorGetter {
 
             @Override
             public void onRequestFailure(HttpError error) {
+                session = null;
                 page--;
                 if (callback == null) return;
                 if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
@@ -114,7 +118,12 @@ public class WikiDoctorGetter {
 
         });
         page++;
-        return request;
+    }
+
+    public void cancelRequest() {
+        if (session == null) return;
+        session.cancelRequest();
+        session = null;
     }
 
     public void setCallback(WikiDoctorDataCallback callback) {

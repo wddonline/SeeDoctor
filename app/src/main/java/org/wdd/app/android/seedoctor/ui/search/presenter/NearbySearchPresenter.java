@@ -28,6 +28,11 @@ public class NearbySearchPresenter implements BasePresenter, NearbySearchGetter.
     }
 
     @Override
+    public void cancelRequest() {
+
+    }
+
+    @Override
     public void onSearchOk(List<Mark> data) {
         view.showHospitalDataView(data);
     }

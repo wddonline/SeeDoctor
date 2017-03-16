@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 
 public class WebActivity extends BaseActivity {
 
@@ -55,7 +52,6 @@ public class WebActivity extends BaseActivity {
                 finish();
             }
         });
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
 
         String title = getIntent().getStringExtra("title");
         TextView titileView = (TextView) findViewById(R.id.activity_web_title);

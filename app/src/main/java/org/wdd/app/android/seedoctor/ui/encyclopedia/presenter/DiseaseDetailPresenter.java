@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DiseaseDetailActivity;
@@ -15,7 +14,6 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
 
     private DiseaseDetailActivity view;
     private DiseaseDetailGetter getter;
-    private HttpSession session;
 
     public DiseaseDetailPresenter(ActivityFragmentAvaliable host, DiseaseDetailActivity view) {
         this.view = view;
@@ -23,7 +21,7 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     }
 
     public void getDiseaseDetailData(String diseaseId) {
-        session = getter.requestDiseaseDetailData(diseaseId);
+        getter.requestDiseaseDetailData(diseaseId);
     }
 
     public void getCollectionStatus(String departmentid) {
@@ -38,26 +36,23 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
         getter.uncollectDisease(departmentid);
     }
 
-    public void destory() {
-        if (session == null) return;
-        session.cancelRequest();
+    @Override
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 
     @Override
     public void onRequestOk(DiseaseDetail data) {
-        session = null;
         view.showDiseaseDetalViews(data);
     }
 
     @Override
     public void onRequestFailure(String error) {
-        session = null;
         view.showRequestErrorViews(error);
     }
 
     @Override
     public void onNetworkError() {
-        session = null;
         view.showNetworkErrorViews();
     }
 
@@ -75,4 +70,5 @@ public class DiseaseDetailPresenter implements BasePresenter, DiseaseDetailGette
     public void onUncollectOver(boolean success) {
         view.updateDiseaseUncollectedStatus(success);
     }
+
 }

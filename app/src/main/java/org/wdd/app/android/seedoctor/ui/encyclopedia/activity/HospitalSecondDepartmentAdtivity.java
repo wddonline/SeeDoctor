@@ -100,7 +100,7 @@ public class HospitalSecondDepartmentAdtivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showNetworkErrorView() {

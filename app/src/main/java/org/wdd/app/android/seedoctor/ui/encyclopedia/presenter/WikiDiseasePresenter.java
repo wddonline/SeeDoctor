@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.WikiDiseaseActivity;
@@ -17,7 +16,6 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
 
     private WikiDiseaseActivity view;
     private WikiDiseaseGetter getter;
-    private HttpSession session;
 
     public WikiDiseasePresenter(ActivityFragmentAvaliable host, WikiDiseaseActivity view) {
         this.view = view;
@@ -26,12 +24,11 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
     }
 
     public void getDiseaseListData(boolean refresh) {
-        session = getter.requestDiseaseList(refresh);
+        getter.requestDiseaseList(refresh);
     }
 
     @Override
     public void onRequestOk(List<Disease> data, boolean refresh) {
-        session = null;
         if (data.size() == 0) {
             view.showNoDiseaseListResult(refresh);
             return;
@@ -41,17 +38,15 @@ public class WikiDiseasePresenter implements BasePresenter, WikiDiseaseGetter.Wi
 
     @Override
     public void onRequestFailure(String error, boolean refresh) {
-        session = null;
         view.showRequetErrorView(error, refresh);
     }
 
     @Override
     public void onNetworkError(boolean refresh) {
-        session = null;
         view.showNetworkErrorView(refresh);
     }
 
-    public void destory() {
-        if (session != null) session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 }

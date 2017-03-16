@@ -3,7 +3,6 @@ package org.wdd.app.android.seedoctor.ui.me.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,6 @@ import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DiseaseDetailActiv
 import org.wdd.app.android.seedoctor.ui.me.adapter.FavoritesDiseaseAdapter;
 import org.wdd.app.android.seedoctor.ui.me.presenter.FavoritesDiseasePresenter;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
-import org.wdd.app.android.seedoctor.utils.DensityUtils;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
@@ -61,7 +59,6 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
 
     private void initTitles() {
         toolbar = (Toolbar) findViewById(R.id.activity_favorites_disease_toolbar);
-        ViewCompat.setElevation(toolbar, DensityUtils.dip2px(this, 3));
         toolbar.setNavigationIcon(R.mipmap.back);;
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

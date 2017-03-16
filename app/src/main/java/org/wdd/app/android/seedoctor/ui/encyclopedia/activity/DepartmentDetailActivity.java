@@ -140,7 +140,7 @@ public class DepartmentDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destory();
+        presenter.cancelRequest();
     }
 
     public void showDepartmentDetailViews(Department data) {

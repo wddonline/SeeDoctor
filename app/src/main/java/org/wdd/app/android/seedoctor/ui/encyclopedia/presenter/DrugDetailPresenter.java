@@ -1,6 +1,5 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.presenter;
 
-import org.wdd.app.android.seedoctor.http.HttpSession;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 import org.wdd.app.android.seedoctor.ui.base.BasePresenter;
 import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
@@ -15,7 +14,6 @@ public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.Drug
 
     private DrugDetailActivity view;
     private DrugDetailGetter getter;
-    private HttpSession session;
 
     public DrugDetailPresenter(ActivityFragmentAvaliable host, DrugDetailActivity view) {
         this.view = view;
@@ -23,7 +21,7 @@ public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.Drug
     }
 
     public void getDrugDetailData(String drugId) {
-        session = getter.requestDrugDetailData(drugId);
+        getter.requestDrugDetailData(drugId);
     }
 
     public void getCollectionStatus(String drugid) {
@@ -38,26 +36,22 @@ public class DrugDetailPresenter implements BasePresenter, DrugDetailGetter.Drug
         getter.uncollectDrug(drugid);
     }
 
-    public void destory() {
-        if (session == null) return;
-        session.cancelRequest();
+    public void cancelRequest() {
+        getter.cancelRequest();
     }
 
     @Override
     public void onRequestOk(DrugDetail data) {
-        session = null;
         view.showDrugDetalViews(data);
     }
 
     @Override
     public void onRequestFailure(String error) {
-        session = null;
         view.showRequestErrorViews(error);
     }
 
     @Override
     public void onNetworkError() {
-        session = null;
         view.showNetworkErrorViews();
     }
 
