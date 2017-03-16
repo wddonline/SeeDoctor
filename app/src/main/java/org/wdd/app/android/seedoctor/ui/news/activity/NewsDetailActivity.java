@@ -37,8 +37,8 @@ public class NewsDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        initTitles();
         initData();
+        initTitles();
         initViews();
     }
 
@@ -71,6 +71,12 @@ public class NewsDetailActivity extends BaseActivity {
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webView.getSettings().setSupportZoom(true); // 支持缩放
         webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         webView.setWebChromeClient(new WebChromeClient() {
 
             @Override
@@ -92,14 +98,13 @@ public class NewsDetailActivity extends BaseActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.GONE);
-
-//                //编写 javaScript方法
-//                String javascript =  "javascript:function hideOther() {" +
-//                        "document.getElementsByClassName('news-func-item news-ask-doctor')[0].style.display='none';" +
-//                        ";}";
-//
-//                //创建方法
-//                view.loadUrl(javascript);
+                String javascript =  "javascript:function hideOther() {" +
+                        "document.getElementsByClassName('news-func-item news-ask-doctor')[0].remove();" +
+                        "document.getElementsByClassName('share-to')[0].remove();" +
+                        "document.getElementsByClassName(cy-dl-wrapper sn-dl-wrapper')[0].remove();" +
+                        "}";
+                view.loadUrl(javascript);
+                view.loadUrl("javascript:hideOther();");
             }
         });
 

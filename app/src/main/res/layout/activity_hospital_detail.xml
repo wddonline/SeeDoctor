@@ -26,6 +26,7 @@
                 android:orientation="vertical"
                 android:background="@color/white"
                 android:visibility="gone"
+                android:layout_marginBottom="8dp"
                 app:layout_collapseMode="none">
 
                 <LinearLayout
@@ -111,7 +112,7 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="#cccccc"/>
@@ -160,7 +161,7 @@
 
                 </RelativeLayout>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="#cccccc"/>
@@ -208,11 +209,6 @@
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#cccccc"/>
-
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -239,10 +235,16 @@
             android:id="@+id/activity_hospital_detail_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/colorPrimary"
-            android:background="#bec3c7"
-            android:elevation="0dp"
+            android:background="@color/white"
+            app:tabTextColor="#696969"
+            app:tabSelectedTextColor="#39d167"
+            app:tabIndicatorColor="#39d167"
             android:visibility="gone"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#e7e7e7"/>
 
     </android.support.design.widget.AppBarLayout>
 

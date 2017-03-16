@@ -24,6 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:lines="1"
+            android:ellipsize="end"
             android:text="@string/healthy_news"
             android:textColor="@color/colorToolbarTitle"
             android:textSize="@dimen/textSizeToolbarTitle" />
