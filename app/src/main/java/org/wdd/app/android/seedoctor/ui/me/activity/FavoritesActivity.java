@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +11,9 @@ import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 
 public class FavoritesActivity extends BaseActivity {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, FavoritesActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, FavoritesActivity.class);
+        activity.startActivity(intent);
     }
 
     @Override
@@ -44,6 +43,10 @@ public class FavoritesActivity extends BaseActivity {
     }
 
     private void initViews() {
+    }
+
+    public void onNewsClicked(View v) {
+        FavoritesNewsActivity.show(this);
     }
 
     public void onDiseaseClicked(View v) {

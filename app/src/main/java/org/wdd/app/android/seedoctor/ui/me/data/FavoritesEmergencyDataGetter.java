@@ -39,8 +39,8 @@ public class FavoritesEmergencyDataGetter {
         thread.start();
     }
 
-    public void deleteSelectedEmergency(int position, DbEmergency selectedItem) {
-        Thread thread = new Thread(new DeleteItemAction(position, selectedItem));
+    public void deleteSelectedEmergency(DbEmergency selectedItem) {
+        Thread thread = new Thread(new DeleteItemAction(selectedItem));
         thread.setDaemon(true);
         thread.start();
     }
@@ -68,11 +68,9 @@ public class FavoritesEmergencyDataGetter {
 
     private class DeleteItemAction implements Runnable {
 
-        private int position;
         private DbEmergency emergency;
 
-        public DeleteItemAction(int position, DbEmergency emergency) {
-            this.position = position;
+        public DeleteItemAction(DbEmergency emergency) {
             this.emergency = emergency;
         }
 
@@ -83,7 +81,7 @@ public class FavoritesEmergencyDataGetter {
                 @Override
                 public void run() {
                     if (!host.isAvaliable()) return;
-                    callback.onDeleteSelectedData(position);
+                    callback.onDeleteSelectedData(emergency.id);
                 }
             });
         }

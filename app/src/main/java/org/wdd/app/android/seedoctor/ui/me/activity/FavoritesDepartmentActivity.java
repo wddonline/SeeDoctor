@@ -1,11 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,9 @@ import java.util.List;
 
 public class FavoritesDepartmentActivity extends BaseActivity implements FavoritesDepartmentAdapter.FavoritesDepartmentCallback {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, FavoritesDepartmentActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, FavoritesDepartmentActivity.class);
+        activity.startActivity(intent);
     }
 
     private final int REQUEST_CODE_DETAIL = 1;
@@ -159,8 +159,8 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String departmentid, String departmentname) {
-        DepartmentDetailActivity.showForResult(this, position, departmentid, departmentname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(String departmentid, String departmentname) {
+        DepartmentDetailActivity.showForResult(this, departmentid, departmentname, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -169,18 +169,17 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_CODE_DETAIL:
-                int position = data.getIntExtra("position", -1);
-                if (position == -1) return;
-                departments.remove(position);
-                adapter.notifyItemRemoved(position);
+                String departmentid = data.getStringExtra("departmentid");
+                if (TextUtils.isEmpty(departmentid)) return;
+                adapter.removeDataByDepartmentId(departmentid);
                 break;
         }
     }
 
     @Override
-    public void onDepartmentDeleted(int position, FavoritesDepartmentAdapter.DepartmentFavorites favorites) {
+    public void onDepartmentDeleted(FavoritesDepartmentAdapter.DepartmentFavorites favorites) {
         showLoadingDialog();
-        presenter.deleteSelectedDepartment(position, favorites.department);
+        presenter.deleteSelectedDepartment(favorites.department);
     }
 
     @Override
@@ -208,9 +207,9 @@ public class FavoritesDepartmentActivity extends BaseActivity implements Favorit
         cancelSelectMode();
     }
 
-    public void showDeleteOverViews(int position) {
+    public void showDeleteOverViews(int id) {
         hideLoadingDialog();
-        departments.remove(position);
+        adapter.removeDataById(id);
         cancelSelectMode();
     }
 }

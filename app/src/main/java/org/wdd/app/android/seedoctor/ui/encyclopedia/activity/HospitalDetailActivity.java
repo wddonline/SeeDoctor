@@ -40,15 +40,14 @@ public class HospitalDetailActivity extends BaseActivity {
 
     public static void show(Context context, String hospitalid, String hospitalname) {
         Intent intent = new Intent(context, HospitalDetailActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("hospitalid", hospitalid);
         intent.putExtra("hospitalname", hospitalname);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String hospitalid, String hospitalname, int requsetCode) {
+    public static void showForResult(Activity activity, String hospitalid, String hospitalname, int requsetCode) {
         Intent intent = new Intent(activity, HospitalDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("hospitalid", hospitalid);
         intent.putExtra("hospitalname", hospitalname);
         activity.startActivityForResult(intent, requsetCode);
@@ -68,7 +67,6 @@ public class HospitalDetailActivity extends BaseActivity {
     private HospitalDetail detail;
     private List<String> phones;
 
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -85,7 +83,6 @@ public class HospitalDetailActivity extends BaseActivity {
         MobclickAgent.openActivityDurationTrack(false);
 
         presenter = new HospitalDetailPresenter(host, this);
-        position = getIntent().getIntExtra("position" , -1);
         hospitalid = getIntent().getStringExtra("hospitalid");
         hospitalname = getIntent().getStringExtra("hospitalname");
     }
@@ -116,11 +113,9 @@ public class HospitalDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectHospital(hospitalid, hospitalname, detail.picurl);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectHospital(hospitalid);
                         return true;
                 }
@@ -164,7 +159,7 @@ public class HospitalDetailActivity extends BaseActivity {
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("hospitalid", hospitalid);
             setResult(RESULT_OK, intent);
         }
     }
@@ -281,7 +276,6 @@ public class HospitalDetailActivity extends BaseActivity {
 
     public void updateHospitalCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -290,7 +284,6 @@ public class HospitalDetailActivity extends BaseActivity {
 
     public void updateHospitalUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

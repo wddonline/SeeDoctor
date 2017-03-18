@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/activity_favorites_doctor_toolbar"
+            android:id="@+id/activity_favorites_news_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionBarSize"
             android:background="@color/colorPrimary">
@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/favorites_doctor"
+                android:text="@string/favorites_news"
                 android:layout_gravity="center"
                 android:textSize="@dimen/textSizeToolbarTitle"
                 android:textColor="@color/colorToolbarTitle"/>
@@ -27,7 +27,7 @@
         </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/activity_favorites_doctor_all"
+            android:id="@+id/activity_favorites_news_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/ToolBarCheckBox"
@@ -42,13 +42,13 @@
     </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_favorites_doctor_recyclerview"
+        android:id="@+id/activity_favorites_news_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
     <org.wdd.app.android.seedoctor.views.LoadView
-        android:id="@+id/activity_favorites_doctor_loadview"
+        android:id="@+id/activity_favorites_news_loadview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

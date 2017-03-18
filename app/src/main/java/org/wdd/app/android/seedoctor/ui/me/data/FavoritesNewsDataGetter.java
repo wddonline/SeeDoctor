@@ -3,8 +3,8 @@ package org.wdd.app.android.seedoctor.ui.me.data;
 import android.content.Context;
 
 import org.wdd.app.android.seedoctor.app.SDApplication;
-import org.wdd.app.android.seedoctor.database.manager.impl.DrugDbManager;
-import org.wdd.app.android.seedoctor.database.model.DbDrug;
+import org.wdd.app.android.seedoctor.database.manager.impl.NewsDbManager;
+import org.wdd.app.android.seedoctor.database.model.DBNews;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
 
 import java.util.List;
@@ -13,33 +13,33 @@ import java.util.List;
  * Created by richard on 1/24/17.
  */
 
-public class FavoritesDrugDataGetter {
+public class FavoritesNewsDataGetter {
 
     private Context context;
-    private DrugDbManager dbManager;
+    private NewsDbManager dbManager;
     private ActivityFragmentAvaliable host;
     private DataCallback callback;
 
-    public FavoritesDrugDataGetter(Context context, DataCallback callback, ActivityFragmentAvaliable host) {
+    public FavoritesNewsDataGetter(Context context, DataCallback callback, ActivityFragmentAvaliable host) {
         this.context = context;
         this.callback = callback;
         this.host = host;
-        dbManager = new DrugDbManager(context);
+        dbManager = new NewsDbManager(context);
     }
 
-    public void queryFavoritesDrugs() {
+    public void queryFavoritesNewses() {
         Thread thread = new Thread(new QueryAction());
         thread.setDaemon(true);
         thread.start();
     }
 
-    public void deleteSelectedDrugs(List<DbDrug> selectedItems) {
+    public void deleteSelectedNewses(List<DBNews> selectedItems) {
         Thread thread = new Thread(new DeleteItemsAction(selectedItems));
         thread.setDaemon(true);
         thread.start();
     }
 
-    public void deleteSelectedDrug(DbDrug selectedItem) {
+    public void deleteSelectedNews(DBNews selectedItem) {
         Thread thread = new Thread(new DeleteItemAction(selectedItem));
         thread.setDaemon(true);
         thread.start();
@@ -47,15 +47,15 @@ public class FavoritesDrugDataGetter {
 
     private class DeleteItemsAction implements Runnable {
 
-        private List<DbDrug> drugs;
+        private List<DBNews> newses;
 
-        public DeleteItemsAction(List<DbDrug> drugs) {
-            this.drugs = drugs;
+        public DeleteItemsAction(List<DBNews> newses) {
+            this.newses = newses;
         }
 
         @Override
         public void run() {
-            dbManager.deleteDrugs(drugs);
+            dbManager.deleteNewses(newses);
             SDApplication.getInstance().getUiHandler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -68,20 +68,20 @@ public class FavoritesDrugDataGetter {
 
     private class DeleteItemAction implements Runnable {
 
-        private DbDrug drug;
+        private DBNews news;
 
-        public DeleteItemAction(DbDrug drug) {
-            this.drug = drug;
+        public DeleteItemAction(DBNews news) {
+            this.news = news;
         }
 
         @Override
         public void run() {
-            dbManager.deleteById(drug.id);
+            dbManager.deleteById(news.id);
             SDApplication.getInstance().getUiHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     if (!host.isAvaliable()) return;
-                    callback.onDeleteSelectedData(drug.id);
+                    callback.onDeleteSelectedData(news.id);
                 }
             });
         }
@@ -91,7 +91,7 @@ public class FavoritesDrugDataGetter {
 
         @Override
         public void run() {
-            final List<DbDrug> result = dbManager.queryAll();
+            final List<DBNews> result = dbManager.queryAll();
             if (result == null || result.size() == 0) {
                 SDApplication.getInstance().getUiHandler().post(new Runnable() {
                     @Override
@@ -114,10 +114,10 @@ public class FavoritesDrugDataGetter {
 
     public interface DataCallback {
 
-        void onDataGetted(List<DbDrug> data);
+        void onDataGetted(List<DBNews> data);
         void onNoDataGetted();
         void onDeleteSelectedData();
-        void onDeleteSelectedData(int position);
+        void onDeleteSelectedData(int id);
 
     }
 }

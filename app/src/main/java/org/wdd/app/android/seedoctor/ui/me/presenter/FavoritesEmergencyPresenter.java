@@ -29,8 +29,8 @@ public class FavoritesEmergencyPresenter implements BasePresenter, FavoritesEmer
         dataGetter.deleteSelectedEmergencys(selectedItems);
     }
 
-    public void deleteSelectedEmergency(int position, DbEmergency selectedItem) {
-        dataGetter.deleteSelectedEmergency(position, selectedItem);
+    public void deleteSelectedEmergency(DbEmergency selectedItem) {
+        dataGetter.deleteSelectedEmergency(selectedItem);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FavoritesEmergencyPresenter implements BasePresenter, FavoritesEmer
     }
 
     @Override
-    public void onDeleteSelectedData(int position) {
-        view.showDeleteOverViews(position);
+    public void onDeleteSelectedData(int id) {
+        view.showDeleteOverViews(id);
     }
 }

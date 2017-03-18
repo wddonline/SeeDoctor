@@ -131,10 +131,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 ProfileEditActivity.showForResult(getActivity(), ((ViewGroup)v).getChildAt(0), PROFILE_REQUEST_CODE);
                 break;
             case R.id.fragment_me_collection_click:
-                FavoritesActivity.show(getContext());
+                FavoritesActivity.show(getActivity());
                 break;
             case R.id.fragment_me_nav_click:
-                NavigationSettingsActivity.show(getContext());
+                NavigationSettingsActivity.show(getActivity());
                 break;
             case R.id.fragment_me_version_check_click:
                 showLoadingDialog();
@@ -145,7 +145,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 presenter.cleanDiskCache();
                 break;
             case R.id.fragment_me_about_click:
-                AboutActivity.show(getContext());
+                AboutActivity.show(getActivity());
                 break;
         }
     }

@@ -33,9 +33,8 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String drugid, String drugname, int requsetCode) {
+    public static void showForResult(Activity activity, String drugid, String drugname, int requsetCode) {
         Intent intent = new Intent(activity, DrugDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("drugid", drugid);
         intent.putExtra("drugname", drugname);
         activity.startActivityForResult(intent, requsetCode);
@@ -55,7 +54,6 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     private String drugname;
     private boolean[] openStatus;
 
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -69,7 +67,6 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-        position = getIntent().getIntExtra("position" , -1);
         drugid = getIntent().getStringExtra("drugid");
         drugname = getIntent().getStringExtra("drugname");
 
@@ -105,11 +102,9 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
                         RelativeDiseaseListActivity.showFromDrug(getBaseContext(), drugid + "", drugname);
                         return true;
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectDrug(drugid, drugname);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectDrug(drugid);
                         return true;
                 }
@@ -183,7 +178,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("drugid", drugid);
             setResult(RESULT_OK, intent);
         }
     }
@@ -289,7 +284,6 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
 
     public void updateDrugCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -298,7 +292,6 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
 
     public void updateDrugUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

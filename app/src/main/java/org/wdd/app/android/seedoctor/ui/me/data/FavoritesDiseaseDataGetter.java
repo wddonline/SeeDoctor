@@ -40,8 +40,8 @@ public class FavoritesDiseaseDataGetter {
         thread.start();
     }
 
-    public void deleteSelectedDisease(int position, DbDisease selectedItem) {
-        Thread thread = new Thread(new DeleteItemAction(position, selectedItem));
+    public void deleteSelectedDisease(DbDisease selectedItem) {
+        Thread thread = new Thread(new DeleteItemAction(selectedItem));
         thread.setDaemon(true);
         thread.start();
     }
@@ -69,11 +69,9 @@ public class FavoritesDiseaseDataGetter {
 
     private class DeleteItemAction implements Runnable {
 
-        private int position;
         private DbDisease disease;
 
-        public DeleteItemAction(int position, DbDisease disease) {
-            this.position = position;
+        public DeleteItemAction(DbDisease disease) {
             this.disease = disease;
         }
 
@@ -84,7 +82,7 @@ public class FavoritesDiseaseDataGetter {
                 @Override
                 public void run() {
                     if (!host.isAvaliable()) return;
-                    callback.onDeleteSelectedData(position);
+                    callback.onDeleteSelectedData(disease.id);
                 }
             });
         }
@@ -120,7 +118,7 @@ public class FavoritesDiseaseDataGetter {
         void onDataGetted(List<DbDisease> data);
         void onNoDataGetted();
         void onDeleteSelectedData();
-        void onDeleteSelectedData(int position);
+        void onDeleteSelectedData(int id);
 
     }
 }

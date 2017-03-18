@@ -1,5 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.routeline.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -154,15 +155,15 @@ public class RouteLineActivity extends BaseActivity implements RadioGroup.OnChec
                 LocationHelper locationHelper = LocationHelper.getInstance(getBaseContext());
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.activity_root_line_drive:
-                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_DRIVE, locationHelper.getLatitude(),
+                        NavigationActivity.show(RouteLineActivity.this, NavigationActivity.NAVI_DRIVE, locationHelper.getLatitude(),
                                 locationHelper.getLongitude(), lat, lon);
                         break;
                     case R.id.activity_root_line_ride:
-                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_RIDE, locationHelper.getLatitude(),
+                        NavigationActivity.show(RouteLineActivity.this, NavigationActivity.NAVI_RIDE, locationHelper.getLatitude(),
                                 locationHelper.getLongitude(), lat, lon);
                         break;
                     case R.id.activity_root_line_walk:
-                        NavigationActivity.show(getBaseContext(), NavigationActivity.NAVI_WALK, locationHelper.getLatitude(),
+                        NavigationActivity.show(RouteLineActivity.this, NavigationActivity.NAVI_WALK, locationHelper.getLatitude(),
                                 locationHelper.getLongitude(), lat, lon);
                         break;
                     default:

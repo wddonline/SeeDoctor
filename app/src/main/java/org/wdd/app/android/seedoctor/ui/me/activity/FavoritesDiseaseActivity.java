@@ -1,11 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,9 @@ import java.util.List;
 
 public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesDiseaseAdapter.FavoritesDiseaseCallback {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, FavoritesDiseaseActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, FavoritesDiseaseActivity.class);
+        activity.startActivity(intent);
     }
 
     private final int REQUEST_CODE_DETAIL = 1;
@@ -159,8 +159,8 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String diseaseid, String diseasename) {
-        DiseaseDetailActivity.showForResult(this, position, diseaseid, diseasename, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(String diseaseid, String diseasename) {
+        DiseaseDetailActivity.showForResult(this, diseaseid, diseasename, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -169,18 +169,17 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_CODE_DETAIL:
-                int position = data.getIntExtra("position", -1);
-                if (position == -1) return;
-                diseases.remove(position);
-                adapter.notifyItemRemoved(position);
+                String diseaseId = data.getStringExtra("diseaseId");
+                if (TextUtils.isEmpty(diseaseId)) return;
+                adapter.removeDataByDiseaseId(diseaseId);
                 break;
         }
     }
 
     @Override
-    public void onDiseaseDeleted(int position, FavoritesDiseaseAdapter.DiseaseFavorites favorites) {
+    public void onDiseaseDeleted(FavoritesDiseaseAdapter.DiseaseFavorites favorites) {
         showLoadingDialog();
-        presenter.deleteSelectedDisease(position, favorites.disease);
+        presenter.deleteSelectedDisease(favorites.disease);
     }
 
     @Override
@@ -208,9 +207,9 @@ public class FavoritesDiseaseActivity extends BaseActivity implements FavoritesD
         cancelSelectMode();
     }
 
-    public void showDeleteOverViews(int position) {
+    public void showDeleteOverViews(int id) {
         hideLoadingDialog();
-        diseases.remove(position);
+        adapter.removeDataById(id);
         cancelSelectMode();
     }
 }

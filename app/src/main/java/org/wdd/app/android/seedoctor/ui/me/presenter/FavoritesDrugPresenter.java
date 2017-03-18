@@ -29,8 +29,8 @@ public class FavoritesDrugPresenter implements BasePresenter, FavoritesDrugDataG
         dataGetter.deleteSelectedDrugs(selectedItems);
     }
 
-    public void deleteSelectedDrug(int position, DbDrug selectedItem) {
-        dataGetter.deleteSelectedDrug(position, selectedItem);
+    public void deleteSelectedDrug(DbDrug selectedItem) {
+        dataGetter.deleteSelectedDrug(selectedItem);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FavoritesDrugPresenter implements BasePresenter, FavoritesDrugDataG
     }
 
     @Override
-    public void onDeleteSelectedData(int position) {
-        view.showDeleteOverViews(position);
+    public void onDeleteSelectedData(int id) {
+        view.showDeleteOverViews(id);
     }
 }

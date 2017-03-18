@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.web.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -18,12 +18,11 @@ import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 
 public class WebActivity extends BaseActivity {
 
-    public static void show(Context context, String url, String titile) {
-        Intent intent = new Intent(context, WebActivity.class);
+    public static void show(Activity activity, String url, String titile) {
+        Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("title", titile);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     private WebView webView;

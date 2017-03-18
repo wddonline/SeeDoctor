@@ -1,11 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,9 @@ import java.util.List;
 
 public class FavoritesEmergencyActivity extends BaseActivity implements FavoritesEmergencyAdapter.FavoritesEmergencyCallback {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, FavoritesEmergencyActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, FavoritesEmergencyActivity.class);
+        activity.startActivity(intent);
     }
 
     private final int REQUEST_CODE_DETAIL = 1;
@@ -159,8 +159,8 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String emeid, String eme) {
-        EmergencyDetailActivity.showForResult(this, position, emeid, eme, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(String emeid, String eme) {
+        EmergencyDetailActivity.showForResult(this, emeid, eme, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -169,18 +169,17 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_CODE_DETAIL:
-                int position = data.getIntExtra("position", -1);
-                if (position == -1) return;
-                emergencys.remove(position);
-                adapter.notifyItemRemoved(position);
+                String emeid = data.getStringExtra("emeid");
+                if (TextUtils.isEmpty(emeid)) return;
+                adapter.removeDataByEmeid(emeid);
                 break;
         }
     }
 
     @Override
-    public void onEmergencyDeleted(int position, FavoritesEmergencyAdapter.EmergencyFavorites favorites) {
+    public void onEmergencyDeleted(FavoritesEmergencyAdapter.EmergencyFavorites favorites) {
         showLoadingDialog();
-        presenter.deleteSelectedEmergency(position, favorites.emergency);
+        presenter.deleteSelectedEmergency(favorites.emergency);
     }
 
     @Override
@@ -208,9 +207,9 @@ public class FavoritesEmergencyActivity extends BaseActivity implements Favorite
         cancelSelectMode();
     }
 
-    public void showDeleteOverViews(int position) {
+    public void showDeleteOverViews(int id) {
         hideLoadingDialog();
-        emergencys.remove(position);
+        adapter.removeDataById(id);
         cancelSelectMode();
     }
 }

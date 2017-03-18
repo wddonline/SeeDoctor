@@ -29,8 +29,8 @@ public class FavoritesDepartmentPresenter implements BasePresenter, FavoritesDep
         dataGetter.deleteSelectedDepartments(selectedItems);
     }
 
-    public void deleteSelectedDepartment(int position, DbDepartment selectedItem) {
-        dataGetter.deleteSelectedDepartment(position, selectedItem);
+    public void deleteSelectedDepartment(DbDepartment selectedItem) {
+        dataGetter.deleteSelectedDepartment(selectedItem);
     }
 
     @Override

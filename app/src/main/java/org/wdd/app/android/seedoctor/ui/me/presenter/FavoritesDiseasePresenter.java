@@ -29,8 +29,8 @@ public class FavoritesDiseasePresenter implements BasePresenter, FavoritesDiseas
         dataGetter.deleteSelectedDiseases(selectedItems);
     }
 
-    public void deleteSelectedDisease(int position, DbDisease selectedItem) {
-        dataGetter.deleteSelectedDisease(position, selectedItem);
+    public void deleteSelectedDisease(DbDisease selectedItem) {
+        dataGetter.deleteSelectedDisease(selectedItem);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FavoritesDiseasePresenter implements BasePresenter, FavoritesDiseas
     }
 
     @Override
-    public void onDeleteSelectedData(int position) {
-        view.showDeleteOverViews(position);
+    public void onDeleteSelectedData(int id) {
+        view.showDeleteOverViews(id);
     }
 }

@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.search.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,10 +29,9 @@ import java.util.List;
  */
 public class NearbySearchActivity extends BaseActivity implements AbstractCommonAdapter.OnLoadMoreListener {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, NearbySearchActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, NearbySearchActivity.class);
+        activity.startActivity(intent);
     }
 
     private RecyclerView recyclerView;

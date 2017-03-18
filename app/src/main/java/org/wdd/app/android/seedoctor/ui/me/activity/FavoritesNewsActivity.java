@@ -13,23 +13,24 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import org.wdd.app.android.seedoctor.R;
-import org.wdd.app.android.seedoctor.database.model.DbDrug;
+import org.wdd.app.android.seedoctor.database.model.DBNews;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
-import org.wdd.app.android.seedoctor.ui.encyclopedia.activity.DrugDetailActivity;
-import org.wdd.app.android.seedoctor.ui.me.adapter.FavoritesDrugAdapter;
-import org.wdd.app.android.seedoctor.ui.me.presenter.FavoritesDrugPresenter;
+import org.wdd.app.android.seedoctor.ui.me.adapter.FavoritesNewsAdapter;
+import org.wdd.app.android.seedoctor.ui.me.presenter.FavoritesNewsPresenter;
+import org.wdd.app.android.seedoctor.ui.news.activity.NewsDetailActivity;
 import org.wdd.app.android.seedoctor.utils.AppToaster;
 import org.wdd.app.android.seedoctor.views.LineDividerDecoration;
 import org.wdd.app.android.seedoctor.views.LoadView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrugAdapter.FavoritesDrugCallback {
+public class FavoritesNewsActivity extends BaseActivity implements FavoritesNewsAdapter.FavoritesNewsCallback {
 
     public static void show(Activity activity) {
-        Intent intent = new Intent(activity, FavoritesDrugActivity.class);
+        Intent intent = new Intent(activity, FavoritesNewsActivity.class);
         activity.startActivity(intent);
     }
 
@@ -40,26 +41,26 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     private LoadView loadView;
     private CheckBox checkBox;
 
-    private List<FavoritesDrugAdapter.DrugFavorites> drugs;
-    private FavoritesDrugPresenter presenter;
-    private FavoritesDrugAdapter adapter;
+    private List<FavoritesNewsAdapter.NewsFavorites> newses;
+    private FavoritesNewsPresenter presenter;
+    private FavoritesNewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites_drug);
+        setContentView(R.layout.activity_favorites_news);
         initData();
         initTitles();
         initViews();
     }
 
     private void initData() {
-        presenter = new FavoritesDrugPresenter(this);
+        presenter = new FavoritesNewsPresenter(this);
     }
 
     private void initTitles() {
-        toolbar = (Toolbar) findViewById(R.id.activity_favorites_drug_toolbar);
-        toolbar.setNavigationIcon(R.mipmap.back);;
+        toolbar = (Toolbar) findViewById(R.id.activity_favorites_news_toolbar);
+        toolbar.setNavigationIcon(R.mipmap.back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -71,12 +72,12 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     }
 
     private void initViews() {
-        recyclerView = (RecyclerView) findViewById(R.id.activity_favorites_drug_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.activity_favorites_news_recyclerview);
         recyclerView.addItemDecoration(new LineDividerDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
-        checkBox = (CheckBox) findViewById(R.id.activity_favorites_drug_all);
-        loadView = (LoadView) findViewById(R.id.activity_favorites_drug_loadview);
+        checkBox = (CheckBox) findViewById(R.id.activity_favorites_news_all);
+        loadView = (LoadView) findViewById(R.id.activity_favorites_news_loadview);
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +94,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_favorites_cancel:
-                        if (adapter.getMode() == FavoritesDrugAdapter.Mode.Select) {
+                        if (adapter.getMode() == FavoritesNewsAdapter.Mode.Select) {
                             cancelSelectMode();
                         }
                         return true;
@@ -103,7 +104,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
                             return true;
                         }
                         showLoadingDialog();
-                        presenter.deleteSelectedDrugs(adapter.getSelectedItem());
+                        presenter.deleteSelectedNewses(adapter.getSelectedItem());
                         return true;
                 }
                 return false;
@@ -113,8 +114,8 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     }
 
     private void cancelSelectMode() {
-        adapter.setMode(FavoritesDrugAdapter.Mode.Normal);
-        toolbar.setNavigationIcon(R.mipmap.back);;
+        adapter.setMode(FavoritesNewsAdapter.Mode.Normal);
+        toolbar.setNavigationIcon(R.mipmap.back);
         checkBox.setVisibility(View.GONE);
         toolbar.getMenu().findItem(R.id.menu_favorites_delete).setVisible(false);
         toolbar.getMenu().findItem(R.id.menu_favorites_cancel).setVisible(false);
@@ -124,7 +125,7 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_favorites, menu);
-        presenter.getFavoritesDrugs();
+        presenter.getFavoritesNewses();
         return true;
     }
 
@@ -136,22 +137,22 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
         }
     }
 
-    public void bindDrugListViews(List<DbDrug> data) {
-        drugs = new ArrayList<>();
-        for (DbDrug doctor : data) {
-            drugs.add(new FavoritesDrugAdapter.DrugFavorites(false, doctor));
+    public void bindNewsListViews(List<DBNews> data) {
+        newses = new ArrayList<>();
+        for (DBNews news : data) {
+            newses.add(new FavoritesNewsAdapter.NewsFavorites(false, news));
         }
-        adapter = new FavoritesDrugAdapter(this, drugs);
+        adapter = new FavoritesNewsAdapter(this, newses);
         adapter.setCallback(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setVisibility(View.VISIBLE);
-        adapter.setMode(FavoritesDrugAdapter.Mode.Normal);
+        adapter.setMode(FavoritesNewsAdapter.Mode.Normal);
         adapter.setLoadStatus(AbstractCommonAdapter.LoadStatus.NoMore);
     }
 
     @Override
     public void onBackPressed() {
-        if (adapter != null && adapter.getMode() == FavoritesDrugAdapter.Mode.Select) {
+        if (adapter != null && adapter.getMode() == FavoritesNewsAdapter.Mode.Select) {
             cancelSelectMode();
             return;
         }
@@ -159,8 +160,8 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
     }
 
     @Override
-    public void jumpToDetailActivity(String drugid, String drugname) {
-        DrugDetailActivity.showForResult(this, drugid, drugname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(String id, String image, String title) {
+        NewsDetailActivity.showForResult(this, id, image, title, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -169,17 +170,17 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_CODE_DETAIL:
-                String drugid = data.getStringExtra("drugid");
-                if (TextUtils.isEmpty(drugid)) return;
-                adapter.removeDataByDrugId(drugid);
+                String id = data.getStringExtra("id");
+                if (TextUtils.isEmpty(id)) return;
+                adapter.removeDataByNewsId(id);
                 break;
         }
     }
 
     @Override
-    public void onDrugDeleted(FavoritesDrugAdapter.DrugFavorites favorites) {
+    public void onNewsDeleted(FavoritesNewsAdapter.NewsFavorites favorites) {
         showLoadingDialog();
-        presenter.deleteSelectedDrug(favorites.drug);
+        presenter.deleteSelectedNews(favorites.news);
     }
 
     @Override
@@ -202,8 +203,8 @@ public class FavoritesDrugActivity extends BaseActivity implements FavoritesDrug
 
     public void showDeleteOverViews() {
         hideLoadingDialog();
-        List<FavoritesDrugAdapter.DrugFavorites> selectedItems = adapter.getSelectedOriginItem();
-        drugs.removeAll(selectedItems);
+        List<FavoritesNewsAdapter.NewsFavorites> selectedItems = adapter.getSelectedOriginItem();
+        newses.removeAll(selectedItems);
         cancelSelectMode();
     }
 

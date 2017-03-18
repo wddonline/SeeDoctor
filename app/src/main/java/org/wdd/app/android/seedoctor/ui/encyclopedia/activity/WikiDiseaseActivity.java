@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,10 +28,9 @@ import java.util.List;
 
 public class WikiDiseaseActivity extends BaseActivity {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, WikiDiseaseActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, WikiDiseaseActivity.class);
+        activity.startActivity(intent);
     }
 
     private RecyclerView recyclerView;

@@ -31,9 +31,8 @@ public class DoctorDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String doctorid, String doctorname, int requsetCode) {
+    public static void showForResult(Activity activity, String doctorid, String doctorname, int requsetCode) {
         Intent intent = new Intent(activity, DoctorDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("doctorid", doctorid);
         intent.putExtra("doctorname", doctorname);
         activity.startActivityForResult(intent, requsetCode);
@@ -47,7 +46,6 @@ public class DoctorDetailActivity extends BaseActivity {
     private String doctorname;
     private DoctorDetail detail;
 
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -62,7 +60,6 @@ public class DoctorDetailActivity extends BaseActivity {
 
     private void initData() {
         presenter = new DoctorDetailPresenter(host, this);
-        position = getIntent().getIntExtra("position" , -1);
         doctorid = getIntent().getStringExtra("doctorid");
         doctorname = getIntent().getStringExtra("doctorname");
     }
@@ -86,11 +83,9 @@ public class DoctorDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectDoctor(doctorid, doctorname, detail.photourl);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectDoctor(doctorid);
                         return true;
                 }
@@ -128,7 +123,7 @@ public class DoctorDetailActivity extends BaseActivity {
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("doctorid", doctorid);
             setResult(RESULT_OK, intent);
         }
     }
@@ -188,7 +183,6 @@ public class DoctorDetailActivity extends BaseActivity {
 
     public void updateDoctorCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -197,7 +191,6 @@ public class DoctorDetailActivity extends BaseActivity {
 
     public void updateDoctorUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

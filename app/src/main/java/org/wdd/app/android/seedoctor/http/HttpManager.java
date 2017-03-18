@@ -52,6 +52,18 @@ public class HttpManager {
         return connecter.sendHttpRequest(host, entry, callback);
     }
 
+    public HttpSession sendHtmlRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback) {
+        return sendHtmlRequest(null, host, entry, callback);
+    }
+
+    public HttpSession sendHtmlRequest(String enocde, ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback) {
+        if (connecter == null) {
+            Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");
+            return null;
+        }
+        return connecter.sendHtmlRequest(enocde, host, entry, callback);
+    }
+
     public void stopAllSession() {
         if (connecter == null) {
             Log.e(TAG, "A HttpConnecter getInstance isn\'t setted for HttpManager");

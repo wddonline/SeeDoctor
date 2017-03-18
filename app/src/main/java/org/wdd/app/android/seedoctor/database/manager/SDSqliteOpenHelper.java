@@ -10,6 +10,7 @@ import org.wdd.app.android.seedoctor.database.manager.impl.DoctorDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.DrugDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.EmergencyDbManager;
 import org.wdd.app.android.seedoctor.database.manager.impl.HospitalDbManager;
+import org.wdd.app.android.seedoctor.database.manager.impl.NewsDbManager;
 
 /**
  * Created by richard on 1/22/17.
@@ -18,7 +19,7 @@ import org.wdd.app.android.seedoctor.database.manager.impl.HospitalDbManager;
 class SDSqliteOpenHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "see_doctor.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public SDSqliteOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -35,6 +36,7 @@ class SDSqliteOpenHelper extends SQLiteOpenHelper {
             DrugDbManager.createTable(db);
             EmergencyDbManager.createTable(db);
             HospitalDbManager.createTable(db);
+            NewsDbManager.createTable(db);
 
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -46,6 +48,7 @@ class SDSqliteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (newVersion <= oldVersion) return;
+        NewsDbManager.createTable(db);
     }
 }

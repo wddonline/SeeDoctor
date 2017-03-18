@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.gallery.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,13 +31,6 @@ public class ImageBrowserActivity extends BaseActivity implements ViewPager.OnPa
         Intent intent = new Intent(activity, ImageBrowserActivity.class);
         intent.putExtra("urls", urls);
         activity.startActivity(intent);
-    }
-
-    public static void show(Context context, String[] urls) {
-        Intent intent = new Intent(context, ImageBrowserActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("urls", urls);
-        context.startActivity(intent);
     }
 
     private ViewPager mViewPager;

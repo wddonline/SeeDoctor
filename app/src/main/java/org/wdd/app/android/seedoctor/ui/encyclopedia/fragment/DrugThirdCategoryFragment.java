@@ -59,6 +59,6 @@ public class DrugThirdCategoryFragment extends BaseFragment implements DrugThird
 
     @Override
     public void onCategoryClicked(int position, DrugCategory category) {
-        WikiDrugListActivity.show(getContext(), category.catid);
+        WikiDrugListActivity.show(getActivity(), category.catid);
     }
 }

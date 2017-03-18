@@ -23,17 +23,15 @@ import org.wdd.app.android.seedoctor.views.LoadView;
 
 public class EmergencyDetailActivity extends BaseActivity {
 
-    public static void show(Context context, String emeid, String eme) {
-        Intent intent = new Intent(context, EmergencyDetailActivity.class);
+    public static void show(Context activity, String emeid, String eme) {
+        Intent intent = new Intent(activity, EmergencyDetailActivity.class);
         intent.putExtra("emeid", emeid);
         intent.putExtra("eme", eme);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String emeid, String eme, int requsetCode) {
+    public static void showForResult(Activity activity, String emeid, String eme, int requsetCode) {
         Intent intent = new Intent(activity, EmergencyDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("emeid", emeid);
         intent.putExtra("eme", eme);
         activity.startActivityForResult(intent, requsetCode);
@@ -44,7 +42,6 @@ public class EmergencyDetailActivity extends BaseActivity {
 
     private String emeid;
     private String eme;
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -60,7 +57,6 @@ public class EmergencyDetailActivity extends BaseActivity {
     }
 
     private void initData() {
-        position = getIntent().getIntExtra("position" , -1);
         emeid = getIntent().getStringExtra("emeid");
         eme = getIntent().getStringExtra("eme");
 
@@ -86,11 +82,9 @@ public class EmergencyDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectEmergency(emeid, eme);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectEmergency(emeid);
                         return true;
                 }
@@ -120,7 +114,7 @@ public class EmergencyDetailActivity extends BaseActivity {
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("emeid", emeid);
             setResult(RESULT_OK, intent);
         }
     }
@@ -173,7 +167,6 @@ public class EmergencyDetailActivity extends BaseActivity {
 
     public void updateEmergencyCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -182,7 +175,6 @@ public class EmergencyDetailActivity extends BaseActivity {
 
     public void updateEmergencyUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

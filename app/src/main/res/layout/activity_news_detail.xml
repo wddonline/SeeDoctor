@@ -34,7 +34,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ProgressBar
-        android:id="@+id/activity_web_progress"
+        android:id="@+id/activity_news_detail_progress"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         style="?android:progressBarStyleHorizontal"
@@ -42,8 +42,9 @@
         android:visibility="gone"/>
 
     <WebView
-        android:id="@+id/activity_web_webview"
+        android:id="@+id/activity_news_detail_webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </LinearLayout>

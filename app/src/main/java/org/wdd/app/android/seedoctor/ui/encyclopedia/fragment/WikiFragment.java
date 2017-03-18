@@ -68,22 +68,22 @@ public class WikiFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_wiki_disease_clickable:
-                WikiDiseaseActivity.show(getContext());
+                WikiDiseaseActivity.show(getActivity());
                 break;
             case R.id.fragment_wiki_drug_clickable:
-                WikiDrugCategoryActivity.show(getContext());
+                WikiDrugCategoryActivity.show(getActivity());
                 break;
             case R.id.fragment_wiki_emergency_clickable:
-                WikiEmergencyActivity.show(getContext());
+                WikiEmergencyActivity.show(getActivity());
                 break;
             case R.id.fragment_wiki_department_clickable:
-                WikiDepartmentActivity.show(getContext());
+                WikiDepartmentActivity.show(getActivity());
                 break;
             case R.id.fragment_wiki_doctor_clickable:
-                WikiDoctorActivity.show(getContext());
+                WikiDoctorActivity.show(getActivity());
                 break;
             case R.id.fragment_wiki_hospital_clickable:
-                WikiHospitalActivity.show(getContext());
+                WikiHospitalActivity.show(getActivity());
         }
     }
 

@@ -104,7 +104,7 @@ public class NearbyDrugstoreFragment extends BaseFragment implements SwipeRefres
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NearbyDrugstoreMapActivity.show(getContext());
+                NearbyDrugstoreMapActivity.show(getActivity());
             }
         });
 

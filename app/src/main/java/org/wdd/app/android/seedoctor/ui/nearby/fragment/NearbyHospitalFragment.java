@@ -101,7 +101,7 @@ public class NearbyHospitalFragment extends BaseFragment implements SwipeRefresh
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NearbyHospitalMapActivity.show(getContext());
+                NearbyHospitalMapActivity.show(getActivity());
             }
         });
         loadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {

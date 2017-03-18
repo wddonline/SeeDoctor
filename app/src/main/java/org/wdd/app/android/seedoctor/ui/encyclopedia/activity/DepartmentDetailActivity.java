@@ -35,9 +35,8 @@ public class DepartmentDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String departmentid, String departmentname, int requsetCode) {
+    public static void showForResult(Activity activity, String departmentid, String departmentname, int requsetCode) {
         Intent intent = new Intent(activity, DepartmentDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("departmentid", departmentid);
         intent.putExtra("departmentname", departmentname);
         activity.startActivityForResult(intent, requsetCode);
@@ -50,7 +49,6 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     private String departmentid;
     private String departmentname;
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -65,7 +63,6 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     private void initData() {
         presenter = new DepartmentDetailPresenter(host, this);
-        position = getIntent().getIntExtra("position" , -1);
         departmentid = getIntent().getStringExtra("departmentid");
         departmentname = getIntent().getStringExtra("departmentname");
     }
@@ -90,11 +87,9 @@ public class DepartmentDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectDepartment(departmentid, departmentname);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectDepartment(departmentid);
                         return true;
                 }
@@ -126,7 +121,7 @@ public class DepartmentDetailActivity extends BaseActivity {
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("departmentid", departmentid);
             setResult(RESULT_OK, intent);
         }
     }
@@ -173,7 +168,7 @@ public class DepartmentDetailActivity extends BaseActivity {
             view.findViewById(R.id.item_common_arror_right_click).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DiseaseDetailActivity.show(getBaseContext(), disease.diseaseid, disease.diseasename);
+                    DiseaseDetailActivity.show(DepartmentDetailActivity.this, disease.diseaseid, disease.diseasename);
                 }
             });
             container.addView(view, lp);
@@ -212,7 +207,6 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     public void updateDepartmentCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -221,7 +215,6 @@ public class DepartmentDetailActivity extends BaseActivity {
 
     public void updateDepartmentUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

@@ -17,6 +17,7 @@ import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class FavoritesHospitalAdapter extends AbstractCommonAdapter<FavoritesHos
             public void onClick(View v) {
                 switch (mode) {
                     case Normal:
-                        if (callback != null) callback.jumpToDetailActivity(position, favorites.hospital.hospitalid, favorites.hospital.hospitalname);
+                        if (callback != null) callback.jumpToDetailActivity(favorites.hospital.hospitalid, favorites.hospital.hospitalname);
                         break;
                     case Select:
                         favorites.isSelected = !favorites.isSelected;
@@ -135,7 +136,7 @@ public class FavoritesHospitalAdapter extends AbstractCommonAdapter<FavoritesHos
             public void onClick(View v) {
                 if (openSwipeLayout != null) openSwipeLayout.close();
                 if (callback == null) return;
-                callback.onHospitalDeleted(position, favorites);
+                callback.onHospitalDeleted(favorites);
             }
         });
     }
@@ -158,6 +159,36 @@ public class FavoritesHospitalAdapter extends AbstractCommonAdapter<FavoritesHos
 
     public void setCallback(FavoritesHospitalCallback callback) {
         this.callback = callback;
+    }
+
+    public void removeDataByHospitalId(String hospitalid) {
+        Iterator<HospitalFavorites> iterator = data.iterator();
+        HospitalFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.hospital.hospitalid.equals(hospitalid)) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
+    }
+
+    public void removeDataById(int id) {
+        Iterator<HospitalFavorites> iterator = data.iterator();
+        HospitalFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.hospital.id == id) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
     }
 
     public List<DbHospital> getSelectedItem() {
@@ -234,8 +265,8 @@ public class FavoritesHospitalAdapter extends AbstractCommonAdapter<FavoritesHos
 
     public interface FavoritesHospitalCallback {
 
-        void jumpToDetailActivity(int position, String hospitalid, String hospitalname);
-        void onHospitalDeleted(int position, HospitalFavorites favorites);
+        void jumpToDetailActivity(String hospitalid, String hospitalname);
+        void onHospitalDeleted(HospitalFavorites favorites);
         void switchSelectMode();
         void onAllSelected();
         void onPartSelected();

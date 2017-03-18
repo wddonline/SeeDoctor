@@ -162,6 +162,7 @@
     <string name="favorites_department">收藏的科室</string>
     <string name="favorites_doctor">收藏的医生</string>
     <string name="favorites_hospital">收藏的医院</string>
+    <string name="favorites_news">收藏的资讯</string>
     <string name="all">全部</string>
     <string name="no_favorite_selected">至少选择一项</string>
     <string name="trash">删除</string>

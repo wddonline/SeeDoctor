@@ -93,6 +93,11 @@
 
     </style>
 
+    <style name="ToolBarCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
     <style name="bottomDialogStyle" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/slide_bottom_enter</item>
         <item name="@android:windowExitAnimation">@anim/slide_bottom_exit</item>

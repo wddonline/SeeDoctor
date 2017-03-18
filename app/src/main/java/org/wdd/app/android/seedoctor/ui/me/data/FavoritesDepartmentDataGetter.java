@@ -39,8 +39,8 @@ public class FavoritesDepartmentDataGetter {
         thread.start();
     }
 
-    public void deleteSelectedDepartment(int position, DbDepartment selectedItem) {
-        Thread thread = new Thread(new DeleteItemAction(position, selectedItem));
+    public void deleteSelectedDepartment(DbDepartment selectedItem) {
+        Thread thread = new Thread(new DeleteItemAction(selectedItem));
         thread.setDaemon(true);
         thread.start();
     }
@@ -68,11 +68,9 @@ public class FavoritesDepartmentDataGetter {
 
     private class DeleteItemAction implements Runnable {
 
-        private int position;
         private DbDepartment department;
 
-        public DeleteItemAction(int position, DbDepartment department) {
-            this.position = position;
+        public DeleteItemAction(DbDepartment department) {
             this.department = department;
         }
 
@@ -83,7 +81,7 @@ public class FavoritesDepartmentDataGetter {
                 @Override
                 public void run() {
                     if (!host.isAvaliable()) return;
-                    callback.onDeleteSelectedData(position);
+                    callback.onDeleteSelectedData(department.id);
                 }
             });
         }
@@ -119,7 +117,7 @@ public class FavoritesDepartmentDataGetter {
         void onDataGetted(List<DbDepartment> data);
         void onNoDataGetted();
         void onDeleteSelectedData();
-        void onDeleteSelectedData(int position);
+        void onDeleteSelectedData(int id);
 
     }
 }

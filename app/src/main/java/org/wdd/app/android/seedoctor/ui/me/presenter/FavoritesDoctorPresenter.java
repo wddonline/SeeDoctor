@@ -29,8 +29,8 @@ public class FavoritesDoctorPresenter implements BasePresenter, FavoritesDoctorD
         dataGetter.deleteSelectedDoctors(selectedItems);
     }
 
-    public void deleteSelectedDoctor(int position, DbDoctor selectedItem) {
-        dataGetter.deleteSelectedDoctor(position, selectedItem);
+    public void deleteSelectedDoctor(DbDoctor selectedItem) {
+        dataGetter.deleteSelectedDoctor(selectedItem);
     }
 
     @Override

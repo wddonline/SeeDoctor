@@ -1,11 +1,12 @@
 package org.wdd.app.android.seedoctor.ui.me.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,9 @@ import java.util.List;
 
 public class FavoritesHospitalActivity extends BaseActivity implements FavoritesHospitalAdapter.FavoritesHospitalCallback {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, FavoritesHospitalActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, FavoritesHospitalActivity.class);
+        activity.startActivity(intent);
     }
 
     private final int REQUEST_CODE_DETAIL = 1;
@@ -159,8 +159,8 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
     }
 
     @Override
-    public void jumpToDetailActivity(int position, String hospitalid, String hospitalname) {
-        HospitalDetailActivity.showForResult(this, position, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
+    public void jumpToDetailActivity(String hospitalid, String hospitalname) {
+        HospitalDetailActivity.showForResult(this, hospitalid, hospitalname, REQUEST_CODE_DETAIL);
     }
 
     @Override
@@ -169,18 +169,17 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_CODE_DETAIL:
-                int position = data.getIntExtra("position", -1);
-                if (position == -1) return;
-                hospitals.remove(position);
-                adapter.notifyItemRemoved(position);
+                String hospitalid = data.getStringExtra("hospitalid");
+                if (TextUtils.isEmpty(hospitalid)) return;
+                adapter.removeDataByHospitalId(hospitalid);
                 break;
         }
     }
 
     @Override
-    public void onHospitalDeleted(int position, FavoritesHospitalAdapter.HospitalFavorites favorites) {
+    public void onHospitalDeleted(FavoritesHospitalAdapter.HospitalFavorites favorites) {
         showLoadingDialog();
-        presenter.deleteSelectedHospital(position, favorites.hospital);
+        presenter.deleteSelectedHospital(favorites.hospital);
     }
 
     @Override
@@ -208,9 +207,9 @@ public class FavoritesHospitalActivity extends BaseActivity implements Favorites
         cancelSelectMode();
     }
 
-    public void showDeleteOverViews(int position) {
+    public void showDeleteOverViews(int id) {
         hideLoadingDialog();
-        hospitals.remove(position);
+        adapter.removeDataById(id);
         cancelSelectMode();
     }
 }

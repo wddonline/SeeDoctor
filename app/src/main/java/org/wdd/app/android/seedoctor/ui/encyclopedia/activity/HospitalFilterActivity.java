@@ -94,6 +94,12 @@ public class HospitalFilterActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.cancelRequest();
+    }
+
     private void beforeFinish() {
         String currentProvinceid = (String) provinceView.getTag();
         String currentLevelid = (String) levelView.getTag();

@@ -55,7 +55,7 @@ public class NearbyFragment extends BaseFragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                NearbySearchActivity.show(getContext());
+                NearbySearchActivity.show(getActivity());
                 return true;
             }
         });

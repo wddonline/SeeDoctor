@@ -22,251 +22,298 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onDiseaseClicked">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onNewsClicked">
+
+                <ImageView
+                    android:id="@+id/activity_favorites_news_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_news"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_news"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_news_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/activity_favorites_disease_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_disease"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_disease"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_disease_icon"/>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onDiseaseClicked">
+
+                <ImageView
+                    android:id="@+id/activity_favorites_disease_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_disease"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_disease"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_disease_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onDrugClicked">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/wiki_divider_color"/>
+                <ImageView
+                    android:id="@+id/activity_favorites_drug_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_drug"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onDrugClicked">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_drug"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_drug_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/activity_favorites_drug_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_drug"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_drug"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_drug_icon"/>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onEmergencyClicked">
+
+                <ImageView
+                    android:id="@+id/activity_favorites_emergency_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_emergency"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_emergency"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_emergency_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onDepartmentClicked">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/wiki_divider_color"/>
+                <ImageView
+                    android:id="@+id/activity_favorites_department_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_department"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onEmergencyClicked">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_department"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_department_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/activity_favorites_emergency_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_emergency"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_emergency"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_emergency_icon"/>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onDoctorClicked">
+
+                <ImageView
+                    android:id="@+id/activity_favorites_doctor_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_doctor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_doctor"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_doctor_icon"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/wiki_divider_color"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/common_list_item_bg"
+                android:onClick="onHospitalClicked">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/wiki_divider_color"/>
+                <ImageView
+                    android:id="@+id/activity_favorites_hospital_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_favorites_hospital"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onDepartmentClicked">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorItemTitle"
+                    android:textSize="@dimen/textSizeItemContent"
+                    android:text="@string/favorites_hospital"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@id/activity_favorites_hospital_icon"/>
 
-            <ImageView
-                android:id="@+id/activity_favorites_department_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_department"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_department"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_department_icon"/>
+        </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/wiki_divider_color"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onDoctorClicked">
-
-            <ImageView
-                android:id="@+id/activity_favorites_doctor_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_doctor"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_doctor"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_doctor_icon"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:background="@color/wiki_divider_color"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/common_list_item_bg"
-            android:onClick="onHospitalClicked">
-
-            <ImageView
-                android:id="@+id/activity_favorites_hospital_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_favorites_hospital"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorItemTitle"
-                android:textSize="@dimen/textSizeItemContent"
-                android:text="@string/favorites_hospital"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/activity_favorites_hospital_icon"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

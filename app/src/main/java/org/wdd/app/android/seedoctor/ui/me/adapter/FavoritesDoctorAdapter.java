@@ -17,6 +17,7 @@ import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 import org.wdd.app.android.seedoctor.views.NetworkImageView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -67,7 +68,7 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
             public void onClick(View v) {
                 switch (mode) {
                     case Normal:
-                        if (callback != null) callback.jumpToDetailActivity(position, favorites.doctor.doctorid, favorites.doctor.doctorname);
+                        if (callback != null) callback.jumpToDetailActivity(favorites.doctor.doctorid, favorites.doctor.doctorname);
                         break;
                     case Select:
                         favorites.isSelected = !favorites.isSelected;
@@ -135,7 +136,7 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
             public void onClick(View v) {
                 if (openSwipeLayout != null) openSwipeLayout.close();
                 if (callback == null) return;
-                callback.onDoctorDeleted(position, favorites);
+                callback.onDoctorDeleted(favorites);
             }
         });
     }
@@ -158,6 +159,36 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
 
     public void setCallback(FavoritesDoctorCallback callback) {
         this.callback = callback;
+    }
+
+    public void removeDataByDoctorId(String doctorId) {
+        Iterator<DoctorFavorites> iterator = data.iterator();
+        DoctorFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.doctor.doctorid.equals(doctorId)) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
+    }
+
+    public void removeDataById(int id) {
+        Iterator<DoctorFavorites> iterator = data.iterator();
+        DoctorFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.doctor.id == id) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
     }
 
     public List<DbDoctor> getSelectedItem() {
@@ -234,8 +265,8 @@ public class FavoritesDoctorAdapter extends AbstractCommonAdapter<FavoritesDocto
 
     public interface FavoritesDoctorCallback {
 
-        void jumpToDetailActivity(int position, String doctorid, String doctorname);
-        void onDoctorDeleted(int position, DoctorFavorites favorites);
+        void jumpToDetailActivity(String doctorid, String doctorname);
+        void onDoctorDeleted(DoctorFavorites favorites);
         void switchSelectMode();
         void onAllSelected();
         void onPartSelected();

@@ -27,15 +27,14 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
     public static void show(Context context, String diseaseid, String diseasename) {
         Intent intent = new Intent(context, DiseaseDetailActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("diseaseid", diseaseid);
         intent.putExtra("diseasename", diseasename);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
-    public static void showForResult(Activity activity, int position, String diseaseid, String diseasename, int requsetCode) {
+    public static void showForResult(Activity activity, String diseaseid, String diseasename, int requsetCode) {
         Intent intent = new Intent(activity, DiseaseDetailActivity.class);
-        intent.putExtra("position", position);
         intent.putExtra("diseaseid", diseaseid);
         intent.putExtra("diseasename", diseasename);
         activity.startActivityForResult(intent, requsetCode);
@@ -54,7 +53,6 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     private String diseaseName;
     private boolean[] openStatus;
 
-    private int position;
     private boolean initCollectStatus = false;
     private boolean currentCollectStatus = initCollectStatus;
 
@@ -68,7 +66,6 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initData() {
-        position = getIntent().getIntExtra("position" , -1);
         diseaseId = getIntent().getStringExtra("diseaseid");
         diseaseName = getIntent().getStringExtra("diseasename");
 
@@ -101,14 +98,12 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_disease_detail_sale:
-                        RelativeDrugListActivity.show(getBaseContext(), diseaseId + "", diseaseName);
+                        RelativeDrugListActivity.show(DiseaseDetailActivity.this, diseaseId + "", diseaseName);
                         return true;
                     case R.id.menu_collection_do:
-                        showLoadingDialog();
                         presenter.collectDisease(diseaseId, diseaseName);
                         return true;
                     case R.id.menu_collection_undo:
-                        showLoadingDialog();
                         presenter.uncollectDisease(diseaseId);
                         return true;
                 }
@@ -174,7 +169,7 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
     private void backAction() {
         if (currentCollectStatus != initCollectStatus) {
             Intent intent = new Intent();
-            intent.putExtra("position", position);
+            intent.putExtra("diseaseid", diseaseId);
             setResult(RESULT_OK, intent);
         }
     }
@@ -270,7 +265,6 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
     public void updateDiseaseCollectedStatus(boolean success) {
         currentCollectStatus = true;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(false);
@@ -279,7 +273,6 @@ public class DiseaseDetailActivity extends BaseActivity implements View.OnClickL
 
     public void updateDiseaseUncollectedStatus(boolean success) {
         currentCollectStatus = false;
-        hideLoadingDialog();
         if (!success) return;
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.menu_collection_do).setVisible(true);

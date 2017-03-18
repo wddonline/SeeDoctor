@@ -2,7 +2,6 @@ package org.wdd.app.android.seedoctor.ui.navigation.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -40,16 +39,15 @@ public class NavigationActivity extends Activity implements AMapNaviListener, AM
     public static final int NAVI_RIDE = 1;
     public static final int NAVI_WALK = 2;
 
-    public static void show(Context context, int naviType, double startLat, double startLon,
+    public static void show(Activity activity, int naviType, double startLat, double startLon,
                             double endLat, double endLon) {
-        Intent intent = new Intent(context, NavigationActivity.class);
+        Intent intent = new Intent(activity, NavigationActivity.class);
         intent.putExtra("navi_type", naviType);
         intent.putExtra("start_lat", startLat);
         intent.putExtra("start_lon", startLon);
         intent.putExtra("end_lat", endLat);
         intent.putExtra("end_lon", endLon);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     private AMapNaviView aMapNaviView;

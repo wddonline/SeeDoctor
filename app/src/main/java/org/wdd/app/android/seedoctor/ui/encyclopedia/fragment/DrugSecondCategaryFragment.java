@@ -73,6 +73,6 @@ public class DrugSecondCategaryFragment extends BaseFragment implements DrugSeco
 
     @Override
     public void onChildClicked(int groupPosition, int childPosition, DrugCategory category) {
-        WikiDrugListActivity.show(getContext(), category.catid);
+        WikiDrugListActivity.show(getActivity(), category.catid);
     }
 }

@@ -29,8 +29,8 @@ public class FavoritesHospitalPresenter implements BasePresenter, FavoritesHospi
         dataGetter.deleteSelectedHospitals(selectedItems);
     }
 
-    public void deleteSelectedHospital(int position, DbHospital selectedItem) {
-        dataGetter.deleteSelectedHospital(position, selectedItem);
+    public void deleteSelectedHospital(DbHospital selectedItem) {
+        dataGetter.deleteSelectedHospital(selectedItem);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FavoritesHospitalPresenter implements BasePresenter, FavoritesHospi
     }
 
     @Override
-    public void onDeleteSelectedData(int position) {
-        view.showDeleteOverViews(position);
+    public void onDeleteSelectedData(int id) {
+        view.showDeleteOverViews(id);
     }
 }

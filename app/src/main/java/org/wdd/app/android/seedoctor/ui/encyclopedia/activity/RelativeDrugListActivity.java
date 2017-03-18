@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,12 +26,11 @@ import java.util.List;
 
 public class RelativeDrugListActivity extends BaseActivity {
 
-    public static void show(Context context, String diseaseid, String diseasename) {
-        Intent intent = new Intent(context, RelativeDrugListActivity.class);
+    public static void show(Activity activity, String diseaseid, String diseasename) {
+        Intent intent = new Intent(activity, RelativeDrugListActivity.class);
         intent.putExtra("diseaseid", diseaseid);
         intent.putExtra("diseasename", diseasename);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     private RecyclerView recyclerView;

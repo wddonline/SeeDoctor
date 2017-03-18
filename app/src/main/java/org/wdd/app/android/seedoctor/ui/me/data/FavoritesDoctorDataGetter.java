@@ -39,8 +39,8 @@ public class FavoritesDoctorDataGetter {
         thread.start();
     }
 
-    public void deleteSelectedDoctor(int position, DbDoctor selectedItem) {
-        Thread thread = new Thread(new DeleteItemAction(position, selectedItem));
+    public void deleteSelectedDoctor(DbDoctor selectedItem) {
+        Thread thread = new Thread(new DeleteItemAction(selectedItem));
         thread.setDaemon(true);
         thread.start();
     }
@@ -68,11 +68,9 @@ public class FavoritesDoctorDataGetter {
 
     private class DeleteItemAction implements Runnable {
 
-        private int position;
         private DbDoctor doctor;
 
-        public DeleteItemAction(int position, DbDoctor doctor) {
-            this.position = position;
+        public DeleteItemAction(DbDoctor doctor) {
             this.doctor = doctor;
         }
 
@@ -83,7 +81,7 @@ public class FavoritesDoctorDataGetter {
                 @Override
                 public void run() {
                     if (!host.isAvaliable()) return;
-                    callback.onDeleteSelectedData(position);
+                    callback.onDeleteSelectedData(doctor.id);
                 }
             });
         }

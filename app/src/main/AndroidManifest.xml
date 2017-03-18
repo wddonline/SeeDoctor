@@ -69,6 +69,7 @@
         <activity android:name=".ui.me.activity.FavoritesDiseaseActivity" />
         <activity android:name=".ui.me.activity.FavoritesDrugActivity" />
         <activity android:name=".ui.me.activity.FavoritesEmergencyActivity" />
+        <activity android:name=".ui.me.activity.FavoritesNewsActivity" />
         <activity android:name=".ui.me.activity.ProfileEditActivity" />
         <activity android:name=".ui.me.activity.AboutDeveloperActivity" />
         <activity android:name=".ui.me.activity.AboutActivity" />

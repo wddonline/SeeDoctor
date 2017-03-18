@@ -16,6 +16,7 @@ import org.wdd.app.android.seedoctor.database.model.DbDisease;
 import org.wdd.app.android.seedoctor.ui.base.AbstractCommonAdapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -65,7 +66,7 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
             public void onClick(View v) {
                 switch (mode) {
                     case Normal:
-                        if (callback != null) callback.jumpToDetailActivity(position, favorites.disease.diseaseid, favorites.disease.diseasename);
+                        if (callback != null) callback.jumpToDetailActivity(favorites.disease.diseaseid, favorites.disease.diseasename);
                         break;
                     case Select:
                         favorites.isSelected = !favorites.isSelected;
@@ -133,7 +134,7 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
             public void onClick(View v) {
                 if (openSwipeLayout != null) openSwipeLayout.close();
                 if (callback == null) return;
-                callback.onDiseaseDeleted(position, favorites);
+                callback.onDiseaseDeleted(favorites);
             }
         });
     }
@@ -156,6 +157,36 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
 
     public void setCallback(FavoritesDiseaseCallback callback) {
         this.callback = callback;
+    }
+
+    public void removeDataByDiseaseId(String diseaseId) {
+        Iterator<DiseaseFavorites> iterator = data.iterator();
+        DiseaseFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.disease.diseaseid.equals(diseaseId)) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
+    }
+
+    public void removeDataById(int id) {
+        Iterator<DiseaseFavorites> iterator = data.iterator();
+        DiseaseFavorites item;
+        int position = 0;
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            if (item.disease.id == id) {
+                iterator.remove();
+                notifyItemRemoved(position);
+                break;
+            }
+            position++;
+        }
     }
 
     public List<DbDisease> getSelectedItem() {
@@ -230,8 +261,8 @@ public class FavoritesDiseaseAdapter extends AbstractCommonAdapter<FavoritesDise
 
     public interface FavoritesDiseaseCallback {
 
-        void jumpToDetailActivity(int position, String diseaseid, String diseasename);
-        void onDiseaseDeleted(int position, DiseaseFavorites favorites);
+        void jumpToDetailActivity(String diseaseid, String diseasename);
+        void onDiseaseDeleted(DiseaseFavorites favorites);
         void switchSelectMode();
         void onAllSelected();
         void onPartSelected();

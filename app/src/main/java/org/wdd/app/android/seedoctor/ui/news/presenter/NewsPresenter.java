@@ -23,7 +23,7 @@ public class NewsPresenter implements BasePresenter, NewsDataGetter.NewsCallback
         mGetter.setNewsCallback(this);
     }
 
-    public void getNewData(String channelId, boolean isAppend) {
+    public void getNewsData(String channelId, boolean isAppend) {
         mGetter.requestNewsData(channelId, isAppend);
     }
 

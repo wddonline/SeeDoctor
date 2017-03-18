@@ -1,7 +1,7 @@
 package org.wdd.app.android.seedoctor.ui.nearby.activity;
 
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -51,10 +51,9 @@ public class NearbyDrugstoreMapActivity extends BaseActivity implements AMap.OnC
         AMap.OnMarkerClickListener, AMap.OnMapClickListener, LocationSource, AMapLocationListener,
         AMap.InfoWindowAdapter {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, NearbyDrugstoreMapActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, NearbyDrugstoreMapActivity.class);
+        activity.startActivity(intent);
     }
 
     private TextureMapView mapView;
@@ -270,7 +269,7 @@ public class NearbyDrugstoreMapActivity extends BaseActivity implements AMap.OnC
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RouteLineActivity.show(getBaseContext(), poiItem.getLatLonPoint().getLatitude(),
+                RouteLineActivity.show(NearbyDrugstoreMapActivity.this, poiItem.getLatLonPoint().getLatitude(),
                         poiItem.getLatLonPoint().getLongitude());
             }
         });

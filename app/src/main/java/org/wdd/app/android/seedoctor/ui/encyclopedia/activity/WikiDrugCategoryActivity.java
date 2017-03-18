@@ -1,6 +1,6 @@
 package org.wdd.app.android.seedoctor.ui.encyclopedia.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -29,10 +29,9 @@ import java.util.Set;
 
 public class WikiDrugCategoryActivity extends BaseActivity {
 
-    public static void show(Context context) {
-        Intent intent = new Intent(context, WikiDrugCategoryActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public static void show(Activity activity) {
+        Intent intent = new Intent(activity, WikiDrugCategoryActivity.class);
+        activity.startActivity(intent);
     }
 
     private TabLayout tabLayout;

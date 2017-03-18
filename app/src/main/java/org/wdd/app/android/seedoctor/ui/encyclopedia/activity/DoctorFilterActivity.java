@@ -100,6 +100,12 @@ public class DoctorFilterActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.cancelRequest();
+    }
+
     private void beforeFinish() {
         String currentProvinceid = (String) provinceView.getTag();
         String currentHospitalLevelid = (String) hospitalLevelView.getTag();

@@ -84,20 +84,26 @@ public class NewsFragment extends BaseFragment {
         mLoadView.setReloadClickedListener(new LoadView.OnReloadClickedListener() {
             @Override
             public void onReloadClicked() {
-                mPresenter.getNewData(mChannelId, false);
+                mPresenter.getNewsData(mChannelId, false);
             }
         });
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.getNewData(mChannelId, false);
+                mPresenter.getNewsData(mChannelId, false);
             }
         });
     }
 
     @Override
     protected void lazyLoad() {
-        mPresenter.getNewData(mChannelId, false);
+        mPresenter.getNewsData(mChannelId, false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.cancelRequest();
     }
 
     public void onNetworkError(boolean isAppend) {
@@ -134,18 +140,18 @@ public class NewsFragment extends BaseFragment {
             mAdapter.setOnLoadMoreListener(new AbstractCommonAdapter.OnLoadMoreListener() {
                 @Override
                 public void onLoadMore() {
-                    mPresenter.getNewData(mChannelId, true);
+                    mPresenter.getNewsData(mChannelId, true);
                 }
             });
             mAdapter.setOnBannerClickedListener(new NewsAdapter.OnNewsClickedListener() {
                 @Override
                 public void onNewsClicked(News news) {
-                    NewsDetailActivity.show(getActivity(), news.id, news.title);
+                    NewsDetailActivity.show(getActivity(), news.id, news.image, news.title);
                 }
 
                 @Override
                 public void onBannerClicked(Banner banner) {
-                    NewsDetailActivity.show(getActivity(), banner.id, banner.description);
+                    NewsDetailActivity.show(getActivity(), banner.id, banner.image, banner.description);
                 }
             });
             mLoadView.setStatus(LoadView.LoadStatus.Normal);
