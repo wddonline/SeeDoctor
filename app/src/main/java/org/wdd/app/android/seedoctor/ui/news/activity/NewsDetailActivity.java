@@ -157,7 +157,6 @@ public class NewsDetailActivity extends BaseActivity {
         String url = ServiceApi.NEWS_DETAIL;
         url = String.format(url, id, AppUtils.getScreenWidth(this));
         webView.loadUrl(url);
-        presenter.getNewsDetailData(id);
     }
 
     @Override

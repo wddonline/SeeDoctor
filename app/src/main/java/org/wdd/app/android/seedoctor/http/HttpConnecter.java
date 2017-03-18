@@ -12,10 +12,6 @@ public interface HttpConnecter {
 
     HttpSession sendHttpRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback);
 
-    HttpSession sendHtmlRequest(ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback);
-
-    HttpSession sendHtmlRequest(String enocde, ActivityFragmentAvaliable host, HttpRequestEntry entry, HttpConnectCallback callback);
-
     void stopAllSession();
 
     void stopSessionByTag(String tag);

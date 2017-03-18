@@ -1,7 +1,6 @@
 package org.wdd.app.android.seedoctor.http.impl;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -19,8 +18,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
 import org.wdd.app.android.seedoctor.http.HttpConnecter;
 import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
@@ -136,53 +133,6 @@ public class VolleyHttpConnecter implements HttpConnecter {
         return session;
     }
 
-    @Override
-    public HttpSession sendHtmlRequest(ActivityFragmentAvaliable host, HttpRequestEntry requestEntry, HttpConnectCallback callback) {
-        return sendHtmlRequest(null, host, requestEntry, callback);
-    }
-
-    @Override
-    public HttpSession sendHtmlRequest(String encode, final ActivityFragmentAvaliable host, final HttpRequestEntry requestEntry, final HttpConnectCallback callback) {
-        int method = Request.Method.POST;
-        if (requestEntry.getMethod() == HttpRequestEntry.Method.GET) {
-            method = Request.Method.GET;
-            requestEntry.setUrl(generateGetUrl(requestEntry.getUrl(), requestEntry.getRequestParams()));
-        }
-        HtmlRequest request = new HtmlRequest(method, requestEntry.getUrl(), new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String txt) {
-                if (!host.isAvaliable()) return;
-                handleHtmlResponse(txt, callback);
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError err) {
-                if (!host.isAvaliable()) return;
-                handleError(err, callback);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return requestEntry.getRequestParams();
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return requestEntry.getRequestHeaders();
-            }
-        };
-        request.setShouldCache(requestEntry.shouldCache());
-        request.setEncode(encode);
-        request.setRetryPolicy(new DefaultRetryPolicy(requestEntry.getTimeOut(),
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(request);
-        HttpSession session = new VolleyHttpSession(request, requestEntry);
-        sessionList.add(session);
-        return session;
-    }
-
     private void handleError(VolleyError err, HttpConnectCallback callback) {
         HttpError error;
         if (err instanceof AuthFailureError) {
@@ -265,19 +215,6 @@ public class VolleyHttpConnecter implements HttpConnecter {
                 HttpError error = new HttpError(ErrorCode.SERVER_ERROR, json.getString("error_msg"));
                 callback.onRequestFailure(error);
             }
-        }
-    }
-
-    private void handleHtmlResponse(String txt, HttpConnectCallback callback) {
-        if (!TextUtils.isEmpty(txt)) {
-            HttpResponseEntry responseEntry = new HttpResponseEntry();
-            responseEntry.setStatusCode(StatusCode.HTTP_OK);
-            Document document = Jsoup.parse(txt);
-            responseEntry.setData(document);
-            callback.onRequestOk(responseEntry);
-        } else {
-            HttpError error = new HttpError(ErrorCode.PARSE_ERROR, "response data is empty");
-            callback.onRequestFailure(error);
         }
     }
 

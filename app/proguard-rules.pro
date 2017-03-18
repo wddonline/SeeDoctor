@@ -12,16 +12,16 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
 
 -keepattributes EnclosingMethod
 
 -keep class com.alibaba.sdk.android.httpdns.**{*;}
+-keep class org.wdd.app.android.seedoctor.ui.news.model.**{*;}
 -keep class org.wdd.app.android.seedoctor.ui.drugstore.model.**{*;}
 -keep class org.wdd.app.android.seedoctor.ui.encyclopedia.model.**{*;}
--keep class org.wdd.app.android.seedoctor.ui.nearby.model.**{*;}
 -keep class org.wdd.app.android.seedoctor.ui.nearby.model.**{*;}
 
 -dontwarn com.alibaba.fastjson.**

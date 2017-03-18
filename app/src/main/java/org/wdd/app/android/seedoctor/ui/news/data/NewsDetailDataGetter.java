@@ -2,21 +2,11 @@ package org.wdd.app.android.seedoctor.ui.news.data;
 
 import android.content.Context;
 
-import org.jsoup.nodes.Document;
 import org.wdd.app.android.seedoctor.app.SDApplication;
 import org.wdd.app.android.seedoctor.database.manager.impl.NewsDbManager;
 import org.wdd.app.android.seedoctor.database.model.DBNews;
-import org.wdd.app.android.seedoctor.http.HttpConnectCallback;
-import org.wdd.app.android.seedoctor.http.HttpManager;
-import org.wdd.app.android.seedoctor.http.HttpRequestEntry;
-import org.wdd.app.android.seedoctor.http.HttpResponseEntry;
 import org.wdd.app.android.seedoctor.http.HttpSession;
-import org.wdd.app.android.seedoctor.http.error.ErrorCode;
-import org.wdd.app.android.seedoctor.http.error.HttpError;
 import org.wdd.app.android.seedoctor.ui.base.ActivityFragmentAvaliable;
-import org.wdd.app.android.seedoctor.utils.AppUtils;
-import org.wdd.app.android.seedoctor.utils.HttpUtils;
-import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 /**
  * Created by richard on 3/17/17.
@@ -35,42 +25,6 @@ public class NewsDetailDataGetter {
         this.mContext = context;
         this.mHost = host;
         dbManager = new NewsDbManager(context);
-    }
-
-    public void requestNewsDetailData(String id) {
-        HttpRequestEntry requestEntry = new HttpRequestEntry();
-        requestEntry.setMethod(HttpRequestEntry.Method.GET);
-        requestEntry.setShouldCached(true);
-        String url = ServiceApi.NEWS_DETAIL;
-        url = String.format(url, id, AppUtils.getScreenWidth(mContext));
-        requestEntry.setUrl(url);
-        mSession = HttpManager.getInstance(mContext).sendHtmlRequest("UTF-8", mHost, requestEntry, new HttpConnectCallback() {
-            @Override
-            public void onRequestOk(HttpResponseEntry res) {
-                mSession = null;
-                if (mCallback == null) return;
-                if (res.getData() == null) {
-                    mCallback.onFailure(HttpUtils.getErrorDescFromErrorCode(mContext, ErrorCode.SERVER_ERROR));
-                } else {
-                    Document document = (Document) res.getData();
-                    document.getElementsByAttributeValue("class", "share-to").remove();
-                    document.getElementsByAttributeValue("class", "news-func-item news-ask-doctor").remove();
-                    document.getElementsByAttributeValue("class", "cy-dl sn-dl").remove();
-                    mCallback.onDataGetted(document.html());
-                }
-            }
-
-            @Override
-            public void onRequestFailure(HttpError error) {
-                mSession = null;
-                if (mCallback == null) return;
-                if (error.getErrorCode() == ErrorCode.NO_CONNECTION_ERROR) {
-                    mCallback.onNetworkError();
-                } else {
-                    mCallback.onFailure(HttpUtils.getErrorDescFromErrorCode(mContext, error.getErrorCode()));
-                }
-            }
-        });
     }
 
     public void setNewsDetailCallback(NewsDetailCallback callback) {
@@ -173,10 +127,6 @@ public class NewsDetailDataGetter {
     }
 
     public interface NewsDetailCallback {
-
-        void onDataGetted(String html);
-        void onFailure(String error);
-        void onNetworkError();
 
         void onCollectionStatusGetted(boolean isCollected);
         void onCollectOver(boolean success);

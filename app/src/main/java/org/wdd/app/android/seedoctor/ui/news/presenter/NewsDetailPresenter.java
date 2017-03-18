@@ -19,10 +19,6 @@ public class NewsDetailPresenter implements BasePresenter, NewsDetailDataGetter.
         mGetter.setNewsDetailCallback(this);
     }
 
-    public void getNewsDetailData(String id) {
-        mGetter.requestNewsDetailData(id);
-    }
-
     public void getCollectionStatus(String newsId) {
         mGetter.getCollectionStatus(newsId);
     }
@@ -34,24 +30,10 @@ public class NewsDetailPresenter implements BasePresenter, NewsDetailDataGetter.
     public void uncollectNews(String newsId) {
         mGetter.uncollectNews(newsId);
     }
+
     @Override
     public void cancelRequest() {
-        mGetter.cancelRequest();
-    }
 
-    @Override
-    public void onDataGetted(String html) {
-//        mView.showNewsDetailDataViews(html);
-    }
-
-    @Override
-    public void onFailure(String error) {
-//        mView.showRequestFailureViews(error);
-    }
-
-    @Override
-    public void onNetworkError() {
-//        mView.onNetworkError();
     }
 
     @Override
