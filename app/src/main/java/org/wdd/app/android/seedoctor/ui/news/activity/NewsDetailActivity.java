@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,9 +17,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.wdd.app.android.seedoctor.R;
+import org.wdd.app.android.seedoctor.ads.builder.BannerAdsBuilder;
 import org.wdd.app.android.seedoctor.ui.base.BaseActivity;
 import org.wdd.app.android.seedoctor.ui.news.presenter.NewsDetailPresenter;
 import org.wdd.app.android.seedoctor.utils.AppUtils;
+import org.wdd.app.android.seedoctor.utils.Constants;
 import org.wdd.app.android.seedoctor.utils.ServiceApi;
 
 public class NewsDetailActivity extends BaseActivity {
@@ -42,6 +45,7 @@ public class NewsDetailActivity extends BaseActivity {
     private Toolbar toolbar;
     private WebView webView;
     private ProgressBar progressBar;
+    private BannerAdsBuilder adsBuilder;
 
     private NewsDetailPresenter presenter;
     private String id;
@@ -99,6 +103,8 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     private void initViews() {
+        ViewGroup adsView = (ViewGroup) findViewById(R.id.activity_news_detail_ads_view);
+        adsBuilder = new BannerAdsBuilder(this, adsView, Constants.NEWS_DETAIL_AD_ID, true);
         webView = (WebView) findViewById(R.id.activity_news_detail_webview);
         progressBar = (ProgressBar) findViewById(R.id.activity_news_detail_progress);
 
@@ -127,6 +133,7 @@ public class NewsDetailActivity extends BaseActivity {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 progressBar.setVisibility(View.VISIBLE);
+                webView.setVisibility(View.GONE);
             }
 
             @Override
@@ -142,7 +149,8 @@ public class NewsDetailActivity extends BaseActivity {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.GONE);
                 webView.setVisibility(View.VISIBLE);
-
+                if (adsBuilder.isAdded()) return;
+                adsBuilder.addBannerAds();
             }
         });
 

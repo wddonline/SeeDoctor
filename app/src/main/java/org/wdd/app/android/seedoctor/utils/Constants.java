@@ -19,4 +19,6 @@ public class Constants {
     public static final String WIKI_DRUG_DETAIL_AD_ID = "4090713911398739";
     public static final String WIKI_EMERGENCY_DETAIL_AD_ID = "6050114981899825";
     public static final String WIKI_HOSPITAL_DETAIL_AD_ID = "2050819981198896";
+    public static final String NEWS_DETAIL_AD_ID = "7060513992647582";
+
 }

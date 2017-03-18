@@ -35,6 +35,7 @@ public class BannerAdsBuilder implements View.OnClickListener {
 
     private String mAdId;
     private boolean mIsPersistent;
+    private boolean isAdded = false;
 
     public BannerAdsBuilder(Activity activity, ViewGroup outContainer, String adId) {
         this(activity, outContainer, adId, false);
@@ -88,6 +89,7 @@ public class BannerAdsBuilder implements View.OnClickListener {
                 mBannerView.loadAD();
             }
         });
+        isAdded = true;
     }
 
     public void closeBannerAds() {
@@ -97,6 +99,11 @@ public class BannerAdsBuilder implements View.OnClickListener {
         mBannerAdsContainer.removeView(mBannerView);
         mOutContainer.removeView(mRootView);
 
+        isAdded = false;
+    }
+
+    public boolean isAdded() {
+        return isAdded;
     }
 
     public static boolean shouldShowAds(BannerType type) {

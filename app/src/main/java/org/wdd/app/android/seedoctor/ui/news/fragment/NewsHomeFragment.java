@@ -79,7 +79,6 @@ public class NewsHomeFragment extends BaseFragment {
             fragments = new ArrayList<>();
             fragments.add(NewsFragment.newInstance(null));
             fragments.add(NewsFragment.newInstance("6"));
-            fragments.add(NewsFragment.newInstance("35"));
             fragments.add(NewsFragment.newInstance("3"));
             fragments.add(NewsFragment.newInstance("12"));
             fragments.add(NewsFragment.newInstance("9"));
