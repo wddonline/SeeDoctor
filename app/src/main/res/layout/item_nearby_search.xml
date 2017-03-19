@@ -11,28 +11,44 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <org.wdd.app.android.seedoctor.views.NetworkImageView
-        android:id="@+id/item_nearby_search_img"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop" />
+    <FrameLayout
+        android:layout_width="75dp"
+        android:layout_height="75dp">
+
+        <org.wdd.app.android.seedoctor.views.NetworkImageView
+            android:id="@+id/item_nearby_search_img"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/item_nearby_search_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#6e000000"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeItemExtra" />
+
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingBottom="6dp"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="6dp">
+        android:paddingRight="8dp">
 
         <TextView
             android:id="@+id/item_nearby_search_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/colorItemTitle"
             android:textSize="@dimen/textSizeItemTitle" />
 
@@ -40,33 +56,11 @@
             android:id="@+id/item_nearby_search_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorItemContent"
             android:textSize="@dimen/textSizeItemContent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:src="@mipmap/blue_bubble" />
-
-            <TextView
-                android:id="@+id/item_nearby_search_level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorItemExtra"
-                android:textSize="@dimen/textSizeItemExtra" />
-
-        </LinearLayout>
 
     </FrameLayout>
 
