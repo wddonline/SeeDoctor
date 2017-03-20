@@ -20,7 +20,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.welcome.activity.WelcomeActivity"
+        <activity
+            android:name=".ui.welcome.activity.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,55 +29,153 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.activity.MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.routeline.activity.RouteLineActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.routeline.activity.WalkRouteDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.routeline.activity.DriveRouteDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.navigation.activity.NavigationActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.search.activity.NearbySearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.routeline.activity.BusRouteDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDiseaseActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.DiseaseDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.nearby.activity.NearbyHospitalMapActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.nearby.activity.NearbyDrugstoreMapActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.search.activity.DiseaseSearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.search.activity.DrugSearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.DrugDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDrugListActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.RelativeDiseaseListActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.RelativeDrugListActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiEmergencyActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.EmergencyDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDepartmentActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.DepartmentDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiDoctorActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.DoctorDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.search.activity.DoctorSearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.WikiHospitalActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.search.activity.HospitalSearchActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.HospitalFilterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.encyclopedia.activity.DoctorFilterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.AboutAppActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.web.activity.WebActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.NavigationSettingsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.VoiceSettingsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesHospitalActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesDoctorActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesDepartmentActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesDiseaseActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesDrugActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesEmergencyActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.FavoritesNewsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.ProfileEditActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.AboutDeveloperActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.me.activity.AboutActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.gallery.activity.ImageBrowserActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.routeline.activity.RideRouteDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.news.activity.NewsDetailActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.routeline.activity.RouteLineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.routeline.activity.WalkRouteDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.routeline.activity.DriveRouteDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.navigation.activity.NavigationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.activity.NearbySearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.routeline.activity.BusRouteDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiDiseaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.DiseaseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.nearby.activity.NearbyHospitalMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.nearby.activity.NearbyDrugstoreMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.activity.DiseaseSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiDrugCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.activity.DrugSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.DrugDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiDrugListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.RelativeDiseaseListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.RelativeDrugListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiEmergencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.EmergencyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiDepartmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.DepartmentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiDoctorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.DoctorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.activity.DoctorSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.WikiHospitalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.HospitalDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.activity.HospitalSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.HospitalSecondDepartmentAdtivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.HospitalFilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.encyclopedia.activity.DoctorFilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.web.activity.WebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.NavigationSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.VoiceSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesHospitalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesDoctorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesDepartmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesDiseaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesDrugActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesEmergencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.FavoritesNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.ProfileEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.AboutDeveloperActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.gallery.activity.ImageBrowserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.routeline.activity.RideRouteDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.news.activity.NewsDetailActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.amap.api.location.APSService" />
 
