@@ -176,6 +176,9 @@
         <activity
             android:name=".ui.news.activity.NewsDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.me.activity.AppWallActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.amap.api.location.APSService" />
 

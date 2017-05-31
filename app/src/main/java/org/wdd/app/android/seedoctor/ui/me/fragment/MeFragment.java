@@ -21,6 +21,7 @@ import org.wdd.app.android.seedoctor.R;
 import org.wdd.app.android.seedoctor.preference.AppConfManager;
 import org.wdd.app.android.seedoctor.ui.base.BaseFragment;
 import org.wdd.app.android.seedoctor.ui.me.activity.AboutActivity;
+import org.wdd.app.android.seedoctor.ui.me.activity.AppWallActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.FavoritesActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.NavigationSettingsActivity;
 import org.wdd.app.android.seedoctor.ui.me.activity.ProfileEditActivity;
@@ -103,6 +104,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         mRootView.findViewById(R.id.fragment_me_nav_click).setOnClickListener(this);
         mRootView.findViewById(R.id.fragment_me_version_check_click).setOnClickListener(this);
         mRootView.findViewById(R.id.fragment_me_clear_cache_click).setOnClickListener(this);
+        mRootView.findViewById(R.id.fragment_me_appwall_click).setOnClickListener(this);
         mRootView.findViewById(R.id.fragment_me_about_click).setOnClickListener(this);
 
         setHeaderAndName();
@@ -143,6 +145,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.fragment_me_clear_cache_click:
                 showLoadingDialog();
                 presenter.cleanDiskCache();
+                break;
+            case R.id.fragment_me_appwall_click:
+                AppWallActivity.show(getActivity());
                 break;
             case R.id.fragment_me_about_click:
                 AboutActivity.show(getActivity());

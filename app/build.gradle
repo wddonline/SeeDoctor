@@ -7,9 +7,11 @@ android {
         applicationId "org.wdd.app.android.seedoctor"
         minSdkVersion 9
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -23,10 +25,9 @@ android {
         QH360 {}
         XIAOMI {}
         WDJ {}
-        WO {}
+        KUAN {}
         MEIZU {}
-        HUAWEI {}
-        LEPLAY {}
+        WO {}
         PPZS {}
     }
 
@@ -55,4 +56,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:multidex:1.0.1'
 }

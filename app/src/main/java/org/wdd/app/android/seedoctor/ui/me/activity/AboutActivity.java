@@ -27,7 +27,7 @@ public class AboutActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_about_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        toolbar.setNavigationIcon(R.mipmap.back);;
+        toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
